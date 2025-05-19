@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "Overwatch Liquipedia", url: "https://liquipedia.net/overwatch/", note: "Esports info." }
         ],
         keyGuideLinks: [
-            { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@CoachSpilo", note: "Fundamental positioning."}
+            { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@CoachSpilo", note: "Fundamental positioning."},
             { name: "Spilo's VOD Channel", url: "https://www.youtube.com/@Spilo2", note: "Various VOD Reviews"}
         ]
     };
