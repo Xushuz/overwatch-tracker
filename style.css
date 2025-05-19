@@ -15,6 +15,9 @@
     --input-border-light: #ced4da;
     --textarea-bg-light: #f8f9fa;
     --card-shadow-light: rgba(0, 0, 0, 0.05);
+    --accent-color-light: #007bff; /* Blue for light mode */
+    --accent-hover-color-light: #0056b3;
+    --nav-active-bg-light: rgba(0, 123, 255, 0.1);
 
 
     /* Dark Theme Variables */
@@ -30,15 +33,37 @@
     --input-border-dark: #555;
     --textarea-bg-dark: #252525;
     --card-shadow-dark: rgba(255, 255, 255, 0.05);
+    --accent-color-dark: #66bfff; /* Lighter blue for dark mode */
+    --accent-hover-color-dark: #4da6ff;
+    --nav-active-bg-dark: rgba(102, 191, 255, 0.2);
 
 
-    /* Accent Colors */
+    /* Pink Theme Variables - NEW */
+    --bg-color-pink: #fff0f5; /* Lavender Blush - very light pink */
+    --text-color-pink: #581845; /* Dark Purple/Plum for text */
+    --container-bg-pink: #ffffff; /* White container for contrast */
+    --border-color-pink: #ffc0cb; /* Pink border */
+    --header-bg-pink: #ffffff;
+    --nav-bg-pink: #ffe4e1; /* Misty Rose for nav */
+    --button-bg-pink: #ffb6c1; /* Light Pink for buttons */
+    --button-text-pink: #581845; /* Dark text on light pink buttons */
+    --input-bg-pink: #fffafa; /* Snow - very light off-white for inputs */
+    --input-border-pink: #ffc0cb;
+    --textarea-bg-pink: #fffafa;
+    --card-shadow-pink: rgba(255, 105, 180, 0.1); /* Hot Pink shadow, subtle */
+    --accent-color-pink: #ff69b4; /* Hot Pink for accents */
+    --accent-hover-color-pink: #ff1493; /* Deep Pink for hover */
+    --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
+
+
+    /* General Accent (will be overridden by theme) */
     --accent-color: #007bff; 
     --accent-hover-color: #0056b3;
     --completed-text-color: #6c757d; 
     --danger-color: #dc3545;
+    --nav-active-bg: var(--nav-active-bg-light);
 
-    /* Current theme */
+    /* Current theme (defaults to light) */
     --current-bg-color: var(--bg-color-light);
     --current-text-color: var(--text-color-light);
     --current-container-bg: var(--container-bg-light);
@@ -51,17 +76,39 @@
     --current-input-border: var(--input-border-light);
     --current-textarea-bg: var(--textarea-bg-light);
     --current-card-shadow: var(--card-shadow-light);
+    --current-accent-color: var(--accent-color-light);
+    --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-nav-active-bg: var(--nav-active-bg-light);
 }
 
 body {
     font-family: var(--font-family);
     margin: 0;
-    padding: 10px; /* Reduced padding for smaller screens initially */
+    padding: 10px; 
     background-color: var(--current-bg-color);
     color: var(--current-text-color);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 16px; /* Base font size */
+    font-size: 16px; 
+}
+
+/* Apply theme-specific variables */
+body.light-mode {
+    --current-bg-color: var(--bg-color-light);
+    --current-text-color: var(--text-color-light);
+    --current-container-bg: var(--container-bg-light);
+    --current-border-color: var(--border-color-light);
+    --current-header-bg: var(--header-bg-light);
+    --current-nav-bg: var(--nav-bg-light);
+    --current-button-bg: var(--button-bg-light);
+    --current-button-text: var(--button-text-light);
+    --current-input-bg: var(--input-bg-light);
+    --current-input-border: var(--input-border-light);
+    --current-textarea-bg: var(--textarea-bg-light);
+    --current-card-shadow: var(--card-shadow-light);
+    --current-accent-color: var(--accent-color-light);
+    --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-nav-active-bg: var(--nav-active-bg-light);
 }
 
 body.dark-mode {
@@ -77,43 +124,65 @@ body.dark-mode {
     --current-input-border: var(--input-border-dark);
     --current-textarea-bg: var(--textarea-bg-dark);
     --current-card-shadow: var(--card-shadow-dark);
+    --current-accent-color: var(--accent-color-dark);
+    --current-accent-hover-color: var(--accent-hover-color-dark);
+    --current-nav-active-bg: var(--nav-active-bg-dark);
 }
 
+body.pink-mode { /* NEW THEME APPLICATION */
+    --current-bg-color: var(--bg-color-pink);
+    --current-text-color: var(--text-color-pink);
+    --current-container-bg: var(--container-bg-pink);
+    --current-border-color: var(--border-color-pink);
+    --current-header-bg: var(--header-bg-pink);
+    --current-nav-bg: var(--nav-bg-pink);
+    --current-button-bg: var(--button-bg-pink);
+    --current-button-text: var(--button-text-pink);
+    --current-input-bg: var(--input-bg-pink);
+    --current-input-border: var(--input-border-pink);
+    --current-textarea-bg: var(--textarea-bg-pink);
+    --current-card-shadow: var(--card-shadow-pink);
+    --current-accent-color: var(--accent-color-pink);
+    --current-accent-hover-color: var(--accent-hover-color-pink);
+    --current-nav-active-bg: var(--nav-active-bg-pink);
+}
+
+
 .container {
-    width: 100%; /* Full width on small screens */
+    width: 100%; 
     max-width: 900px; 
     margin: 0 auto;
     background-color: var(--current-container-bg);
     border: 1px solid var(--current-border-color);
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    box-shadow: 0 2px 8px var(--current-card-shadow); /* Use themed shadow */
     overflow: hidden; 
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; 
 }
 
 .app-header {
     display: flex;
-    flex-wrap: wrap; /* Allow header controls to wrap on very small screens */
+    flex-wrap: wrap; 
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px; /* Adjusted padding */
+    padding: 10px 15px; 
     background-color: var(--current-header-bg);
     border-bottom: 1px solid var(--current-border-color);
 }
 
 .app-header h1 {
-    font-size: 1.5em; /* Slightly reduced for smaller screens */
-    margin: 0 0 5px 0; /* Add bottom margin if wraps */
-    color: var(--accent-color);
-    flex-basis: 100%; /* Allow h1 to take full width if controls wrap */
-    text-align: center; /* Center h1 if it takes full width */
+    font-size: 1.5em; 
+    margin: 0 0 5px 0; 
+    color: var(--current-accent-color); /* Use themed accent */
+    flex-basis: 100%; 
+    text-align: center; 
 }
 
 .header-controls {
     display: flex;
     align-items: center;
-    width: 100%; /* Allow controls to take full width if wrapped */
-    justify-content: center; /* Center controls if wrapped */
+    width: 100%; 
+    justify-content: center; 
 }
 
 .header-controls span {
@@ -131,7 +200,7 @@ body.dark-mode {
     cursor: pointer;
     font-size: 0.8em;
     margin-left: 8px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* Added color & border-color */
 }
 
 .theme-toggle-btn:hover, .new-cycle-btn:hover {
@@ -139,35 +208,35 @@ body.dark-mode {
 }
 
 .app-main {
-    padding: 15px; /* Adjusted padding */
+    padding: 15px; 
 }
 
 .dashboard-layout {
     display: flex;
-    flex-direction: column; /* Stack columns by default for mobile */
+    flex-direction: column; 
     gap: 20px;
 }
 
 .dashboard-main-content {
-    flex: 1; /* Allow it to take available space */
-    order: 1; /* Tasks first */
+    flex: 1; 
+    order: 1; 
 }
 
 .dashboard-notes-area {
     flex: 1; 
-    padding-left: 0; /* No left padding when stacked */
-    border-left: none; /* No border when stacked */
-    border-top: 1px solid var(--current-border-color); /* Add top border when stacked */
-    padding-top: 15px; /* Add padding when stacked */
-    margin-top: 15px; /* Add margin when stacked */
-    order: 2; /* Notes second */
+    padding-left: 0; 
+    border-left: none; 
+    border-top: 1px solid var(--current-border-color); 
+    padding-top: 15px; 
+    margin-top: 15px; 
+    order: 2; 
 }
 
 
 .week-info h2 {
     font-size: 1.3em;
     margin-top: 0;
-    color: var(--accent-color);
+    color: var(--current-accent-color); /* Use themed accent */
 }
 .week-info p {
     font-size: 0.95em;
@@ -193,7 +262,7 @@ body.dark-mode {
 .task-list li {
     display: flex;
     align-items: center;
-    padding: 10px 0; /* Adjusted padding */
+    padding: 10px 0; 
     border-bottom: 1px solid var(--current-border-color);
     transition: background-color 0.2s ease;
 }
@@ -205,32 +274,39 @@ body.dark-mode {
 .task-list li:hover {
     background-color: rgba(0,0,0,0.03); 
 }
-body.dark-mode .task-list li:hover {
+body.dark-mode .task-list li:hover { /* Keep this specific for dark mode if needed */
     background-color: rgba(255,255,255,0.03);
+}
+body.pink-mode .task-list li:hover { /* Pink theme hover */
+    background-color: rgba(255, 182, 193, 0.1); /* LightPink with alpha */
 }
 
 
 .task-list input[type="checkbox"] {
-    margin-right: 10px; /* Adjusted margin */
-    min-width: 20px; /* Ensure checkbox is tappable */
+    margin-right: 10px; 
+    min-width: 20px; 
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: var(--accent-color); 
+    accent-color: var(--current-accent-color); /* Use themed accent */
 }
 
 .task-details {
     flex-grow: 1;
-    font-size: 0.95em; /* Slightly smaller for mobile */
+    font-size: 0.95em; 
 }
 
 .task-details.completed {
     text-decoration: line-through;
-    color: var(--completed-text-color);
+    color: var(--completed-text-color); /* This can remain generic or be themed */
+}
+body.pink-mode .task-details.completed {
+    color: #ff7eb9; /* A lighter pink for strikethrough text */
 }
 
+
 .task-focus {
-    font-size: 0.8em; /* Adjusted */
+    font-size: 0.8em; 
     opacity: 0.7;
     display: block;
     margin-top: 2px;
@@ -239,38 +315,46 @@ body.dark-mode .task-list li:hover {
 .day-navigation-controls {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px; /* Adjusted */
-    padding-top: 10px; /* Adjusted */
+    margin-top: 15px; 
+    padding-top: 10px; 
     border-top: 1px solid var(--current-border-color);
 }
 
 .nav-button, .form-button { 
-    padding: 8px 12px; /* Adjusted */
+    padding: 8px 12px; 
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85em; /* Adjusted */
-    transition: opacity 0.2s ease;
-    flex-grow: 1; /* Allow buttons to take equal space */
+    font-size: 0.85em; 
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    flex-grow: 1; 
     text-align: center;
 }
 .nav-button + .nav-button {
-    margin-left: 10px; /* Space between nav buttons */
+    margin-left: 10px; 
 }
 
-.form-button {
-    background-color: var(--accent-color);
-    color: white;
-    border-color: var(--accent-color);
-    flex-grow: 0; /* Don't let form submit button grow excessively */
+.form-button { /* Specific styling for form submit buttons */
+    background-color: var(--current-accent-color); /* Use themed accent */
+    color: white; /* Text color for accent buttons, usually white or very dark */
+    border-color: var(--current-accent-color); /* Use themed accent */
+    flex-grow: 0; 
+}
+body.pink-mode .form-button { /* Ensure good contrast for pink theme submit */
+    color: #fff; /* White text on hot pink */
 }
 
 
 .nav-button:hover, .form-button:hover {
     opacity: 0.8;
 }
+.form-button:hover { /* Override general opacity for accent buttons if needed */
+     background-color: var(--current-accent-hover-color);
+     opacity: 1;
+}
+
 
 .nav-button:disabled {
     opacity: 0.5;
@@ -278,72 +362,73 @@ body.dark-mode .task-list li:hover {
 }
 
 .daily-notes-section h4 {
-    font-size: 1.05em; /* Adjusted */
+    font-size: 1.05em; 
     margin-top: 0; 
     margin-bottom: 10px;
-    color: var(--accent-color);
+    color: var(--current-accent-color); /* Use themed accent */
 }
 
 #dailyNotesTextarea {
     width: calc(100% - 22px); 
-    min-height: 200px; /* Reduced min-height for mobile */
-    height: auto; /* Let content define height primarily on mobile */
+    min-height: 200px; 
+    height: auto; 
     max-height: 400px; 
     padding: 10px;
     border: 1px solid var(--current-input-border);
     border-radius: 4px;
     background-color: var(--current-textarea-bg);
     color: var(--current-text-color);
-    font-size: 0.95em; /* Adjusted */
+    font-size: 0.95em; 
     line-height: 1.5;
     resize: vertical;
 }
 
 .app-nav {
     display: flex;
-    justify-content: space-around; /* This is good for mobile */
-    flex-wrap: wrap; /* Allow nav items to wrap if too many */
-    padding: 5px 0; /* Reduced padding */
+    justify-content: space-around; 
+    flex-wrap: wrap; 
+    padding: 5px 0; 
     background-color: var(--current-nav-bg);
     border-top: 1px solid var(--current-border-color);
 }
 
 .app-nav .nav-link {
-    padding: 8px 10px; /* Adjusted padding */
+    padding: 8px 10px; 
     color: var(--current-text-color);
     text-decoration: none;
     font-weight: 500;
     border-radius: 4px;
     transition: background-color 0.2s ease;
-    font-size: 0.85em; /* Slightly smaller for mobile */
+    font-size: 0.85em; 
     text-align: center;
-    flex-grow: 1; /* Make them take up equal space, good for few items */
-    margin: 2px; /* Small margin if they wrap */
+    flex-grow: 1; 
+    margin: 2px; 
 }
 
 .app-nav .nav-link:hover {
     background-color: rgba(0,0,0,0.05);
 }
-body.dark-mode .app-nav .nav-link:hover {
+body.dark-mode .app-nav .nav-link:hover { 
     background-color: rgba(255,255,255,0.05);
 }
+body.pink-mode .app-nav .nav-link:hover {
+    background-color: rgba(255, 105, 180, 0.1); /* HotPink with alpha */
+}
+
 
 .app-nav .nav-link.active {
-    color: var(--accent-color);
+    color: var(--current-accent-color); /* Use themed accent */
     font-weight: bold;
-    background-color: rgba(0, 123, 255, 0.1); 
-}
-body.dark-mode .app-nav .nav-link.active {
-    background-color: rgba(0, 123, 255, 0.2);
+    background-color: var(--current-nav-active-bg); /* Use themed active nav bg */
 }
 
 
 /* Page Titles */
 .program-overview-page h2, .daily-notes-summary-page h2, .resources-page h2, .progress-page h2 {
     text-align: center;
-    margin-bottom: 15px; /* Adjusted */
-    color: var(--accent-color);
-    font-size: 1.5em; /* Consistent page title size */
+    margin-bottom: 15px; 
+    color: var(--current-accent-color); /* Use themed accent */
+    font-size: 1.5em; 
 }
 
 /* Generic Card Style */
@@ -351,23 +436,24 @@ body.dark-mode .app-nav .nav-link.active {
     background-color: var(--current-container-bg);
     border: 1px solid var(--current-border-color);
     border-radius: 6px;
-    padding: 15px; /* Adjusted */
-    margin-bottom: 15px; /* Adjusted */
+    padding: 15px; 
+    margin-bottom: 15px; 
     box-shadow: 0 2px 4px var(--current-card-shadow);
 }
 .content-card h3 {
     margin-top: 0;
-    color: var(--accent-color);
-    font-size: 1.2em; /* Adjusted */
-    padding-bottom: 8px; /* Adjusted */
+    color: var(--current-accent-color); /* Use themed accent */
+    font-size: 1.2em; 
+    padding-bottom: 8px; 
     border-bottom: 1px solid var(--current-border-color);
-    margin-bottom: 10px; /* Adjusted */
+    margin-bottom: 10px; 
 }
+
 
 .weeks-container {
     display: grid;
     grid-template-columns: 1fr; 
-    gap: 15px; /* Adjusted */
+    gap: 15px; 
 }
 
 .week-card { 
@@ -380,13 +466,14 @@ body.dark-mode .app-nav .nav-link.active {
 
 .week-card-header {
     display: flex;
-    flex-direction: column; /* Stack header on small screens */
-    align-items: flex-start; /* Align items to start */
+    flex-direction: column; 
+    align-items: flex-start; 
     margin-bottom: 10px;
 }
 .week-card-header h3 {
-    margin: 0 0 5px 0; /* Add bottom margin */
+    margin: 0 0 5px 0; 
     font-size: 1.1em; 
+    color: var(--current-accent-color); /* Use themed accent */
     border-bottom: none; 
     padding-bottom: 0;
 }
@@ -408,7 +495,7 @@ body.dark-mode .app-nav .nav-link.active {
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.8em; /* Adjusted */
+    font-size: 0.8em; 
     margin-bottom: 10px;
 }
 
@@ -417,44 +504,42 @@ body.dark-mode .app-nav .nav-link.active {
     padding-top: 10px;
     border-top: 1px dashed var(--current-border-color);
 }
-.week-details-content h4 {
-    font-size: 0.95em;
-    margin-bottom: 5px;
-}
+.week-details-content h4 { font-size: 0.95em; margin-bottom: 5px;}
 .week-details-content ul { list-style: none; padding-left: 0; }
 .week-details-content ul li { padding: 5px 0; }
-.week-details-content ul li a { color: var(--accent-color); text-decoration: none; }
+.week-details-content ul li a { color: var(--current-accent-color); text-decoration: none; } /* Use themed accent */
 .week-details-content ul li a:hover { text-decoration: underline; }
 
 /* Resources Page Styles */
-.resource-category { margin-bottom: 15px; } /* Adjusted */
+.resource-category { margin-bottom: 15px; } 
+.resource-category h3 { color: var(--current-accent-color); } /* Use themed accent */
 .resource-category ul { list-style: none; padding-left: 0; }
 .resource-category li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); }
 .resource-category li:last-child { border-bottom: none; }
 .resource-category li a { color: var(--current-text-color); text-decoration: none; font-weight: 500; }
-.resource-category li a:hover { color: var(--accent-color); text-decoration: underline; }
+.resource-category li a:hover { color: var(--current-accent-color); text-decoration: underline; } /* Use themed accent */
 .resource-note { font-size: 0.8em; opacity: 0.7; display: inline; margin-left: 5px; }
 
 /* Daily Notes Summary Page Styles */
 .daily-notes-summary-page .note-entry { margin-bottom: 15px; }
-.daily-notes-summary-page .note-entry-header { font-weight: bold; margin-bottom: 8px; color: var(--accent-color); font-size: 1.05em; }
+.daily-notes-summary-page .note-entry-header { font-weight: bold; margin-bottom: 8px; color: var(--current-accent-color); font-size: 1.05em; } /* Use themed accent */
 .daily-notes-summary-page .note-content { white-space: pre-wrap; line-height: 1.5; font-size: 0.95em; }
 
 /* Progress Page - Rank Tracking Styles */
 .rank-logging-form {
     display: flex;
-    flex-direction: column; /* Stack form elements on small screens */
+    flex-direction: column; 
     gap: 10px; 
-    align-items: stretch; /* Stretch to fill width */
+    align-items: stretch; 
     margin-bottom: 20px;
 }
-.rank-logging-form > div { /* Target direct children divs of the form */
+.rank-logging-form > div { 
     display: flex;
-    flex-direction: column; /* Stack label and input */
+    flex-direction: column; 
 }
 
 .rank-logging-form label {
-    margin-bottom: 3px; /* Reduced margin */
+    margin-bottom: 3px; 
     font-size: 0.85em; 
     font-weight: 500;
 }
@@ -467,26 +552,26 @@ body.dark-mode .app-nav .nav-link.active {
     color: var(--current-text-color);
     border-radius: 4px;
     font-size: 0.9em;
-    width: 100%; /* Full width within their container */
+    width: 100%; 
     box-sizing: border-box;
 }
 .rank-logging-form .form-button {
-    margin-top: 10px; /* Add margin above button */
+    margin-top: 10px; 
 }
 
 
-.rank-history-list { list-style: none; padding: 0; margin-top: 15px; } /* Adjusted */
-.rank-history-list li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); font-size: 0.9em; display: flex; justify-content: space-between; flex-wrap: wrap; } /* Adjusted */
+.rank-history-list { list-style: none; padding: 0; margin-top: 15px; } 
+.rank-history-list li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); font-size: 0.9em; display: flex; justify-content: space-between; flex-wrap: wrap; } 
 .rank-history-list li:last-child { border-bottom: none; }
-.rank-history-list .rank-date { opacity: 0.7; font-size: 0.85em; margin-left: 10px; } /* Adjusted */
+.rank-history-list .rank-date { opacity: 0.7; font-size: 0.85em; margin-left: 10px; } 
 
 #rankChartContainer {
-    margin-top: 20px; /* Adjusted */
-    padding: 10px; /* Adjusted */
+    margin-top: 20px; 
+    padding: 10px; 
     border: 1px solid var(--current-border-color);
     border-radius: 6px;
     background-color: var(--current-container-bg); 
-    min-height: 250px; /* Ensure chart has some height */
+    min-height: 250px; 
 }
 
 
@@ -494,25 +579,18 @@ body.dark-mode .app-nav .nav-link.active {
 /* =========== MEDIA QUERIES (Responsive) ========== */
 /* =============================================== */
 
-/* Small devices (phones, 600px and down) */
-/* Most base styles are already mobile-first friendly, so not much needed here unless specific overrides */
-
-/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     body {
-        padding: 20px; /* Restore some padding */
-        font-size: 17px; /* Slightly larger base font for tablets */
-    }
-    .container {
-        /* max-width is already 900px, which is fine for tablets */
+        padding: 20px; 
+        font-size: 17px; 
     }
     .app-header h1 {
         font-size: 1.6em;
-        flex-basis: auto; /* Allow h1 and controls to share space */
+        flex-basis: auto; 
         text-align: left;
     }
     .header-controls {
-        width: auto; /* Controls don't need full width */
+        width: auto; 
         justify-content: flex-end;
     }
     .theme-toggle-btn, .new-cycle-btn {
@@ -520,32 +598,28 @@ body.dark-mode .app-nav .nav-link.active {
     }
 
     .dashboard-layout {
-        flex-direction: row; /* Side-by-side layout for tasks and notes */
-    }
-    .dashboard-main-content {
-        order: 1;
+        flex-direction: row; 
     }
     .dashboard-notes-area {
         border-left: 1px solid var(--current-border-color);
         padding-left: 20px;
-        border-top: none; /* Remove top border from stacked view */
+        border-top: none; 
         padding-top: 0;
         margin-top: 0;
-        order: 2;
     }
     #dailyNotesTextarea {
-        font-size: 1em; /* Restore default font size */
-        min-height: 300px; /* Restore desktop min-height */
+        font-size: 1em; 
+        min-height: 300px; 
     }
 
     .app-nav {
-        flex-wrap: nowrap; /* Prevent nav items from wrapping on tablet */
+        flex-wrap: nowrap; 
     }
     .app-nav .nav-link {
         font-size: 0.9em;
     }
     .week-card-header {
-        flex-direction: row; /* Side-by-side again */
+        flex-direction: row; 
         align-items: center;
     }
     .week-card-header h3 {
@@ -557,27 +631,26 @@ body.dark-mode .app-nav .nav-link.active {
     }
 
     .rank-logging-form {
-        flex-direction: row; /* Horizontal layout for form elements */
-        align-items: flex-end; /* Align to bottom */
+        flex-direction: row; 
+        align-items: flex-end; 
     }
     .rank-logging-form > div {
-        flex-direction: column; /* Keep label above input */
-        flex-grow: 1; /* Allow elements to grow a bit */
+        flex-direction: column; 
+        flex-grow: 1; 
     }
     .rank-logging-form select,
     .rank-logging-form input[type="number"] {
-        width: auto; /* Let them size naturally or with min-width */
+        width: auto; 
     }
      .rank-logging-form .form-button {
-        margin-top: 0; /* Remove top margin from stacked view */
+        margin-top: 0; 
         flex-grow: 0;
     }
 }
 
-/* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     body {
-        font-size: 18px; /* Can make base font even slightly larger for desktops */
+        font-size: 18px; 
     }
     .app-header h1 {
         font-size: 1.8em;
