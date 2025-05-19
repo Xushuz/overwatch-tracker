@@ -56,11 +56,12 @@
 body {
     font-family: var(--font-family);
     margin: 0;
-    padding: 20px;
+    padding: 10px; /* Reduced padding for smaller screens initially */
     background-color: var(--current-bg-color);
     color: var(--current-text-color);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px; /* Base font size */
 }
 
 body.dark-mode {
@@ -79,50 +80,57 @@ body.dark-mode {
 }
 
 .container {
+    width: 100%; /* Full width on small screens */
     max-width: 900px; 
     margin: 0 auto;
     background-color: var(--current-container-bg);
     border: 1px solid var(--current-border-color);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Softer shadow */
     overflow: hidden; 
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .app-header {
     display: flex;
+    flex-wrap: wrap; /* Allow header controls to wrap on very small screens */
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 10px 15px; /* Adjusted padding */
     background-color: var(--current-header-bg);
     border-bottom: 1px solid var(--current-border-color);
 }
 
 .app-header h1 {
-    font-size: 1.8em;
-    margin: 0;
+    font-size: 1.5em; /* Slightly reduced for smaller screens */
+    margin: 0 0 5px 0; /* Add bottom margin if wraps */
     color: var(--accent-color);
+    flex-basis: 100%; /* Allow h1 to take full width if controls wrap */
+    text-align: center; /* Center h1 if it takes full width */
 }
 
 .header-controls {
     display: flex;
     align-items: center;
+    width: 100%; /* Allow controls to take full width if wrapped */
+    justify-content: center; /* Center controls if wrapped */
 }
 
 .header-controls span {
-    margin-right: 15px;
-    font-size: 0.9em;
+    margin-right: 10px;
+    font-size: 0.85em;
     opacity: 0.8;
 }
 
 .theme-toggle-btn, .new-cycle-btn {
-    padding: 8px 12px;
+    padding: 6px 10px;
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9em;
-    margin-left: 10px;
+    font-size: 0.8em;
+    margin-left: 8px;
     transition: background-color 0.2s ease;
 }
 
@@ -131,43 +139,49 @@ body.dark-mode {
 }
 
 .app-main {
-    padding: 20px;
+    padding: 15px; /* Adjusted padding */
 }
 
 .dashboard-layout {
     display: flex;
+    flex-direction: column; /* Stack columns by default for mobile */
     gap: 20px;
 }
 
 .dashboard-main-content {
-    flex: 2; 
+    flex: 1; /* Allow it to take available space */
+    order: 1; /* Tasks first */
 }
 
 .dashboard-notes-area {
     flex: 1; 
-    padding-left: 20px;
-    border-left: 1px solid var(--current-border-color);
+    padding-left: 0; /* No left padding when stacked */
+    border-left: none; /* No border when stacked */
+    border-top: 1px solid var(--current-border-color); /* Add top border when stacked */
+    padding-top: 15px; /* Add padding when stacked */
+    margin-top: 15px; /* Add margin when stacked */
+    order: 2; /* Notes second */
 }
 
 
 .week-info h2 {
-    font-size: 1.4em;
+    font-size: 1.3em;
     margin-top: 0;
     color: var(--accent-color);
 }
 .week-info p {
-    font-size: 1em;
+    font-size: 0.95em;
     margin-bottom: 10px;
 }
 .week-info h3 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 15px;
     border-bottom: 1px dashed var(--current-border-color);
     padding-bottom: 5px;
 }
 
 .tasks-section h4 {
-    font-size: 1.1em;
+    font-size: 1.05em;
     margin-bottom: 10px;
 }
 
@@ -179,7 +193,7 @@ body.dark-mode {
 .task-list li {
     display: flex;
     align-items: center;
-    padding: 12px 0;
+    padding: 10px 0; /* Adjusted padding */
     border-bottom: 1px solid var(--current-border-color);
     transition: background-color 0.2s ease;
 }
@@ -197,7 +211,8 @@ body.dark-mode .task-list li:hover {
 
 
 .task-list input[type="checkbox"] {
-    margin-right: 12px;
+    margin-right: 10px; /* Adjusted margin */
+    min-width: 20px; /* Ensure checkbox is tappable */
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -206,6 +221,7 @@ body.dark-mode .task-list li:hover {
 
 .task-details {
     flex-grow: 1;
+    font-size: 0.95em; /* Slightly smaller for mobile */
 }
 
 .task-details.completed {
@@ -214,7 +230,7 @@ body.dark-mode .task-list li:hover {
 }
 
 .task-focus {
-    font-size: 0.85em;
+    font-size: 0.8em; /* Adjusted */
     opacity: 0.7;
     display: block;
     margin-top: 2px;
@@ -223,25 +239,32 @@ body.dark-mode .task-list li:hover {
 .day-navigation-controls {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: 15px; /* Adjusted */
+    padding-top: 10px; /* Adjusted */
     border-top: 1px solid var(--current-border-color);
 }
 
-.nav-button, .form-button { /* Added .form-button */
-    padding: 10px 15px;
+.nav-button, .form-button { 
+    padding: 8px 12px; /* Adjusted */
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 0.85em; /* Adjusted */
     transition: opacity 0.2s ease;
+    flex-grow: 1; /* Allow buttons to take equal space */
+    text-align: center;
 }
+.nav-button + .nav-button {
+    margin-left: 10px; /* Space between nav buttons */
+}
+
 .form-button {
     background-color: var(--accent-color);
     color: white;
     border-color: var(--accent-color);
+    flex-grow: 0; /* Don't let form submit button grow excessively */
 }
 
 
@@ -255,7 +278,7 @@ body.dark-mode .task-list li:hover {
 }
 
 .daily-notes-section h4 {
-    font-size: 1.1em;
+    font-size: 1.05em; /* Adjusted */
     margin-top: 0; 
     margin-bottom: 10px;
     color: var(--accent-color);
@@ -263,34 +286,39 @@ body.dark-mode .task-list li:hover {
 
 #dailyNotesTextarea {
     width: calc(100% - 22px); 
-    min-height: 300px; 
-    height: calc(100vh - 380px); 
-    max-height: 600px; 
+    min-height: 200px; /* Reduced min-height for mobile */
+    height: auto; /* Let content define height primarily on mobile */
+    max-height: 400px; 
     padding: 10px;
     border: 1px solid var(--current-input-border);
     border-radius: 4px;
     background-color: var(--current-textarea-bg);
     color: var(--current-text-color);
-    font-size: 1em;
+    font-size: 0.95em; /* Adjusted */
     line-height: 1.5;
     resize: vertical;
 }
 
 .app-nav {
     display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
+    justify-content: space-around; /* This is good for mobile */
+    flex-wrap: wrap; /* Allow nav items to wrap if too many */
+    padding: 5px 0; /* Reduced padding */
     background-color: var(--current-nav-bg);
     border-top: 1px solid var(--current-border-color);
 }
 
 .app-nav .nav-link {
-    padding: 10px 15px;
+    padding: 8px 10px; /* Adjusted padding */
     color: var(--current-text-color);
     text-decoration: none;
     font-weight: 500;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    font-size: 0.85em; /* Slightly smaller for mobile */
+    text-align: center;
+    flex-grow: 1; /* Make them take up equal space, good for few items */
+    margin: 2px; /* Small margin if they wrap */
 }
 
 .app-nav .nav-link:hover {
@@ -309,40 +337,40 @@ body.dark-mode .app-nav .nav-link.active {
     background-color: rgba(0, 123, 255, 0.2);
 }
 
+
 /* Page Titles */
 .program-overview-page h2, .daily-notes-summary-page h2, .resources-page h2, .progress-page h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Adjusted */
     color: var(--accent-color);
+    font-size: 1.5em; /* Consistent page title size */
 }
 
-/* Generic Card Style for sections within pages */
+/* Generic Card Style */
 .content-card {
     background-color: var(--current-container-bg);
     border: 1px solid var(--current-border-color);
     border-radius: 6px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 15px; /* Adjusted */
+    margin-bottom: 15px; /* Adjusted */
     box-shadow: 0 2px 4px var(--current-card-shadow);
 }
 .content-card h3 {
     margin-top: 0;
     color: var(--accent-color);
-    font-size: 1.3em;
-    padding-bottom: 10px;
+    font-size: 1.2em; /* Adjusted */
+    padding-bottom: 8px; /* Adjusted */
     border-bottom: 1px solid var(--current-border-color);
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Adjusted */
 }
 
-
-/* Program Overview Page Styles */
 .weeks-container {
     display: grid;
     grid-template-columns: 1fr; 
-    gap: 20px;
+    gap: 15px; /* Adjusted */
 }
 
-.week-card { /* Already styled as content-card essentially */
+.week-card { 
     background-color: var(--current-container-bg); 
     border: 1px solid var(--current-border-color);
     padding: 15px;
@@ -352,21 +380,18 @@ body.dark-mode .app-nav .nav-link.active {
 
 .week-card-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Stack header on small screens */
+    align-items: flex-start; /* Align items to start */
     margin-bottom: 10px;
 }
-
 .week-card-header h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: var(--accent-color);
-    border-bottom: none; /* Override generic h3 from content-card */
+    margin: 0 0 5px 0; /* Add bottom margin */
+    font-size: 1.1em; 
+    border-bottom: none; 
     padding-bottom: 0;
 }
-
 .week-progress {
-    font-size: 0.9em;
+    font-size: 0.85em; 
     font-weight: bold;
 }
 
@@ -383,11 +408,8 @@ body.dark-mode .app-nav .nav-link.active {
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85em;
+    font-size: 0.8em; /* Adjusted */
     margin-bottom: 10px;
-}
-.view-week-details-btn:hover {
-    opacity: 0.8;
 }
 
 .week-details-content {
@@ -396,90 +418,44 @@ body.dark-mode .app-nav .nav-link.active {
     border-top: 1px dashed var(--current-border-color);
 }
 .week-details-content h4 {
-    font-size: 1em;
+    font-size: 0.95em;
     margin-bottom: 5px;
 }
-.week-details-content ul {
-    list-style: none;
-    padding-left: 0; 
-}
-.week-details-content ul li {
-    padding: 5px 0;
-}
-.week-details-content ul li a {
-    color: var(--accent-color);
-    text-decoration: none;
-}
-.week-details-content ul li a:hover {
-    text-decoration: underline;
-}
+.week-details-content ul { list-style: none; padding-left: 0; }
+.week-details-content ul li { padding: 5px 0; }
+.week-details-content ul li a { color: var(--accent-color); text-decoration: none; }
+.week-details-content ul li a:hover { text-decoration: underline; }
 
 /* Resources Page Styles */
-.resource-category { /* Already styled as content-card essentially */
-    margin-bottom: 20px; /* Match content-card */
-}
-.resource-category h3 { /* Already styled by content-card h3 */
-}
-
-.resource-category ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.resource-category li {
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--current-border-color);
-}
-.resource-category li:last-child {
-    border-bottom: none;
-}
-
-.resource-category li a {
-    color: var(--current-text-color); 
-    text-decoration: none;
-    font-weight: 500;
-}
-.resource-category li a:hover {
-    color: var(--accent-color);
-    text-decoration: underline;
-}
-
-.resource-note {
-    font-size: 0.85em;
-    opacity: 0.7;
-    display: inline; 
-    margin-left: 5px;
-}
+.resource-category { margin-bottom: 15px; } /* Adjusted */
+.resource-category ul { list-style: none; padding-left: 0; }
+.resource-category li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); }
+.resource-category li:last-child { border-bottom: none; }
+.resource-category li a { color: var(--current-text-color); text-decoration: none; font-weight: 500; }
+.resource-category li a:hover { color: var(--accent-color); text-decoration: underline; }
+.resource-note { font-size: 0.8em; opacity: 0.7; display: inline; margin-left: 5px; }
 
 /* Daily Notes Summary Page Styles */
-.daily-notes-summary-page .note-entry { /* Already styled as content-card essentially */
-    margin-bottom: 15px;
-}
-.daily-notes-summary-page .note-entry-header {
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: var(--accent-color);
-    font-size: 1.1em;
-}
-
-.daily-notes-summary-page .note-content {
-    white-space: pre-wrap; 
-    line-height: 1.5;
-}
+.daily-notes-summary-page .note-entry { margin-bottom: 15px; }
+.daily-notes-summary-page .note-entry-header { font-weight: bold; margin-bottom: 8px; color: var(--accent-color); font-size: 1.05em; }
+.daily-notes-summary-page .note-content { white-space: pre-wrap; line-height: 1.5; font-size: 0.95em; }
 
 /* Progress Page - Rank Tracking Styles */
 .rank-logging-form {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 15px; /* Spacing between form elements */
-    align-items: flex-end; /* Align items to bottom for cleaner look */
+    flex-direction: column; /* Stack form elements on small screens */
+    gap: 10px; 
+    align-items: stretch; /* Stretch to fill width */
     margin-bottom: 20px;
+}
+.rank-logging-form > div { /* Target direct children divs of the form */
+    display: flex;
+    flex-direction: column; /* Stack label and input */
 }
 
 .rank-logging-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9em;
+    margin-bottom: 3px; /* Reduced margin */
+    font-size: 0.85em; 
     font-weight: 500;
 }
 
@@ -491,37 +467,125 @@ body.dark-mode .app-nav .nav-link.active {
     color: var(--current-text-color);
     border-radius: 4px;
     font-size: 0.9em;
-    min-width: 100px; /* Ensure selects are not too small */
+    width: 100%; /* Full width within their container */
+    box-sizing: border-box;
 }
-.rank-logging-form input[type="number"] {
-    width: 80px; /* Specific width for SR */
+.rank-logging-form .form-button {
+    margin-top: 10px; /* Add margin above button */
 }
 
 
-.rank-history-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-.rank-history-list li {
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--current-border-color);
-    font-size: 0.95em;
-    display: flex;
-    justify-content: space-between;
-}
-.rank-history-list li:last-child {
-    border-bottom: none;
-}
-.rank-history-list .rank-date {
-    opacity: 0.7;
-    font-size: 0.9em;
-}
+.rank-history-list { list-style: none; padding: 0; margin-top: 15px; } /* Adjusted */
+.rank-history-list li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); font-size: 0.9em; display: flex; justify-content: space-between; flex-wrap: wrap; } /* Adjusted */
+.rank-history-list li:last-child { border-bottom: none; }
+.rank-history-list .rank-date { opacity: 0.7; font-size: 0.85em; margin-left: 10px; } /* Adjusted */
 
 #rankChartContainer {
-    margin-top: 30px;
-    padding: 15px;
+    margin-top: 20px; /* Adjusted */
+    padding: 10px; /* Adjusted */
     border: 1px solid var(--current-border-color);
     border-radius: 6px;
-    background-color: var(--current-container-bg); /* Match card background */
+    background-color: var(--current-container-bg); 
+    min-height: 250px; /* Ensure chart has some height */
+}
+
+
+/* =============================================== */
+/* =========== MEDIA QUERIES (Responsive) ========== */
+/* =============================================== */
+
+/* Small devices (phones, 600px and down) */
+/* Most base styles are already mobile-first friendly, so not much needed here unless specific overrides */
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    body {
+        padding: 20px; /* Restore some padding */
+        font-size: 17px; /* Slightly larger base font for tablets */
+    }
+    .container {
+        /* max-width is already 900px, which is fine for tablets */
+    }
+    .app-header h1 {
+        font-size: 1.6em;
+        flex-basis: auto; /* Allow h1 and controls to share space */
+        text-align: left;
+    }
+    .header-controls {
+        width: auto; /* Controls don't need full width */
+        justify-content: flex-end;
+    }
+    .theme-toggle-btn, .new-cycle-btn {
+        font-size: 0.85em;
+    }
+
+    .dashboard-layout {
+        flex-direction: row; /* Side-by-side layout for tasks and notes */
+    }
+    .dashboard-main-content {
+        order: 1;
+    }
+    .dashboard-notes-area {
+        border-left: 1px solid var(--current-border-color);
+        padding-left: 20px;
+        border-top: none; /* Remove top border from stacked view */
+        padding-top: 0;
+        margin-top: 0;
+        order: 2;
+    }
+    #dailyNotesTextarea {
+        font-size: 1em; /* Restore default font size */
+        min-height: 300px; /* Restore desktop min-height */
+    }
+
+    .app-nav {
+        flex-wrap: nowrap; /* Prevent nav items from wrapping on tablet */
+    }
+    .app-nav .nav-link {
+        font-size: 0.9em;
+    }
+    .week-card-header {
+        flex-direction: row; /* Side-by-side again */
+        align-items: center;
+    }
+    .week-card-header h3 {
+        margin: 0;
+        font-size: 1.2em;
+    }
+    .week-progress {
+        font-size: 0.9em;
+    }
+
+    .rank-logging-form {
+        flex-direction: row; /* Horizontal layout for form elements */
+        align-items: flex-end; /* Align to bottom */
+    }
+    .rank-logging-form > div {
+        flex-direction: column; /* Keep label above input */
+        flex-grow: 1; /* Allow elements to grow a bit */
+    }
+    .rank-logging-form select,
+    .rank-logging-form input[type="number"] {
+        width: auto; /* Let them size naturally or with min-width */
+    }
+     .rank-logging-form .form-button {
+        margin-top: 0; /* Remove top margin from stacked view */
+        flex-grow: 0;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    body {
+        font-size: 18px; /* Can make base font even slightly larger for desktops */
+    }
+    .app-header h1 {
+        font-size: 1.8em;
+    }
+    .theme-toggle-btn, .new-cycle-btn {
+        font-size: 0.9em;
+    }
+    .app-nav .nav-link {
+        font-size: 1em;
+    }
 }
