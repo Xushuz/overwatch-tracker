@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Resources Data ---
     const resourcesData = { /* ... PASTE YOUR FULL resourcesData HERE ... */ 
         youtubersCoaches: [
-            { name: "Spilo (Coaching VODs)", url: "https://www.youtube.com/@Spilo probablement" , note: "Search for his Discord for VOD archives."},
+            { name: "Spilo (Coaching VODs)", url: "https://www.youtube.com/@CoachSpilo" , note: "Search for his Discord for VOD archives."},
             { name: "ioStux (Hero Guides)", url: "https://www.youtube.com/@ioStux", note: "In-depth hero guides." },
             { name: "KarQ (Tips for Every Hero)", url: "https://www.youtube.com/@KarQ", note: "Quick tips and hero interactions." },
             { name: "SVB (Analytical Coaching)", url: "https://www.youtube.com/@SiliconValet", note: "Analytical content and meta discussions." },
@@ -351,7 +351,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "Overwatch Liquipedia", url: "https://liquipedia.net/overwatch/", note: "Esports info." }
         ],
         keyGuideLinks: [
-            { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@Spilo probablement", note: "Fundamental positioning."}
+            { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@CoachSpilo", note: "Fundamental positioning."}
+            { name: "Spilo's VOD Channel", url: "https://www.youtube.com/@Spilo2", note: "Various VOD Reviews"}
         ]
     };
     // --- End of Resources Data ---
