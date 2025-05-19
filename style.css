@@ -1,0 +1,527 @@
+/* style.css */
+:root {
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    
+    /* Light Theme Variables */
+    --bg-color-light: #f4f7f6;
+    --text-color-light: #333;
+    --container-bg-light: #ffffff;
+    --border-color-light: #e0e0e0;
+    --header-bg-light: #ffffff;
+    --nav-bg-light: #f9f9f9;
+    --button-bg-light: #e9ecef;
+    --button-text-light: #495057;
+    --input-bg-light: #fdfdfd;
+    --input-border-light: #ced4da;
+    --textarea-bg-light: #f8f9fa;
+    --card-shadow-light: rgba(0, 0, 0, 0.05);
+
+
+    /* Dark Theme Variables */
+    --bg-color-dark: #121212;
+    --text-color-dark: #e0e0e0;
+    --container-bg-dark: #1e1e1e;
+    --border-color-dark: #444444;
+    --header-bg-dark: #1e1e1e; 
+    --nav-bg-dark: #2c2c2c;
+    --button-bg-dark: #3a3a3a;
+    --button-text-dark: #e0e0e0;
+    --input-bg-dark: #333;
+    --input-border-dark: #555;
+    --textarea-bg-dark: #252525;
+    --card-shadow-dark: rgba(255, 255, 255, 0.05);
+
+
+    /* Accent Colors */
+    --accent-color: #007bff; 
+    --accent-hover-color: #0056b3;
+    --completed-text-color: #6c757d; 
+    --danger-color: #dc3545;
+
+    /* Current theme */
+    --current-bg-color: var(--bg-color-light);
+    --current-text-color: var(--text-color-light);
+    --current-container-bg: var(--container-bg-light);
+    --current-border-color: var(--border-color-light);
+    --current-header-bg: var(--header-bg-light);
+    --current-nav-bg: var(--nav-bg-light);
+    --current-button-bg: var(--button-bg-light);
+    --current-button-text: var(--button-text-light);
+    --current-input-bg: var(--input-bg-light);
+    --current-input-border: var(--input-border-light);
+    --current-textarea-bg: var(--textarea-bg-light);
+    --current-card-shadow: var(--card-shadow-light);
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 20px;
+    background-color: var(--current-bg-color);
+    color: var(--current-text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    --current-bg-color: var(--bg-color-dark);
+    --current-text-color: var(--text-color-dark);
+    --current-container-bg: var(--container-bg-dark);
+    --current-border-color: var(--border-color-dark);
+    --current-header-bg: var(--header-bg-dark);
+    --current-nav-bg: var(--nav-bg-dark);
+    --current-button-bg: var(--button-bg-dark);
+    --current-button-text: var(--button-text-dark);
+    --current-input-bg: var(--input-bg-dark);
+    --current-input-border: var(--input-border-dark);
+    --current-textarea-bg: var(--textarea-bg-dark);
+    --current-card-shadow: var(--card-shadow-dark);
+}
+
+.container {
+    max-width: 900px; 
+    margin: 0 auto;
+    background-color: var(--current-container-bg);
+    border: 1px solid var(--current-border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--current-header-bg);
+    border-bottom: 1px solid var(--current-border-color);
+}
+
+.app-header h1 {
+    font-size: 1.8em;
+    margin: 0;
+    color: var(--accent-color);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.header-controls span {
+    margin-right: 15px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.theme-toggle-btn, .new-cycle-btn {
+    padding: 8px 12px;
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.theme-toggle-btn:hover, .new-cycle-btn:hover {
+    opacity: 0.8;
+}
+
+.app-main {
+    padding: 20px;
+}
+
+.dashboard-layout {
+    display: flex;
+    gap: 20px;
+}
+
+.dashboard-main-content {
+    flex: 2; 
+}
+
+.dashboard-notes-area {
+    flex: 1; 
+    padding-left: 20px;
+    border-left: 1px solid var(--current-border-color);
+}
+
+
+.week-info h2 {
+    font-size: 1.4em;
+    margin-top: 0;
+    color: var(--accent-color);
+}
+.week-info p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+.week-info h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed var(--current-border-color);
+    padding-bottom: 5px;
+}
+
+.tasks-section h4 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-list li {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--current-border-color);
+    transition: background-color 0.2s ease;
+}
+
+.task-list li:last-child {
+    border-bottom: none;
+}
+
+.task-list li:hover {
+    background-color: rgba(0,0,0,0.03); 
+}
+body.dark-mode .task-list li:hover {
+    background-color: rgba(255,255,255,0.03);
+}
+
+
+.task-list input[type="checkbox"] {
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--accent-color); 
+}
+
+.task-details {
+    flex-grow: 1;
+}
+
+.task-details.completed {
+    text-decoration: line-through;
+    color: var(--completed-text-color);
+}
+
+.task-focus {
+    font-size: 0.85em;
+    opacity: 0.7;
+    display: block;
+    margin-top: 2px;
+}
+
+.day-navigation-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--current-border-color);
+}
+
+.nav-button, .form-button { /* Added .form-button */
+    padding: 10px 15px;
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: opacity 0.2s ease;
+}
+.form-button {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+
+.nav-button:hover, .form-button:hover {
+    opacity: 0.8;
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.daily-notes-section h4 {
+    font-size: 1.1em;
+    margin-top: 0; 
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+#dailyNotesTextarea {
+    width: calc(100% - 22px); 
+    min-height: 300px; 
+    height: calc(100vh - 380px); 
+    max-height: 600px; 
+    padding: 10px;
+    border: 1px solid var(--current-input-border);
+    border-radius: 4px;
+    background-color: var(--current-textarea-bg);
+    color: var(--current-text-color);
+    font-size: 1em;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.app-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: var(--current-nav-bg);
+    border-top: 1px solid var(--current-border-color);
+}
+
+.app-nav .nav-link {
+    padding: 10px 15px;
+    color: var(--current-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.app-nav .nav-link:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+body.dark-mode .app-nav .nav-link:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.app-nav .nav-link.active {
+    color: var(--accent-color);
+    font-weight: bold;
+    background-color: rgba(0, 123, 255, 0.1); 
+}
+body.dark-mode .app-nav .nav-link.active {
+    background-color: rgba(0, 123, 255, 0.2);
+}
+
+/* Page Titles */
+.program-overview-page h2, .daily-notes-summary-page h2, .resources-page h2, .progress-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+}
+
+/* Generic Card Style for sections within pages */
+.content-card {
+    background-color: var(--current-container-bg);
+    border: 1px solid var(--current-border-color);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px var(--current-card-shadow);
+}
+.content-card h3 {
+    margin-top: 0;
+    color: var(--accent-color);
+    font-size: 1.3em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--current-border-color);
+    margin-bottom: 15px;
+}
+
+
+/* Program Overview Page Styles */
+.weeks-container {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+}
+
+.week-card { /* Already styled as content-card essentially */
+    background-color: var(--current-container-bg); 
+    border: 1px solid var(--current-border-color);
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px var(--current-card-shadow);
+}
+
+.week-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.week-card-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--accent-color);
+    border-bottom: none; /* Override generic h3 from content-card */
+    padding-bottom: 0;
+}
+
+.week-progress {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.week-card-focus {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.view-week-details-btn {
+    padding: 8px 12px;
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-bottom: 10px;
+}
+.view-week-details-btn:hover {
+    opacity: 0.8;
+}
+
+.week-details-content {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--current-border-color);
+}
+.week-details-content h4 {
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+.week-details-content ul {
+    list-style: none;
+    padding-left: 0; 
+}
+.week-details-content ul li {
+    padding: 5px 0;
+}
+.week-details-content ul li a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+.week-details-content ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Resources Page Styles */
+.resource-category { /* Already styled as content-card essentially */
+    margin-bottom: 20px; /* Match content-card */
+}
+.resource-category h3 { /* Already styled by content-card h3 */
+}
+
+.resource-category ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.resource-category li {
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--current-border-color);
+}
+.resource-category li:last-child {
+    border-bottom: none;
+}
+
+.resource-category li a {
+    color: var(--current-text-color); 
+    text-decoration: none;
+    font-weight: 500;
+}
+.resource-category li a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.resource-note {
+    font-size: 0.85em;
+    opacity: 0.7;
+    display: inline; 
+    margin-left: 5px;
+}
+
+/* Daily Notes Summary Page Styles */
+.daily-notes-summary-page .note-entry { /* Already styled as content-card essentially */
+    margin-bottom: 15px;
+}
+.daily-notes-summary-page .note-entry-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+    font-size: 1.1em;
+}
+
+.daily-notes-summary-page .note-content {
+    white-space: pre-wrap; 
+    line-height: 1.5;
+}
+
+/* Progress Page - Rank Tracking Styles */
+.rank-logging-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 15px; /* Spacing between form elements */
+    align-items: flex-end; /* Align items to bottom for cleaner look */
+    margin-bottom: 20px;
+}
+
+.rank-logging-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.rank-logging-form select,
+.rank-logging-form input[type="number"] {
+    padding: 8px 10px;
+    border: 1px solid var(--current-input-border);
+    background-color: var(--current-input-bg);
+    color: var(--current-text-color);
+    border-radius: 4px;
+    font-size: 0.9em;
+    min-width: 100px; /* Ensure selects are not too small */
+}
+.rank-logging-form input[type="number"] {
+    width: 80px; /* Specific width for SR */
+}
+
+
+.rank-history-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+.rank-history-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--current-border-color);
+    font-size: 0.95em;
+    display: flex;
+    justify-content: space-between;
+}
+.rank-history-list li:last-child {
+    border-bottom: none;
+}
+.rank-history-list .rank-date {
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+#rankChartContainer {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid var(--current-border-color);
+    border-radius: 6px;
+    background-color: var(--current-container-bg); /* Match card background */
+}

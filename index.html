@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwatch Pro Path Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="app-header">
+            <h1>Overwatch Pro Path Tracker</h1>
+            <div class="header-controls">
+                <span id="currentDate">Loading date...</span>
+                <button class="theme-toggle-btn" id="themeToggleBtn">Toggle Theme</button>
+                <button class="new-cycle-btn" id="newCycleBtn">New Cycle</button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- Content will be dynamically rendered here by script.js -->
+            <p>Loading application...</p>
+        </main>
+
+        <nav class="app-nav">
+            <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
+            <a href="#" class="nav-link" data-page="program">Program</a>
+            <a href="#" class="nav-link" data-page="dailyNotes">Daily Notes</a>
+            <a href="#" class="nav-link" data-page="progress">Progress</a>
+            <a href="#" class="nav-link" data-page="resources">Resources</a>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Added Chart.js CDN -->
+    <script src="script.js"></script>
+</body>
+</html>
