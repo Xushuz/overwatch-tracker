@@ -1,45 +1,45 @@
 // scripts/ui-theme.js
-import { appState, themes, saveState, updateAppState } from './app-state.js';
-// We need to import the chart rendering functions if they exist and are exported
-// from their respective UI modules to re-render them on theme change.
-// Assuming renderDashboardRankChart is in ui-render-dashboard.js
-// and renderProgressPageRankChart is in ui-render-progress.js
-// We will import them in main script.js and pass them or call them from there
-// For now, this module will just focus on body class and button text.
-// The actual chart re-rendering will be triggered from applyTheme in script.js orchestrator.
+import { appState, themes, updateAppState } from './app-state.js';
+// Import chart rendering functions to call them on theme change
+import { renderDashboardRankChart } from './ui-render-dashboard.js';
+import { renderProgressPageRankChart } from './ui-render-progress.js';
 
 const body = document.body;
-let themeToggleBtnEl = null; // Element will be passed during initialization
+let themeToggleBtnEl = null; 
 
 export function applyTheme() {
     if (!body || !themeToggleBtnEl) {
-        // console.warn("Body or theme toggle button not available for applying theme.");
         return;
     }
 
-    // Remove all possible theme classes first
     themes.forEach(themeName => {
         body.classList.remove(themeName + '-mode');
     });
-    // Add the current theme class
-    body.classList.add(appState.theme + '-mode');
+    body.classList.add(appState.theme + '-mode'); 
     
-    // Update button text to suggest the *next* theme
     const currentThemeIndex = themes.indexOf(appState.theme);
     const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
     themeToggleBtnEl.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)}`;
 
-    // Trigger chart re-render (this will be handled in main script.js's applyTheme)
-    // This module itself won't directly call chart rendering functions from other modules
-    // to keep dependencies cleaner. The main script will coordinate.
+    // Re-render charts if they are currently displayed to update their colors
+    if (appState.currentPage === 'dashboard') {
+        // Check if the canvas element actually exists before trying to render
+        if (document.getElementById('dashboardRankChart')) {
+            renderDashboardRankChart();
+        }
+    }
+    if (appState.currentPage === 'progress') {
+        if (document.getElementById('progressPageRankChart')) {
+            renderProgressPageRankChart();
+        }
+    }
 }
 
 export function toggleTheme() {
     const currentThemeIndex = themes.indexOf(appState.theme);
     const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
-    // Update appState directly and save
     updateAppState({ theme: themes[nextThemeIndex] }); 
-    applyTheme(); // Apply the new theme to the UI
+    applyTheme(); 
 }
 
 export function initThemeControls(buttonElement) {
@@ -49,8 +49,5 @@ export function initThemeControls(buttonElement) {
     }
     themeToggleBtnEl = buttonElement;
     themeToggleBtnEl.addEventListener('click', toggleTheme);
-    
-    // Apply initial theme based on loaded or default appState
-    // This ensures the button text is also set correctly on load.
     applyTheme(); 
 }

@@ -10,37 +10,45 @@
     --border-color-light: #e0e0e0;
     --header-bg-light: #ffffff;
     --nav-bg-light: #f9f9f9;
-    --button-bg-light: #e9ecef;
-    --button-text-light: #495057;
+    --button-bg-light: #e9ecef; 
+    --button-text-light: #495057; 
     --input-bg-light: #fdfdfd;
     --input-border-light: #ced4da;
     --textarea-bg-light: #f8f9fa;
     --card-shadow-light: rgba(0, 0, 0, 0.05);
-    --accent-color-light: #007bff; 
+    --accent-color-light: #007bff; /* Default Blue for light mode */
     --accent-hover-color-light: #0056b3;
     --nav-active-bg-light: rgba(0, 123, 255, 0.1);
     --progress-bar-bg-light: #e9ecef;
     --modal-content-bg-light: #ffffff;
+    --chart-text-color-light: #333; 
+    --chart-grid-color-light: #e0e0e0; 
+    --chart-tooltip-bg-light: rgba(255, 255, 255, 0.9);
+    --chart-tooltip-text-color-light: #333;
 
 
-    /* Dark Theme Variables */
+    /* Dark Theme Variables - UPDATED ACCENT TO ORANGE */
     --bg-color-dark: #121212;
     --text-color-dark: #e0e0e0;
     --container-bg-dark: #1e1e1e;
     --border-color-dark: #444444;
     --header-bg-dark: #1e1e1e; 
     --nav-bg-dark: #2c2c2c;
-    --button-bg-dark: #3a3a3a;
-    --button-text-dark: #e0e0e0;
+    --button-bg-dark: #3a3a3a; 
+    --button-text-dark: #e0e0e0; 
     --input-bg-dark: #333;
     --input-border-dark: #555;
     --textarea-bg-dark: #252525;
-    --card-shadow-dark: rgba(100, 100, 100, 0.1); /* Adjusted for better visibility on dark */
-    --accent-color-dark: #66bfff; 
-    --accent-hover-color-dark: #4da6ff;
-    --nav-active-bg-dark: rgba(102, 191, 255, 0.2);
+    --card-shadow-dark: rgba(100, 100, 100, 0.1); 
+    --accent-color-dark: #FFA500; /* Vibrant Orange */
+    --accent-hover-color-dark: #FF8C00; /* Darker Orange */
+    --nav-active-bg-dark: rgba(255, 165, 0, 0.2); /* Orange with alpha */
     --progress-bar-bg-dark: #3a3a3a;
     --modal-content-bg-dark: #2c2c2c;
+    --chart-text-color-dark: #e0e0e0;
+    --chart-grid-color-dark: #444;
+    --chart-tooltip-bg-dark: rgba(44, 44, 44, 0.9);
+    --chart-tooltip-text-color-dark: #e0e0e0;
 
 
     /* Pink Theme Variables */
@@ -61,6 +69,10 @@
     --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
     --progress-bar-bg-pink: #ffdde5;
     --modal-content-bg-pink: #ffffff;
+    --chart-text-color-pink: #581845; 
+    --chart-grid-color-pink: #ffdae0; 
+    --chart-tooltip-bg-pink: rgba(255, 255, 255, 0.95); 
+    --chart-tooltip-text-color-pink: #581845; 
 
 
     /* General Non-Theme Specific */
@@ -85,6 +97,10 @@
     --current-nav-active-bg: var(--nav-active-bg-light);
     --current-progress-bar-bg: var(--progress-bar-bg-light);
     --current-modal-content-bg: var(--modal-content-bg-light);
+    --current-chart-text-color: var(--chart-text-color-light);
+    --current-chart-grid-color: var(--chart-grid-color-light);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-light);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-light);
 }
 
 body {
@@ -96,11 +112,10 @@ body {
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 16px; 
-    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
-    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale; 
 }
 
-/* Theme application classes for body */
 body.light-mode {
     --current-bg-color: var(--bg-color-light);
     --current-text-color: var(--text-color-light);
@@ -119,6 +134,10 @@ body.light-mode {
     --current-nav-active-bg: var(--nav-active-bg-light);
     --current-progress-bar-bg: var(--progress-bar-bg-light);
     --current-modal-content-bg: var(--modal-content-bg-light);
+    --current-chart-text-color: var(--chart-text-color-light);
+    --current-chart-grid-color: var(--chart-grid-color-light);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-light);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-light);
 }
 
 body.dark-mode {
@@ -134,11 +153,15 @@ body.dark-mode {
     --current-input-border: var(--input-border-dark);
     --current-textarea-bg: var(--textarea-bg-dark);
     --current-card-shadow: var(--card-shadow-dark);
-    --current-accent-color: var(--accent-color-dark);
-    --current-accent-hover-color: var(--accent-hover-color-dark);
-    --current-nav-active-bg: var(--nav-active-bg-dark);
+    --current-accent-color: var(--accent-color-dark); /* Orange */
+    --current-accent-hover-color: var(--accent-hover-color-dark); /* Darker Orange */
+    --current-nav-active-bg: var(--nav-active-bg-dark); /* Orange based */
     --current-progress-bar-bg: var(--progress-bar-bg-dark);
     --current-modal-content-bg: var(--modal-content-bg-dark);
+    --current-chart-text-color: var(--chart-text-color-dark);
+    --current-chart-grid-color: var(--chart-grid-color-dark);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-dark);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-dark);
 }
 
 body.pink-mode { 
@@ -159,6 +182,10 @@ body.pink-mode {
     --current-nav-active-bg: var(--nav-active-bg-pink);
     --current-progress-bar-bg: var(--progress-bar-bg-pink);
     --current-modal-content-bg: var(--modal-content-bg-pink);
+    --current-chart-text-color: var(--chart-text-color-pink);
+    --current-chart-grid-color: var(--chart-grid-color-pink);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-pink);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-pink);
 }
 
 .container {
@@ -177,71 +204,49 @@ body.pink-mode {
     padding: 15px; 
 }
 
-/* General Page Titles (h2 inside specific page sections) */
+/* General Page Titles */
 .program-overview-page h2, 
 .daily-notes-summary-page h2, 
 .resources-page h2, 
-.progress-page h2 { /* Added .progress-page h2 here */
+.progress-page h2 { 
     text-align: center;
-    margin-bottom: 20px; /* Increased from 15px */
+    margin-bottom: 20px; 
     color: var(--current-accent-color); 
-    font-size: 1.6em; /* Increased from 1.5em */
-    font-weight: 500; /* Slightly less bold than h1 */
+    font-size: 1.6em; 
+    font-weight: 500; 
 }
 
-/* Generic Card Style for sections within pages */
+/* Generic Card Style */
 .content-card { 
     background-color: var(--current-container-bg); 
     border: 1px solid var(--current-border-color);
     border-radius: 6px; 
     padding: 15px; 
-    margin-bottom: 20px; /* Increased from 15px */
+    margin-bottom: 20px; 
     box-shadow: 0 2px 4px var(--current-card-shadow);
 }
 .content-card h3 { 
     margin-top: 0; 
     color: var(--current-accent-color); 
-    font-size: 1.25em; /* Increased from 1.2em */
-    padding-bottom: 10px; /* Increased from 8px */
+    font-size: 1.25em; 
+    padding-bottom: 10px; 
     border-bottom: 1px solid var(--current-border-color);
-    margin-bottom: 15px; /* Increased from 10px */
+    margin-bottom: 15px; 
 }
 
 /* Progress Bar General Styles */
-.progress-bar-container { 
-    width: 100%; 
-    background-color: var(--current-progress-bar-bg);
-    border-radius: 4px; 
-    overflow: hidden; 
-    height: 22px; 
-    margin-top: 5px;
-    border: 1px solid var(--current-border-color);
-}
-.progress-bar-fill { 
-    background-color: var(--current-accent-color); 
-    height: 100%; 
-    transition: width 0.5s ease-in-out; 
-    text-align: center; 
-    color: white; 
-    font-weight: bold; 
-    line-height: 22px; 
-    font-size: 0.8em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-body.pink-mode .progress-bar-fill {
-    color: var(--text-color-pink); /* Darker text on lighter pink fill */
-}
-body.light-mode .progress-bar-fill { /* Ensure white text on blue for light mode */
-    color: #fff;
-}
+.progress-bar-container { width: 100%; background-color: var(--current-progress-bar-bg); border-radius: 4px; overflow: hidden; height: 22px; margin-top: 5px; border: 1px solid var(--current-border-color); }
+.progress-bar-fill { background-color: var(--current-accent-color); height: 100%; transition: width 0.5s ease-in-out; text-align: center; color: white; font-weight: bold; line-height: 22px; font-size: 0.8em; display: flex; align-items: center; justify-content: center; }
+body.pink-mode .progress-bar-fill { color: var(--text-color-pink); } 
+body.dark-mode .progress-bar-fill { color: #111; } /* Dark text on orange fill */
+body.light-mode .progress-bar-fill { color: #fff; }
+
 
 /* General Form Grouping for consistency */
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px; /* Consistent spacing for form groups */
+    margin-bottom: 12px; 
 }
 .form-group label {
     margin-bottom: 5px;
@@ -251,7 +256,7 @@ body.light-mode .progress-bar-fill { /* Ensure white text on blue for light mode
 }
 .form-group select,
 .form-group input[type="number"],
-.form-group input[type="text"] { /* Added text input */
+.form-group input[type="text"] { 
     padding: 10px 12px;
     border: 1px solid var(--current-input-border);
     background-color: var(--current-input-bg);
@@ -260,4 +265,29 @@ body.light-mode .progress-bar-fill { /* Ensure white text on blue for light mode
     font-size: 1em;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* General .form-button style for submit/action buttons in forms */
+.form-button { 
+    padding: 10px 15px; 
+    background-color: var(--current-accent-color);
+    color: white; /* Default text color for accent buttons */
+    border: 1px solid var(--current-accent-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em; 
+    font-weight: 500;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+    width: 100%; 
+    box-sizing: border-box;
+    text-align: center;
+}
+/* Text color adjustments for form buttons based on theme accent */
+body.pink-mode .form-button { color: #fff; }
+body.dark-mode .form-button { color: #111; } /* Dark text on orange button */
+body.light-mode .form-button { color: #fff; }
+
+.form-button:hover { 
+    background-color: var(--current-accent-hover-color);
+    opacity: 1; 
 }

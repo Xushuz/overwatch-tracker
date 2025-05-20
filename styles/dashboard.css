@@ -34,20 +34,20 @@
     margin-bottom: 15px; 
 }
 
-.week-info h2 { 
+.week-info h2 { /* Week Title */
     font-size: 1.3em;
     margin-top: 0;
     margin-bottom: 5px; 
     color: var(--current-accent-color); 
 }
 
-.week-info p#weekFocus { 
+.week-info p#weekFocus { /* Week Focus Text */
     font-size: 0.95em;
     margin-bottom: 10px;
     opacity: 0.9;
 }
 
-.week-info h3#dayTitle { 
+.week-info h3#dayTitle { /* Day Title */
     font-size: 1.1em;
     margin-top: 10px; 
     margin-bottom: 10px;
@@ -64,6 +64,8 @@
     text-align: center;
     font-weight: 500;
 }
+/* Progress bar container and fill are styled in base.css */
+
 
 .tasks-section {
     margin-bottom: 15px; 
@@ -74,28 +76,61 @@
     color: var(--current-text-color); 
 }
 
-.task-list { list-style: none; padding: 0; }
-.task-list li { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--current-border-color); }
-.task-list li:last-child { border-bottom: none; }
-.task-list li:hover { background-color: rgba(0,0,0,0.03); }
+.task-list { 
+    list-style: none; 
+    padding: 0; 
+}
+.task-list li { 
+    display: flex; 
+    align-items: center; 
+    padding: 10px 0; 
+    border-bottom: 1px solid var(--current-border-color); 
+}
+.task-list li:last-child { 
+    border-bottom: none; 
+}
+.task-list li:hover { 
+    background-color: rgba(0,0,0,0.03); 
+}
 body.dark-mode .task-list li:hover { background-color: rgba(255,255,255,0.03); }
 body.pink-mode .task-list li:hover { background-color: rgba(255, 182, 193, 0.1); }
-.task-list input[type="checkbox"] { margin-right: 10px; min-width: 20px; width: 20px; height: 20px; cursor: pointer; accent-color: var(--current-accent-color); }
-.task-details { flex-grow: 1; font-size: 0.95em; }
-.task-details.completed { text-decoration: line-through; color: var(--completed-text-color); }
-body.pink-mode .task-details.completed { color: #ff7eb9; }
-.task-focus { font-size: 0.8em; opacity: 0.7; display: block; margin-top: 2px; }
+
+.task-list input[type="checkbox"] { 
+    margin-right: 10px; 
+    min-width: 20px; 
+    width: 20px; 
+    height: 20px; 
+    cursor: pointer; 
+    accent-color: var(--current-accent-color); 
+}
+.task-details { 
+    flex-grow: 1; 
+    font-size: 0.95em; 
+}
+.task-details.completed { 
+    text-decoration: line-through; 
+    color: var(--completed-text-color); 
+}
+body.pink-mode .task-details.completed { 
+    color: #ff7eb9; 
+}
+.task-focus { 
+    font-size: 0.8em; 
+    opacity: 0.7; 
+    display: block; 
+    margin-top: 2px; 
+}
 
 .day-navigation-controls { 
     display: flex; 
     justify-content: space-between; 
-    gap: 10px; /* Added gap for spacing between buttons */
+    gap: 10px; 
     margin-top: 15px; 
     padding-top: 10px; 
     border-top: 1px solid var(--current-border-color); 
 }
 
-/* Styling for .nav-button (Previous/Next Day) */
+/* Navigational buttons (Prev/Next Day) specific styling */
 .nav-button {
     padding: 8px 12px; 
     background-color: var(--current-button-bg);
@@ -103,30 +138,30 @@ body.pink-mode .task-details.completed { color: #ff7eb9; }
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9em; /* Increased from 0.85em for better presence */
-    font-weight: 500; /* Slightly bolder */
+    font-size: 0.9em; 
+    font-weight: 500; 
     transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     flex-grow: 1; 
     text-align: center;
-    /* margin: 0 5px; /* Removed, using gap on parent instead */
 }
-/* .day-navigation-controls .nav-button:first-child { margin-left: 0; } */
-/* .day-navigation-controls .nav-button:last-child { margin-right: 0; } */
 
 .nav-button:hover {
-    opacity: 1; /* Full opacity on hover */
+    opacity: 1; 
     background-color: var(--current-accent-color);
     color: white; 
     border-color: var(--current-accent-hover-color);
 }
 body.pink-mode .nav-button:hover {
-    color: var(--button-text-pink); /* Or #fff if preferred on pink accent */
+    color: var(--button-text-pink); 
     background-color: var(--accent-color-pink);
     border-color: var(--accent-hover-color-pink);
 }
-body.light-mode .nav-button:hover,
+body.light-mode .nav-button:hover, /* Ensure contrast for light/dark themes */
 body.dark-mode .nav-button:hover {
-    color: #fff; /* Ensure white text on blue/light blue accent */
+    color: #fff; 
+}
+body.dark-mode .nav-button:hover { /* Specifically for orange accent on dark */
+    color: #111; /* Dark text on orange */
 }
 
 
@@ -169,11 +204,56 @@ body.dark-mode .nav-button:hover {
 }
 
 /* Rank Update Form on Dashboard */
-.dashboard-rank-update-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; } /* Increased gap */
-/* .form-group for labels/selects is styled in base.css */
-.dashboard-rank-update-form .division-buttons { display: flex; justify-content: space-between; gap: 6px; margin-top: 4px; } /* Increased gap */
-.dashboard-rank-update-form .division-buttons button { flex-grow: 1; padding: 8px 5px; font-size: 0.85em; border: 1px solid var(--current-border-color); background-color: var(--current-button-bg); color: var(--current-button-text); border-radius: 3px; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; } /* Increased padding/font */
-.dashboard-rank-update-form .division-buttons button.selected { background-color: var(--current-accent-color); color: white; border-color: var(--current-accent-color); }
+.dashboard-rank-update-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    margin-bottom: 15px; 
+}
+/* .form-group within dashboard form inherits from base.css */
+.dashboard-rank-update-form .division-buttons { 
+    display: flex; 
+    justify-content: space-between; 
+    gap: 6px; 
+    margin-top: 4px; 
+}
+.dashboard-rank-update-form .division-buttons button { 
+    flex-grow: 1; 
+    padding: 8px 5px; 
+    font-size: 0.85em; 
+    border: 1px solid var(--current-border-color);
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.dashboard-rank-update-form .division-buttons button.selected { 
+    background-color: var(--current-accent-color); 
+    color: white; /* Default for selected accent buttons */
+    border-color: var(--current-accent-color); 
+    font-weight: bold;
+}
 body.pink-mode .dashboard-rank-update-form .division-buttons button.selected { color: #fff; }
-.dashboard-rank-update-form .form-button { font-size: 0.9em; padding: 8px 12px; margin-top: 10px; } /* Matched .nav-button size */
-#dashboardRankChartContainer { min-height: 200px; position: relative; margin-top: 15px; padding: 10px; border: 1px solid var(--current-border-color); border-radius: 4px; }
+body.dark-mode .dashboard-rank-update-form .division-buttons button.selected { color: #111; } /* Dark text for orange */
+
+
+/* Explicitly style the submit button in this form using the .form-button class rules */
+/* The .form-button class itself is defined in base.css */
+.dashboard-rank-update-form button[type="submit"].form-button { 
+    /* It will inherit all styles from .form-button (defined in base.css) */
+    /* Add any specific overrides for *this context* if needed, e.g., margin */
+    margin-top: 10px; 
+    font-size: 0.9em; /* Match general form button style */
+    /* width: auto; /* If you don't want it full-width in this specific form context */ 
+    /* align-self: flex-start; */
+}
+
+#dashboardRankChartContainer { 
+    min-height: 200px; 
+    position: relative; 
+    margin-top: 15px; 
+    padding: 10px; 
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+}
