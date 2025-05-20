@@ -133,10 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
             closeRankPromptModalBtnEl, saveModalRankLogBtnEl, cancelModalRankLogBtnEl
         );
         
+        // Initialize Program Week Details Modal Listeners
         if (typeof initProgramWeekDetailsModalListeners === 'function') {
             initProgramWeekDetailsModalListeners(closeWeekDetailsModalBtnEl, okWeekDetailsModalBtnEl, programWeekDetailsModalEl);
         } else {
-            console.error("initProgramModals function not found or not imported correctly as initProgramWeekDetailsModalListeners.");
+            console.error("initProgramModals function (aliased as initProgramWeekDetailsModalListeners) not found or not imported correctly from ui-render-program.js");
         }
         
         if (newCycleBtn) newCycleBtn.addEventListener('click', startNewCycle);
