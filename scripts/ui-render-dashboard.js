@@ -1,12 +1,12 @@
-// ui-render-dashboard.js
+// scripts/ui-render-dashboard.js
 import { appState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
-import { toggleTaskCompletion } from './script.js'; // Main script will export this
-import { populateRankSelects, generateDivisionButtons, addRankEntry, createRankChartConfig } from './ui-render-progress.js'; // For rank form and chart
+// REMOVED: import { toggleTaskCompletion } from './script.js'; 
+import { populateRankSelects, generateDivisionButtons, addRankEntry, createRankChartConfig } from './ui-render-progress.js'; 
 
 let dailyNoteSaveTimeout = null;
-export let rankChartInstanceDashboard = null; // Export to be managed by theme and page changes
+export let rankChartInstanceDashboard = null; 
 
 export function renderDashboardPage(mainContentEl) {
     mainContentEl.innerHTML = `
@@ -59,15 +59,13 @@ export function renderDashboardPage(mainContentEl) {
         </div>
     `;
     
-    // Populate rank dropdowns for the dashboard form
     populateRankSelects(document.getElementById('dashboardRankTier'));
     generateDivisionButtons(
         document.getElementById('dashboardRankDivisionButtons'),
         document.getElementById('dashboardRankDivisionValue'),
-        'dashboard' // Prefix for button IDs if needed, not strictly necessary with current CSS
+        'dashboard' 
     );
 
-    // Attach event listeners for elements specific to this page
     const localPrevDayBtn = document.getElementById('prevDayBtn');
     const localNextDayBtn = document.getElementById('nextDayBtn');
     if (localPrevDayBtn) localPrevDayBtn.addEventListener('click', () => navigateToDay(-1));
@@ -153,7 +151,8 @@ export function renderCurrentDayTasks() {
             checkbox.type = 'checkbox';
             checkbox.id = taskKey; 
             checkbox.checked = appState.taskCompletions[taskKey] || false;
-            checkbox.addEventListener('change', () => toggleTaskCompletion(task.id)); 
+            // Calls the globally available toggleTaskCompletion from script.js
+            checkbox.addEventListener('change', () => window.toggleTaskCompletion(task.id)); 
 
             const taskDetailsDiv = document.createElement('div');
             taskDetailsDiv.classList.add('task-details');
@@ -213,10 +212,9 @@ function handleDashboardRankUpdate(event) {
         type: 'daily', 
         tier, 
         division 
-    }); // addRankEntry now calls saveState via updateAppState
+    }); 
 
-    form.reset(); // Clear form fields
-    // Clear selected state for division buttons on dashboard
+    form.reset(); 
     const dashboardDivButtons = document.getElementById('dashboardRankDivisionButtons');
     if(dashboardDivButtons) dashboardDivButtons.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
     const dashboardDivValueInput = document.getElementById('dashboardRankDivisionValue');
@@ -227,8 +225,11 @@ function handleDashboardRankUpdate(event) {
 
 export function renderDashboardRankChart() {
     const chartContainer = document.getElementById('dashboardRankChartContainer');
-    const canvasEl = document.getElementById('dashboardRankChart');
-    if (!canvasEl || !chartContainer) return;
+    const canvasEl = document.getElementById('dashboardRankChart'); // Get canvas again
+    if (!canvasEl || !chartContainer) {
+        // console.log("Dashboard chart canvas or container not found");
+        return;
+    }
 
     if (rankChartInstanceDashboard) rankChartInstanceDashboard.destroy();
     
@@ -240,11 +241,12 @@ export function renderDashboardRankChart() {
         chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px; font-size:0.9em;">Log your rank to see progression here.</p>'; 
         return;
     }
-    // Ensure canvas is there if we previously put text
+    // Ensure canvas is there if we previously put text and it got removed
     if (!document.getElementById('dashboardRankChart')) { 
         chartContainer.innerHTML = '<canvas id="dashboardRankChart"></canvas>'; 
     }
 
     const chartConfig = createRankChartConfig(currentCycleRankData, "Daily Rank Trend");
+    // Ensure canvas is fetched again AFTER potentially re-adding it
     rankChartInstanceDashboard = new Chart(document.getElementById('dashboardRankChart'), chartConfig);
 }
