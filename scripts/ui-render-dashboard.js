@@ -2,7 +2,7 @@
 import { appState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
-// REMOVED: import { toggleTaskCompletion } from './script.js'; 
+// toggleTaskCompletion is now on window object, called from event listener directly
 import { populateRankSelects, generateDivisionButtons, addRankEntry, createRankChartConfig } from './ui-render-progress.js'; 
 
 let dailyNoteSaveTimeout = null;
@@ -49,7 +49,7 @@ export function renderDashboardPage(mainContentEl) {
                             <div id="dashboardRankDivisionButtons" class="division-buttons"></div>
                             <input type="hidden" id="dashboardRankDivisionValue" name="dashboardRankDivisionValue">
                         </div>
-                        <button type="submit" class="form-button">Update Today's Rank</button>
+                        <button type="submit" class="form-button">Update Today's Rank</button> <!-- Ensured .form-button class -->
                     </form>
                     <div id="dashboardRankChartContainer" style="min-height: 220px; position: relative;">
                          <canvas id="dashboardRankChart"></canvas>
@@ -59,11 +59,12 @@ export function renderDashboardPage(mainContentEl) {
         </div>
     `;
     
+    // Populate rank dropdowns and generate division buttons for the dashboard form
     populateRankSelects(document.getElementById('dashboardRankTier'));
     generateDivisionButtons(
         document.getElementById('dashboardRankDivisionButtons'),
         document.getElementById('dashboardRankDivisionValue'),
-        'dashboard' 
+        'dashboard' // Prefix for button IDs
     );
 
     const localPrevDayBtn = document.getElementById('prevDayBtn');
@@ -124,8 +125,8 @@ export function renderCurrentDayTasks() {
     const weekData = programData[appState.currentWeek];
     if (!weekData) {
         localWeekTitleEl.textContent = "Error"; 
-        localWeekFocusEl.textContent = "";
-        localDayTitleEl.textContent = "";
+        if(localWeekFocusEl) localWeekFocusEl.textContent = "";
+        if(localDayTitleEl) localDayTitleEl.textContent = "";
         localTaskListEl.innerHTML = `<li>Week data missing for Week ${appState.currentWeek}.</li>`;
         updateNavigationButtons(); return;
     }
@@ -151,7 +152,6 @@ export function renderCurrentDayTasks() {
             checkbox.type = 'checkbox';
             checkbox.id = taskKey; 
             checkbox.checked = appState.taskCompletions[taskKey] || false;
-            // Calls the globally available toggleTaskCompletion from script.js
             checkbox.addEventListener('change', () => window.toggleTaskCompletion(task.id)); 
 
             const taskDetailsDiv = document.createElement('div');
@@ -225,11 +225,8 @@ function handleDashboardRankUpdate(event) {
 
 export function renderDashboardRankChart() {
     const chartContainer = document.getElementById('dashboardRankChartContainer');
-    const canvasEl = document.getElementById('dashboardRankChart'); // Get canvas again
-    if (!canvasEl || !chartContainer) {
-        // console.log("Dashboard chart canvas or container not found");
-        return;
-    }
+    const canvasEl = document.getElementById('dashboardRankChart'); 
+    if (!canvasEl || !chartContainer) return;
 
     if (rankChartInstanceDashboard) rankChartInstanceDashboard.destroy();
     
@@ -241,12 +238,15 @@ export function renderDashboardRankChart() {
         chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px; font-size:0.9em;">Log your rank to see progression here.</p>'; 
         return;
     }
-    // Ensure canvas is there if we previously put text and it got removed
     if (!document.getElementById('dashboardRankChart')) { 
         chartContainer.innerHTML = '<canvas id="dashboardRankChart"></canvas>'; 
     }
 
     const chartConfig = createRankChartConfig(currentCycleRankData, "Daily Rank Trend");
-    // Ensure canvas is fetched again AFTER potentially re-adding it
-    rankChartInstanceDashboard = new Chart(document.getElementById('dashboardRankChart'), chartConfig);
+    const newCanvasEl = document.getElementById('dashboardRankChart'); // Re-fetch canvas after potential innerHTML change
+    if (newCanvasEl) {
+      rankChartInstanceDashboard = new Chart(newCanvasEl, chartConfig);
+    } else {
+        console.error("Dashboard chart canvas not found after attempting to re-add it.");
+    }
 }

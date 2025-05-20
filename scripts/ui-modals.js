@@ -5,17 +5,17 @@ import { renderDashboardRankChart } from './ui-render-dashboard.js';
 import { renderRankHistoryPage } from './ui-render-progress.js'; 
 
 // DOM Element References (will be initialized by initRankPromptModal)
-let rankPromptModalEl = null; // Changed from rankPromptModal to avoid conflict if other modals use this var name
+let rankPromptModalEl = null; 
 let rankPromptTitleEl = null;
-let modalRankLogFormEl = null; // Changed from modalRankLogForm
-let modalRankLogWeekInputEl = null; // Changed from modalRankLogWeekInput
-let modalRankLogTypeInputEl = null; // Changed from modalRankLogTypeInput
-let modalRankTierSelectEl = null; // Changed from modalRankTierSelect
+let modalRankLogFormEl = null; 
+let modalRankLogWeekInputEl = null; 
+let modalRankLogTypeInputEl = null; 
+let modalRankTierSelectEl = null; 
 let modalRankDivisionButtonsEl = null;
-let modalRankDivisionValueInputEl = null; // Changed from modalRankDivisionValueInput
-let closeRankPromptModalBtnEl = null; // Changed from closeRankPromptModalBtn
-let saveModalRankLogBtnEl = null; // Changed from saveModalRankLogBtn
-let cancelModalRankLogBtnEl = null; // Changed from cancelModalRankLogBtn
+let modalRankDivisionValueInputEl = null; 
+let closeRankPromptModalBtnEl = null; 
+let saveModalRankLogBtnEl = null; 
+let cancelModalRankLogBtnEl = null; 
 
 export function initRankPromptModal(
     modalElement, titleElement, formElement, weekInputElement, typeInputElement, tierSelectElement, 
@@ -48,19 +48,23 @@ export function initRankPromptModal(
 
 export function promptForRank(week, type = 'initial') {
     if (!rankPromptModalEl || !modalRankLogFormEl || !modalRankDivisionButtonsEl || !modalRankDivisionValueInputEl || !rankPromptTitleEl || !modalRankLogWeekInputEl || !modalRankLogTypeInputEl || !modalRankTierSelectEl) {
-        console.error("Rank prompt modal elements not all initialized correctly.");
+        console.error("Rank prompt modal elements not all initialized correctly for promptForRank.");
         return;
     }
     
     const promptKey = type === 'initial' ? `c${appState.currentCycle}_initialPrompt` : `c${appState.currentCycle}w${week}_${type}Prompt`;
     if (type === 'endOfWeek' && appState.hasPromptedRankForWeek[promptKey]) {
+        console.log(`Already actioned prompt for rank for end of W${week} C${appState.currentCycle}.`);
         return; 
     }
-    if (type === 'initial' && appState.hasPromptedInitialRankThisCycle) {
+     if (type === 'initial' && appState.hasPromptedInitialRankThisCycle) {
         const currentCycleInitialRankExists = appState.rankHistory.some(
             r => r.cycle === appState.currentCycle && r.type === 'initial'
         );
-        if(currentCycleInitialRankExists) return;
+        if(currentCycleInitialRankExists) {
+            console.log(`Initial rank for Cycle ${appState.currentCycle} already logged or explicitly skipped.`);
+            return;
+        }
     }
 
     rankPromptTitleEl.textContent = type === 'initial' ? `Log Initial Rank (Cycle ${appState.currentCycle})` : `Log Rank for End of Week ${week} (Cycle ${appState.currentCycle})`;
@@ -68,11 +72,12 @@ export function promptForRank(week, type = 'initial') {
     modalRankLogTypeInputEl.value = type;
 
     populateRankSelects(modalRankTierSelectEl); 
+    // Crucially, ensure generateDivisionButtons is called and elements are correct
     generateDivisionButtons(modalRankDivisionButtonsEl, modalRankDivisionValueInputEl, 'modalPrompt');
     
-    modalRankLogFormEl.reset(); 
-    modalRankDivisionValueInputEl.value = ''; 
-    if(modalRankDivisionButtonsEl) modalRankDivisionButtonsEl.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+    modalRankLogFormEl.reset(); // Clears tier select
+    modalRankDivisionValueInputEl.value = ''; // Clear hidden division input explicitly
+    if(modalRankDivisionButtonsEl) modalRankDivisionButtonsEl.querySelectorAll('button').forEach(btn => btn.classList.remove('selected')); // Clear button selection
 
     const latestRankInCycle = appState.rankHistory.slice().reverse().find(r => r.cycle === appState.currentCycle);
     const latestRankOverall = appState.rankHistory.length > 0 ? appState.rankHistory[appState.rankHistory.length - 1] : null;
@@ -95,18 +100,23 @@ export function promptForRank(week, type = 'initial') {
 export function closeRankPromptModal() {
     if (rankPromptModalEl) rankPromptModalEl.style.display = 'none';
     
-    const type = modalRankLogTypeInputEl.value; // Use the element reference
-    const week = parseInt(modalRankLogWeekInputEl.value); 
+    // These elements might not exist if modal was never fully initialized, so guard access
+    const typeInput = document.getElementById('modalRankLogType'); // Re-querying here just in case
+    const weekInput = document.getElementById('modalRankLogWeek');
+
+    if (!typeInput || !weekInput) return; 
+
+    const type = typeInput.value;
+    const week = parseInt(weekInput.value); 
 
     if (type === 'initial') {
         updateAppState({ hasPromptedInitialRankThisCycle: true });
-    } else if (type === 'endOfWeek') {
+    } else if (type === 'endOfWeek' && !isNaN(week)) { // Ensure week is a number
         const promptKey = `c${appState.currentCycle}w${week}_${type}Prompt`;
         updateAppState({ 
             hasPromptedRankForWeek: { ...appState.hasPromptedRankForWeek, [promptKey]: true } 
         });
     }
-    // saveState() is called by updateAppState
 }
 
 function handleModalRankLogSave() {
@@ -131,9 +141,7 @@ function handleModalRankLogSave() {
         tier, 
         division 
     });
-    
-    // Marking as prompted is now handled by closeRankPromptModal which is called next
-    
+        
     closeRankPromptModal(); 
     
     if (appState.currentPage === 'dashboard') renderDashboardRankChart();
