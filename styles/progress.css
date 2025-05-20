@@ -1,0 +1,95 @@
+/* styles/progress.css */
+
+/* Page title h2 is styled in base.css via .progress-page h2 */
+
+/* Section for Overall Program Progress */
+.progress-page .content-card:first-of-type { /* Target the first card which is for overall progress */
+    margin-bottom: 25px; /* More space below overall progress */
+}
+
+#overallProgramProgressContainer p {
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+/* Progress bar itself (container and fill) is styled in base.css */
+
+
+/* Rank History Section */
+.rank-history-section { /* The content-card containing the list and chart */
+    /* No specific styles needed here beyond .content-card unless desired */
+}
+
+.rank-history-section h3 {
+    /* Uses .content-card h3 from base.css */
+}
+
+.rank-history-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px; /* Space above the list if h3 is present */
+}
+
+.rank-history-list li {
+    padding: 10px; /* More padding for list items */
+    border-bottom: 1px dashed var(--current-border-color);
+    font-size: 0.95em; /* Slightly larger than dashboard version */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    background-color: var(--current-textarea-bg); /* Use textarea bg for slight differentiation */
+    margin-bottom: 6px; /* Space between list items */
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+body.dark-mode .rank-history-list li {
+    box-shadow: 0 1px 2px rgba(255,255,255,0.03);
+}
+
+
+.rank-history-list li:last-child {
+    border-bottom: none;
+}
+
+.rank-history-list li span:first-child { /* The part with rank type and rank string */
+    flex-grow: 1; /* Allow it to take up space */
+    padding-right: 10px; /* Space before date */
+}
+
+.rank-history-list .rank-type {
+    font-weight: bold;
+    margin-right: 8px; /* Increased space */
+    color: var(--current-accent-color);
+    display: inline-block; /* Ensure it doesn't break line weirdly */
+}
+
+.rank-history-list .rank-date {
+    opacity: 0.8; /* Slightly more prominent */
+    font-size: 0.9em; /* Slightly larger */
+    white-space: nowrap; /* Prevent date from wrapping */
+    color: var(--current-text-color);
+}
+
+/* Rank Chart on Progress Page */
+#progressPageRankChartContainer {
+    margin-top: 25px; /* More space above the main chart */
+    padding: 15px; /* More padding around chart */
+    border: 1px solid var(--current-border-color);
+    border-radius: 6px;
+    background-color: var(--current-container-bg); 
+    min-height: 350px; 
+    position: relative;
+    box-shadow: 0 2px 4px var(--current-card-shadow); /* Consistent card shadow */
+}
+
+/* Placeholder if no data for chart */
+#progressPageRankChartContainer p,
+#dashboardRankChartContainer p { /* Also style for dashboard placeholder */
+    text-align:center; 
+    padding-top:20px; 
+    font-size:0.9em;
+    color: var(--current-text-color);
+    opacity: 0.7;
+}

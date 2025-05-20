@@ -1,0 +1,204 @@
+/* styles/dashboard.css */
+
+.dashboard-layout {
+    display: flex;
+    flex-direction: column; /* Mobile first: stack all dashboard sections */
+    gap: 20px;
+}
+
+.dashboard-main-content { /* Contains week info, tasks, day nav */
+    flex-grow: 1; 
+    order: 1; /* On mobile, show tasks and day info first */
+    display: flex;
+    flex-direction: column; /* Ensure its children stack properly */
+}
+
+.dashboard-side-panel { /* Contains daily notes AND rank update/chart */
+    flex-grow: 1;
+    order: 2; /* On mobile, notes and rank below main content */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between notes section and rank section in the panel */
+}
+
+.daily-notes-section, 
+.dashboard-rank-section {
+    padding: 15px;
+    border: 1px solid var(--current-border-color);
+    border-radius: 6px;
+    background-color: var(--current-container-bg); 
+    box-shadow: 0 1px 3px var(--current-card-shadow);
+}
+
+.week-info {
+    margin-bottom: 15px; /* Space below week title/focus/progress */
+}
+
+.week-info h2 { /* Week Title */
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 5px; /* Reduced margin */
+    color: var(--current-accent-color); 
+}
+
+.week-info p#weekFocus { /* Week Focus Text */
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.week-info h3#dayTitle { /* Day Title */
+    font-size: 1.1em;
+    margin-top: 10px; /* Space above day title */
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--current-border-color);
+}
+
+.current-week-progress {
+    margin-bottom: 15px;
+}
+.current-week-progress p#currentWeekProgressText {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+/* Progress bar itself is styled in base.css */
+
+
+.tasks-section {
+    margin-bottom: 15px; /* Space below task list before day navigation */
+}
+.tasks-section h4 {
+    font-size: 1.05em;
+    margin-bottom: 10px;
+    color: var(--current-text-color); /* Or accent, depending on preference */
+}
+
+.task-list { 
+    list-style: none; 
+    padding: 0; 
+}
+.task-list li { 
+    display: flex; 
+    align-items: center; 
+    padding: 10px 0; 
+    border-bottom: 1px solid var(--current-border-color); 
+}
+.task-list li:last-child { 
+    border-bottom: none; 
+}
+.task-list li:hover { 
+    /* Theme-specific hovers defined in base.css using body.theme-mode */
+    background-color: rgba(0,0,0,0.03); 
+}
+body.dark-mode .task-list li:hover { background-color: rgba(255,255,255,0.03); }
+body.pink-mode .task-list li:hover { background-color: rgba(255, 182, 193, 0.1); }
+
+.task-list input[type="checkbox"] { 
+    margin-right: 10px; 
+    min-width: 20px; 
+    width: 20px; 
+    height: 20px; 
+    cursor: pointer; 
+    accent-color: var(--current-accent-color); 
+}
+.task-details { 
+    flex-grow: 1; 
+    font-size: 0.95em; 
+}
+.task-details.completed { 
+    text-decoration: line-through; 
+    color: var(--completed-text-color); 
+}
+body.pink-mode .task-details.completed { /* Specific for pink theme if needed */
+    color: #ff7eb9; 
+}
+.task-focus { 
+    font-size: 0.8em; 
+    opacity: 0.7; 
+    display: block; 
+    margin-top: 2px; 
+}
+
+.day-navigation-controls { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 15px; 
+    padding-top: 10px; 
+    border-top: 1px solid var(--current-border-color); 
+}
+/* .nav-button styles are in header-nav.css (or will be moved to a components.css if more general) */
+/* For now, assuming .nav-button is general enough or defined in header-nav.css */
+
+
+.daily-notes-section h4, 
+.dashboard-rank-section h4 { 
+    font-size: 1.05em; 
+    margin-top: 0; 
+    margin-bottom: 10px;
+    color: var(--current-accent-color); 
+}
+#dailyNotesTextarea { 
+    width: calc(100% - 22px); /* Account for padding */
+    min-height: 150px; 
+    height: auto; /* Let content define height primarily on mobile */
+    max-height: 300px; /* Limit growth */
+    padding: 10px; 
+    border: 1px solid var(--current-input-border); 
+    border-radius: 4px; 
+    background-color: var(--current-textarea-bg); 
+    color: var(--current-text-color); 
+    font-size: 0.95em; 
+    line-height: 1.5; 
+    resize: vertical; 
+    box-sizing: border-box;
+}
+
+/* Rank Update Form on Dashboard */
+.dashboard-rank-update-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    margin-bottom: 15px; 
+}
+/* .form-group used for dashboard rank update form is styled in base.css */
+.dashboard-rank-update-form .division-buttons { 
+    display: flex; 
+    justify-content: space-between; 
+    gap: 5px; 
+    margin-top: 3px; /* Small space above buttons */
+}
+.dashboard-rank-update-form .division-buttons button { 
+    flex-grow: 1; 
+    padding: 6px 4px; 
+    font-size: 0.8em; 
+    border: 1px solid var(--current-border-color); 
+    background-color: var(--current-button-bg); 
+    color: var(--current-button-text); 
+    border-radius: 3px; 
+    cursor: pointer; 
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.dashboard-rank-update-form .division-buttons button.selected { 
+    background-color: var(--current-accent-color); 
+    color: white; 
+    border-color: var(--current-accent-color); 
+}
+body.pink-mode .dashboard-rank-update-form .division-buttons button.selected { 
+    color: #fff; 
+}
+.dashboard-rank-update-form .form-button { /* Submit button for this form */
+    font-size: 0.85em; /* Slightly larger than div buttons */
+    padding: 8px 12px; 
+    margin-top: 8px; 
+}
+#dashboardRankChartContainer { 
+    min-height: 200px; 
+    position: relative; 
+    margin-top: 10px; 
+    padding: 5px; /* Small padding around chart canvas */
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+}

@@ -1,0 +1,146 @@
+/* styles/responsive.css */
+
+/* =============================================== */
+/* =========== MEDIA QUERIES (Responsive) ========== */
+/* =============================================== */
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    body {
+        padding: 20px; 
+        font-size: 17px; 
+    }
+
+    .app-header h1 {
+        font-size: 1.6em;
+        flex-basis: auto; /* Allow h1 and controls to share space */
+        text-align: left; /* Align title to left on larger screens */
+    }
+    .header-controls {
+        width: auto; /* Controls don't need full width */
+        justify-content: flex-end; /* Align controls to the right */
+    }
+    .theme-toggle-btn, .new-cycle-btn {
+        font-size: 0.85em;
+    }
+
+    .dashboard-layout {
+        flex-direction: row; /* Side-by-side for main content and side panel */
+        gap: 25px; /* Slightly increased gap for larger screens */
+    }
+    .dashboard-main-content {
+        flex: 3; /* Main content takes more space */
+        order: 1; /* Keep order */
+    }
+    .dashboard-side-panel {
+        flex: 2; /* Side panel (notes + rank) takes less space */
+        order: 2; /* Keep order */
+        border-left: 1px solid var(--current-border-color);
+        padding-left: 20px;
+        border-top: none; /* Remove top border from mobile stacked view */
+        padding-top: 0; /* Reset padding from mobile stacked view */
+        margin-top: 0; /* Reset margin from mobile stacked view */
+    }
+    #dailyNotesTextarea {
+        font-size: 1em; 
+        min-height: 200px; 
+        max-height: none; /* Allow it to grow more on desktop if needed */
+        height: 250px; /* Default height, can be resized by user */
+    } 
+    #dashboardRankChartContainer {
+        min-height: 220px; 
+    }
+
+    .app-nav {
+        flex-wrap: nowrap; /* Prevent nav items from wrapping on tablet */
+        justify-content: center; /* Center nav items if they don't fill space */
+    }
+    .app-nav .nav-link {
+        font-size: 0.9em;
+        flex-grow: 0; /* Don't make them take full width if not needed */
+        padding: 10px 20px; /* More padding for easier clicks */
+    }
+
+    .week-card-header {
+        flex-direction: row; 
+        align-items: center; /* Vertically align title and progress */
+        flex-wrap: nowrap; /* Prevent wrapping on tablet for header */
+    }
+    .week-card-header h3 {
+        margin: 0; /* Remove bottom margin from stacked view */
+        font-size: 1.2em;
+    }
+    .week-progress {
+        font-size: 0.9em;
+        margin-left: auto; /* Pushes progress to the right */
+        padding-left: 10px; /* Space from title if title is short */
+    }
+
+    /* Make forms on progress page and modal rank prompt more horizontal */
+    .rank-logging-form:not(.modal-form) { /* Target only the rank form on progress page */
+        flex-direction: row; 
+        align-items: flex-end; 
+        gap: 15px; /* Increased gap */
+    }
+    .rank-logging-form:not(.modal-form) > .form-group { /* Use form-group now */
+        flex-grow: 1; 
+    }
+    .rank-logging-form:not(.modal-form) select,
+    .rank-logging-form:not(.modal-form) input[type="number"] {
+        width: auto; /* Let them size naturally or with min-width */
+        min-width: 120px; /* Min width for selects */
+    }
+     .rank-logging-form:not(.modal-form) .form-button {
+        margin-top: 0; /* Remove top margin from stacked view */
+        flex-grow: 0; /* Don't let button grow excessively */
+        align-self: flex-end; /* Align with bottom of inputs */
+        margin-bottom: 0; /* If inputs have padding making them taller */
+        height: fit-content; /* Adjust height to match inputs if needed */
+        padding: 10px 15px; /* Match general input padding */
+
+    }
+    /* For modal form, it's already column, keep it that way for clarity in modal */
+    .rank-prompt-modal .modal-form {
+        /* Stays column, styles in modals.css */
+    }
+
+
+    .weeks-container { 
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for program overview */
+        gap: 20px; /* Increased gap */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    body {
+        font-size: 18px; 
+    }
+    .container { 
+        max-width: 1200px; /* Wider container for desktops */
+    }
+
+    .app-header h1 {
+        font-size: 1.8em;
+    }
+    .theme-toggle-btn, .new-cycle-btn {
+        font-size: 0.9em;
+    }
+
+    .app-nav .nav-link {
+        font-size: 1em;
+    }
+    
+    .weeks-container { 
+        /* Potentially 3 columns if space, but auto-fill is often better */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    }
+}
+
+/* Extra Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    /* .weeks-container { 
+        grid-template-columns: repeat(3, 1fr); // Explicitly 3 columns if desired
+    } */
+    /* Further adjustments if needed for very large screens */
+}

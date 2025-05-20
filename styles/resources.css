@@ -1,0 +1,52 @@
+/* styles/resources.css */
+
+/* Page title h2 is styled in base.css via .resources-page h2 */
+
+.resource-category { 
+    /* This class uses .content-card styles from base.css, so no need to redefine them here. */
+    /* We only add styles specific to the content *within* a resource category card. */
+    margin-bottom: 20px; /* Consistent with other content cards */
+}
+
+.resource-category h3 { 
+    /* Uses .content-card h3 from base.css */
+    /* No specific override needed unless desired */
+}
+
+.resource-category ul {
+    list-style: none; /* Or use 'disc' or 'circle' if preferred */
+    padding-left: 0; /* Remove default ul padding if no list-style disc/circle */
+    /* If using list-style disc/circle, you might want padding-left: 20px; */
+    margin-top: 0; /* Remove default ul margin */
+}
+
+.resource-category li {
+    padding: 10px 0; /* Increased padding for better spacing */
+    border-bottom: 1px dashed var(--current-border-color);
+    line-height: 1.5; /* Improve readability if notes wrap */
+}
+
+.resource-category li:last-child {
+    border-bottom: none;
+}
+
+.resource-category li a {
+    color: var(--current-text-color); /* Standard text color for links for readability */
+    text-decoration: none;
+    font-weight: 500; /* Make link text slightly bolder */
+    transition: color 0.2s ease; /* Smooth color transition on hover */
+}
+
+.resource-category li a:hover {
+    color: var(--current-accent-color); /* Change to accent color on hover */
+    text-decoration: underline;
+}
+
+.resource-note {
+    font-size: 0.85em; /* Slightly larger for better readability */
+    opacity: 0.75; /* Slightly more prominent */
+    display: block; /* Make notes appear on a new line below the link */
+    margin-top: 3px; /* Small space between link and note */
+    padding-left: 15px; /* Indent notes slightly */
+    color: var(--current-text-color); /* Ensure note text is readable */
+}

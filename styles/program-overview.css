@@ -1,0 +1,86 @@
+/* styles/program-overview.css */
+
+/* Page title h2 is styled in base.css via .program-overview-page h2 */
+
+.weeks-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column for mobile */
+    gap: 15px;
+}
+
+.week-card {
+    background-color: var(--current-container-bg); 
+    border: 1px solid var(--current-border-color);
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px var(--current-card-shadow);
+    display: flex; /* Added for flex layout of content */
+    flex-direction: column; /* Stack content vertically within the card */
+}
+
+.week-card-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; /* Align to top for better title/progress alignment */
+    margin-bottom: 8px; 
+    flex-wrap: wrap; /* Allow wrapping if title is very long */
+    padding-bottom: 5px; /* Add some padding below the header content */
+    border-bottom: 1px dashed var(--current-border-color); /* Separator for header */
+}
+
+.week-card-header h3 { /* Week Title within card */
+    margin: 0 0 3px 0; 
+    font-size: 1.1em; 
+    color: var(--current-accent-color); 
+    line-height: 1.3; /* Adjusted line height */
+    flex-grow: 1; /* Allow title to take available space before progress % */
+    padding-right: 10px; /* Space before progress % if on same line */
+    /* Remove border from generic .content-card h3 if it was inheriting */
+    border-bottom: none; 
+    padding-bottom: 0; 
+}
+
+.week-progress {
+    font-size: 0.9em; /* Adjusted from 0.85em */
+    font-weight: bold;
+    white-space: nowrap; /* Prevent progress text from wrapping */
+    line-height: 1.3; /* Match h3 line-height */
+    color: var(--current-text-color); /* Or themed accent if preferred */
+    background-color: var(--current-button-bg); /* Give it a slight background */
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.week-card-focus {
+    font-size: 0.9em;
+    margin-bottom: 12px; /* Increased space before button */
+    opacity: 0.8;
+    flex-grow: 1; /* Allows focus text to take up available vertical space */
+    line-height: 1.4;
+}
+
+.view-week-details-btn {
+    padding: 8px 12px;
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em; /* Adjusted from 0.8em */
+    margin-top: auto; /* Pushes button to the bottom of the card if card height varies */
+    align-self: flex-start; /* Align button to the left if card content is short */
+    /* transition is inherited from general .form-button or .nav-button if we consolidate */
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.view-week-details-btn:hover {
+    opacity: 0.8;
+    background-color: var(--current-accent-color); /* Themed hover */
+    color: white;
+}
+body.pink-mode .view-week-details-btn:hover {
+    color: #581845; /* Or #fff if preferred on pink accent hover */
+}
+
+/* Styles for the content inside the week details modal will be in modals.css */
+/* This file focuses on the card layout on the program overview page itself */

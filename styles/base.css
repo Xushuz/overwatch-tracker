@@ -1,0 +1,263 @@
+/* styles/base.css */
+
+:root {
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    
+    /* Light Theme Variables */
+    --bg-color-light: #f4f7f6;
+    --text-color-light: #333;
+    --container-bg-light: #ffffff;
+    --border-color-light: #e0e0e0;
+    --header-bg-light: #ffffff;
+    --nav-bg-light: #f9f9f9;
+    --button-bg-light: #e9ecef;
+    --button-text-light: #495057;
+    --input-bg-light: #fdfdfd;
+    --input-border-light: #ced4da;
+    --textarea-bg-light: #f8f9fa;
+    --card-shadow-light: rgba(0, 0, 0, 0.05);
+    --accent-color-light: #007bff; 
+    --accent-hover-color-light: #0056b3;
+    --nav-active-bg-light: rgba(0, 123, 255, 0.1);
+    --progress-bar-bg-light: #e9ecef;
+    --modal-content-bg-light: #ffffff;
+
+
+    /* Dark Theme Variables */
+    --bg-color-dark: #121212;
+    --text-color-dark: #e0e0e0;
+    --container-bg-dark: #1e1e1e;
+    --border-color-dark: #444444;
+    --header-bg-dark: #1e1e1e; 
+    --nav-bg-dark: #2c2c2c;
+    --button-bg-dark: #3a3a3a;
+    --button-text-dark: #e0e0e0;
+    --input-bg-dark: #333;
+    --input-border-dark: #555;
+    --textarea-bg-dark: #252525;
+    --card-shadow-dark: rgba(100, 100, 100, 0.1); /* Adjusted for better visibility on dark */
+    --accent-color-dark: #66bfff; 
+    --accent-hover-color-dark: #4da6ff;
+    --nav-active-bg-dark: rgba(102, 191, 255, 0.2);
+    --progress-bar-bg-dark: #3a3a3a;
+    --modal-content-bg-dark: #2c2c2c;
+
+
+    /* Pink Theme Variables */
+    --bg-color-pink: #fff0f5; 
+    --text-color-pink: #581845; 
+    --container-bg-pink: #ffffff; 
+    --border-color-pink: #ffc0cb; 
+    --header-bg-pink: #ffffff;
+    --nav-bg-pink: #ffe4e1; 
+    --button-bg-pink: #ffb6c1; 
+    --button-text-pink: #581845; 
+    --input-bg-pink: #fffafa; 
+    --input-border-pink: #ffc0cb;
+    --textarea-bg-pink: #fffafa;
+    --card-shadow-pink: rgba(255, 105, 180, 0.1); 
+    --accent-color-pink: #ff69b4; 
+    --accent-hover-color-pink: #ff1493; 
+    --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
+    --progress-bar-bg-pink: #ffdde5;
+    --modal-content-bg-pink: #ffffff;
+
+
+    /* General Non-Theme Specific */
+    --completed-text-color: #6c757d; 
+    --danger-color: #dc3545;
+
+    /* Current theme (defaults to light, overridden by body classes) */
+    --current-bg-color: var(--bg-color-light);
+    --current-text-color: var(--text-color-light);
+    --current-container-bg: var(--container-bg-light);
+    --current-border-color: var(--border-color-light);
+    --current-header-bg: var(--header-bg-light);
+    --current-nav-bg: var(--nav-bg-light);
+    --current-button-bg: var(--button-bg-light);
+    --current-button-text: var(--button-text-light);
+    --current-input-bg: var(--input-bg-light);
+    --current-input-border: var(--input-border-light);
+    --current-textarea-bg: var(--textarea-bg-light);
+    --current-card-shadow: var(--card-shadow-light);
+    --current-accent-color: var(--accent-color-light);
+    --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-nav-active-bg: var(--nav-active-bg-light);
+    --current-progress-bar-bg: var(--progress-bar-bg-light);
+    --current-modal-content-bg: var(--modal-content-bg-light);
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 10px; 
+    background-color: var(--current-bg-color);
+    color: var(--current-text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px; 
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
+    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+}
+
+/* Theme application classes for body */
+body.light-mode {
+    --current-bg-color: var(--bg-color-light);
+    --current-text-color: var(--text-color-light);
+    --current-container-bg: var(--container-bg-light);
+    --current-border-color: var(--border-color-light);
+    --current-header-bg: var(--header-bg-light);
+    --current-nav-bg: var(--nav-bg-light);
+    --current-button-bg: var(--button-bg-light);
+    --current-button-text: var(--button-text-light);
+    --current-input-bg: var(--input-bg-light);
+    --current-input-border: var(--input-border-light);
+    --current-textarea-bg: var(--textarea-bg-light);
+    --current-card-shadow: var(--card-shadow-light);
+    --current-accent-color: var(--accent-color-light);
+    --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-nav-active-bg: var(--nav-active-bg-light);
+    --current-progress-bar-bg: var(--progress-bar-bg-light);
+    --current-modal-content-bg: var(--modal-content-bg-light);
+}
+
+body.dark-mode {
+    --current-bg-color: var(--bg-color-dark);
+    --current-text-color: var(--text-color-dark);
+    --current-container-bg: var(--container-bg-dark);
+    --current-border-color: var(--border-color-dark);
+    --current-header-bg: var(--header-bg-dark);
+    --current-nav-bg: var(--nav-bg-dark);
+    --current-button-bg: var(--button-bg-dark);
+    --current-button-text: var(--button-text-dark);
+    --current-input-bg: var(--input-bg-dark);
+    --current-input-border: var(--input-border-dark);
+    --current-textarea-bg: var(--textarea-bg-dark);
+    --current-card-shadow: var(--card-shadow-dark);
+    --current-accent-color: var(--accent-color-dark);
+    --current-accent-hover-color: var(--accent-hover-color-dark);
+    --current-nav-active-bg: var(--nav-active-bg-dark);
+    --current-progress-bar-bg: var(--progress-bar-bg-dark);
+    --current-modal-content-bg: var(--modal-content-bg-dark);
+}
+
+body.pink-mode { 
+    --current-bg-color: var(--bg-color-pink);
+    --current-text-color: var(--text-color-pink);
+    --current-container-bg: var(--container-bg-pink);
+    --current-border-color: var(--border-color-pink);
+    --current-header-bg: var(--header-bg-pink);
+    --current-nav-bg: var(--nav-bg-pink);
+    --current-button-bg: var(--button-bg-pink);
+    --current-button-text: var(--button-text-pink);
+    --current-input-bg: var(--input-bg-pink);
+    --current-input-border: var(--input-border-pink);
+    --current-textarea-bg: var(--textarea-bg-pink);
+    --current-card-shadow: var(--card-shadow-pink);
+    --current-accent-color: var(--accent-color-pink);
+    --current-accent-hover-color: var(--accent-hover-color-pink);
+    --current-nav-active-bg: var(--nav-active-bg-pink);
+    --current-progress-bar-bg: var(--progress-bar-bg-pink);
+    --current-modal-content-bg: var(--modal-content-bg-pink);
+}
+
+.container {
+    width: 100%; 
+    max-width: 1100px; 
+    margin: 0 auto;
+    background-color: var(--current-container-bg);
+    border: 1px solid var(--current-border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--current-card-shadow); 
+    overflow: hidden; 
+    box-sizing: border-box; 
+}
+
+.app-main { 
+    padding: 15px; 
+}
+
+/* General Page Titles (h2 inside specific page sections) */
+.program-overview-page h2, 
+.daily-notes-summary-page h2, 
+.resources-page h2, 
+.progress-page h2 { /* Added .progress-page h2 here */
+    text-align: center;
+    margin-bottom: 20px; /* Increased from 15px */
+    color: var(--current-accent-color); 
+    font-size: 1.6em; /* Increased from 1.5em */
+    font-weight: 500; /* Slightly less bold than h1 */
+}
+
+/* Generic Card Style for sections within pages */
+.content-card { 
+    background-color: var(--current-container-bg); 
+    border: 1px solid var(--current-border-color);
+    border-radius: 6px; 
+    padding: 15px; 
+    margin-bottom: 20px; /* Increased from 15px */
+    box-shadow: 0 2px 4px var(--current-card-shadow);
+}
+.content-card h3 { 
+    margin-top: 0; 
+    color: var(--current-accent-color); 
+    font-size: 1.25em; /* Increased from 1.2em */
+    padding-bottom: 10px; /* Increased from 8px */
+    border-bottom: 1px solid var(--current-border-color);
+    margin-bottom: 15px; /* Increased from 10px */
+}
+
+/* Progress Bar General Styles */
+.progress-bar-container { 
+    width: 100%; 
+    background-color: var(--current-progress-bar-bg);
+    border-radius: 4px; 
+    overflow: hidden; 
+    height: 22px; 
+    margin-top: 5px;
+    border: 1px solid var(--current-border-color);
+}
+.progress-bar-fill { 
+    background-color: var(--current-accent-color); 
+    height: 100%; 
+    transition: width 0.5s ease-in-out; 
+    text-align: center; 
+    color: white; 
+    font-weight: bold; 
+    line-height: 22px; 
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body.pink-mode .progress-bar-fill {
+    color: var(--text-color-pink); /* Darker text on lighter pink fill */
+}
+body.light-mode .progress-bar-fill { /* Ensure white text on blue for light mode */
+    color: #fff;
+}
+
+/* General Form Grouping for consistency */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px; /* Consistent spacing for form groups */
+}
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--current-text-color);
+}
+.form-group select,
+.form-group input[type="number"],
+.form-group input[type="text"] { /* Added text input */
+    padding: 10px 12px;
+    border: 1px solid var(--current-input-border);
+    background-color: var(--current-input-bg);
+    color: var(--current-text-color);
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}

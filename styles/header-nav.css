@@ -1,0 +1,97 @@
+/* styles/header-nav.css */
+
+.app-header {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px; 
+    background-color: var(--current-header-bg);
+    border-bottom: 1px solid var(--current-border-color);
+}
+
+.app-header h1 {
+    font-size: 1.5em; 
+    margin: 0 0 5px 0; 
+    color: var(--current-accent-color); 
+    flex-basis: 100%; /* Allow h1 to take full width if controls wrap on very small screens */
+    text-align: center; /* Center h1 if it takes full width */
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Allow controls to take full width if wrapped */
+    justify-content: center; /* Center controls if wrapped */
+}
+
+.header-controls span#currentDate { /* Specific for date */
+    margin-right: 10px;
+    font-size: 0.85em;
+    opacity: 0.8;
+    white-space: nowrap; /* Prevent date from wrapping awkwardly */
+}
+
+.theme-toggle-btn, 
+.new-cycle-btn {
+    padding: 6px 10px;
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.theme-toggle-btn:hover, 
+.new-cycle-btn:hover {
+    opacity: 0.8;
+}
+
+.app-nav {
+    display: flex;
+    justify-content: space-around; 
+    flex-wrap: wrap; 
+    padding: 5px 0; 
+    background-color: var(--current-nav-bg);
+    border-top: 1px solid var(--current-border-color);
+    box-shadow: 0 -1px 3px var(--current-card-shadow); /* Subtle shadow above nav */
+}
+
+.app-nav .nav-link {
+    padding: 8px 10px; 
+    color: var(--current-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Added color transition */
+    font-size: 0.85em; 
+    text-align: center;
+    flex-grow: 1; /* Make them take up equal space, good for few items */
+    margin: 2px; 
+    min-width: 80px; /* Minimum width for tappability */
+}
+
+.app-nav .nav-link:hover {
+    /* Theme specific hovers applied via body class */
+    color: var(--current-accent-color);
+    background-color: var(--current-button-bg); /* Use button bg for hover consistency */
+}
+body.light-mode .app-nav .nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+body.dark-mode .app-nav .nav-link:hover { 
+    background-color: rgba(102, 191, 255, 0.1);
+}
+body.pink-mode .app-nav .nav-link:hover {
+    background-color: rgba(255, 105, 180, 0.1); 
+}
+
+.app-nav .nav-link.active {
+    color: var(--current-accent-color); 
+    font-weight: bold;
+    background-color: var(--current-nav-active-bg); 
+}

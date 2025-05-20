@@ -1,0 +1,11 @@
+/* styles/main.css */
+
+@import url('base.css');
+@import url('header-nav.css');
+@import url('dashboard.css');
+@import url('program-overview.css');
+@import url('modals.css');
+@import url('progress.css');
+@import url('resources.css');
+@import url('notes-summary.css');
+@import url('responsive.css');
