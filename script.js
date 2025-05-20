@@ -378,9 +378,9 @@ document.addEventListener('DOMContentLoaded', () => {
         theme: themes[0], 
         taskCompletions: {}, 
         dailyNotes: {},
-        rankHistory: [], // [{ cycle: 1, week: 0, type: 'initial', rankString: "D3", dateLogged: "...", tier, division, sr}]
-                         // [{ cycle: 1, week: 1, type: 'endOfWeek', rankString: "D2", dateLogged: "...", tier, division, sr}]
-                         // [{ cycle: 1, date: "YYYY-MM-DD", type: 'daily', rankString: "D2", dateLogged: "...", tier, division, sr}]
+        rankHistory: [], // [{ cycle: 1, week: 0, type: 'initial', rankString: "D3", dateLogged: "...", tier, division}]
+                         // [{ cycle: 1, week: 1, type: 'endOfWeek', rankString: "D2", dateLogged: "...", tier, division}]
+                         // [{ cycle: 1, date: "YYYY-MM-DD", type: 'daily', rankString: "D2", dateLogged: "...", tier, division}]
         hasPromptedInitialRankThisCycle: false // New flag
     };
     
@@ -508,10 +508,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div>
                                 <label for="dashboardRankDivision">Division:</label>
                                 <select id="dashboardRankDivision" name="dashboardRankDivision" required></select>
-                            </div>
-                            <div>
-                                <label for="dashboardRankSR">SR (Optional):</label>
-                                <input type="number" id="dashboardRankSR" name="dashboardRankSR" min="0" max="5000">
                             </div>
                             <button type="submit" class="form-button">Update Today's Rank</button>
                         </form>
@@ -820,7 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const form = event.target;
         const tier = form.dashboardRankTier.value;
         const division = form.dashboardRankDivision.value;
-        const sr = form.dashboardRankSR.value ? parseInt(form.dashboardRankSR.value) : null;
+        //const sr = form.dashboardRankSR.value ? parseInt(form.dashboardRankSR.value) : null;
 
         if (!tier || !division) {
             alert("Please select a Tier and Division.");
@@ -830,8 +826,8 @@ document.addEventListener('DOMContentLoaded', () => {
         addRankEntry({
             type: 'daily', // Mark as a daily, optional update
             tier,
-            division,
-            sr
+            division
+            //sr
             // week: appState.currentWeek // Could associate with current program week if desired
         });
         form.reset();
@@ -839,7 +835,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addRankEntry({ week = null, type, tier, division, sr = null }) {
-        const rankString = `${tier} ${division}${sr ? ` (${sr} SR)` : ''}`;
+        const rankString = `${tier} ${division}`;
         const dateLogged = new Date().toISOString().split('T')[0];
 
         // For 'initial' or 'endOfWeek', check if an entry for that specific week/type in current cycle already exists
@@ -859,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type, // 'initial', 'endOfWeek', 'daily'
             tier,
             division: parseInt(division),
-            sr,
+            //sr,
             rankString,
             dateLogged 
         });
@@ -939,8 +935,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         callbacks: {
                             label: function(context) {
                                 let label = rankDataEntries[context.dataIndex]?.rankString || rankTiersAndDivisions[context.parsed.y] || '';
-                                const sr = rankDataEntries[context.dataIndex]?.sr;
-                                if (sr) label += ` (${sr} SR)`;
+                                //const sr = rankDataEntries[context.dataIndex]?.sr;
+                                //if (sr) label += ` (${sr} SR)`;
                                 return label;
                             }
                         }
@@ -1113,17 +1109,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const type = modalRankLogTypeInput.value;
         const tier = document.getElementById('modalRankTier').value;
         const division = document.getElementById('modalRankDivision').value;
-        const sr = document.getElementById('modalRankSR').value ? parseInt(document.getElementById('modalRankSR').value) : null;
+        //const sr = document.getElementById('modalRankSR').value ? parseInt(document.getElementById('modalRankSR').value) : null;
 
         if (!tier || !division) {
             alert("Please select a Tier and Division.");
             return;
         }
         
-        const added = addRankEntry({ week, type, tier, division, sr });
+        const added = addRankEntry({ week, type, tier, division });
         if (added && type === 'initial') {
             appState.hasPromptedInitialRankThisCycle = true;
-            saveState();
+            //saveState();
         }
         
         closeRankPromptModal();

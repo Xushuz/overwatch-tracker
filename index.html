@@ -32,8 +32,8 @@
         </nav>
     </div>
 
-    <!-- Modal for Initial/End-of-Week Rank Logging -->
-    <div id="rankPromptModal" class="modal rank-prompt-modal">
+<!-- Modal for Initial/End-of-Week Rank Logging -->
+    <div id="rankPromptModal" class="modal rank-prompt-modal"> <!-- Ensure this has class 'modal' -->
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="rankPromptTitle">Log Your Rank</h3>
@@ -42,7 +42,7 @@
             <div class="modal-body">
                 <form id="modalRankLogForm" class="rank-logging-form modal-form">
                     <input type="hidden" id="modalRankLogWeek" name="modalRankLogWeek">
-                    <input type="hidden" id="modalRankLogType" name="modalRankLogType"> <!-- 'initial' or 'endOfWeek' -->
+                    <input type="hidden" id="modalRankLogType" name="modalRankLogType">
                     <div>
                         <label for="modalRankTier">Tier:</label>
                         <select id="modalRankTier" name="modalRankTier" required>
@@ -59,10 +59,7 @@
                             ${Array.from({length: 5}, (_, i) => `<option value="${5-i}">${5-i}</option>`).join('')}
                         </select>
                     </div>
-                    <div>
-                        <label for="modalRankSR">SR (Optional):</label>
-                        <input type="number" id="modalRankSR" name="modalRankSR" min="0" max="5000">
-                    </div>
+                    <!-- SR Input Field REMOVED -->
                 </form>
             </div>
             <div class="modal-footer">
