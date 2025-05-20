@@ -15,9 +15,10 @@
     --input-border-light: #ced4da;
     --textarea-bg-light: #f8f9fa;
     --card-shadow-light: rgba(0, 0, 0, 0.05);
-    --accent-color-light: #007bff; /* Blue for light mode */
+    --accent-color-light: #007bff; 
     --accent-hover-color-light: #0056b3;
     --nav-active-bg-light: rgba(0, 123, 255, 0.1);
+    --progress-bar-bg-light: #e9ecef;
 
 
     /* Dark Theme Variables */
@@ -33,35 +34,34 @@
     --input-border-dark: #555;
     --textarea-bg-dark: #252525;
     --card-shadow-dark: rgba(255, 255, 255, 0.05);
-    --accent-color-dark: #66bfff; /* Lighter blue for dark mode */
+    --accent-color-dark: #66bfff; 
     --accent-hover-color-dark: #4da6ff;
     --nav-active-bg-dark: rgba(102, 191, 255, 0.2);
+    --progress-bar-bg-dark: #3a3a3a;
 
 
-    /* Pink Theme Variables - NEW */
-    --bg-color-pink: #fff0f5; /* Lavender Blush - very light pink */
-    --text-color-pink: #581845; /* Dark Purple/Plum for text */
-    --container-bg-pink: #ffffff; /* White container for contrast */
-    --border-color-pink: #ffc0cb; /* Pink border */
+    /* Pink Theme Variables */
+    --bg-color-pink: #fff0f5; 
+    --text-color-pink: #581845; 
+    --container-bg-pink: #ffffff; 
+    --border-color-pink: #ffc0cb; 
     --header-bg-pink: #ffffff;
-    --nav-bg-pink: #ffe4e1; /* Misty Rose for nav */
-    --button-bg-pink: #ffb6c1; /* Light Pink for buttons */
-    --button-text-pink: #581845; /* Dark text on light pink buttons */
-    --input-bg-pink: #fffafa; /* Snow - very light off-white for inputs */
+    --nav-bg-pink: #ffe4e1; 
+    --button-bg-pink: #ffb6c1; 
+    --button-text-pink: #581845; 
+    --input-bg-pink: #fffafa; 
     --input-border-pink: #ffc0cb;
     --textarea-bg-pink: #fffafa;
-    --card-shadow-pink: rgba(255, 105, 180, 0.1); /* Hot Pink shadow, subtle */
-    --accent-color-pink: #ff69b4; /* Hot Pink for accents */
-    --accent-hover-color-pink: #ff1493; /* Deep Pink for hover */
+    --card-shadow-pink: rgba(255, 105, 180, 0.1); 
+    --accent-color-pink: #ff69b4; 
+    --accent-hover-color-pink: #ff1493; 
     --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
+    --progress-bar-bg-pink: #ffdde5;
 
 
     /* General Accent (will be overridden by theme) */
-    --accent-color: #007bff; 
-    --accent-hover-color: #0056b3;
     --completed-text-color: #6c757d; 
     --danger-color: #dc3545;
-    --nav-active-bg: var(--nav-active-bg-light);
 
     /* Current theme (defaults to light) */
     --current-bg-color: var(--bg-color-light);
@@ -79,6 +79,7 @@
     --current-accent-color: var(--accent-color-light);
     --current-accent-hover-color: var(--accent-hover-color-light);
     --current-nav-active-bg: var(--nav-active-bg-light);
+    --current-progress-bar-bg: var(--progress-bar-bg-light);
 }
 
 body {
@@ -92,7 +93,6 @@ body {
     font-size: 16px; 
 }
 
-/* Apply theme-specific variables */
 body.light-mode {
     --current-bg-color: var(--bg-color-light);
     --current-text-color: var(--text-color-light);
@@ -109,6 +109,7 @@ body.light-mode {
     --current-accent-color: var(--accent-color-light);
     --current-accent-hover-color: var(--accent-hover-color-light);
     --current-nav-active-bg: var(--nav-active-bg-light);
+    --current-progress-bar-bg: var(--progress-bar-bg-light);
 }
 
 body.dark-mode {
@@ -127,9 +128,10 @@ body.dark-mode {
     --current-accent-color: var(--accent-color-dark);
     --current-accent-hover-color: var(--accent-hover-color-dark);
     --current-nav-active-bg: var(--nav-active-bg-dark);
+    --current-progress-bar-bg: var(--progress-bar-bg-dark);
 }
 
-body.pink-mode { /* NEW THEME APPLICATION */
+body.pink-mode { 
     --current-bg-color: var(--bg-color-pink);
     --current-text-color: var(--text-color-pink);
     --current-container-bg: var(--container-bg-pink);
@@ -145,17 +147,18 @@ body.pink-mode { /* NEW THEME APPLICATION */
     --current-accent-color: var(--accent-color-pink);
     --current-accent-hover-color: var(--accent-hover-color-pink);
     --current-nav-active-bg: var(--nav-active-bg-pink);
+    --current-progress-bar-bg: var(--progress-bar-bg-pink);
 }
 
 
 .container {
     width: 100%; 
-    max-width: 900px; 
+    max-width: 1100px; /* Wider for potentially 3 columns on desktop */
     margin: 0 auto;
     background-color: var(--current-container-bg);
     border: 1px solid var(--current-border-color);
     border-radius: 8px;
-    box-shadow: 0 2px 8px var(--current-card-shadow); /* Use themed shadow */
+    box-shadow: 0 2px 8px var(--current-card-shadow); 
     overflow: hidden; 
     box-sizing: border-box; 
 }
@@ -173,7 +176,7 @@ body.pink-mode { /* NEW THEME APPLICATION */
 .app-header h1 {
     font-size: 1.5em; 
     margin: 0 0 5px 0; 
-    color: var(--current-accent-color); /* Use themed accent */
+    color: var(--current-accent-color); 
     flex-basis: 100%; 
     text-align: center; 
 }
@@ -200,7 +203,7 @@ body.pink-mode { /* NEW THEME APPLICATION */
     cursor: pointer;
     font-size: 0.8em;
     margin-left: 8px;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* Added color & border-color */
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
 }
 
 .theme-toggle-btn:hover, .new-cycle-btn:hover {
@@ -213,40 +216,52 @@ body.pink-mode { /* NEW THEME APPLICATION */
 
 .dashboard-layout {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column; /* Mobile first: stack all */
     gap: 20px;
 }
 
-.dashboard-main-content {
-    flex: 1; 
-    order: 1; 
+.dashboard-main-content { /* Contains week info, tasks, day nav */
+    flex-grow: 1; /* Will be main column on mobile */
+    order: 1;
 }
-
-.dashboard-notes-area {
-    flex: 1; 
-    padding-left: 0; 
-    border-left: none; 
-    border-top: 1px solid var(--current-border-color); 
-    padding-top: 15px; 
-    margin-top: 15px; 
-    order: 2; 
+.dashboard-side-panel { /* Contains daily notes AND rank update/chart */
+    flex-grow: 1;
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between notes and rank section */
 }
+.daily-notes-section, .dashboard-rank-section {
+    padding: 15px;
+    border: 1px solid var(--current-border-color);
+    border-radius: 6px;
+    background-color: var(--current-container-bg); /* Could be slightly different from main bg */
+    box-shadow: 0 1px 3px var(--current-card-shadow);
+}
+.dashboard-notes-area { /* Old class, replaced by .dashboard-side-panel */ }
 
 
 .week-info h2 {
     font-size: 1.3em;
     margin-top: 0;
-    color: var(--current-accent-color); /* Use themed accent */
+    color: var(--current-accent-color); 
 }
 .week-info p {
     font-size: 0.95em;
     margin-bottom: 10px;
 }
-.week-info h3 {
+.week-info h3 { /* Day Title */
     font-size: 1.1em;
-    margin-bottom: 15px;
-    border-bottom: 1px dashed var(--current-border-color);
+    margin-bottom: 10px;
     padding-bottom: 5px;
+}
+.current-week-progress {
+    margin-bottom: 15px;
+}
+.current-week-progress p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    text-align: center;
 }
 
 .tasks-section h4 {
@@ -254,324 +269,132 @@ body.pink-mode { /* NEW THEME APPLICATION */
     margin-bottom: 10px;
 }
 
-.task-list {
-    list-style: none;
-    padding: 0;
-}
+.task-list { list-style: none; padding: 0; }
+.task-list li { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--current-border-color); }
+.task-list li:last-child { border-bottom: none; }
+.task-list li:hover { background-color: rgba(0,0,0,0.03); }
+body.dark-mode .task-list li:hover { background-color: rgba(255,255,255,0.03); }
+body.pink-mode .task-list li:hover { background-color: rgba(255, 182, 193, 0.1); }
+.task-list input[type="checkbox"] { margin-right: 10px; min-width: 20px; width: 20px; height: 20px; cursor: pointer; accent-color: var(--current-accent-color); }
+.task-details { flex-grow: 1; font-size: 0.95em; }
+.task-details.completed { text-decoration: line-through; color: var(--completed-text-color); }
+body.pink-mode .task-details.completed { color: #ff7eb9; }
+.task-focus { font-size: 0.8em; opacity: 0.7; display: block; margin-top: 2px; }
 
-.task-list li {
-    display: flex;
-    align-items: center;
-    padding: 10px 0; 
-    border-bottom: 1px solid var(--current-border-color);
-    transition: background-color 0.2s ease;
-}
+.day-navigation-controls { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--current-border-color); }
+.nav-button, .form-button { padding: 8px 12px; background-color: var(--current-button-bg); color: var(--current-button-text); border: 1px solid var(--current-border-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease; flex-grow: 1; text-align: center; }
+.nav-button + .nav-button { margin-left: 10px; }
+.form-button { background-color: var(--current-accent-color); color: white; border-color: var(--current-accent-color); flex-grow: 0; }
+body.pink-mode .form-button { color: #fff; }
+.nav-button:hover, .form-button:hover { opacity: 0.8; }
+.form-button:hover { background-color: var(--current-accent-hover-color); opacity: 1; }
+.nav-button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.task-list li:last-child {
-    border-bottom: none;
-}
-
-.task-list li:hover {
-    background-color: rgba(0,0,0,0.03); 
-}
-body.dark-mode .task-list li:hover { /* Keep this specific for dark mode if needed */
-    background-color: rgba(255,255,255,0.03);
-}
-body.pink-mode .task-list li:hover { /* Pink theme hover */
-    background-color: rgba(255, 182, 193, 0.1); /* LightPink with alpha */
-}
-
-
-.task-list input[type="checkbox"] {
-    margin-right: 10px; 
-    min-width: 20px; 
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    accent-color: var(--current-accent-color); /* Use themed accent */
-}
-
-.task-details {
-    flex-grow: 1;
-    font-size: 0.95em; 
-}
-
-.task-details.completed {
-    text-decoration: line-through;
-    color: var(--completed-text-color); /* This can remain generic or be themed */
-}
-body.pink-mode .task-details.completed {
-    color: #ff7eb9; /* A lighter pink for strikethrough text */
-}
-
-
-.task-focus {
-    font-size: 0.8em; 
-    opacity: 0.7;
-    display: block;
-    margin-top: 2px;
-}
-
-.day-navigation-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px; 
-    padding-top: 10px; 
-    border-top: 1px solid var(--current-border-color);
-}
-
-.nav-button, .form-button { 
-    padding: 8px 12px; 
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85em; 
-    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    flex-grow: 1; 
-    text-align: center;
-}
-.nav-button + .nav-button {
-    margin-left: 10px; 
-}
-
-.form-button { /* Specific styling for form submit buttons */
-    background-color: var(--current-accent-color); /* Use themed accent */
-    color: white; /* Text color for accent buttons, usually white or very dark */
-    border-color: var(--current-accent-color); /* Use themed accent */
-    flex-grow: 0; 
-}
-body.pink-mode .form-button { /* Ensure good contrast for pink theme submit */
-    color: #fff; /* White text on hot pink */
-}
-
-
-.nav-button:hover, .form-button:hover {
-    opacity: 0.8;
-}
-.form-button:hover { /* Override general opacity for accent buttons if needed */
-     background-color: var(--current-accent-hover-color);
-     opacity: 1;
-}
-
-
-.nav-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.daily-notes-section h4 {
+.daily-notes-section h4, .dashboard-rank-section h4 {
     font-size: 1.05em; 
     margin-top: 0; 
     margin-bottom: 10px;
-    color: var(--current-accent-color); /* Use themed accent */
+    color: var(--current-accent-color); 
 }
+#dailyNotesTextarea { width: calc(100% - 22px); min-height: 150px; height: auto; max-height: 300px; padding: 10px; border: 1px solid var(--current-input-border); border-radius: 4px; background-color: var(--current-textarea-bg); color: var(--current-text-color); font-size: 0.95em; line-height: 1.5; resize: vertical; }
 
-#dailyNotesTextarea {
-    width: calc(100% - 22px); 
-    min-height: 200px; 
-    height: auto; 
-    max-height: 400px; 
-    padding: 10px;
-    border: 1px solid var(--current-input-border);
-    border-radius: 4px;
-    background-color: var(--current-textarea-bg);
-    color: var(--current-text-color);
-    font-size: 0.95em; 
-    line-height: 1.5;
-    resize: vertical;
-}
-
-.app-nav {
-    display: flex;
-    justify-content: space-around; 
-    flex-wrap: wrap; 
-    padding: 5px 0; 
-    background-color: var(--current-nav-bg);
-    border-top: 1px solid var(--current-border-color);
-}
-
-.app-nav .nav-link {
-    padding: 8px 10px; 
-    color: var(--current-text-color);
-    text-decoration: none;
-    font-weight: 500;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    font-size: 0.85em; 
-    text-align: center;
-    flex-grow: 1; 
-    margin: 2px; 
-}
-
-.app-nav .nav-link:hover {
-    background-color: rgba(0,0,0,0.05);
-}
-body.dark-mode .app-nav .nav-link:hover { 
-    background-color: rgba(255,255,255,0.05);
-}
-body.pink-mode .app-nav .nav-link:hover {
-    background-color: rgba(255, 105, 180, 0.1); /* HotPink with alpha */
-}
+/* Rank Update Form on Dashboard */
+.dashboard-rank-update-form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+.dashboard-rank-update-form > div { display: flex; flex-direction: column; }
+.dashboard-rank-update-form label { font-size: 0.8em; margin-bottom: 2px; }
+.dashboard-rank-update-form select, .dashboard-rank-update-form input[type="number"] { font-size: 0.85em; padding: 6px 8px; width: 100%; box-sizing: border-box; border: 1px solid var(--current-input-border); background-color: var(--current-input-bg); color: var(--current-text-color); border-radius: 3px; }
+.dashboard-rank-update-form .form-button { font-size: 0.8em; padding: 6px 10px; margin-top: 5px; }
+#dashboardRankChartContainer { min-height: 200px; position: relative; }
 
 
-.app-nav .nav-link.active {
-    color: var(--current-accent-color); /* Use themed accent */
-    font-weight: bold;
-    background-color: var(--current-nav-active-bg); /* Use themed active nav bg */
-}
-
+.app-nav { display: flex; justify-content: space-around; flex-wrap: wrap; padding: 5px 0; background-color: var(--current-nav-bg); border-top: 1px solid var(--current-border-color); }
+.app-nav .nav-link { padding: 8px 10px; color: var(--current-text-color); text-decoration: none; font-weight: 500; border-radius: 4px; transition: background-color 0.2s ease; font-size: 0.85em; text-align: center; flex-grow: 1; margin: 2px; }
+.app-nav .nav-link:hover { background-color: rgba(0,0,0,0.05); }
+body.dark-mode .app-nav .nav-link:hover { background-color: rgba(255,255,255,0.05); }
+body.pink-mode .app-nav .nav-link:hover { background-color: rgba(255, 105, 180, 0.1); }
+.app-nav .nav-link.active { color: var(--current-accent-color); font-weight: bold; background-color: var(--current-nav-active-bg); }
 
 /* Page Titles */
-.program-overview-page h2, .daily-notes-summary-page h2, .resources-page h2, .progress-page h2 {
-    text-align: center;
-    margin-bottom: 15px; 
-    color: var(--current-accent-color); /* Use themed accent */
-    font-size: 1.5em; 
-}
+.program-overview-page h2, .daily-notes-summary-page h2, .resources-page h2, .progress-page h2 { text-align: center; margin-bottom: 15px; color: var(--current-accent-color); font-size: 1.5em; }
 
 /* Generic Card Style */
-.content-card {
-    background-color: var(--current-container-bg);
-    border: 1px solid var(--current-border-color);
-    border-radius: 6px;
-    padding: 15px; 
-    margin-bottom: 15px; 
-    box-shadow: 0 2px 4px var(--current-card-shadow);
-}
-.content-card h3 {
-    margin-top: 0;
-    color: var(--current-accent-color); /* Use themed accent */
-    font-size: 1.2em; 
-    padding-bottom: 8px; 
-    border-bottom: 1px solid var(--current-border-color);
-    margin-bottom: 10px; 
-}
+.content-card { background-color: var(--current-container-bg); border: 1px solid var(--current-border-color); border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px var(--current-card-shadow); }
+.content-card h3 { margin-top: 0; color: var(--current-accent-color); font-size: 1.2em; padding-bottom: 8px; border-bottom: 1px solid var(--current-border-color); margin-bottom: 10px; }
 
-
-.weeks-container {
-    display: grid;
-    grid-template-columns: 1fr; 
-    gap: 15px; 
-}
-
-.week-card { 
-    background-color: var(--current-container-bg); 
-    border: 1px solid var(--current-border-color);
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px var(--current-card-shadow);
-}
-
-.week-card-header {
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    margin-bottom: 10px;
-}
-.week-card-header h3 {
-    margin: 0 0 5px 0; 
-    font-size: 1.1em; 
-    color: var(--current-accent-color); /* Use themed accent */
-    border-bottom: none; 
-    padding-bottom: 0;
-}
-.week-progress {
-    font-size: 0.85em; 
-    font-weight: bold;
-}
-
-.week-card-focus {
-    font-size: 0.9em;
-    margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.view-week-details-btn {
-    padding: 8px 12px;
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8em; 
-    margin-bottom: 10px;
-}
-
-.week-details-content {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--current-border-color);
-}
+.weeks-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; } /* Default to responsive grid */
+.week-card { background-color: var(--current-container-bg); border: 1px solid var(--current-border-color); padding: 15px; border-radius: 6px; box-shadow: 0 2px 5px var(--current-card-shadow); display: flex; flex-direction: column; }
+.week-card-header { display: flex; justify-content: space-between; align-items: flex-start; /* Align to top for better title/progress alignment */ margin-bottom: 10px; flex-wrap: wrap; /* Allow wrapping */ }
+.week-card-header h3 { margin: 0 0 5px 0; font-size: 1.1em; color: var(--current-accent-color); border-bottom: none; padding-bottom: 0; line-height: 1.2; }
+.week-progress { font-size: 0.85em; font-weight: bold; white-space: nowrap; margin-left: 10px; /* Ensure space if h3 is long */ }
+.week-card-focus { font-size: 0.9em; margin-bottom: 10px; opacity: 0.8; flex-grow: 1; /* Allows focus text to take up space */ }
+.view-week-details-btn { padding: 8px 12px; background-color: var(--current-button-bg); color: var(--current-button-text); border: 1px solid var(--current-border-color); border-radius: 4px; cursor: pointer; font-size: 0.8em; margin-top: auto; /* Pushes button to bottom of card */ }
+.week-details-content { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--current-border-color); }
 .week-details-content h4 { font-size: 0.95em; margin-bottom: 5px;}
 .week-details-content ul { list-style: none; padding-left: 0; }
 .week-details-content ul li { padding: 5px 0; }
-.week-details-content ul li a { color: var(--current-accent-color); text-decoration: none; } /* Use themed accent */
+.week-details-content ul li a { color: var(--current-accent-color); text-decoration: none; }
 .week-details-content ul li a:hover { text-decoration: underline; }
 
 /* Resources Page Styles */
 .resource-category { margin-bottom: 15px; } 
-.resource-category h3 { color: var(--current-accent-color); } /* Use themed accent */
+.resource-category h3 { color: var(--current-accent-color); } 
 .resource-category ul { list-style: none; padding-left: 0; }
 .resource-category li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); }
 .resource-category li:last-child { border-bottom: none; }
 .resource-category li a { color: var(--current-text-color); text-decoration: none; font-weight: 500; }
-.resource-category li a:hover { color: var(--current-accent-color); text-decoration: underline; } /* Use themed accent */
+.resource-category li a:hover { color: var(--current-accent-color); text-decoration: underline; } 
 .resource-note { font-size: 0.8em; opacity: 0.7; display: inline; margin-left: 5px; }
 
 /* Daily Notes Summary Page Styles */
 .daily-notes-summary-page .note-entry { margin-bottom: 15px; }
-.daily-notes-summary-page .note-entry-header { font-weight: bold; margin-bottom: 8px; color: var(--current-accent-color); font-size: 1.05em; } /* Use themed accent */
+.daily-notes-summary-page .note-entry-header { font-weight: bold; margin-bottom: 8px; color: var(--current-accent-color); font-size: 1.05em; } 
 .daily-notes-summary-page .note-content { white-space: pre-wrap; line-height: 1.5; font-size: 0.95em; }
 
-/* Progress Page - Rank Tracking Styles */
-.rank-logging-form {
-    display: flex;
-    flex-direction: column; 
-    gap: 10px; 
-    align-items: stretch; 
-    margin-bottom: 20px;
-}
-.rank-logging-form > div { 
-    display: flex;
-    flex-direction: column; 
-}
-
-.rank-logging-form label {
-    margin-bottom: 3px; 
-    font-size: 0.85em; 
-    font-weight: 500;
-}
-
-.rank-logging-form select,
-.rank-logging-form input[type="number"] {
-    padding: 8px 10px;
-    border: 1px solid var(--current-input-border);
-    background-color: var(--current-input-bg);
-    color: var(--current-text-color);
-    border-radius: 4px;
-    font-size: 0.9em;
-    width: 100%; 
-    box-sizing: border-box;
-}
-.rank-logging-form .form-button {
-    margin-top: 10px; 
-}
-
+/* Progress Page (Now Rank History) & Rank Logging Form Styles */
+.rank-logging-form { display: flex; flex-direction: column; gap: 10px; align-items: stretch; margin-bottom: 20px; }
+.rank-logging-form > div { display: flex; flex-direction: column; }
+.rank-logging-form label { margin-bottom: 3px; font-size: 0.85em; font-weight: 500; }
+.rank-logging-form select, .rank-logging-form input[type="number"] { padding: 8px 10px; border: 1px solid var(--current-input-border); background-color: var(--current-input-bg); color: var(--current-text-color); border-radius: 4px; font-size: 0.9em; width: 100%; box-sizing: border-box; }
+.rank-logging-form .form-button { margin-top: 10px; }
 
 .rank-history-list { list-style: none; padding: 0; margin-top: 15px; } 
-.rank-history-list li { padding: 8px 0; border-bottom: 1px dashed var(--current-border-color); font-size: 0.9em; display: flex; justify-content: space-between; flex-wrap: wrap; } 
+.rank-history-list li { padding: 8px 10px; border-bottom: 1px dashed var(--current-border-color); font-size: 0.9em; display: flex; justify-content: space-between; flex-wrap: wrap; background-color: var(--current-textarea-bg); margin-bottom: 5px; border-radius: 4px;} 
 .rank-history-list li:last-child { border-bottom: none; }
 .rank-history-list .rank-date { opacity: 0.7; font-size: 0.85em; margin-left: 10px; } 
+.rank-history-list .rank-type { font-weight: bold; margin-right: 5px; color: var(--current-accent-color); }
 
-#rankChartContainer {
-    margin-top: 20px; 
-    padding: 10px; 
+
+#rankChartContainer, #dashboardRankChartContainer { margin-top: 20px; padding: 10px; border: 1px solid var(--current-border-color); border-radius: 6px; background-color: var(--current-container-bg); min-height: 250px; position: relative; }
+
+/* Modal for Rank Prompt */
+.rank-prompt-modal .modal-content { max-width: 450px; }
+.rank-prompt-modal .modal-form { margin-bottom: 0; } /* No extra margin for form in modal */
+
+/* Progress Bar General Styles */
+.progress-bar-container {
+    width: 100%;
+    background-color: var(--current-progress-bar-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    height: 22px; /* Slightly taller */
+    margin-top: 5px;
     border: 1px solid var(--current-border-color);
-    border-radius: 6px;
-    background-color: var(--current-container-bg); 
-    min-height: 250px; 
+}
+.progress-bar-fill {
+    background-color: var(--current-accent-color);
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+    text-align: center;
+    color: white; /* Usually white text on accent color */
+    font-weight: bold;
+    line-height: 22px; /* Match container height */
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body.pink-mode .progress-bar-fill {
+    color: var(--text-color-pink); /* Darker text on lighter pink fill */
 }
 
 
@@ -579,86 +402,53 @@ body.pink-mode .app-nav .nav-link:hover {
 /* =========== MEDIA QUERIES (Responsive) ========== */
 /* =============================================== */
 
-@media (min-width: 768px) {
-    body {
-        padding: 20px; 
-        font-size: 17px; 
-    }
-    .app-header h1 {
-        font-size: 1.6em;
-        flex-basis: auto; 
-        text-align: left;
-    }
-    .header-controls {
-        width: auto; 
-        justify-content: flex-end;
-    }
-    .theme-toggle-btn, .new-cycle-btn {
-        font-size: 0.85em;
-    }
+@media (min-width: 768px) { /* Tablets and up */
+    body { padding: 20px; font-size: 17px; }
+    .app-header h1 { font-size: 1.6em; flex-basis: auto; text-align: left; }
+    .header-controls { width: auto; justify-content: flex-end; }
+    .theme-toggle-btn, .new-cycle-btn { font-size: 0.85em; }
 
     .dashboard-layout {
-        flex-direction: row; 
+        flex-direction: row; /* Side-by-side for main content and side panel */
     }
-    .dashboard-notes-area {
+    .dashboard-main-content {
+        flex: 3; /* Main content takes more space */
+        order: 1;
+    }
+    .dashboard-side-panel {
+        flex: 2; /* Side panel (notes + rank) takes less space */
+        order: 2;
         border-left: 1px solid var(--current-border-color);
         padding-left: 20px;
-        border-top: none; 
-        padding-top: 0;
-        margin-top: 0;
+        border-top: none; padding-top: 0; margin-top: 0; /* Reset mobile stacking styles */
     }
-    #dailyNotesTextarea {
-        font-size: 1em; 
-        min-height: 300px; 
-    }
+    #dailyNotesTextarea { font-size: 1em; min-height: 200px; max-height: none; height: 250px; } /* Adjust height as needed */
+    #dashboardRankChartContainer { min-height: 220px; }
 
-    .app-nav {
-        flex-wrap: nowrap; 
-    }
-    .app-nav .nav-link {
-        font-size: 0.9em;
-    }
-    .week-card-header {
-        flex-direction: row; 
-        align-items: center;
-    }
-    .week-card-header h3 {
-        margin: 0;
-        font-size: 1.2em;
-    }
-    .week-progress {
-        font-size: 0.9em;
-    }
 
-    .rank-logging-form {
-        flex-direction: row; 
-        align-items: flex-end; 
-    }
-    .rank-logging-form > div {
-        flex-direction: column; 
-        flex-grow: 1; 
-    }
-    .rank-logging-form select,
-    .rank-logging-form input[type="number"] {
-        width: auto; 
-    }
-     .rank-logging-form .form-button {
-        margin-top: 0; 
-        flex-grow: 0;
-    }
+    .app-nav { flex-wrap: nowrap; }
+    .app-nav .nav-link { font-size: 0.9em; }
+    .week-card-header { flex-direction: row; align-items: center; flex-wrap: nowrap; }
+    .week-card-header h3 { margin: 0; font-size: 1.2em; }
+    .week-progress { font-size: 0.9em; margin-left: auto; /* Pushes progress to the right */ padding-left: 10px; }
+
+    .rank-logging-form { flex-direction: row; align-items: flex-end; }
+    .rank-logging-form > div { flex-direction: column; flex-grow: 1; }
+    .rank-logging-form select, .rank-logging-form input[type="number"] { width: auto; }
+    .rank-logging-form .form-button { margin-top: 0; flex-grow: 0; }
+
+    .weeks-container { grid-template-columns: repeat(2, 1fr); } /* 2 columns for program overview */
 }
 
-@media (min-width: 992px) {
-    body {
-        font-size: 18px; 
-    }
-    .app-header h1 {
-        font-size: 1.8em;
-    }
-    .theme-toggle-btn, .new-cycle-btn {
-        font-size: 0.9em;
-    }
-    .app-nav .nav-link {
-        font-size: 1em;
-    }
+@media (min-width: 992px) { /* Desktops */
+    body { font-size: 18px; }
+    .container { max-width: 1200px; } /* Wider container for desktops */
+    .app-header h1 { font-size: 1.8em; }
+    .theme-toggle-btn, .new-cycle-btn { font-size: 0.9em; }
+    .app-nav .nav-link { font-size: 1em; }
+    .weeks-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } /* Potentially 3 columns if space */
+}
+
+@media (min-width: 1200px) { /* Larger Desktops */
+    .weeks-container { grid-template-columns: repeat(3, 1fr); }
 }

@@ -9,8 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContentEl = document.querySelector('.app-main');
     const navLinks = document.querySelectorAll('.app-nav .nav-link');
 
+    // Rank Prompt Modal Elements
+    const rankPromptModal = document.getElementById('rankPromptModal');
+    const closeRankPromptModalBtn = document.getElementById('closeRankPromptModalBtn');
+    const modalRankLogForm = document.getElementById('modalRankLogForm');
+    const saveModalRankLogBtn = document.getElementById('saveModalRankLogBtn');
+    const cancelModalRankLogBtn = document.getElementById('cancelModalRankLogBtn');
+    const rankPromptTitleEl = document.getElementById('rankPromptTitle');
+    const modalRankLogWeekInput = document.getElementById('modalRankLogWeek');
+    const modalRankLogTypeInput = document.getElementById('modalRankLogType');
+
+
     let dailyNoteSaveTimeout = null;
-    let rankChartInstance = null; 
+    let rankChartInstanceDashboard = null; 
+    let rankChartInstanceProgress = null;
 
     // --- Program Data (Ensure your full 6-week data is here) ---
     const programData = { /* ... PASTE YOUR FULL 6-WEEK programData HERE ... */ 
@@ -351,25 +363,28 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "Overwatch Liquipedia", url: "https://liquipedia.net/overwatch/", note: "Esports info." }
         ],
         keyGuideLinks: [
-            { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@Spilo probablement", note: "Fundamental positioning."}
+            { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@CoachSpilo", note: "Fundamental positioning."}
         ]
     };
     // --- End of Resources Data ---
 
     // App State
-    const themes = ['light', 'dark', 'pink']; // Define available themes
+    const themes = ['light', 'dark', 'pink']; 
     let appState = {
         currentPage: 'dashboard',
         currentCycle: 1,
         currentWeek: 1,
         currentDay: 1,
-        theme: themes[0], // Default to the first theme in the array
+        theme: themes[0], 
         taskCompletions: {}, 
         dailyNotes: {},
-        rankHistory: [] 
+        rankHistory: [], // [{ cycle: 1, week: 0, type: 'initial', rankString: "D3", dateLogged: "...", tier, division, sr}]
+                         // [{ cycle: 1, week: 1, type: 'endOfWeek', rankString: "D2", dateLogged: "...", tier, division, sr}]
+                         // [{ cycle: 1, date: "YYYY-MM-DD", type: 'daily', rankString: "D2", dateLogged: "...", tier, division, sr}]
+        hasPromptedInitialRankThisCycle: false // New flag
     };
     
-    const APP_STATE_KEY = 'overwatchTrackerAppState_v4'; // Incremented version
+    const APP_STATE_KEY = 'overwatchTrackerAppState_v5'; // Incremented for new state/features
 
     // --- localStorage Persistence ---
     function saveState() {
@@ -385,16 +400,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const storedState = localStorage.getItem(APP_STATE_KEY);
             if (storedState) {
                 const parsedState = JSON.parse(storedState);
-                // Ensure theme is one of the valid themes
-                if (!themes.includes(parsedState.theme)) {
-                    parsedState.theme = themes[0]; // Default if invalid
-                }
+                if (!themes.includes(parsedState.theme)) parsedState.theme = themes[0];
+                
                 appState = { 
                     ...appState, 
                     ...parsedState,
                     taskCompletions: { ...(parsedState.taskCompletions || {}) },
                     dailyNotes: { ...(parsedState.dailyNotes || {}) },
-                    rankHistory: [ ...(parsedState.rankHistory || []) ] 
+                    rankHistory: [ ...(parsedState.rankHistory || []) ],
+                    hasPromptedInitialRankThisCycle: parsedState.hasPromptedInitialRankThisCycle || false 
                 };
             }
         } catch (e) {
@@ -406,9 +420,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function init() {
         loadState();
         setCurrentDate();
-        applyTheme(); // Apply theme based on loaded or default state
+        applyTheme();
         renderPage(); 
         setupEventListeners();
+        checkAndPromptForInitialRank(); // Check for initial rank prompt
     }
 
     function setCurrentDate() {
@@ -419,26 +434,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyTheme() {
-        body.classList.remove(...themes.map(t => t + '-mode')); // Remove all theme classes
-        body.classList.add(appState.theme + '-mode'); // Add current theme class
-        
-        // Update button text to suggest the *next* theme
+        body.classList.remove(...themes.map(t => t + '-mode')); 
+        body.classList.add(appState.theme + '-mode'); 
         const currentThemeIndex = themes.indexOf(appState.theme);
         const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
-        themeToggleBtn.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)} Mode`;
-
-        // If chart exists, update its colors (important for dark/light contrast)
-        if (rankChartInstance) {
-            renderRankChart(); // Re-render chart to pick up new theme colors for text/grid
-        }
+        themeToggleBtn.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)}`;
+        if (appState.currentPage === 'dashboard' && rankChartInstanceDashboard) renderDashboardRankChart();
+        if (appState.currentPage === 'progress' && rankChartInstanceProgress) renderProgressPageRankChart();
     }
 
     // --- Page Rendering Logic ---
     function renderPage() {
-        if (rankChartInstance) { 
-            rankChartInstance.destroy();
-            rankChartInstance = null;
-        }
+        // Destroy charts before clearing content to prevent issues
+        if (rankChartInstanceDashboard) { rankChartInstanceDashboard.destroy(); rankChartInstanceDashboard = null; }
+        if (rankChartInstanceProgress) { rankChartInstanceProgress.destroy(); rankChartInstanceProgress = null; }
+        
         mainContentEl.innerHTML = ''; 
 
         navLinks.forEach(link => {
@@ -449,24 +459,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         switch (appState.currentPage) {
-            case 'dashboard':
-                renderDashboardPage();
-                break;
-            case 'program':
-                renderProgramOverviewPage();
-                break;
-            case 'dailyNotes':
-                renderDailyNotesSummaryPage();
-                break;
-            case 'progress':
-                renderProgressPage();
-                break;
-            case 'resources':
-                renderResourcesPage();
-                break;
-            default:
-                appState.currentPage = 'dashboard'; 
-                renderDashboardPage();
+            case 'dashboard': renderDashboardPage(); break;
+            case 'program': renderProgramOverviewPage(); break;
+            case 'dailyNotes': renderDailyNotesSummaryPage(); break;
+            case 'progress': renderRankHistoryPage(); break; // Renamed from renderProgressPage
+            case 'resources': renderResourcesPage(); break;
+            default: appState.currentPage = 'dashboard'; renderDashboardPage();
         }
         saveState(); 
     }
@@ -478,6 +476,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <section class="week-info">
                         <h2 id="weekTitle"></h2>
                         <p id="weekFocus"></p>
+                        <div class="current-week-progress">
+                            <p id="currentWeekProgressText"></p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="currentWeekProgressBar"></div>
+                            </div>
+                        </div>
                         <h3 id="dayTitle"></h3>
                     </section>
                     <section class="tasks-section">
@@ -489,15 +493,39 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="nav-button next-day-btn" id="nextDayBtn">Next Day »</button>
                     </section>
                 </div>
-                <aside class="dashboard-notes-area">
+                <aside class="dashboard-side-panel">
                     <section class="daily-notes-section">
                         <h4>Daily Notes for <span id="dailyNotesDateHeader">W${appState.currentWeek}D${appState.currentDay}</span></h4>
-                        <textarea id="dailyNotesTextarea" placeholder="Type your reflections, VOD notes, goals for the day..."></textarea>
+                        <textarea id="dailyNotesTextarea" placeholder="Reflections, VOD notes, goals..."></textarea>
+                    </section>
+                    <section class="dashboard-rank-section">
+                        <h4>Quick Rank Update</h4>
+                        <form id="dashboardRankUpdateForm" class="dashboard-rank-update-form">
+                            <div>
+                                <label for="dashboardRankTier">Tier:</label>
+                                <select id="dashboardRankTier" name="dashboardRankTier" required></select> 
+                            </div>
+                            <div>
+                                <label for="dashboardRankDivision">Division:</label>
+                                <select id="dashboardRankDivision" name="dashboardRankDivision" required></select>
+                            </div>
+                            <div>
+                                <label for="dashboardRankSR">SR (Optional):</label>
+                                <input type="number" id="dashboardRankSR" name="dashboardRankSR" min="0" max="5000">
+                            </div>
+                            <button type="submit" class="form-button">Update Today's Rank</button>
+                        </form>
+                        <div id="dashboardRankChartContainer" style="min-height: 220px; position: relative;">
+                             <canvas id="dashboardRankChart"></canvas>
+                        </div>
                     </section>
                 </aside>
             </div>
         `;
         
+        // Populate rank dropdowns
+        populateRankSelects(document.getElementById('dashboardRankTier'), document.getElementById('dashboardRankDivision'));
+
         const localPrevDayBtn = document.getElementById('prevDayBtn');
         const localNextDayBtn = document.getElementById('nextDayBtn');
         if(localPrevDayBtn && localNextDayBtn) {
@@ -505,9 +533,61 @@ document.addEventListener('DOMContentLoaded', () => {
             localNextDayBtn.addEventListener('click', () => navigateToDay(1));
         }
         
+        const dashboardRankForm = document.getElementById('dashboardRankUpdateForm');
+        if(dashboardRankForm) dashboardRankForm.addEventListener('submit', handleDashboardRankUpdate);
+
         renderCurrentDayTasks(); 
+        renderCurrentWeekProgress();
         setupDailyNotesArea();
+        renderDashboardRankChart();
     }
+    
+    function populateRankSelects(tierSelect, divisionSelect) {
+        if (!tierSelect || !divisionSelect) return;
+        // Tiers
+        tierSelect.innerHTML = `<option value="">--Tier--</option>`;
+        ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster", "Champion"].forEach(t => {
+            tierSelect.innerHTML += `<option value="${t}">${t}</option>`;
+        });
+        // Divisions
+        divisionSelect.innerHTML = `<option value="">--Div--</option>`;
+        [5,4,3,2,1].forEach(d => {
+            divisionSelect.innerHTML += `<option value="${d}">${d}</option>`;
+        });
+    }
+
+    function renderCurrentWeekProgress() {
+        const progressTextEl = document.getElementById('currentWeekProgressText');
+        const progressBarEl = document.getElementById('currentWeekProgressBar');
+        if (!progressTextEl || !progressBarEl) return;
+
+        const weekData = programData[appState.currentWeek];
+        if (!weekData || !weekData.days) {
+            progressTextEl.textContent = "Week data not available.";
+            progressBarEl.style.width = '0%';
+            progressBarEl.textContent = '0%';
+            return;
+        }
+
+        let tasksInWeek = 0;
+        let completedInWeek = 0;
+        for (const dayNum in weekData.days) {
+            const day = weekData.days[dayNum];
+            if (day.tasks) {
+                tasksInWeek += day.tasks.length;
+                day.tasks.forEach(task => {
+                    if (appState.taskCompletions[task.id]) {
+                        completedInWeek++;
+                    }
+                });
+            }
+        }
+        const percent = tasksInWeek > 0 ? Math.round((completedInWeek / tasksInWeek) * 100) : 0;
+        progressTextEl.textContent = `Current Week Progress: ${completedInWeek} / ${tasksInWeek} tasks`;
+        progressBarEl.style.width = `${percent}%`;
+        progressBarEl.textContent = `${percent}%`;
+    }
+
 
     function renderCurrentDayTasks() {
         const localWeekTitleEl = document.getElementById('weekTitle');
@@ -574,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dailyNotesDateHeader = document.getElementById('dailyNotesDateHeader');
         if (!dailyNotesTextarea || !dailyNotesDateHeader) return;
 
-        const noteKey = `w${appState.currentWeek}d${appState.currentDay}`;
+        const noteKey = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
         dailyNotesDateHeader.textContent = `W${appState.currentWeek}D${appState.currentDay}`;
         dailyNotesTextarea.value = appState.dailyNotes[noteKey] || '';
 
@@ -605,7 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (day.tasks) {
                     totalTasksInWeek += day.tasks.length;
                     day.tasks.forEach(task => {
-                        if (appState.taskCompletions[task.id]) {
+                        // For cycle-specific progress, task IDs would need cycle prefix or completions reset per cycle
+                        if (appState.taskCompletions[task.id]) { 
                             completedTasksInWeek++;
                         }
                     });
@@ -617,7 +698,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="week-card">
                     <div class="week-card-header">
                         <h3>Week ${weekNum}: ${week.title}</h3>
-                        <span class="week-progress">Progress: ${progressPercent}%</span>
+                        <span class="week-progress">${progressPercent}%</span>
                     </div>
                     <p class="week-card-focus">Focus: ${week.focus}</p>
                     <button class="view-week-details-btn" data-week="${weekNum}">View Details</button>
@@ -655,40 +736,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderDailyNotesSummaryPage() {
-        let notesHtml = `<section class="daily-notes-summary-page content-card"><h3>Daily Notes Summary (Cycle #${appState.currentCycle})</h3>`;
+        let notesHtml = `<section class="daily-notes-summary-page content-card"><h3>All Daily Notes</h3>`;
         const sortedNoteKeys = Object.keys(appState.dailyNotes).sort((a, b) => {
-            const [aMatch, aWeek, aDay] = a.match(/w(\d+)d(\d+)/) || [];
-            const [bMatch, bWeek, bDay] = b.match(/w(\d+)d(\d+)/) || [];
+            const [aMatch, aCycle, aWeek, aDay] = a.match(/c(\d+)w(\d+)d(\d+)/) || [null,0,0,0];
+            const [bMatch, bCycle, bWeek, bDay] = b.match(/c(\d+)w(\d+)d(\d+)/) || [null,0,0,0];
             if (!aMatch || !bMatch) return 0;
+            if (Number(aCycle) !== Number(bCycle)) return Number(aCycle) - Number(bCycle);
             if (Number(aWeek) !== Number(bWeek)) return Number(aWeek) - Number(bWeek);
             return Number(aDay) - Number(bDay);
         });
 
         if (sortedNoteKeys.length === 0) {
-            notesHtml += "<p>No daily notes saved yet for this cycle.</p>"; // Consider filtering by cycle if notes are not cleared
+            notesHtml += "<p>No daily notes saved yet.</p>";
         } else {
-            // Filter notes for the current cycle (if dailyNotes are not cleared on new cycle)
-            // For now, assuming dailyNotes might contain notes from multiple cycles if not cleared.
-            // To show only current cycle: filter sortedNoteKeys based on a cycle identifier in the key or separate storage.
-            // For simplicity, we'll show all for now, or you can clear dailyNotes on new cycle.
             sortedNoteKeys.forEach(noteKey => {
                 const noteText = appState.dailyNotes[noteKey];
                 if (noteText && noteText.trim() !== '') { 
-                    const match = noteKey.match(/w(\d+)d(\d+)/);
+                    const match = noteKey.match(/c(\d+)w(\d+)d(\d+)/);
                     if(match) {
-                        const [_, weekNum, dayNum] = match;
+                        const [_, cycleNum, weekNum, dayNum] = match;
                         const dayTitle = programData[weekNum]?.days[dayNum]?.title || `Day ${dayNum}`;
-                        // Display cycle number if you store notes across cycles
-                        // For now, title reflects current cycle, but data might be from old cycles if not cleared.
                         notesHtml += `
                             <div class="note-entry">
-                                <div class="note-entry-header">Week ${weekNum}, ${dayTitle}</div>
+                                <div class="note-entry-header">Cycle ${cycleNum}, Week ${weekNum}, ${dayTitle}</div>
                                 <div class="note-content">${noteText.replace(/\n/g, '<br>')}</div>
                             </div>`;
                     }
                 }
             });
-             if (notesHtml.endsWith("</h3>")) { // Check if only header was added
+             if (notesHtml.endsWith("</h3>")) { 
                 notesHtml += "<p>No daily notes with content saved yet.</p>";
             }
         }
@@ -696,204 +772,138 @@ document.addEventListener('DOMContentLoaded', () => {
         mainContentEl.innerHTML = notesHtml;
     }
 
-    function renderProgressPage() { 
-        let progressHtml = `<section class="progress-page"><h2>Progress & Stats (Cycle #${appState.currentCycle})</h2>`;
-        progressHtml += `
-            <div class="content-card rank-tracking-section">
-                <h3>Weekly Rank Tracking</h3>
-                <form id="rankLogForm" class="rank-logging-form">
-                    <div>
-                        <label for="rankWeek">Week:</label>
-                        <select id="rankWeek" name="rankWeek" required>
-                            ${Array.from({length: 6}, (_, i) => `<option value="${i+1}" ${appState.currentWeek === (i+1) && appState.currentPage === 'dashboard' ? 'selected' : ''}>Week ${i+1}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="rankTier">Tier:</label>
-                        <select id="rankTier" name="rankTier" required>
-                            <option value="">--Select Tier--</option>
-                            <option value="Bronze">Bronze</option><option value="Silver">Silver</option><option value="Gold">Gold</option>
-                            <option value="Platinum">Platinum</option><option value="Diamond">Diamond</option><option value="Master">Master</option>
-                            <option value="Grandmaster">Grandmaster</option><option value="Champion">Champion</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="rankDivision">Division:</label>
-                        <select id="rankDivision" name="rankDivision" required>
-                            <option value="">--Div--</option>
-                            ${Array.from({length: 5}, (_, i) => `<option value="${5-i}">${5-i}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="rankSR">SR (Optional):</label>
-                        <input type="number" id="rankSR" name="rankSR" min="0" max="5000">
-                    </div>
-                    <button type="submit" class="form-button">Log Rank</button>
-                </form>
-                <div id="rankChartContainer" style="min-height: 300px; position: relative;">
-                    <canvas id="rankChart"></canvas>
-                </div>
-                <h4>Rank History (Current Cycle):</h4>
-                <ul id="rankHistoryList" class="rank-history-list"></ul>
-            </div>
-        `;
-        progressHtml += `
+    function renderRankHistoryPage() { 
+        let historyHtml = `<section class="progress-page"><h2>Rank Update History</h2>`;
+        historyHtml += `<div class="content-card rank-history-section">`;
+        historyHtml += `<h3>All Logged Ranks</h3>`;
+        historyHtml += `<ul id="fullRankHistoryList" class="rank-history-list">`;
+
+        if (appState.rankHistory.length === 0) {
+            historyHtml += `<li>No ranks logged yet.</li>`;
+        } else {
+            // Sort by date logged for a chronological history across cycles
+            const sortedHistory = [...appState.rankHistory].sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
+            sortedHistory.forEach(rankEntry => {
+                let entryLabel = `C${rankEntry.cycle}, `;
+                if (rankEntry.type === 'initial') entryLabel += `Initial`;
+                else if (rankEntry.type === 'endOfWeek') entryLabel += `End of W${rankEntry.week}`;
+                else if (rankEntry.type === 'daily') entryLabel += `Daily Update`;
+                else entryLabel += `W${rankEntry.week || 'N/A'}`;
+
+
+                historyHtml += `<li>
+                                    <span>
+                                        <span class="rank-type">${entryLabel}:</span> ${rankEntry.rankString}
+                                    </span> 
+                                    <span class="rank-date">(${rankEntry.dateLogged})</span>
+                                 </li>`;
+            });
+        }
+        historyHtml += `</ul></div>`;
+        
+        // Larger chart on this page
+        historyHtml += `
             <div class="content-card">
-                <h3>Overall Task Completion (Current Cycle)</h3>
-                <div id="overallProgramProgress"></div>
-            </div>
-        `;
-        progressHtml += `</section>`;
-        mainContentEl.innerHTML = progressHtml;
+                <h3>Rank Progression Chart (All Cycles)</h3>
+                 <div id="progressPageRankChartContainer" style="min-height: 350px; position: relative;">
+                    <canvas id="progressPageRankChart"></canvas>
+                </div>
+            </div>`;
 
-        populateRankHistoryList();
-        renderRankChart();
-        renderOverallProgramProgress(); // New function call
-
-        const rankLogForm = document.getElementById('rankLogForm');
-        if (rankLogForm) rankLogForm.addEventListener('submit', handleRankLogSubmit);
+        historyHtml += `</section>`;
+        mainContentEl.innerHTML = historyHtml;
+        renderProgressPageRankChart(); // Render the chart for this page
     }
     
-    function renderOverallProgramProgress() {
-        const progressContainer = document.getElementById('overallProgramProgress');
-        if (!progressContainer) return;
-
-        let totalTasksInProgram = 0;
-        let completedTasksInProgram = 0;
-
-        for (const weekNum in programData) {
-            const week = programData[weekNum];
-            for (const dayNum in week.days) {
-                const day = week.days[dayNum];
-                if (day.tasks) {
-                    totalTasksInProgram += day.tasks.length;
-                    day.tasks.forEach(task => {
-                        // Assuming task IDs are unique across cycles, or completions are cleared per cycle
-                        if (appState.taskCompletions[task.id]) {
-                            completedTasksInProgram++;
-                        }
-                    });
-                }
-            }
-        }
-        const overallProgressPercent = totalTasksInProgram > 0 ? Math.round((completedTasksInProgram / totalTasksInProgram) * 100) : 0;
-        progressContainer.innerHTML = `
-            <p>You have completed <strong>${completedTasksInProgram}</strong> out of <strong>${totalTasksInProgram}</strong> tasks.</p>
-            <div class="progress-bar-container" style="background-color: var(--current-border-color); border-radius: 4px; overflow: hidden; height: 20px;">
-                <div class="progress-bar-fill" style="width: ${overallProgressPercent}%; background-color: var(--current-accent-color); height: 100%; transition: width 0.5s ease-in-out; text-align: center; color: white; font-weight: bold; line-height:20px;">
-                    ${overallProgressPercent}%
-                </div>
-            </div>
-        `;
-    }
-
-
-    function handleRankLogSubmit(event) {
+    function handleDashboardRankUpdate(event) {
         event.preventDefault();
         const form = event.target;
-        const week = parseInt(form.rankWeek.value);
-        const tier = form.rankTier.value;
-        const division = parseInt(form.rankDivision.value);
-        const sr = form.rankSR.value ? parseInt(form.rankSR.value) : null;
-        const rankString = `${tier} ${division}${sr ? ` (${sr} SR)` : ''}`;
-        const dateLogged = new Date().toISOString().split('T')[0]; 
+        const tier = form.dashboardRankTier.value;
+        const division = form.dashboardRankDivision.value;
+        const sr = form.dashboardRankSR.value ? parseInt(form.dashboardRankSR.value) : null;
 
-        const existingEntryIndex = appState.rankHistory.findIndex(r => r.cycle === appState.currentCycle && r.week === week);
-        if (existingEntryIndex > -1) {
-            if (!confirm(`Overwrite rank for Week ${week} in Cycle ${appState.currentCycle}?`)) return;
-            appState.rankHistory.splice(existingEntryIndex, 1); 
+        if (!tier || !division) {
+            alert("Please select a Tier and Division.");
+            return;
         }
         
-        appState.rankHistory.push({
-            cycle: appState.currentCycle, week, tier, division, sr, rankString, dateLogged 
+        addRankEntry({
+            type: 'daily', // Mark as a daily, optional update
+            tier,
+            division,
+            sr
+            // week: appState.currentWeek // Could associate with current program week if desired
         });
-        appState.rankHistory.sort((a,b) => (a.cycle - b.cycle) || (a.week - b.week));
-        saveState();
-        renderProgressPage(); 
         form.reset();
-        // Default week input to current week on dashboard, or next unlogged week on progress page
-        const rankWeekSelect = document.getElementById('rankWeek');
-        if (rankWeekSelect) {
-             const currentCycleRanks = appState.rankHistory.filter(r => r.cycle === appState.currentCycle);
-             let nextUnloggedWeek = 1;
-             for (let i = 1; i <= 6; i++) {
-                 if (!currentCycleRanks.find(r => r.week === i)) {
-                     nextUnloggedWeek = i;
-                     break;
-                 }
-                 if (i === 6) nextUnloggedWeek = 6; // Default to last week if all logged
-             }
-            rankWeekSelect.value = nextUnloggedWeek;
-        }
+        renderDashboardRankChart(); // Update chart on dashboard
     }
 
-    function populateRankHistoryList() {
-        const listEl = document.getElementById('rankHistoryList');
-        if (!listEl) return;
-        
-        const currentCycleRanks = appState.rankHistory.filter(r => r.cycle === appState.currentCycle)
-                                        .sort((a,b) => a.week - b.week);
-        listEl.innerHTML = ''; 
-        if (currentCycleRanks.length === 0) {
-            listEl.innerHTML = '<li>No ranks logged for this cycle yet.</li>';
-            return;
+    function addRankEntry({ week = null, type, tier, division, sr = null }) {
+        const rankString = `${tier} ${division}${sr ? ` (${sr} SR)` : ''}`;
+        const dateLogged = new Date().toISOString().split('T')[0];
+
+        // For 'initial' or 'endOfWeek', check if an entry for that specific week/type in current cycle already exists
+        if (type === 'initial' || type === 'endOfWeek') {
+            const existingEntryIndex = appState.rankHistory.findIndex(
+                r => r.cycle === appState.currentCycle && r.week === week && r.type === type
+            );
+            if (existingEntryIndex > -1) {
+                 console.log(`Rank for ${type} W${week} C${appState.currentCycle} already logged. Skipping.`);
+                 return false; // Indicate not added or overwritten
+            }
         }
-        currentCycleRanks.forEach(rankEntry => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span>Week ${rankEntry.week}: ${rankEntry.rankString}</span> <span class="rank-date">Logged: ${rankEntry.dateLogged}</span>`;
-            listEl.appendChild(li);
+
+        appState.rankHistory.push({
+            cycle: appState.currentCycle,
+            week: type === 'daily' ? null : week, // Store program week for initial/endOfWeek, null for daily
+            type, // 'initial', 'endOfWeek', 'daily'
+            tier,
+            division: parseInt(division),
+            sr,
+            rankString,
+            dateLogged 
         });
+        appState.rankHistory.sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged) || (a.cycle - b.cycle) || (a.week - b.week) );
+        saveState();
+        return true; // Indicate success
     }
 
-    function renderRankChart() {
-        const chartContainer = document.getElementById('rankChartContainer');
-        const ctx = document.getElementById('rankChart');
-        if (!ctx || !chartContainer) return;
+    const rankToValue = (tier, division) => {
+        const tierValues = { "Bronze": 0, "Silver": 5, "Gold": 10, "Platinum": 15, "Diamond": 20, "Master": 25, "Grandmaster": 30, "Champion": 35 };
+        return (tierValues[tier] || 0) + (5 - parseInt(division)); 
+    };
+    const rankTiersAndDivisions = [
+        "Bronze 5", "Bronze 4", "Bronze 3", "Bronze 2", "Bronze 1",
+        "Silver 5", "Silver 4", "Silver 3", "Silver 2", "Silver 1",
+        "Gold 5", "Gold 4", "Gold 3", "Gold 2", "Gold 1",
+        "Platinum 5", "Platinum 4", "Platinum 3", "Platinum 2", "Platinum 1",
+        "Diamond 5", "Diamond 4", "Diamond 3", "Diamond 2", "Diamond 1",
+        "Master 5", "Master 4", "Master 3", "Master 2", "Master 1",
+        "Grandmaster 5", "Grandmaster 4", "Grandmaster 3", "Grandmaster 2", "Grandmaster 1",
+        "Champion 5", "Champion 4", "Champion 3", "Champion 2", "Champion 1"
+    ];
 
-        if (rankChartInstance) rankChartInstance.destroy();
+    function createRankChartConfig(rankDataEntries, chartLabelPrefix = "Rank Progression") {
+        const labels = rankDataEntries.map(r => {
+            if (r.type === 'initial') return `C${r.cycle} Start`;
+            if (r.type === 'endOfWeek') return `C${r.cycle} W${r.week} End`;
+            return r.dateLogged; // Daily entries use date
+        });
+        const dataPoints = rankDataEntries.map(r => rankToValue(r.tier, r.division));
         
-        const currentCycleRanks = appState.rankHistory.filter(r => r.cycle === appState.currentCycle)
-                                        .sort((a,b) => a.week - b.week);
-
-        if (currentCycleRanks.length < 1) { // Need at least 1 point to draw a "line"
-            chartContainer.style.display = 'none'; 
-            return;
-        }
-        chartContainer.style.display = 'block';
-
-        const labels = currentCycleRanks.map(r => `W${r.week}`);
-        const rankToValue = (tier, division) => {
-            const tierValues = { "Bronze": 0, "Silver": 5, "Gold": 10, "Platinum": 15, "Diamond": 20, "Master": 25, "Grandmaster": 30, "Champion": 35 };
-            return (tierValues[tier] || 0) + (5 - parseInt(division)); 
-        };
-        const dataPoints = currentCycleRanks.map(r => rankToValue(r.tier, r.division));
-        
-        const rankTiersDivisions = [
-            "Bronze 5", "Bronze 4", "Bronze 3", "Bronze 2", "Bronze 1",
-            "Silver 5", "Silver 4", "Silver 3", "Silver 2", "Silver 1",
-            "Gold 5", "Gold 4", "Gold 3", "Gold 2", "Gold 1",
-            "Platinum 5", "Platinum 4", "Platinum 3", "Platinum 2", "Platinum 1",
-            "Diamond 5", "Diamond 4", "Diamond 3", "Diamond 2", "Diamond 1",
-            "Master 5", "Master 4", "Master 3", "Master 2", "Master 1",
-            "Grandmaster 5", "Grandmaster 4", "Grandmaster 3", "Grandmaster 2", "Grandmaster 1",
-            "Champion 5", "Champion 4", "Champion 3", "Champion 2", "Champion 1"
-        ];
-        
-        // Determine text color for chart based on theme
         const chartTextColor = getComputedStyle(document.body).getPropertyValue('--current-text-color').trim() || '#666';
         const chartGridColor = getComputedStyle(document.body).getPropertyValue('--current-border-color').trim() || '#ddd';
         const chartAccentColor = getComputedStyle(document.body).getPropertyValue('--current-accent-color').trim() || 'rgb(0,123,255)';
 
-
-        rankChartInstance = new Chart(ctx, {
+        return {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: `Rank Progression (Cycle ${appState.currentCycle})`,
+                    label: `${chartLabelPrefix} (Cycle ${appState.currentCycle})`,
                     data: dataPoints,
                     borderColor: chartAccentColor,
-                    backgroundColor: chartAccentColor.replace('rgb', 'rgba').replace(')', ', 0.1)'), // Make it semi-transparent
+                    backgroundColor: chartAccentColor.replace(/rgb/g, 'rgba').replace(/\)/g, ', 0.1)'),
                     tension: 0.1,
                     fill: true,
                     pointRadius: 4,
@@ -908,34 +918,28 @@ document.addEventListener('DOMContentLoaded', () => {
                         beginAtZero: false, 
                         ticks: {
                             callback: function(value) {
-                                if (value >= 0 && value < rankTiersDivisions.length) return rankTiersDivisions[value];
+                                if (value >= 0 && value < rankTiersAndDivisions.length) return rankTiersAndDivisions[value];
                                 return '';
                             },
-                            stepSize: 1,
-                            color: chartTextColor // Y-axis labels color
+                            stepSize: 1, color: chartTextColor
                         },
-                        grid: {
-                            color: chartGridColor // Y-axis grid lines color
-                        },
+                        grid: { color: chartGridColor },
                         title: { display: true, text: 'Rank', color: chartTextColor }
                     },
                     x: {
-                         ticks: { color: chartTextColor }, // X-axis labels color
-                         grid: { color: chartGridColor }, // X-axis grid lines color
-                         title: { display: true, text: 'Program Week', color: chartTextColor }
+                         ticks: { color: chartTextColor, maxRotation: 45, minRotation: 45 }, 
+                         grid: { color: chartGridColor },
+                         title: { display: true, text: 'Time / Event', color: chartTextColor }
                     }
                 },
                 plugins: {
-                    legend: { labels: { color: chartTextColor } }, // Legend text color
+                    legend: { labels: { color: chartTextColor } }, 
                     tooltip: {
                         titleColor: chartTextColor, bodyColor: chartTextColor,
                         callbacks: {
                             label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) label += ': ';
-                                const rankValue = context.parsed.y;
-                                if (rankValue >= 0 && rankValue < rankTiersDivisions.length) label += rankTiersDivisions[rankValue];
-                                const sr = currentCycleRanks[context.dataIndex]?.sr;
+                                let label = rankDataEntries[context.dataIndex]?.rankString || rankTiersAndDivisions[context.parsed.y] || '';
+                                const sr = rankDataEntries[context.dataIndex]?.sr;
                                 if (sr) label += ` (${sr} SR)`;
                                 return label;
                             }
@@ -943,7 +947,51 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
-        });
+        };
+    }
+
+    function renderDashboardRankChart() {
+        const chartContainer = document.getElementById('dashboardRankChartContainer');
+        const ctx = document.getElementById('dashboardRankChart');
+        if (!ctx || !chartContainer) return;
+        if (rankChartInstanceDashboard) rankChartInstanceDashboard.destroy();
+        
+        // Show recent rank history for the current cycle for the dashboard chart
+        const currentCycleRankData = appState.rankHistory
+            .filter(r => r.cycle === appState.currentCycle)
+            .sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged)); // Sort by actual date
+
+        if (currentCycleRankData.length === 0) {
+            chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px;">Log your rank to see progression.</p>';
+            return;
+        }
+        // Ensure canvas is there if we previously put text
+        if (!document.getElementById('dashboardRankChart')) {
+            chartContainer.innerHTML = '<canvas id="dashboardRankChart"></canvas>';
+        }
+
+
+        rankChartInstanceDashboard = new Chart(document.getElementById('dashboardRankChart'), createRankChartConfig(currentCycleRankData, "Daily Rank Trend"));
+    }
+
+    function renderProgressPageRankChart() {
+        const chartContainer = document.getElementById('progressPageRankChartContainer');
+        const ctx = document.getElementById('progressPageRankChart');
+        if (!ctx || !chartContainer) return;
+        if (rankChartInstanceProgress) rankChartInstanceProgress.destroy();
+
+        // Show all rank history across all cycles for the progress page chart
+        const allRankData = [...appState.rankHistory].sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
+
+        if (allRankData.length === 0) {
+            chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px;">No rank data logged yet.</p>';
+            return;
+        }
+         if (!document.getElementById('progressPageRankChart')) {
+            chartContainer.innerHTML = '<canvas id="progressPageRankChart"></canvas>';
+        }
+
+        rankChartInstanceProgress = new Chart(document.getElementById('progressPageRankChart'), createRankChartConfig(allRankData, "Overall Rank Progression"));
     }
 
 
@@ -976,6 +1024,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigateToDay(direction) {
+        const oldWeek = appState.currentWeek;
+        const oldDay = appState.currentDay;
+
         let targetDay = appState.currentDay;
         let targetWeek = appState.currentWeek;
 
@@ -995,6 +1046,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (programData[targetWeek]?.days?.[targetDay]) {
             appState.currentWeek = targetWeek;
             appState.currentDay = targetDay;
+            
+            // Check for end-of-week rank prompt
+            if (direction === 1 && targetWeek > oldWeek && oldWeek <= 6) { // Moved to a new week
+                // Prompt for the week that just ENDED (oldWeek)
+                const alreadyLoggedEndOfWeek = appState.rankHistory.some(
+                    r => r.cycle === appState.currentCycle && r.week === oldWeek && r.type === 'endOfWeek'
+                );
+                if (!alreadyLoggedEndOfWeek) {
+                    promptForRank(oldWeek, 'endOfWeek');
+                }
+            }
             renderPage(); 
         } else {
             if (appState.currentPage === 'dashboard') updateNavigationButtons();
@@ -1020,12 +1082,96 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.disabled = !nextDayExists;
     }
     
+    // --- Rank Prompt Modal Logic ---
+    function promptForRank(week, type = 'initial') { // type can be 'initial' or 'endOfWeek'
+        if (!rankPromptModal || !modalRankLogForm) return;
+        
+        rankPromptTitleEl.textContent = type === 'initial' ? `Log Initial Rank (Cycle ${appState.currentCycle})` : `Log Rank for End of Week ${week} (Cycle ${appState.currentCycle})`;
+        modalRankLogWeekInput.value = week;
+        modalRankLogTypeInput.value = type;
+
+        populateRankSelects(document.getElementById('modalRankTier'), document.getElementById('modalRankDivision'));
+        modalRankLogForm.reset(); // Clear previous entries
+        
+        // Pre-fill with latest rank if available
+        const latestRank = appState.rankHistory.length > 0 ? appState.rankHistory[appState.rankHistory.length - 1] : null;
+        if (latestRank) {
+            document.getElementById('modalRankTier').value = latestRank.tier;
+            document.getElementById('modalRankDivision').value = latestRank.division;
+            if(latestRank.sr) document.getElementById('modalRankSR').value = latestRank.sr;
+        }
+        
+        rankPromptModal.style.display = 'block';
+    }
+
+    function closeRankPromptModal() {
+        if (rankPromptModal) rankPromptModal.style.display = 'none';
+    }
+
+    function handleModalRankLogSave() {
+        const week = parseInt(modalRankLogWeekInput.value);
+        const type = modalRankLogTypeInput.value;
+        const tier = document.getElementById('modalRankTier').value;
+        const division = document.getElementById('modalRankDivision').value;
+        const sr = document.getElementById('modalRankSR').value ? parseInt(document.getElementById('modalRankSR').value) : null;
+
+        if (!tier || !division) {
+            alert("Please select a Tier and Division.");
+            return;
+        }
+        
+        const added = addRankEntry({ week, type, tier, division, sr });
+        if (added && type === 'initial') {
+            appState.hasPromptedInitialRankThisCycle = true;
+            saveState();
+        }
+        
+        closeRankPromptModal();
+        if (appState.currentPage === 'dashboard') renderDashboardRankChart();
+        if (appState.currentPage === 'progress') renderRankHistoryPage();
+    }
+
+    function checkAndPromptForInitialRank() {
+        const currentCycleInitialRank = appState.rankHistory.find(
+            r => r.cycle === appState.currentCycle && r.type === 'initial'
+        );
+        if (!currentCycleInitialRank && !appState.hasPromptedInitialRankThisCycle) {
+            setTimeout(() => { // Slight delay to ensure page is rendered
+                 promptForRank(0, 'initial'); // Week 0 for initial
+            }, 500);
+        }
+    }
+
+
     // --- Event Handlers & State Management ---
     function toggleTaskCompletion(taskId) {
         appState.taskCompletions[taskId] = !appState.taskCompletions[taskId];
         saveState();
-        renderPage(); 
+        if (appState.currentPage === 'dashboard') renderCurrentWeekProgress(); // Update dashboard progress bar
+        if (appState.currentPage === 'program') renderProgramOverviewPage(); // Update program overview progress
+        
+        // Check for end of week completion to prompt rank
+        const weekData = programData[appState.currentWeek];
+        if(weekData && weekData.days[appState.currentDay]){
+            const dayTasks = weekData.days[appState.currentDay].tasks;
+            const allDayTasksCompleted = dayTasks.every(task => appState.taskCompletions[task.id]);
+            
+            if(allDayTasksCompleted && appState.currentDay === getTotalDaysInWeek(appState.currentWeek) && appState.currentWeek <= 6) {
+                 const alreadyLoggedEndOfWeek = appState.rankHistory.some(
+                    r => r.cycle === appState.currentCycle && r.week === appState.currentWeek && r.type === 'endOfWeek'
+                );
+                if(!alreadyLoggedEndOfWeek){
+                    setTimeout(() => promptForRank(appState.currentWeek, 'endOfWeek'), 200); // Slight delay
+                }
+            }
+        }
+         // Also update overall progress if on that page
+        if (appState.currentPage === 'progress' && document.getElementById('overallProgramProgress')) {
+             // This function isn't defined yet, placeholder for if you add it back
+             // renderOverallProgramProgress(); 
+        }
     }
+
 
     function toggleTheme() {
         const currentThemeIndex = themes.indexOf(appState.theme);
@@ -1036,17 +1182,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startNewCycle() {
-        if (confirm("Are you sure you want to start a new cycle? This will reset your current task progress for display and filter rank history to the new cycle. Daily notes will persist globally for now.")) {
+        if (confirm("Are you sure you want to start a new cycle? This will reset task completions for the new cycle view and prompt for initial rank. Previous data is retained but filtered.")) {
             appState.currentCycle += 1;
             appState.currentWeek = 1;
             appState.currentDay = 1;
-            // Task completions are global; progress page will show overall, program page will show current cycle for that specific program run
-            // If you want to clear task completions for a new "run" of the program, you'd do:
-            // appState.taskCompletions = {}; 
-            // Daily notes and rank history are already filtered by cycle in their display.
+            appState.hasPromptedInitialRankThisCycle = false;
+            // Task completions are global, but progress on program overview is per-cycle.
+            // If you truly want to reset completions: appState.taskCompletions = {};
             saveState();
             alert(`New Cycle (#${appState.currentCycle}) started! Back to Week 1, Day 1.`);
             renderPage();
+            checkAndPromptForInitialRank();
         }
     }
     
@@ -1062,6 +1208,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderPage();
             });
         });
+
+        // Rank Prompt Modal Listeners
+        if(closeRankPromptModalBtn) closeRankPromptModalBtn.addEventListener('click', closeRankPromptModal);
+        if(saveModalRankLogBtn) saveModalRankLogBtn.addEventListener('click', handleModalRankLogSave);
+        if(cancelModalRankLogBtn) cancelModalRankLogBtn.addEventListener('click', closeRankPromptModal);
+        if(rankPromptModal) {
+            rankPromptModal.addEventListener('click', (event) => {
+                if (event.target === rankPromptModal) {
+                    closeRankPromptModal();
+                }
+            });
+        }
     }
 
     init();

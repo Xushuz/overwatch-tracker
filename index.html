@@ -27,12 +27,52 @@
             <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
             <a href="#" class="nav-link" data-page="program">Program</a>
             <a href="#" class="nav-link" data-page="dailyNotes">Daily Notes</a>
-            <a href="#" class="nav-link" data-page="progress">Progress</a>
+            <a href="#" class="nav-link" data-page="progress">Rank History</a> <!-- Changed label -->
             <a href="#" class="nav-link" data-page="resources">Resources</a>
         </nav>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Added Chart.js CDN -->
+    <!-- Modal for Initial/End-of-Week Rank Logging -->
+    <div id="rankPromptModal" class="modal rank-prompt-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="rankPromptTitle">Log Your Rank</h3>
+                <span class="close-btn" id="closeRankPromptModalBtn">×</span>
+            </div>
+            <div class="modal-body">
+                <form id="modalRankLogForm" class="rank-logging-form modal-form">
+                    <input type="hidden" id="modalRankLogWeek" name="modalRankLogWeek">
+                    <input type="hidden" id="modalRankLogType" name="modalRankLogType"> <!-- 'initial' or 'endOfWeek' -->
+                    <div>
+                        <label for="modalRankTier">Tier:</label>
+                        <select id="modalRankTier" name="modalRankTier" required>
+                            <option value="">--Select Tier--</option>
+                            <option value="Bronze">Bronze</option><option value="Silver">Silver</option><option value="Gold">Gold</option>
+                            <option value="Platinum">Platinum</option><option value="Diamond">Diamond</option><option value="Master">Master</option>
+                            <option value="Grandmaster">Grandmaster</option><option value="Champion">Champion</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="modalRankDivision">Division:</label>
+                        <select id="modalRankDivision" name="modalRankDivision" required>
+                            <option value="">--Div--</option>
+                            ${Array.from({length: 5}, (_, i) => `<option value="${5-i}">${5-i}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="modalRankSR">SR (Optional):</label>
+                        <input type="number" id="modalRankSR" name="modalRankSR" min="0" max="5000">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button save" id="saveModalRankLogBtn">Save Rank</button>
+                <button class="modal-button cancel" id="cancelModalRankLogBtn">Skip for now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
