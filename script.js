@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const rankPromptTitleEl = document.getElementById('rankPromptTitle');
     const modalRankLogWeekInput = document.getElementById('modalRankLogWeek');
     const modalRankLogTypeInput = document.getElementById('modalRankLogType');
+    const modalRankDivisionButtonsEl = document.getElementById('modalRankDivisionButtons');
+    const modalRankDivisionValueInput = document.getElementById('modalRankDivisionValue');
 
 
     let dailyNoteSaveTimeout = null;
@@ -538,19 +540,31 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDashboardRankChart();
     }
     
-    function populateRankSelects(tierSelect, divisionSelect) {
-        if (!tierSelect || !divisionSelect) return;
+    // In populateRankSelects, only populate tier if divisionSelect is null
+    function populateRankSelects(tierSelect, divisionSelect) { // divisionSelect can be null
+        if (!tierSelect) return;
         // Tiers
         tierSelect.innerHTML = `<option value="">--Tier--</option>`;
         ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster", "Champion"].forEach(t => {
             tierSelect.innerHTML += `<option value="${t}">${t}</option>`;
         });
-        // Divisions
-        divisionSelect.innerHTML = `<option value="">--Div--</option>`;
-        [5,4,3,2,1].forEach(d => {
-            divisionSelect.innerHTML += `<option value="${d}">${d}</option>`;
-        });
+        
+        // Divisions (only if divisionSelect is provided, which it won't be for the modal anymore)
+        if (divisionSelect) {
+            divisionSelect.innerHTML = `<option value="">--Div--</option>`;
+            [5,4,3,2,1].forEach(d => {
+                divisionSelect.innerHTML += `<option value="${d}">${d}</option>`;
+            });
+        }
     }
+
+    // In renderDashboardPage, when populating rank dropdowns for the dashboard form:
+    // Make sure you are still calling populateRankSelects for the dashboard's own tier and division dropdowns.
+    // For example, in renderDashboardPage:
+    // const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
+    // const dashboardRankDivisionSelect = document.getElementById('dashboardRankDivision');
+    // populateRankSelects(dashboardRankTierSelect, dashboardRankDivisionSelect); // This line should still exist
+
 
     function renderCurrentWeekProgress() {
         const progressTextEl = document.getElementById('currentWeekProgressText');
@@ -1079,25 +1093,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --- Rank Prompt Modal Logic ---
-    function promptForRank(week, type = 'initial') { // type can be 'initial' or 'endOfWeek'
+    function promptForRank(week, type = 'initial') {
         if (!rankPromptModal || !modalRankLogForm) return;
         
         rankPromptTitleEl.textContent = type === 'initial' ? `Log Initial Rank (Cycle ${appState.currentCycle})` : `Log Rank for End of Week ${week} (Cycle ${appState.currentCycle})`;
         modalRankLogWeekInput.value = week;
         modalRankLogTypeInput.value = type;
 
-        populateRankSelects(document.getElementById('modalRankTier'), document.getElementById('modalRankDivision'));
-        modalRankLogForm.reset(); // Clear previous entries
+        populateRankSelects(document.getElementById('modalRankTier'), null); // Only populate Tier select
+        modalRankLogForm.reset(); // Clear previous entries for tier
+        modalRankDivisionValueInput.value = ''; // Clear hidden division input
+
+        // Generate division buttons
+        if (modalRankDivisionButtonsEl) {
+            modalRankDivisionButtonsEl.innerHTML = ''; // Clear old buttons
+            for (let i = 5; i >= 1; i--) {
+                const button = document.createElement('button');
+                button.type = 'button'; // Important to prevent form submission
+                button.textContent = i;
+                button.dataset.division = i;
+                button.addEventListener('click', handleDivisionButtonClick);
+                modalRankDivisionButtonsEl.appendChild(button);
+            }
+        }
         
-        // Pre-fill with latest rank if available
         const latestRank = appState.rankHistory.length > 0 ? appState.rankHistory[appState.rankHistory.length - 1] : null;
         if (latestRank) {
             document.getElementById('modalRankTier').value = latestRank.tier;
-            document.getElementById('modalRankDivision').value = latestRank.division;
-            if(latestRank.sr) document.getElementById('modalRankSR').value = latestRank.sr;
+            // Pre-select division button if data exists
+            if (latestRank.division && modalRankDivisionButtonsEl) {
+                const selectedBtn = modalRankDivisionButtonsEl.querySelector(`button[data-division="${latestRank.division}"]`);
+                if (selectedBtn) {
+                    selectedBtn.classList.add('selected');
+                    modalRankDivisionValueInput.value = latestRank.division;
+                }
+            }
         }
         
         rankPromptModal.style.display = 'block';
+    }
+
+    function handleDivisionButtonClick(event) {
+    const selectedButton = event.target;
+    const division = selectedButton.dataset.division;
+
+    // Update hidden input
+    modalRankDivisionValueInput.value = division;
+
+    // Update visual selection
+    if (modalRankDivisionButtonsEl) {
+        const buttons = modalRankDivisionButtonsEl.querySelectorAll('button');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+    }
+    selectedButton.classList.add('selected');
     }
 
     function closeRankPromptModal() {
@@ -1108,8 +1156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const week = parseInt(modalRankLogWeekInput.value);
         const type = modalRankLogTypeInput.value;
         const tier = document.getElementById('modalRankTier').value;
-        const division = document.getElementById('modalRankDivision').value;
-        //const sr = document.getElementById('modalRankSR').value ? parseInt(document.getElementById('modalRankSR').value) : null;
+        const division = modalRankDivisionValueInput.value; // Get value from hidden input
 
         if (!tier || !division) {
             alert("Please select a Tier and Division.");
@@ -1119,12 +1166,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const added = addRankEntry({ week, type, tier, division });
         if (added && type === 'initial') {
             appState.hasPromptedInitialRankThisCycle = true;
-            //saveState();
         }
         
         closeRankPromptModal();
         if (appState.currentPage === 'dashboard') renderDashboardRankChart();
-        if (appState.currentPage === 'progress') renderRankHistoryPage();
+        if (appState.currentPage === 'progress') renderRankHistoryPage(); // This calls renderProgressPageRankChart
     }
 
     function checkAndPromptForInitialRank() {

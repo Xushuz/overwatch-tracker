@@ -19,6 +19,7 @@
     --accent-hover-color-light: #0056b3;
     --nav-active-bg-light: rgba(0, 123, 255, 0.1);
     --progress-bar-bg-light: #e9ecef;
+    --modal-content-bg-light: #ffffff; /* Solid white */
 
 
     /* Dark Theme Variables */
@@ -38,6 +39,7 @@
     --accent-hover-color-dark: #4da6ff;
     --nav-active-bg-dark: rgba(102, 191, 255, 0.2);
     --progress-bar-bg-dark: #3a3a3a;
+    --modal-content-bg-dark: #2c2c2c; /* Solid dark grey */
 
 
     /* Pink Theme Variables */
@@ -57,6 +59,7 @@
     --accent-hover-color-pink: #ff1493; 
     --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
     --progress-bar-bg-pink: #ffdde5;
+    --modal-content-bg-pink: #ffffff; /* Solid white (or a very light pink like #fff5f7 if preferred) */
 
 
     /* General Accent (will be overridden by theme) */
@@ -370,31 +373,31 @@ body.pink-mode .app-nav .nav-link:hover { background-color: rgba(255, 105, 180, 
 /* Modal Styles (Ensure these are generic enough for all modals) */
 .modal { /* This is the outer modal wrapper */
     display: none; 
-    position: fixed; /* Stay in place even if page scrolls */
-    z-index: 1000; /* Sit on top */
+    position: fixed;
+    z-index: 1000; /* Overlay z-index */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Enable scroll if content is too long */
-    background-color: rgba(0, 0, 0, 0.6); /* Dim background */
-    /* Add flex for centering modal-content if not already present */
-    /* display: flex; /* Re-enable if needed, but might conflict if already there */
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.75); /* Made overlay slightly darker */
+    /* display: flex; */ /* Commented out as margin: auto on content centers it */
     /* align-items: center; */
     /* justify-content: center; */
 }
 
 .modal-content { /* This is the inner box */
-    position: relative; /* For positioning close button if needed */
-    background-color: var(--current-modal-content-bg); /* Use themed variable */
-    margin: 10% auto; /* Auto margins for horizontal centering, 10% from top */
+    position: relative; 
+    background-color: var(--current-modal-content-bg); 
+    margin: 10% auto; 
     padding: 25px;
     border: 1px solid var(--current-border-color);
     border-radius: 8px;
-    width: 90%; /* Responsive width */
-    max-width: 500px; /* Max width for the content box */
+    width: 90%; 
+    max-width: 480px; /* Adjusted from previous specific modal style */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     animation: fadeInModal 0.3s ease-out;
+    z-index: 1001; /* Ensure content is above its own overlay background */
 }
 
 @keyframes fadeInModal {
@@ -502,22 +505,27 @@ body.pink-mode .modal-button.save { /* Ensure good contrast for pink theme save 
 .rank-prompt-modal .modal-content { 
     max-width: 480px; /* Slightly adjust max-width if needed for the form */
 }
-.rank-prompt-modal .modal-form { /* Styles for the form INSIDE the rank prompt modal */
+
+.rank-prompt-modal .modal-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px; /* Increased gap between form groups */
 }
-.rank-prompt-modal .modal-form > div { /* Target direct children divs of the form */
+
+.rank-prompt-modal .modal-form .form-group { /* New style for grouping label and input */
     display: flex;
     flex-direction: column;
 }
+
 .rank-prompt-modal .modal-form label {
-    margin-bottom: 5px;
+    margin-bottom: 6px; /* Space between label and input/buttons */
     font-size: 0.9em;
+    font-weight: 500;
 }
+
 .rank-prompt-modal .modal-form select,
-.rank-prompt-modal .modal-form input[type="number"] {
-    padding: 8px 10px;
+.rank-prompt-modal .modal-form input[type="number"] { /* Keep for SR if re-added */
+    padding: 10px 12px; /* Increased padding */
     border: 1px solid var(--current-input-border);
     background-color: var(--current-input-bg);
     color: var(--current-text-color);
@@ -527,6 +535,38 @@ body.pink-mode .modal-button.save { /* Ensure good contrast for pink theme save 
     box-sizing: border-box;
 }
 
+.division-buttons {
+    display: flex;
+    justify-content: space-between; /* Distribute buttons evenly */
+    gap: 8px; /* Space between buttons */
+}
+
+.division-buttons button {
+    flex-grow: 1; /* Make buttons take equal width */
+    padding: 10px 5px; /* Adjust padding as needed */
+    font-size: 0.95em;
+    border: 1px solid var(--current-border-color);
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.division-buttons button:hover {
+    opacity: 0.8;
+    border-color: var(--current-accent-color);
+}
+
+.division-buttons button.selected {
+    background-color: var(--current-accent-color);
+    color: white; /* Or themed contrast color */
+    border-color: var(--current-accent-color);
+    font-weight: bold;
+}
+body.pink-mode .division-buttons button.selected {
+    color: #fff; /* Ensure text is visible on pink accent */
+}
 
 /* Modal for Rank Prompt */
 .rank-prompt-modal .modal-content { max-width: 450px; }
