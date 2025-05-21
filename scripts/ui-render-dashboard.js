@@ -14,7 +14,6 @@ export function renderDashboardPage(mainContentEl) {
             <div class="dashboard-main-content">
                 <section class="week-info">
                     <h2 id="weekTitle"></h2>
-                    <div id="personalFocusContainer"></div>
                     <p id="weekFocus"></p>
                     <div class="current-week-progress">
                         <p id="currentWeekProgressText"></p>
@@ -112,7 +111,6 @@ export function renderDashboardPage(mainContentEl) {
     renderCurrentWeekProgress();
     setupDailyNotesArea();
     renderDashboardRankChart();
-    setupPersonalFocusUI();
     setupCustomWarmupUI();
     setupCustomTaskUI();
 }
@@ -155,7 +153,6 @@ export function renderCurrentDayTasks() {
     const localWeekFocusEl = document.getElementById('weekFocus');
     const localDayTitleEl = document.getElementById('dayTitle');
     const localTaskListEl = document.getElementById('taskList');
-    const personalFocusContainer = document.getElementById('personalFocusContainer');
 
     if (!localWeekTitleEl || !localTaskListEl) return; 
 
@@ -179,22 +176,21 @@ export function renderCurrentDayTasks() {
     localWeekTitleEl.textContent = `Week ${appState.currentWeek}: ${weekData.title}`;
     if(localWeekFocusEl) {
         let focusText = `Focus: ${weekData.focus}`;
-        const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-        if (appState.personalFocus && appState.personalFocus[key]) {
-            focusText = `<span style='color:var(--current-accent-color);font-weight:bold;'>Personal Focus: ${appState.personalFocus[key]}</span><br>` + focusText;
-        }
         localWeekFocusEl.innerHTML = focusText;
     }
     if(localDayTitleEl) localDayTitleEl.textContent = dayData.title;
 
     localTaskListEl.innerHTML = ''; 
-    // Render custom warm-ups for today (if any)
+    // Render custom warm-ups for today (only those selected for today)
+    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
     if (Array.isArray(appState.customWarmups) && appState.customWarmups.length > 0) {
-        appState.customWarmups.forEach((w, idx) => {
-            const li = document.createElement('li');
-            li.classList.add('custom-warmup-task');
-            li.innerHTML = `<span><strong>Warm-up:</strong> ${w.name}${w.description ? `: ${w.description}` : ''}</span>`;
-            localTaskListEl.appendChild(li);
+        appState.customWarmups.forEach((w) => {
+            if (w.days && w.days.includes(key)) {
+                const li = document.createElement('li');
+                li.classList.add('custom-warmup-task');
+                li.innerHTML = `<span><strong>Warm-up:</strong> ${w.name}${w.description ? `: ${w.description}` : ''}</span>`;
+                localTaskListEl.appendChild(li);
+            }
         });
     }
     // Render program tasks
@@ -254,7 +250,6 @@ export function renderCurrentDayTasks() {
         });
     }
     // Render custom tasks for today
-    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
     if (appState.customTasks && appState.customTasks[key] && appState.customTasks[key].length > 0) {
         appState.customTasks[key].forEach((customTask, idx) => {
             const li = document.createElement('li');
@@ -290,7 +285,7 @@ export function renderCurrentDayTasks() {
             localTaskListEl.appendChild(li);
         });
     }
-    if (!dayData.tasks?.length && !(appState.customTasks && appState.customTasks[key] && appState.customTasks[key].length > 0) && !(Array.isArray(appState.customWarmups) && appState.customWarmups.length > 0)) {
+    if (!dayData.tasks?.length && !(appState.customTasks && appState.customTasks[key] && appState.customTasks[key].length > 0) && !(Array.isArray(appState.customWarmups) && appState.customWarmups.some(w => w.days && w.days.includes(key)))) {
         localTaskListEl.innerHTML = '<li>No tasks for today.</li>';
     }
     updateNavigationButtons(); 
@@ -375,45 +370,6 @@ export function renderDashboardRankChart() {
     }
 }
 
-function setupPersonalFocusUI() {
-    const container = document.getElementById('personalFocusContainer');
-    if (!container) return;
-    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-    const currentFocus = appState.personalFocus[key] || '';
-    container.innerHTML = `
-        <div style="margin-bottom: 6px;">
-            <strong>Personal Focus of the Day:</strong>
-            <span id="personalFocusDisplay">${currentFocus ? currentFocus : '<em>None set</em>'}</span>
-            <button id="editPersonalFocusBtn" style="margin-left:8px; font-size:0.9em;">${currentFocus ? 'Edit' : 'Add'}</button>
-        </div>
-        <div id="personalFocusEditArea" style="display:none; margin-bottom:6px;">
-            <input id="personalFocusInput" type="text" maxlength="80" style="width:60%; font-size:1em;" placeholder="e.g. Don\'t die first, Track ults proactively" />
-            <button id="savePersonalFocusBtn" style="font-size:0.9em;">Save</button>
-            <button id="cancelPersonalFocusBtn" style="font-size:0.9em;">Cancel</button>
-        </div>
-    `;
-    const editBtn = document.getElementById('editPersonalFocusBtn');
-    const editArea = document.getElementById('personalFocusEditArea');
-    const input = document.getElementById('personalFocusInput');
-    const saveBtn = document.getElementById('savePersonalFocusBtn');
-    const cancelBtn = document.getElementById('cancelPersonalFocusBtn');
-    if (editBtn && editArea && input && saveBtn && cancelBtn) {
-        editBtn.addEventListener('click', () => {
-            editArea.style.display = '';
-            input.value = currentFocus;
-            input.focus();
-        });
-        saveBtn.addEventListener('click', () => {
-            const newFocus = input.value.trim();
-            updateAppState({ personalFocus: { ...appState.personalFocus, [key]: newFocus } });
-            setupPersonalFocusUI();
-        });
-        cancelBtn.addEventListener('click', () => {
-            editArea.style.display = 'none';
-        });
-    }
-}
-
 function setupCustomWarmupUI() {
     const listEl = document.getElementById('customWarmupList');
     const addBtn = document.getElementById('addCustomWarmupBtn');
@@ -428,14 +384,85 @@ function setupCustomWarmupUI() {
         (appState.customWarmups || []).forEach((w, idx) => {
             const li = document.createElement('li');
             li.textContent = w.name + (w.description ? `: ${w.description}` : '');
+            // Checkbox to include in today's warmup
+            const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+            const included = (w.days || []).includes(key);
+            const includeBox = document.createElement('input');
+            includeBox.type = 'checkbox';
+            includeBox.checked = included;
+            includeBox.title = 'Include in today\'s warmup';
+            includeBox.style.marginLeft = '8px';
+            includeBox.onchange = () => {
+                const updated = [...appState.customWarmups];
+                if (!updated[idx].days) updated[idx].days = [];
+                if (includeBox.checked) {
+                    if (!updated[idx].days.includes(key)) updated[idx].days.push(key);
+                } else {
+                    updated[idx].days = updated[idx].days.filter(d => d !== key);
+                }
+                updateAppState({ customWarmups: updated });
+                renderList();
+                renderCurrentDayTasks();
+            };
+            li.appendChild(includeBox);
+            // Edit button
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edit';
+            editBtn.style.marginLeft = '8px';
+            editBtn.onclick = () => {
+                nameInput.value = w.name;
+                descInput.value = w.description;
+                formContainer.style.display = '';
+                saveBtn.onclick = () => {
+                    const name = nameInput.value.trim();
+                    const description = descInput.value.trim();
+                    if (!name) return;
+                    const updated = [...appState.customWarmups];
+                    updated[idx] = { ...updated[idx], name, description };
+                    updateAppState({ customWarmups: updated });
+                    nameInput.value = '';
+                    descInput.value = '';
+                    formContainer.style.display = 'none';
+                    renderList();
+                    renderCurrentDayTasks();
+                };
+            };
+            li.appendChild(editBtn);
+            // Reorder up/down
+            if (idx > 0) {
+                const upBtn = document.createElement('button');
+                upBtn.textContent = '↑';
+                upBtn.onclick = () => {
+                    const updated = [...appState.customWarmups];
+                    [updated[idx-1], updated[idx]] = [updated[idx], updated[idx-1]];
+                    updateAppState({ customWarmups: updated });
+                    renderList();
+                    renderCurrentDayTasks();
+                };
+                li.appendChild(upBtn);
+            }
+            if (idx < appState.customWarmups.length - 1) {
+                const downBtn = document.createElement('button');
+                downBtn.textContent = '↓';
+                downBtn.onclick = () => {
+                    const updated = [...appState.customWarmups];
+                    [updated[idx], updated[idx+1]] = [updated[idx+1], updated[idx]];
+                    updateAppState({ customWarmups: updated });
+                    renderList();
+                    renderCurrentDayTasks();
+                };
+                li.appendChild(downBtn);
+            }
+            // Delete button
             const delBtn = document.createElement('button');
             delBtn.textContent = '✕';
             delBtn.style.marginLeft = '8px';
             delBtn.onclick = () => {
-                const newWarmups = [...appState.customWarmups];
-                newWarmups.splice(idx, 1);
-                updateAppState({ customWarmups: newWarmups });
+                const updated = [...appState.customWarmups];
+                updated.splice(idx, 1);
+                updateAppState({ customWarmups: updated });
                 renderList();
+                renderCurrentDayTasks();
             };
             li.appendChild(delBtn);
             listEl.appendChild(li);
@@ -447,11 +474,12 @@ function setupCustomWarmupUI() {
         const name = nameInput.value.trim();
         const description = descInput.value.trim();
         if (!name) return;
-        updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description }] });
+        updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description, days: [] }] });
         nameInput.value = '';
         descInput.value = '';
         formContainer.style.display = 'none';
         renderList();
+        renderCurrentDayTasks();
     };
     cancelBtn.onclick = () => { formContainer.style.display = 'none'; };
 }

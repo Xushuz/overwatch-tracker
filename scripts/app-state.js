@@ -13,10 +13,9 @@ export let appState = {
     dailyNotes: {}, // Format: { "c1w1d1": "Notes..." }
     rankHistory: [], // Format: [{ cycle, week, type, tier, division, rankString, dateLogged }]
     hasPromptedInitialRankThisCycle: false,
-    hasPromptedRankForWeek: {}, // Format: { "c1w1": true (meaning end of w1 for cycle 1 prompted) }
+    hasPromptedRankForWeek: {}, // Format: { "c1w1": true (meaning end of w1 for cycle 1 prompted)
     customWarmups: [], // Array of { id, name, description, link }
-    customTasks: {}, // Format: { "c1w1d1": [ { id, text, done } ] }
-    personalFocus: {} // Format: { "c1w1d1": "Focus text" }
+    customTasks: {} // Format: { "c1w1d1": [ { id, text, done } ] }
 };
 
 export function saveState() {
@@ -49,8 +48,7 @@ export function loadState() {
                 hasPromptedInitialRankThisCycle: parsedState.hasPromptedInitialRankThisCycle || false,
                 hasPromptedRankForWeek: { ...(parsedState.hasPromptedRankForWeek || {}) },
                 customWarmups: [ ...(parsedState.customWarmups || []) ],
-                customTasks: { ...(parsedState.customTasks || {}) },
-                personalFocus: { ...(parsedState.personalFocus || {}) }
+                customTasks: { ...(parsedState.customTasks || {}) }
             };
         }
     } catch (e) {
