@@ -230,16 +230,18 @@ export function setupCustomWarmupUI() {
                 // Don't toggle if clicking a button
                 if (e.target.tagName === 'BUTTON') return;
                 
-                const updated = [...appState.customWarmups];
-                const warmup = { ...updated[idx] };
+                const updated = [...appState.customWarmups];                const warmup = { ...updated[idx] };
                 warmup.persistAcrossDays = !warmup.persistAcrossDays;
                 
-                // If becoming persistent, add to current day if not already included
+                const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
                 if (warmup.persistAcrossDays) {
-                    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+                    // If becoming persistent, add to current day if not already included
                     if (!warmup.days?.includes(key)) {
                         warmup.days = [...(warmup.days || []), key];
                     }
+                } else {
+                    // If becoming non-persistent, remove from current day
+                    warmup.days = warmup.days?.filter(d => d !== key) || [];
                 }
                 
                 updated[idx] = warmup;
