@@ -1,7 +1,7 @@
 // main-navigation.js
 import { appState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
-import { renderDashboardPage, renderDashboardRankChart } from './ui-render-dashboard-main.js';
+import { renderDashboardPage, renderDashboardRankChart, rankChartInstanceDashboard } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage } from './ui-render-program.js';
 import { renderDailyNotesSummaryPage } from './ui-render-notes.js';
 import { renderRankHistoryPage, rankChartInstanceProgress } from './ui-render-progress.js';
