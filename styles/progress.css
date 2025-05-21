@@ -93,3 +93,14 @@ body.dark-mode .rank-history-list li {
     color: var(--current-text-color);
     opacity: 0.7;
 }
+
+.reset-rank-history-btn {
+    /* Inherit from .view-week-details-btn for theme */
+    /* No background or color override, use theme */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.reset-rank-history-btn:hover {
+    background-color: var(--danger-color);
+    color: #fff;
+    border-color: var(--danger-color);
+}

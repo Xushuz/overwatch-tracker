@@ -32,7 +32,7 @@ export function renderRankHistoryPage(mainContentEl) {
     historyHtml += `<div class="content-card rank-history-section">`;
     historyHtml += `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
         <h3 style="margin: 0;">All Logged Ranks (All Cycles)</h3>
-        <button id="resetRankHistoryBtn" style="background: var(--danger-color); color: #fff; border: none; border-radius: 4px; padding: 6px 14px; cursor: pointer; font-size: 0.95em;">Reset Progress</button>
+        <button id="resetRankHistoryBtn" class="reset-rank-history-btn view-week-details-btn" type="button">Reset Progress</button>
     </div>`;
     historyHtml += `<ul id="fullRankHistoryList" class="rank-history-list">`;
 
