@@ -133,39 +133,24 @@ export function setupCustomWarmupUI() {
     const saveBtn = document.getElementById('saveCustomWarmupBtn');
     const cancelBtn = document.getElementById('cancelCustomWarmupBtn');
     if (!listEl || !addBtn || !modal || !nameInput || !descInput || !saveBtn || !cancelBtn) return;
-    
+
     function renderList() {
         listEl.innerHTML = '';
         (appState.customWarmups || []).forEach((w, idx) => {
             const li = document.createElement('li');
-            li.textContent = w.name + (w.description ? `: ${w.description}` : '');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.gap = '8px';
             
-            // Add checkbox for persistence across days
-            const persistBox = document.createElement('input');
-            persistBox.type = 'checkbox';
-            persistBox.checked = w.persistAcrossDays || false;
-            persistBox.title = 'Keep in daily tasks';
-            persistBox.className = 'themed-checkbox';
-            persistBox.onchange = () => {
-                const updated = [...appState.customWarmups];
-                updated[idx] = { ...updated[idx], persistAcrossDays: persistBox.checked };
-                if (persistBox.checked) {
-                    // When making persistent, add to current day if not already included
-                    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-                    if (!updated[idx].days?.includes(key)) {
-                        updated[idx].days = [...(updated[idx].days || []), key];
-                    }
-                }
-                updateAppState({ customWarmups: updated });
-                renderList();
-                renderCurrentDayTasks();
-            };
-            li.appendChild(persistBox);
+            // Title and description
+            const textSpan = document.createElement('span');
+            textSpan.textContent = w.name + (w.description ? `: ${w.description}` : '');
+            textSpan.style.flexGrow = '1';
+            li.appendChild(textSpan);
             
             // Edit button
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Edit';
-            editBtn.style.marginLeft = '8px';
             editBtn.onclick = () => {
                 nameInput.value = w.name;
                 descInput.value = w.description || '';
@@ -186,7 +171,7 @@ export function setupCustomWarmupUI() {
             };
             li.appendChild(editBtn);
 
-            // Move up/down buttons
+            // Reorder buttons
             if (idx > 0) {
                 const upBtn = document.createElement('button');
                 upBtn.textContent = '↑';
@@ -215,7 +200,6 @@ export function setupCustomWarmupUI() {
             // Delete button
             const delBtn = document.createElement('button');
             delBtn.textContent = '✕';
-            delBtn.style.marginLeft = '8px';
             delBtn.onclick = () => {
                 const updated = [...appState.customWarmups];
                 updated.splice(idx, 1);
@@ -224,36 +208,73 @@ export function setupCustomWarmupUI() {
                 renderCurrentDayTasks();
             };
             li.appendChild(delBtn);
+
+            // Style based on persistence
+            if (w.persistAcrossDays) {
+                li.style.borderLeft = '3px solid var(--current-accent-color)';
+                li.style.paddingLeft = '8px';
+                li.title = 'Active in daily routine';
+            } else {
+                li.style.opacity = '0.7';
+                li.title = 'Not in daily routine - click to activate';
+            }
+
+            // Make the whole li clickable to toggle persistence
+            li.style.cursor = 'pointer';
+            li.onclick = (e) => {
+                // Don't toggle if clicking a button
+                if (e.target.tagName === 'BUTTON') return;
+                
+                const updated = [...appState.customWarmups];
+                const warmup = { ...updated[idx] };
+                warmup.persistAcrossDays = !warmup.persistAcrossDays;
+                
+                // If becoming persistent, add to current day if not already included
+                if (warmup.persistAcrossDays) {
+                    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+                    if (!warmup.days?.includes(key)) {
+                        warmup.days = [...(warmup.days || []), key];
+                    }
+                }
+                
+                updated[idx] = warmup;
+                updateAppState({ customWarmups: updated });
+                renderList();
+                renderCurrentDayTasks();
+            };
+
             listEl.appendChild(li);
         });
     }
 
     renderList();
+    
     addBtn.onclick = () => {
         modal.style.display = 'flex';
         nameInput.value = '';
         descInput.value = '';
     };
+    
     saveBtn.onclick = () => {
         const name = nameInput.value.trim();
         const description = descInput.value.trim();
         if (!name) return;
         const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-        // New warmups start with persistAcrossDays true and are added to current day
-        updateAppState({ 
-            customWarmups: [...(appState.customWarmups || []), 
+        // New warmups are persistent by default
+        updateAppState({
+            customWarmups: [...(appState.customWarmups || []),
                 { name, description, days: [key], persistAcrossDays: true }
-            ] 
+            ]
         });
         modal.style.display = 'none';
         renderList();
         renderCurrentDayTasks();
     };
+    
     cancelBtn.onclick = () => { modal.style.display = 'none'; };
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 }
 
-// Helper function to update warmups on day change
 export function updateWarmupDays() {
     if (!Array.isArray(appState.customWarmups)) return;
     
