@@ -1,7 +1,7 @@
 // scripts/ui-modals.js
 import { appState, updateAppState } from './app-state.js';
 import { populateRankSelects, generateDivisionButtons, addRankEntry } from './ui-render-progress.js';
-import { renderDashboardRankChart } from './ui-render-dashboard.js';
+import { renderDashboardRankChart } from './ui-render-dashboard-tasks.js';
 import { renderRankHistoryPage } from './ui-render-progress.js'; 
 
 // DOM Element References (will be initialized by initRankPromptModal)

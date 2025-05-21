@@ -1,7 +1,7 @@
 // scripts/ui-theme.js
 import { appState, themes, updateAppState } from './app-state.js';
 // Import chart rendering functions to call them on theme change
-import { renderDashboardRankChart } from './ui-render-dashboard.js';
+import { renderDashboardRankChart } from './ui-render-dashboard-tasks.js';
 import { renderProgressPageRankChart } from './ui-render-progress.js';
 
 const body = document.body;

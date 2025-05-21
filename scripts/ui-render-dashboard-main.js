@@ -1,0 +1,127 @@
+// scripts/ui-render-dashboard-main.js
+// Main dashboard rendering and navigation logic, split from ui-render-dashboard.js
+import { renderCurrentDayTasks, renderCurrentWeekProgress, renderDashboardRankChart, setupCustomWarmupUI, setupDailyNotesArea } from './ui-render-dashboard-tasks.js';
+import { appState } from './app-state.js';
+import { populateRankSelects, generateDivisionButtons, addRankEntry } from './ui-render-progress.js';
+import { programData } from './program-data.js';
+import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
+
+let lastSelectedDashboardTier = '';
+export let rankChartInstanceDashboard = null;
+
+export function renderDashboardPage(mainContentEl) {
+    mainContentEl.innerHTML = `
+        <div class="dashboard-layout">
+            <div class="dashboard-main-content">
+                <section class="week-info">
+                    <h2 id="weekTitle"></h2>
+                    <p id="weekFocus"></p>
+                    <div class="current-week-progress">
+                        <p id="currentWeekProgressText"></p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="currentWeekProgressBar"></div>
+                        </div>
+                    </div>
+                    <h3 id="dayTitle"></h3>
+                </section>
+                <section class="custom-warmup-section">
+                    <h4>Custom Warm-up/Aim Routine</h4>
+                    <ul id="customWarmupList"></ul>
+                    <button id="addCustomWarmupBtn" style="margin-top:6px;">Add Warm-up Drill</button>
+                </section>
+                <div id="customWarmupModal" class="modal" style="display:none; align-items:center; justify-content:center;">
+                    <div class="modal-content" style="max-width:400px; padding:28px 32px; background:var(--current-container-bg); border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
+                        <h3 style="margin-top:0; color:var(--current-accent-color);">Add Warm-up Drill</h3>
+                        <div class="form-group" style="margin-bottom:18px;">
+                            <label for="customWarmupName" style="display:block; margin-bottom:6px; color:var(--current-text-color);">Drill Name</label>
+                            <input id="customWarmupName" type="text" maxlength="40" placeholder="e.g. Tile Frenzy, Aim Lab Grid Shot" style="width:100%; background:var(--current-input-bg); color:var(--current-text-color); border:1px solid var(--current-input-border); border-radius:5px; padding:8px 10px; font-size:1em;" />
+                        </div>
+                        <div class="form-group" style="margin-bottom:18px;">
+                            <label for="customWarmupDesc" style="display:block; margin-bottom:6px; color:var(--current-text-color);">Description or Code <span style="color:var(--current-accent-color); font-weight:normal;">(optional)</span></label>
+                            <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description, workshop code, or link" style="width:100%; background:var(--current-input-bg); color:var(--current-text-color); border:1px solid var(--current-input-border); border-radius:5px; padding:8px 10px; font-size:1em;" />
+                        </div>
+                        <div style="display:flex; gap:12px; justify-content:flex-end;">
+                            <button id="saveCustomWarmupBtn" class="form-button" style="min-width:90px;">Save</button>
+                            <button id="cancelCustomWarmupBtn" class="form-button" style="background:var(--danger-color); color:#fff; min-width:90px;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <section class="tasks-section">
+                    <h4>Today's Tasks</h4>
+                    <ul class="task-list" id="taskList"></ul>
+                </section>
+                <section class="day-navigation-controls">
+                    <button class="nav-button prev-day-btn" id="prevDayBtn">« Previous Day</button>
+                    <button class="nav-button next-day-btn" id="nextDayBtn">Next Day »</button>
+                </section>
+            </div>
+            <aside class="dashboard-side-panel">
+                <section class="daily-notes-section">
+                    <h4>Daily Notes for <span id="dailyNotesDateHeader">W${appState.currentWeek}D${appState.currentDay}</span></h4>
+                    <textarea id="dailyNotesTextarea" placeholder="Reflections, VOD notes, goals..."></textarea>
+                </section>
+                <section class="dashboard-rank-section">
+                    <h4>Quick Rank Update</h4>
+                    <form id="dashboardRankUpdateForm" class="dashboard-rank-update-form">
+                        <div class="form-group">
+                            <label for="dashboardRankTier">Tier:</label>
+                            <select id="dashboardRankTier" name="dashboardRankTier" required></select> 
+                        </div>
+                        <div class="form-group">
+                            <label>Division:</label>
+                            <div id="dashboardRankDivisionButtons" class="division-buttons"></div>
+                            <input type="hidden" id="dashboardRankDivisionValue" name="dashboardRankDivisionValue">
+                        </div>
+                        <button type="submit" class="form-button">Update Today's Rank</button>
+                    </form>
+                    <div id="dashboardRankChartContainer" style="min-height: 220px; position: relative;">
+                         <canvas id="dashboardRankChart"></canvas>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    `;
+    const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
+    populateRankSelects(dashboardRankTierSelect);
+    if (lastSelectedDashboardTier && dashboardRankTierSelect) {
+        dashboardRankTierSelect.value = lastSelectedDashboardTier;
+    }
+    if (dashboardRankTierSelect) {
+        dashboardRankTierSelect.addEventListener('change', (e) => {
+            lastSelectedDashboardTier = e.target.value;
+        });
+    }
+    generateDivisionButtons(
+        document.getElementById('dashboardRankDivisionButtons'),
+        document.getElementById('dashboardRankDivisionValue'),
+        'dashboard' 
+    );
+    const localPrevDayBtn = document.getElementById('prevDayBtn');
+    const localNextDayBtn = document.getElementById('nextDayBtn');
+    if (localPrevDayBtn) localPrevDayBtn.addEventListener('click', () => navigateToDay(-1));
+    if (localNextDayBtn) localNextDayBtn.addEventListener('click', () => navigateToDay(1));
+    const dashboardRankForm = document.getElementById('dashboardRankUpdateForm');
+    if (dashboardRankForm) dashboardRankForm.addEventListener('submit', handleDashboardRankUpdate);
+    renderCurrentDayTasks(); 
+    renderCurrentWeekProgress();
+    setupDailyNotesArea();
+    renderDashboardRankChart();
+    setupCustomWarmupUI();
+}
+
+function handleDashboardRankUpdate(event) {
+    event.preventDefault();
+    const form = event.target;
+    const tier = form.elements['dashboardRankTier'].value; 
+    const division = form.elements['dashboardRankDivisionValue'].value; 
+    if (!tier || !division) { alert("Please select a Tier and Division."); return; }
+    addRankEntry({ type: 'daily', tier, division }); 
+    lastSelectedDashboardTier = tier;
+    const dashboardDivButtons = document.getElementById('dashboardRankDivisionButtons');
+    if(dashboardDivButtons) dashboardDivButtons.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+    const dashboardDivValueInput = document.getElementById('dashboardRankDivisionValue');
+    if(dashboardDivValueInput) dashboardDivValueInput.value = '';
+    const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
+    if(dashboardRankTierSelect) dashboardRankTierSelect.value = lastSelectedDashboardTier;
+    renderDashboardRankChart(); 
+}
