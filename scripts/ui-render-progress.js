@@ -30,7 +30,10 @@ export function renderRankHistoryPage(mainContentEl) {
         </div>
     `;
     historyHtml += `<div class="content-card rank-history-section">`;
-    historyHtml += `<h3>All Logged Ranks (All Cycles)</h3>`;
+    historyHtml += `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h3 style="margin: 0;">All Logged Ranks (All Cycles)</h3>
+        <button id="resetRankHistoryBtn" style="background: var(--danger-color); color: #fff; border: none; border-radius: 4px; padding: 6px 14px; cursor: pointer; font-size: 0.95em;">Reset Progress</button>
+    </div>`;
     historyHtml += `<ul id="fullRankHistoryList" class="rank-history-list">`;
 
     if (appState.rankHistory.length === 0) {
@@ -60,6 +63,17 @@ export function renderRankHistoryPage(mainContentEl) {
         </div>`;
     historyHtml += `</section>`;
     mainContentEl.innerHTML = historyHtml;
+
+    // Add event listener for reset button
+    const resetBtn = document.getElementById('resetRankHistoryBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all rank history? This cannot be undone.')) {
+                updateAppState({ rankHistory: [] });
+                renderRankHistoryPage(mainContentEl);
+            }
+        });
+    }
 
     renderOverallProgramProgress(); 
     renderProgressPageRankChart(); 
