@@ -4,7 +4,8 @@ import { programData, getTotalDaysInWeek } from './program-data.js';
 import { initThemeControls, applyTheme } from './ui-theme.js';
 import { initMainNavigation, renderPage as RENDER_PAGE_FROM_MAIN_NAV } from './main-navigation.js';
 import { initRankPromptModal, promptForRank } from './ui-modals.js';
-import { renderCurrentWeekProgress, renderDashboardRankChart } from './ui-render-dashboard-tasks.js';
+import { renderCurrentWeekProgress } from './ui-render-dashboard-tasks.js';
+import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage, initProgramModals as initProgramWeekDetailsModalListeners } from './ui-render-program.js';
 
 document.addEventListener('DOMContentLoaded', () => {
