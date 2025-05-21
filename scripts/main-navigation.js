@@ -1,13 +1,13 @@
 // main-navigation.js
 import { appState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
-import { renderDashboardPage, rankChartInstanceDashboard } from './ui-render-dashboard-main.js';
+import { renderDashboardPage, renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage } from './ui-render-program.js';
 import { renderDailyNotesSummaryPage } from './ui-render-notes.js';
 import { renderRankHistoryPage, rankChartInstanceProgress } from './ui-render-progress.js';
 import { renderResourcesPage } from './ui-render-resources.js';
 import { promptForRank } from './ui-modals.js';
-import { renderCurrentWeekProgress, renderDashboardRankChart, updateWarmupDays } from './ui-render-dashboard-tasks.js';
+import { renderCurrentWeekProgress, updateWarmupDays } from './ui-render-dashboard-tasks.js';
 
 let mainContentEl = null;
 let navLinks = null;

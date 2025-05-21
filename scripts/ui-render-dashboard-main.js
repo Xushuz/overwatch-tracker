@@ -7,7 +7,7 @@ import { programData } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
 
 let lastSelectedDashboardTier = '';
-let rankChartInstanceDashboard = null;
+export let rankChartInstanceDashboard = null;
 
 export function renderDashboardRankChart() {
     const chartContainer = document.getElementById('dashboardRankChartContainer');
