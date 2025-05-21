@@ -36,22 +36,24 @@ export function renderProgramOverviewPage(mainContentEl) {
             const progressPercent = totalTasksInWeek > 0 ? Math.round((completedTasksInWeek / totalTasksInWeek) * 100) : 0;
 
             programHtml += `
-                <div class="week-card">
+                <button class="week-card" data-week="${weekNum}">
                     <div class="week-card-header">
                         <h3 class="week-card-title">Week ${weekNum}: ${week.title}</h3>
                         <span class="week-progress">${progressPercent}%</span>
                     </div>
                     <p class="week-card-focus">Focus: ${week.focus}</p>
-                    <button class="view-week-details-btn" data-week="${weekNum}">View Daily Tasks</button>
-                </div>`;
+                    <div class="week-card-action">View Daily Tasks</div>
+                </button>`;
         }
     }
     programHtml += `</div></section>`;
     mainContentEl.innerHTML = programHtml;
-
-    mainContentEl.querySelectorAll('.view-week-details-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const weekNum = e.target.dataset.week;
+    
+    // Add click handlers for the week cards
+    const weekCards = mainContentEl.querySelectorAll('.week-card');
+    weekCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const weekNum = card.dataset.week;
             showProgramWeekDetailsModal(weekNum);
         });
     });

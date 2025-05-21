@@ -10,16 +10,38 @@
 }
 
 .week-card {
+    width: 100%;
+    text-align: left;
     background-color: var(--current-container-bg); 
     border: 1px solid var(--current-border-color);
     padding: 15px;
     border-radius: 6px;
     box-shadow: 0 2px 5px var(--current-card-shadow);
     display: flex; 
-    flex-direction: column; /* Stack content vertically within the card */
-    /* To help with uniform height in a grid row, though true equalization is hard without JS or specific grid properties */
-    /* Consider adding a min-height if cards look too mismatched */
-    /* min-height: 300px; Example, adjust as needed or remove */
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.week-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--current-card-shadow);
+}
+
+.week-card:active {
+    transform: translateY(0);
+}
+
+.week-card-action {
+    color: var(--current-accent-color);
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-top: auto;
+}
+
+.week-card:hover .week-card-action {
+    text-decoration: underline;
 }
 
 .week-card-header {

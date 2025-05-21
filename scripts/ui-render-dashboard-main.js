@@ -114,14 +114,27 @@ function handleDashboardRankUpdate(event) {
     const form = event.target;
     const tier = form.elements['dashboardRankTier'].value; 
     const division = form.elements['dashboardRankDivisionValue'].value; 
+
     if (!tier || !division) { alert("Please select a Tier and Division."); return; }
-    addRankEntry({ type: 'daily', tier, division }); 
-    lastSelectedDashboardTier = tier;
+    
+    addRankEntry({ 
+        type: 'daily', 
+        tier, 
+        division 
+    }); 
+
+    // Save the tier selection in appState
+    updateAppState({ lastSelectedTier: tier });
+    
+    // Clear division selection but keep tier
     const dashboardDivButtons = document.getElementById('dashboardRankDivisionButtons');
     if(dashboardDivButtons) dashboardDivButtons.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
     const dashboardDivValueInput = document.getElementById('dashboardRankDivisionValue');
     if(dashboardDivValueInput) dashboardDivValueInput.value = '';
+    
+    // Re-apply the selected tier to the dropdown
     const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
-    if(dashboardRankTierSelect) dashboardRankTierSelect.value = lastSelectedDashboardTier;
+    if(dashboardRankTierSelect) dashboardRankTierSelect.value = tier;
+
     renderDashboardRankChart(); 
 }

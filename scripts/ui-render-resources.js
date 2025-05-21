@@ -13,8 +13,10 @@ export function renderResourcesPage(mainContentEl) {
         let listHtml = `<div class="resource-category content-card"><h3>${title}</h3><ul>`;
         resourcesArray.forEach(resource => {
             listHtml += `<li>
-                            <a href="${resource.url}" target="_blank" rel="noopener noreferrer">${resource.name}</a>
-                            ${resource.note ? `<span class="resource-note"> - ${resource.note}</span>` : ''}
+                            <button class="resource-button" onclick="window.open('${resource.url}', '_blank', 'noopener,noreferrer')">
+                                ${resource.name}
+                                ${resource.note ? `<span class="resource-note">${resource.note}</span>` : ''}
+                            </button>
                          </li>`;
         });
         listHtml += `</ul></div>`;

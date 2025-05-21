@@ -15,7 +15,8 @@ export let appState = {
     hasPromptedInitialRankThisCycle: false,
     hasPromptedRankForWeek: {}, // Format: { "c1w1": true (meaning end of w1 for cycle 1 prompted)
     customWarmups: [], // Array of { id, name, description, link }
-    customTasks: {} // Format: { "c1w1d1": [ { id, text, done } ] }
+    customTasks: {}, // Format: { "c1w1d1": [ { id, text, done } ] }
+    lastSelectedTier: '', // Store the last selected tier from dashboard
 };
 
 export function saveState() {
@@ -48,7 +49,8 @@ export function loadState() {
                 hasPromptedInitialRankThisCycle: parsedState.hasPromptedInitialRankThisCycle || false,
                 hasPromptedRankForWeek: { ...(parsedState.hasPromptedRankForWeek || {}) },
                 customWarmups: [ ...(parsedState.customWarmups || []) ],
-                customTasks: { ...(parsedState.customTasks || {}) }
+                customTasks: { ...(parsedState.customTasks || {}) },
+                lastSelectedTier: parsedState.lastSelectedTier || '',
             };
         }
     } catch (e) {
