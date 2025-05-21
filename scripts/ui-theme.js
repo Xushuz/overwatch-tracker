@@ -1,7 +1,7 @@
 // scripts/ui-theme.js
 import { appState, themes, updateAppState } from './app-state.js';
 // Import chart rendering functions to call them on theme change
-import { renderDashboardRankChart } from './ui-render-dashboard-tasks.js';
+import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgressPageRankChart } from './ui-render-progress.js';
 
 const body = document.body;
@@ -20,17 +20,30 @@ export function applyTheme() {
     const currentThemeIndex = themes.indexOf(appState.theme);
     const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
     themeToggleBtnEl.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)}`;
-
+    
     // Re-render charts if they are currently displayed to update their colors
     if (appState.currentPage === 'dashboard') {
-        // Check if the canvas element actually exists before trying to render
-        if (document.getElementById('dashboardRankChart')) {
-            renderDashboardRankChart();
+        const dashboardCanvas = document.getElementById('dashboardRankChart');
+        if (dashboardCanvas) {
+            // Use a slightly longer delay and requestAnimationFrame to ensure CSS variables are updated
+            setTimeout(() => {
+                // Force clear the canvas
+                const ctx = dashboardCanvas.getContext('2d');
+                ctx.clearRect(0, 0, dashboardCanvas.width, dashboardCanvas.height);
+                requestAnimationFrame(() => renderDashboardRankChart());
+            }, 50);
         }
     }
     if (appState.currentPage === 'progress') {
-        if (document.getElementById('progressPageRankChart')) {
-            renderProgressPageRankChart();
+        const progressCanvas = document.getElementById('progressPageRankChart');
+        if (progressCanvas) {
+            // Use a slightly longer delay and requestAnimationFrame to ensure CSS variables are updated
+            setTimeout(() => {
+                // Force clear the canvas
+                const ctx = progressCanvas.getContext('2d');
+                ctx.clearRect(0, 0, progressCanvas.width, progressCanvas.height);
+                requestAnimationFrame(() => renderProgressPageRankChart());
+            }, 50);
         }
     }
 }

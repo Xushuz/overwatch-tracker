@@ -1,13 +1,46 @@
 // scripts/ui-render-dashboard-main.js
 // Main dashboard rendering and navigation logic, split from ui-render-dashboard.js
-import { renderCurrentDayTasks, renderCurrentWeekProgress, renderDashboardRankChart, setupCustomWarmupUI, setupDailyNotesArea } from './ui-render-dashboard-tasks.js';
+import { renderCurrentDayTasks, renderCurrentWeekProgress, prepareRankChartData, setupCustomWarmupUI, setupDailyNotesArea } from './ui-render-dashboard-tasks.js';
 import { appState } from './app-state.js';
 import { populateRankSelects, generateDivisionButtons, addRankEntry } from './ui-render-progress.js';
 import { programData } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
 
 let lastSelectedDashboardTier = '';
-export let rankChartInstanceDashboard = null;
+let rankChartInstanceDashboard = null;
+
+function renderDashboardRankChart() {
+    const chartContainer = document.getElementById('dashboardRankChartContainer');
+    if (!chartContainer) return;
+    
+    // Get the chart data and configuration
+    const { data: currentCycleRankData, config: chartConfig } = prepareRankChartData();
+
+    // Handle empty data case
+    if (currentCycleRankData.length === 0) {
+        chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px;">No rank data logged for current cycle.</p>';
+        return;
+    }
+
+    // Clean up existing chart instance
+    if (rankChartInstanceDashboard) {
+        rankChartInstanceDashboard.destroy();
+        rankChartInstanceDashboard = null;
+    }
+
+    // Ensure canvas exists
+    if (!document.getElementById('dashboardRankChart')) {
+        chartContainer.innerHTML = '<canvas id="dashboardRankChart"></canvas>';
+    }
+
+    // Create new chart instance
+    const newCanvasEl = document.getElementById('dashboardRankChart');
+    if (newCanvasEl) {
+        rankChartInstanceDashboard = new Chart(newCanvasEl, chartConfig);
+    } else {
+        console.error("Dashboard chart canvas not found after attempting to re-add it.");
+    }
+}
 
 export function renderDashboardPage(mainContentEl) {
     mainContentEl.innerHTML = `
