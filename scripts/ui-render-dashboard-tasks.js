@@ -134,7 +134,10 @@ export function setupCustomWarmupUI() {
     const descInput = document.getElementById('customWarmupDesc');
     const saveBtn = document.getElementById('saveCustomWarmupBtn');
     const cancelBtn = document.getElementById('cancelCustomWarmupBtn');
-    if (!listEl || !addBtn || !modal || !nameInput || !descInput || !saveBtn || !cancelBtn) return;
+    if (!listEl || !addBtn || !modal || !nameInput || !descInput || !saveBtn || !cancelBtn) {
+        console.error("Custom warmup UI elements not all found");
+        return;
+    }
 
     function renderList() {
         listEl.innerHTML = '';
@@ -256,25 +259,33 @@ export function setupCustomWarmupUI() {
         nameInput.value = '';
         descInput.value = '';
     };
-    
+
+    const closeModal = () => {
+        modal.style.display = 'none';
+        nameInput.value = '';
+        descInput.value = '';
+    };
+
     saveBtn.onclick = () => {
         const name = nameInput.value.trim();
         const description = descInput.value.trim();
         if (!name) return;
+
         const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-        // New warmups are persistent by default
         updateAppState({
             customWarmups: [...(appState.customWarmups || []),
                 { name, description, days: [key], persistAcrossDays: true }
             ]
         });
-        modal.style.display = 'none';
+        closeModal();
         renderList();
         renderCurrentDayTasks();
     };
     
-    cancelBtn.onclick = () => { modal.style.display = 'none'; };
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    cancelBtn.onclick = closeModal;
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
 }
 
 export function updateWarmupDays() {

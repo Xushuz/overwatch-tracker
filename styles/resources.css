@@ -6,11 +6,14 @@
     /* This class uses .content-card styles from base.css, so no need to redefine them here. */
     /* We only add styles specific to the content *within* a resource category card. */
     margin-bottom: 20px; /* Consistent with other content cards */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 10px 15px; /* Row gap 10px, column gap 15px */
 }
 
 .resource-category h3 { 
     /* Uses .content-card h3 from base.css */
-    /* No specific override needed unless desired */
+    margin-bottom: 15px;
 }
 
 .resource-category ul {
@@ -18,10 +21,13 @@
     padding-left: 0; /* Remove default ul padding if no list-style disc/circle */
     /* If using list-style disc/circle, you might want padding-left: 20px; */
     margin-top: 0; /* Remove default ul margin */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 15px;
 }
 
 .resource-category li {
-    padding: 8px 0;
+    padding: 0;
     border: none;
     line-height: 1.5; /* Improve readability if notes wrap */
 }
@@ -56,6 +62,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    height: 100%; /* Ensure consistent height in grid */
 }
 
 .resource-button:hover {
@@ -79,4 +86,11 @@
 .resource-button:hover .resource-note {
     color: var(--current-accent-text);
     opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .resource-category ul {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
 }

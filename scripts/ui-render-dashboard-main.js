@@ -29,20 +29,20 @@ export function renderDashboardPage(mainContentEl) {
                     <ul id="customWarmupList"></ul>
                     <button id="addCustomWarmupBtn" style="margin-top:6px;">Add Warm-up Drill</button>
                 </section>
-                <div id="customWarmupModal" class="modal" style="display:none; align-items:center; justify-content:center;">
-                    <div class="modal-content" style="max-width:400px; padding:28px 32px; background:var(--current-container-bg); border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
-                        <h3 style="margin-top:0; color:var(--current-accent-color);">Add Warm-up Drill</h3>
+                <div id="customWarmupModal" class="modal">
+                    <div class="modal-content">
+                        <h3>Add Warm-up Drill</h3>
                         <div class="form-group" style="margin-bottom:18px;">
-                            <label for="customWarmupName" style="display:block; margin-bottom:6px; color:var(--current-text-color);">Drill Name</label>
-                            <input id="customWarmupName" type="text" maxlength="40" placeholder="e.g. Tile Frenzy, Aim Lab Grid Shot" style="width:100%; background:var(--current-input-bg); color:var(--current-text-color); border:1px solid var(--current-input-border); border-radius:5px; padding:8px 10px; font-size:1em;" />
+                            <label for="customWarmupName">Drill Name</label>
+                            <input id="customWarmupName" type="text" maxlength="40" placeholder="e.g. Tile Frenzy, Aim Lab Grid Shot" />
                         </div>
                         <div class="form-group" style="margin-bottom:18px;">
-                            <label for="customWarmupDesc" style="display:block; margin-bottom:6px; color:var(--current-text-color);">Description or Code <span style="color:var(--current-accent-color); font-weight:normal;">(optional)</span></label>
-                            <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description, workshop code, or link" style="width:100%; background:var(--current-input-bg); color:var(--current-text-color); border:1px solid var(--current-input-border); border-radius:5px; padding:8px 10px; font-size:1em;" />
+                            <label for="customWarmupDesc">Description or Code <span style="color:var(--current-accent-color); font-weight:normal;">(optional)</span></label>
+                            <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description, workshop code, or link" />
                         </div>
                         <div style="display:flex; gap:12px; justify-content:flex-end;">
-                            <button id="saveCustomWarmupBtn" class="form-button" style="min-width:90px;">Save</button>
-                            <button id="cancelCustomWarmupBtn" class="form-button" style="background:var(--danger-color); color:#fff; min-width:90px;">Cancel</button>
+                            <button id="saveCustomWarmupBtn" class="form-button">Save</button>
+                            <button id="cancelCustomWarmupBtn" class="form-button" style="background:var(--danger-color); color:#fff;">Cancel</button>
                         </div>
                     </div>
                 </div>
