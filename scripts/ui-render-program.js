@@ -38,7 +38,7 @@ export function renderProgramOverviewPage(mainContentEl) {
             programHtml += `
                 <div class="week-card">
                     <div class="week-card-header">
-                        <h3>Week ${weekNum}: ${week.title}</h3>
+                        <h3 class="week-card-title">Week ${weekNum}: ${week.title}</h3>
                         <span class="week-progress">${progressPercent}%</span>
                     </div>
                     <p class="week-card-focus">Focus: ${week.focus}</p>
