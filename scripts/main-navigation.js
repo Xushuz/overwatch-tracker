@@ -7,6 +7,7 @@ import { renderDailyNotesSummaryPage } from './ui-render-notes.js';
 import { renderRankHistoryPage, rankChartInstanceProgress } from './ui-render-progress.js';
 import { renderResourcesPage } from './ui-render-resources.js';
 import { promptForRank } from './ui-modals.js';
+import { renderCurrentWeekProgress, renderDashboardRankChart, updateWarmupDays } from './ui-render-dashboard-tasks.js';
 
 let mainContentEl = null;
 let navLinks = null;
@@ -117,6 +118,9 @@ export function navigateToDay(direction) {
     // Check if the target day/week actually exists in programData
     if (programData[targetWeek] && programData[targetWeek].days && programData[targetWeek].days[targetDay]) {
         updateAppState({ currentWeek: targetWeek, currentDay: targetDay });
+        
+        // Update warmups that should persist across days
+        updateWarmupDays();
         
         // Check for end-of-week rank prompt if moving forward into a new week
         // Only prompt if the oldWeek was part of the 6-week program

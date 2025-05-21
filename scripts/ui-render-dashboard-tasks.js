@@ -133,39 +133,42 @@ export function setupCustomWarmupUI() {
     const saveBtn = document.getElementById('saveCustomWarmupBtn');
     const cancelBtn = document.getElementById('cancelCustomWarmupBtn');
     if (!listEl || !addBtn || !modal || !nameInput || !descInput || !saveBtn || !cancelBtn) return;
+    
     function renderList() {
         listEl.innerHTML = '';
         (appState.customWarmups || []).forEach((w, idx) => {
             const li = document.createElement('li');
             li.textContent = w.name + (w.description ? `: ${w.description}` : '');
-            const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-            const included = (w.days || []).includes(key);
-            if (!included) {
-                const includeBox = document.createElement('input');
-                includeBox.type = 'checkbox';
-                includeBox.checked = false;
-                includeBox.title = 'Include in today\'s warmup';
-                includeBox.className = 'themed-checkbox';
-                includeBox.onchange = () => {
-                    const updated = [...appState.customWarmups];
-                    if (!updated[idx].days) updated[idx].days = [];
-                    if (includeBox.checked) {
-                        if (!updated[idx].days.includes(key)) updated[idx].days.push(key);
-                    } else {
-                        updated[idx].days = updated[idx].days.filter(d => d !== key);
+            
+            // Add checkbox for persistence across days
+            const persistBox = document.createElement('input');
+            persistBox.type = 'checkbox';
+            persistBox.checked = w.persistAcrossDays || false;
+            persistBox.title = 'Keep in daily tasks';
+            persistBox.className = 'themed-checkbox';
+            persistBox.onchange = () => {
+                const updated = [...appState.customWarmups];
+                updated[idx] = { ...updated[idx], persistAcrossDays: persistBox.checked };
+                if (persistBox.checked) {
+                    // When making persistent, add to current day if not already included
+                    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+                    if (!updated[idx].days?.includes(key)) {
+                        updated[idx].days = [...(updated[idx].days || []), key];
                     }
-                    updateAppState({ customWarmups: updated });
-                    renderList();
-                    renderCurrentDayTasks();
-                };
-                li.appendChild(includeBox);
-            }
+                }
+                updateAppState({ customWarmups: updated });
+                renderList();
+                renderCurrentDayTasks();
+            };
+            li.appendChild(persistBox);
+            
+            // Edit button
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Edit';
             editBtn.style.marginLeft = '8px';
             editBtn.onclick = () => {
                 nameInput.value = w.name;
-                descInput.value = w.description;
+                descInput.value = w.description || '';
                 modal.style.display = 'flex';
                 saveBtn.onclick = () => {
                     const name = nameInput.value.trim();
@@ -182,6 +185,8 @@ export function setupCustomWarmupUI() {
                 };
             };
             li.appendChild(editBtn);
+
+            // Move up/down buttons
             if (idx > 0) {
                 const upBtn = document.createElement('button');
                 upBtn.textContent = '↑';
@@ -206,6 +211,8 @@ export function setupCustomWarmupUI() {
                 };
                 li.appendChild(downBtn);
             }
+
+            // Delete button
             const delBtn = document.createElement('button');
             delBtn.textContent = '✕';
             delBtn.style.marginLeft = '8px';
@@ -220,6 +227,7 @@ export function setupCustomWarmupUI() {
             listEl.appendChild(li);
         });
     }
+
     renderList();
     addBtn.onclick = () => {
         modal.style.display = 'flex';
@@ -231,13 +239,41 @@ export function setupCustomWarmupUI() {
         const description = descInput.value.trim();
         if (!name) return;
         const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-        updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description, days: [key] }] });
+        // New warmups start with persistAcrossDays true and are added to current day
+        updateAppState({ 
+            customWarmups: [...(appState.customWarmups || []), 
+                { name, description, days: [key], persistAcrossDays: true }
+            ] 
+        });
         modal.style.display = 'none';
         renderList();
         renderCurrentDayTasks();
     };
     cancelBtn.onclick = () => { modal.style.display = 'none'; };
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+}
+
+// Helper function to update warmups on day change
+export function updateWarmupDays() {
+    if (!Array.isArray(appState.customWarmups)) return;
+    
+    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+    const updated = appState.customWarmups.map(warmup => {
+        if (warmup.persistAcrossDays) {
+            // If the warmup should persist and isn't already in the current day, add it
+            if (!warmup.days?.includes(key)) {
+                return { 
+                    ...warmup, 
+                    days: [...(warmup.days || []), key] 
+                };
+            }
+        }
+        return warmup;
+    });
+    
+    if (JSON.stringify(updated) !== JSON.stringify(appState.customWarmups)) {
+        updateAppState({ customWarmups: updated });
+    }
 }
 
 export function setupDailyNotesArea() {
