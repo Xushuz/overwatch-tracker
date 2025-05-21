@@ -177,7 +177,7 @@ body.pink-mode .task-details.completed {
 .nav-button:hover {
     opacity: 1; 
     background-color: var(--current-accent-color);
-    color: white; 
+    color: var(--current-accent-text); 
     border-color: var(--current-accent-hover-color);
 }
 body.pink-mode .nav-button:hover {
@@ -259,7 +259,7 @@ body.dark-mode .nav-button:hover { /* Specific for orange accent on dark */
 }
 .dashboard-rank-update-form .division-buttons button.selected { 
     background-color: var(--current-accent-color); 
-    color: white; 
+    color: var(--current-accent-text); 
     border-color: var(--current-accent-color); 
     font-weight: bold;
 }
@@ -349,7 +349,7 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
 #savePersonalFocusBtn:hover,
 #cancelPersonalFocusBtn:hover {
     background: var(--current-accent-color);
-    color: #fff;
+    color: var(--current-accent-text);
     border-color: var(--current-accent-hover-color);
 }
 #customWarmupName,
@@ -467,4 +467,19 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
 .themed-checkbox:focus {
     outline: 2px solid var(--current-accent-hover-color);
     outline-offset: 1px;
+}
+
+/* Progress bar */
+.progress-bar-fill {
+    background-color: var(--current-accent-color);
+    color: var(--current-accent-text);
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+    text-align: center;
+    font-weight: bold;
+    line-height: 22px;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

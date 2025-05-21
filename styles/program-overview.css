@@ -21,12 +21,17 @@
     flex-direction: column;
     gap: 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    color: var(--current-text-color);
+    font-family: var(--font-family);
+    font-size: inherit;
 }
 
 .week-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--current-card-shadow);
+    border-color: var(--current-accent-color);
+    background-color: var(--current-container-bg);
 }
 
 .week-card:active {
@@ -35,9 +40,11 @@
 
 .week-card-action {
     color: var(--current-accent-color);
-    font-size: 0.9em;
+    font-size: 0.95em;
     font-weight: 500;
     margin-top: auto;
+    padding-top: 8px;
+    transition: color 0.2s ease;
 }
 
 .week-card:hover .week-card-action {
@@ -82,6 +89,7 @@
     padding-right: 10px;
     border-bottom: none;
     padding-bottom: 0;
+    font-family: var(--font-family);
 }
 
 .week-progress {
@@ -97,11 +105,12 @@
 }
 
 .week-card-focus {
-    font-size: 0.9em;
+    font-size: 0.95em;
     margin-bottom: 15px; /* More space before the button */
-    opacity: 0.85; /* Slightly more visible */
+    opacity: 0.9; /* Slightly more visible */
     flex-grow: 1; /* This makes the focus area take up remaining space, pushing button down */
     line-height: 1.5; /* Improved readability */
+    color: var(--current-text-color);
     /* To prevent wildly different heights due to text, you can add a max-height and overflow: auto/hidden */
     /* For example:
     max-height: 100px; 
@@ -124,13 +133,13 @@
     width: auto; /* Let content define width, or set a fixed/max-width */
     min-width: 120px; /* Ensure a decent minimum width */
     text-align: center;
-    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .view-week-details-btn:hover {
     opacity: 1; /* Full opacity on hover */
     background-color: var(--current-accent-color); 
-    color: white; /* Default for accent buttons */
+    color: var(--current-accent-text);
     border-color: var(--current-accent-hover-color);
 }
 body.pink-mode .view-week-details-btn:hover {

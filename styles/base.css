@@ -18,6 +18,7 @@
     --card-shadow-light: rgba(0, 0, 0, 0.05);
     --accent-color-light: #007bff; /* Default Blue for light mode */
     --accent-hover-color-light: #0056b3;
+    --accent-text-light: #fff; /* New variable for accent text */
     --nav-active-bg-light: rgba(0, 123, 255, 0.1);
     --progress-bar-bg-light: #e9ecef;
     --modal-content-bg-light: #ffffff;
@@ -42,6 +43,7 @@
     --card-shadow-dark: rgba(100, 100, 100, 0.1); 
     --accent-color-dark: #FFA500; /* Vibrant Orange */
     --accent-hover-color-dark: #FF8C00; /* Darker Orange */
+    --accent-text-dark: #1e1e1e; /* New variable for accent text in dark mode */
     --nav-active-bg-dark: rgba(255, 165, 0, 0.2); /* Orange with alpha */
     --progress-bar-bg-dark: #3a3a3a;
     --modal-content-bg-dark: #2c2c2c;
@@ -66,6 +68,7 @@
     --card-shadow-pink: rgba(255, 105, 180, 0.1); 
     --accent-color-pink: #ff69b4; 
     --accent-hover-color-pink: #ff1493; 
+    --accent-text-pink: #581845; /* New variable for accent text */
     --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
     --progress-bar-bg-pink: #ffdde5;
     --modal-content-bg-pink: #ffffff;
@@ -78,6 +81,8 @@
     /* General Non-Theme Specific */
     --completed-text-color: #6c757d; 
     --danger-color: #dc3545;
+    --dark-text: #1e1e1e;
+    --light-text: #ffffff;
 
     /* Current theme (defaults to light, overridden by body classes) */
     --current-bg-color: var(--bg-color-light);
@@ -94,6 +99,7 @@
     --current-card-shadow: var(--card-shadow-light);
     --current-accent-color: var(--accent-color-light);
     --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-accent-text: var(--accent-text-light);
     --current-nav-active-bg: var(--nav-active-bg-light);
     --current-progress-bar-bg: var(--progress-bar-bg-light);
     --current-modal-content-bg: var(--modal-content-bg-light);
@@ -131,6 +137,7 @@ body.light-mode {
     --current-card-shadow: var(--card-shadow-light);
     --current-accent-color: var(--accent-color-light);
     --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-accent-text: var(--accent-text-light);
     --current-nav-active-bg: var(--nav-active-bg-light);
     --current-progress-bar-bg: var(--progress-bar-bg-light);
     --current-modal-content-bg: var(--modal-content-bg-light);
@@ -155,6 +162,7 @@ body.dark-mode {
     --current-card-shadow: var(--card-shadow-dark);
     --current-accent-color: var(--accent-color-dark); /* Orange */
     --current-accent-hover-color: var(--accent-hover-color-dark); /* Darker Orange */
+    --current-accent-text: var(--accent-text-dark);
     --current-nav-active-bg: var(--nav-active-bg-dark); /* Orange based */
     --current-progress-bar-bg: var(--progress-bar-bg-dark);
     --current-modal-content-bg: var(--modal-content-bg-dark);
@@ -179,6 +187,7 @@ body.pink-mode {
     --current-card-shadow: var(--card-shadow-pink);
     --current-accent-color: var(--accent-color-pink);
     --current-accent-hover-color: var(--accent-hover-color-pink);
+    --current-accent-text: var(--accent-text-pink);
     --current-nav-active-bg: var(--nav-active-bg-pink);
     --current-progress-bar-bg: var(--progress-bar-bg-pink);
     --current-modal-content-bg: var(--modal-content-bg-pink);
@@ -236,10 +245,10 @@ body.pink-mode {
 
 /* Progress Bar General Styles */
 .progress-bar-container { width: 100%; background-color: var(--current-progress-bar-bg); border-radius: 4px; overflow: hidden; height: 22px; margin-top: 5px; border: 1px solid var(--current-border-color); }
-.progress-bar-fill { background-color: var(--current-accent-color); height: 100%; transition: width 0.5s ease-in-out; text-align: center; color: white; font-weight: bold; line-height: 22px; font-size: 0.8em; display: flex; align-items: center; justify-content: center; }
+.progress-bar-fill { background-color: var(--current-accent-color); height: 100%; transition: width 0.5s ease-in-out; text-align: center; color: var(--current-accent-text); font-weight: bold; line-height: 22px; font-size: 0.8em; display: flex; align-items: center; justify-content: center; }
 body.pink-mode .progress-bar-fill { color: var(--text-color-pink); } 
-body.dark-mode .progress-bar-fill { color: #111; } /* Dark text on orange fill */
-body.light-mode .progress-bar-fill { color: #fff; }
+body.dark-mode .progress-bar-fill { color: var(--current-accent-text); } /* Dark text on orange fill */
+body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
 
 
 /* General Form Grouping for consistency */
@@ -271,7 +280,7 @@ body.light-mode .progress-bar-fill { color: #fff; }
 .form-button { 
     padding: 10px 15px; 
     background-color: var(--current-accent-color);
-    color: white; /* Default text color for accent buttons */
+    color: var(--current-accent-text); /* Default text color for accent buttons */
     border: 1px solid var(--current-accent-color);
     border-radius: 4px;
     cursor: pointer;
@@ -283,9 +292,9 @@ body.light-mode .progress-bar-fill { color: #fff; }
     text-align: center;
 }
 /* Text color adjustments for form buttons based on theme accent */
-body.pink-mode .form-button { color: #fff; }
-body.dark-mode .form-button { color: #111; } /* Dark text on orange button */
-body.light-mode .form-button { color: #fff; }
+body.pink-mode .form-button { color: var(--current-accent-text); }
+body.dark-mode .form-button { color: var(--current-accent-text); } /* Dark text on orange button */
+body.light-mode .form-button { color: var(--current-accent-text); }
 
 .form-button:hover { 
     background-color: var(--current-accent-hover-color);

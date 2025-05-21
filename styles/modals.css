@@ -91,16 +91,14 @@
     font-size: 0.95em; 
     font-weight: 500;
     margin-left: 10px;
-    transition: background-color 0.2s ease, opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .modal-button.save {
     background-color: var(--current-accent-color);
-    color: white; 
+    color: var(--current-accent-text);
 }
-body.pink-mode .modal-button.save { 
-    color: #fff; 
-}
+
 .modal-button.save:hover {
     background-color: var(--current-accent-hover-color);
 }
@@ -157,14 +155,14 @@ body.pink-mode .modal-button.save {
 }
 .rank-prompt-modal .division-buttons button { 
     flex-grow: 1; 
-    padding: 10px 5px; 
+    padding: 8px 5px; 
     font-size: 0.9em; 
     border: 1px solid var(--current-border-color);
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
 }
 .rank-prompt-modal .division-buttons button:hover {
     opacity: 0.8;
@@ -172,7 +170,7 @@ body.pink-mode .modal-button.save {
 }
 .rank-prompt-modal .division-buttons button.selected {
     background-color: var(--current-accent-color);
-    color: white; 
+    color: var(--current-accent-text);
     border-color: var(--current-accent-color);
     font-weight: bold;
 }

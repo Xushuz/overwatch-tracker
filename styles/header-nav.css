@@ -42,13 +42,15 @@
     cursor: pointer;
     font-size: 0.8em;
     margin-left: 8px;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
+    transition: all 0.3s ease;
     white-space: nowrap; /* Prevent button text from wrapping */
 }
 
 .theme-toggle-btn:hover, 
 .new-cycle-btn:hover {
-    opacity: 0.8;
+    background-color: var(--current-accent-color);
+    color: var(--current-accent-text);
+    border-color: var(--current-accent-hover-color);
 }
 
 .app-nav {
@@ -67,7 +69,7 @@
     text-decoration: none;
     font-weight: 500;
     border-radius: 4px;
-    transition: background-color 0.2s ease, color 0.2s ease; /* Added color transition */
+    transition: all 0.3s ease;
     font-size: 0.85em; 
     text-align: center;
     flex-grow: 1; /* Make them take up equal space, good for few items */
@@ -76,10 +78,10 @@
 }
 
 .app-nav .nav-link:hover {
-    /* Theme specific hovers applied via body class */
     color: var(--current-accent-color);
-    background-color: var(--current-button-bg); /* Use button bg for hover consistency */
+    background-color: var(--current-nav-active-bg);
 }
+
 body.light-mode .app-nav .nav-link:hover {
     background-color: rgba(0, 123, 255, 0.05);
 }
