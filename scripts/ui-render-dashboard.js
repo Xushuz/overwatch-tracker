@@ -27,13 +27,24 @@ export function renderDashboardPage(mainContentEl) {
                     <h4>Custom Warm-up/Aim Routine</h4>
                     <ul id="customWarmupList"></ul>
                     <button id="addCustomWarmupBtn" style="margin-top:6px;">Add Warm-up Drill</button>
-                    <div id="customWarmupFormContainer" style="display:none; margin-top:8px;">
-                        <input id="customWarmupName" type="text" maxlength="40" placeholder="Drill name (e.g. KovaaK's Tile Frenzy)" style="width:40%;" />
-                        <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description or code (optional)" style="width:40%;" />
-                        <button id="saveCustomWarmupBtn">Save</button>
-                        <button id="cancelCustomWarmupBtn">Cancel</button>
-                    </div>
                 </section>
+                <div id="customWarmupModal" class="modal" style="display:none; align-items:center; justify-content:center;">
+                    <div class="modal-content" style="max-width:400px; padding:28px 32px; background:var(--current-container-bg); border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
+                        <h3 style="margin-top:0; color:var(--current-accent-color);">Add Warm-up Drill</h3>
+                        <div class="form-group" style="margin-bottom:18px;">
+                            <label for="customWarmupName" style="display:block; margin-bottom:6px; color:var(--current-text-color);">Drill Name</label>
+                            <input id="customWarmupName" type="text" maxlength="40" placeholder="e.g. Tile Frenzy, Aim Lab Grid Shot" style="width:100%; background:var(--current-input-bg); color:var(--current-text-color); border:1px solid var(--current-input-border); border-radius:5px; padding:8px 10px; font-size:1em;" />
+                        </div>
+                        <div class="form-group" style="margin-bottom:18px;">
+                            <label for="customWarmupDesc" style="display:block; margin-bottom:6px; color:var(--current-text-color);">Description or Code <span style="color:var(--current-accent-color); font-weight:normal;">(optional)</span></label>
+                            <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description, workshop code, or link" style="width:100%; background:var(--current-input-bg); color:var(--current-text-color); border:1px solid var(--current-input-border); border-radius:5px; padding:8px 10px; font-size:1em;" />
+                        </div>
+                        <div style="display:flex; gap:12px; justify-content:flex-end;">
+                            <button id="saveCustomWarmupBtn" class="form-button" style="min-width:90px;">Save</button>
+                            <button id="cancelCustomWarmupBtn" class="form-button" style="background:var(--danger-color); color:#fff; min-width:90px;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
                 <section class="tasks-section">
                     <h4>Today's Tasks</h4>
                     <ul class="task-list" id="taskList"></ul>
@@ -373,25 +384,25 @@ export function renderDashboardRankChart() {
 function setupCustomWarmupUI() {
     const listEl = document.getElementById('customWarmupList');
     const addBtn = document.getElementById('addCustomWarmupBtn');
-    const formContainer = document.getElementById('customWarmupFormContainer');
+    const modal = document.getElementById('customWarmupModal');
     const nameInput = document.getElementById('customWarmupName');
     const descInput = document.getElementById('customWarmupDesc');
     const saveBtn = document.getElementById('saveCustomWarmupBtn');
     const cancelBtn = document.getElementById('cancelCustomWarmupBtn');
-    if (!listEl || !addBtn || !formContainer || !nameInput || !descInput || !saveBtn || !cancelBtn) return;
+    if (!listEl || !addBtn || !modal || !nameInput || !descInput || !saveBtn || !cancelBtn) return;
     function renderList() {
         listEl.innerHTML = '';
         (appState.customWarmups || []).forEach((w, idx) => {
             const li = document.createElement('li');
             li.textContent = w.name + (w.description ? `: ${w.description}` : '');
-            // Checkbox to include in today's warmup
+            // Custom theme checkbox
             const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
             const included = (w.days || []).includes(key);
             const includeBox = document.createElement('input');
             includeBox.type = 'checkbox';
             includeBox.checked = included;
             includeBox.title = 'Include in today\'s warmup';
-            includeBox.style.marginLeft = '8px';
+            includeBox.className = 'themed-checkbox';
             includeBox.onchange = () => {
                 const updated = [...appState.customWarmups];
                 if (!updated[idx].days) updated[idx].days = [];
@@ -412,7 +423,7 @@ function setupCustomWarmupUI() {
             editBtn.onclick = () => {
                 nameInput.value = w.name;
                 descInput.value = w.description;
-                formContainer.style.display = '';
+                modal.style.display = 'flex';
                 saveBtn.onclick = () => {
                     const name = nameInput.value.trim();
                     const description = descInput.value.trim();
@@ -422,7 +433,7 @@ function setupCustomWarmupUI() {
                     updateAppState({ customWarmups: updated });
                     nameInput.value = '';
                     descInput.value = '';
-                    formContainer.style.display = 'none';
+                    modal.style.display = 'none';
                     renderList();
                     renderCurrentDayTasks();
                 };
@@ -469,19 +480,23 @@ function setupCustomWarmupUI() {
         });
     }
     renderList();
-    addBtn.onclick = () => { formContainer.style.display = ''; };
+    addBtn.onclick = () => {
+        modal.style.display = 'flex';
+        nameInput.value = '';
+        descInput.value = '';
+    };
     saveBtn.onclick = () => {
         const name = nameInput.value.trim();
         const description = descInput.value.trim();
         if (!name) return;
         updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description, days: [] }] });
-        nameInput.value = '';
-        descInput.value = '';
-        formContainer.style.display = 'none';
+        modal.style.display = 'none';
         renderList();
         renderCurrentDayTasks();
     };
-    cancelBtn.onclick = () => { formContainer.style.display = 'none'; };
+    cancelBtn.onclick = () => { modal.style.display = 'none'; };
+    // Close modal on outside click
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 }
 
 function setupCustomTaskUI() {
