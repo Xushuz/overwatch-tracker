@@ -14,6 +14,7 @@ export function renderDashboardPage(mainContentEl) {
             <div class="dashboard-main-content">
                 <section class="week-info">
                     <h2 id="weekTitle"></h2>
+                    <div id="personalFocusContainer"></div>
                     <p id="weekFocus"></p>
                     <div class="current-week-progress">
                         <p id="currentWeekProgressText"></p>
@@ -23,9 +24,26 @@ export function renderDashboardPage(mainContentEl) {
                     </div>
                     <h3 id="dayTitle"></h3>
                 </section>
+                <section class="custom-warmup-section">
+                    <h4>Custom Warm-up/Aim Routine</h4>
+                    <ul id="customWarmupList"></ul>
+                    <button id="addCustomWarmupBtn" style="margin-top:6px;">Add Warm-up Drill</button>
+                    <div id="customWarmupFormContainer" style="display:none; margin-top:8px;">
+                        <input id="customWarmupName" type="text" maxlength="40" placeholder="Drill name (e.g. KovaaK's Tile Frenzy)" style="width:40%;" />
+                        <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description or code (optional)" style="width:40%;" />
+                        <button id="saveCustomWarmupBtn">Save</button>
+                        <button id="cancelCustomWarmupBtn">Cancel</button>
+                    </div>
+                </section>
                 <section class="tasks-section">
                     <h4>Today's Tasks</h4>
                     <ul class="task-list" id="taskList"></ul>
+                    <button id="addCustomTaskBtn" style="margin-top:8px;">Add Custom Task</button>
+                    <div id="customTaskFormContainer" style="display:none; margin-top:8px;">
+                        <input id="customTaskText" type="text" maxlength="80" placeholder="Describe your custom task..." style="width:60%;" />
+                        <button id="saveCustomTaskBtn">Save</button>
+                        <button id="cancelCustomTaskBtn">Cancel</button>
+                    </div>
                 </section>
                 <section class="day-navigation-controls">
                     <button class="nav-button prev-day-btn" id="prevDayBtn">« Previous Day</button>
@@ -94,6 +112,9 @@ export function renderDashboardPage(mainContentEl) {
     renderCurrentWeekProgress();
     setupDailyNotesArea();
     renderDashboardRankChart();
+    setupPersonalFocusUI();
+    setupCustomWarmupUI();
+    setupCustomTaskUI();
 }
 
 export function renderCurrentWeekProgress() {
@@ -134,6 +155,7 @@ export function renderCurrentDayTasks() {
     const localWeekFocusEl = document.getElementById('weekFocus');
     const localDayTitleEl = document.getElementById('dayTitle');
     const localTaskListEl = document.getElementById('taskList');
+    const personalFocusContainer = document.getElementById('personalFocusContainer');
 
     if (!localWeekTitleEl || !localTaskListEl) return; 
 
@@ -155,10 +177,27 @@ export function renderCurrentDayTasks() {
     }
 
     localWeekTitleEl.textContent = `Week ${appState.currentWeek}: ${weekData.title}`;
-    if(localWeekFocusEl) localWeekFocusEl.textContent = `Focus: ${weekData.focus}`;
+    if(localWeekFocusEl) {
+        let focusText = `Focus: ${weekData.focus}`;
+        const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+        if (appState.personalFocus && appState.personalFocus[key]) {
+            focusText = `<span style='color:var(--current-accent-color);font-weight:bold;'>Personal Focus: ${appState.personalFocus[key]}</span><br>` + focusText;
+        }
+        localWeekFocusEl.innerHTML = focusText;
+    }
     if(localDayTitleEl) localDayTitleEl.textContent = dayData.title;
 
     localTaskListEl.innerHTML = ''; 
+    // Render custom warm-ups for today (if any)
+    if (Array.isArray(appState.customWarmups) && appState.customWarmups.length > 0) {
+        appState.customWarmups.forEach((w, idx) => {
+            const li = document.createElement('li');
+            li.classList.add('custom-warmup-task');
+            li.innerHTML = `<span><strong>Warm-up:</strong> ${w.name}${w.description ? `: ${w.description}` : ''}</span>`;
+            localTaskListEl.appendChild(li);
+        });
+    }
+    // Render program tasks
     if (dayData.tasks && dayData.tasks.length > 0) {
         dayData.tasks.forEach(task => {
             const li = document.createElement('li');
@@ -213,7 +252,45 @@ export function renderCurrentDayTasks() {
 
             localTaskListEl.appendChild(li);
         });
-    } else {
+    }
+    // Render custom tasks for today
+    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+    if (appState.customTasks && appState.customTasks[key] && appState.customTasks[key].length > 0) {
+        appState.customTasks[key].forEach((customTask, idx) => {
+            const li = document.createElement('li');
+            li.classList.add('custom-task');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = !!customTask.done;
+            checkbox.addEventListener('change', () => {
+                const updated = [...appState.customTasks[key]];
+                updated[idx] = { ...updated[idx], done: !updated[idx].done };
+                updateAppState({ customTasks: { ...appState.customTasks, [key]: updated } });
+                renderCurrentDayTasks();
+            });
+            const taskDetailsDiv = document.createElement('div');
+            taskDetailsDiv.classList.add('task-details');
+            if (customTask.done) taskDetailsDiv.classList.add('completed');
+            const taskTextSpan = document.createElement('span');
+            taskTextSpan.textContent = customTask.text;
+            taskDetailsDiv.appendChild(taskTextSpan);
+            const delBtn = document.createElement('button');
+            delBtn.textContent = '✕';
+            delBtn.style.marginLeft = '8px';
+            delBtn.onclick = (e) => {
+                e.stopPropagation();
+                const updated = [...appState.customTasks[key]];
+                updated.splice(idx, 1);
+                updateAppState({ customTasks: { ...appState.customTasks, [key]: updated } });
+                renderCurrentDayTasks();
+            };
+            taskDetailsDiv.appendChild(delBtn);
+            li.appendChild(checkbox);
+            li.appendChild(taskDetailsDiv);
+            localTaskListEl.appendChild(li);
+        });
+    }
+    if (!dayData.tasks?.length && !(appState.customTasks && appState.customTasks[key] && appState.customTasks[key].length > 0) && !(Array.isArray(appState.customWarmups) && appState.customWarmups.length > 0)) {
         localTaskListEl.innerHTML = '<li>No tasks for today.</li>';
     }
     updateNavigationButtons(); 
@@ -296,6 +373,108 @@ export function renderDashboardRankChart() {
     } else {
         console.error("Dashboard chart canvas not found after attempting to re-add it.");
     }
+}
+
+function setupPersonalFocusUI() {
+    const container = document.getElementById('personalFocusContainer');
+    if (!container) return;
+    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+    const currentFocus = appState.personalFocus[key] || '';
+    container.innerHTML = `
+        <div style="margin-bottom: 6px;">
+            <strong>Personal Focus of the Day:</strong>
+            <span id="personalFocusDisplay">${currentFocus ? currentFocus : '<em>None set</em>'}</span>
+            <button id="editPersonalFocusBtn" style="margin-left:8px; font-size:0.9em;">${currentFocus ? 'Edit' : 'Add'}</button>
+        </div>
+        <div id="personalFocusEditArea" style="display:none; margin-bottom:6px;">
+            <input id="personalFocusInput" type="text" maxlength="80" style="width:60%; font-size:1em;" placeholder="e.g. Don\'t die first, Track ults proactively" />
+            <button id="savePersonalFocusBtn" style="font-size:0.9em;">Save</button>
+            <button id="cancelPersonalFocusBtn" style="font-size:0.9em;">Cancel</button>
+        </div>
+    `;
+    const editBtn = document.getElementById('editPersonalFocusBtn');
+    const editArea = document.getElementById('personalFocusEditArea');
+    const input = document.getElementById('personalFocusInput');
+    const saveBtn = document.getElementById('savePersonalFocusBtn');
+    const cancelBtn = document.getElementById('cancelPersonalFocusBtn');
+    if (editBtn && editArea && input && saveBtn && cancelBtn) {
+        editBtn.addEventListener('click', () => {
+            editArea.style.display = '';
+            input.value = currentFocus;
+            input.focus();
+        });
+        saveBtn.addEventListener('click', () => {
+            const newFocus = input.value.trim();
+            updateAppState({ personalFocus: { ...appState.personalFocus, [key]: newFocus } });
+            setupPersonalFocusUI();
+        });
+        cancelBtn.addEventListener('click', () => {
+            editArea.style.display = 'none';
+        });
+    }
+}
+
+function setupCustomWarmupUI() {
+    const listEl = document.getElementById('customWarmupList');
+    const addBtn = document.getElementById('addCustomWarmupBtn');
+    const formContainer = document.getElementById('customWarmupFormContainer');
+    const nameInput = document.getElementById('customWarmupName');
+    const descInput = document.getElementById('customWarmupDesc');
+    const saveBtn = document.getElementById('saveCustomWarmupBtn');
+    const cancelBtn = document.getElementById('cancelCustomWarmupBtn');
+    if (!listEl || !addBtn || !formContainer || !nameInput || !descInput || !saveBtn || !cancelBtn) return;
+    function renderList() {
+        listEl.innerHTML = '';
+        (appState.customWarmups || []).forEach((w, idx) => {
+            const li = document.createElement('li');
+            li.textContent = w.name + (w.description ? `: ${w.description}` : '');
+            const delBtn = document.createElement('button');
+            delBtn.textContent = '✕';
+            delBtn.style.marginLeft = '8px';
+            delBtn.onclick = () => {
+                const newWarmups = [...appState.customWarmups];
+                newWarmups.splice(idx, 1);
+                updateAppState({ customWarmups: newWarmups });
+                renderList();
+            };
+            li.appendChild(delBtn);
+            listEl.appendChild(li);
+        });
+    }
+    renderList();
+    addBtn.onclick = () => { formContainer.style.display = ''; };
+    saveBtn.onclick = () => {
+        const name = nameInput.value.trim();
+        const description = descInput.value.trim();
+        if (!name) return;
+        updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description }] });
+        nameInput.value = '';
+        descInput.value = '';
+        formContainer.style.display = 'none';
+        renderList();
+    };
+    cancelBtn.onclick = () => { formContainer.style.display = 'none'; };
+}
+
+function setupCustomTaskUI() {
+    const addBtn = document.getElementById('addCustomTaskBtn');
+    const formContainer = document.getElementById('customTaskFormContainer');
+    const textInput = document.getElementById('customTaskText');
+    const saveBtn = document.getElementById('saveCustomTaskBtn');
+    const cancelBtn = document.getElementById('cancelCustomTaskBtn');
+    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+    if (!addBtn || !formContainer || !textInput || !saveBtn || !cancelBtn) return;
+    addBtn.onclick = () => { formContainer.style.display = ''; };
+    saveBtn.onclick = () => {
+        const text = textInput.value.trim();
+        if (!text) return;
+        const prev = appState.customTasks && appState.customTasks[key] ? appState.customTasks[key] : [];
+        updateAppState({ customTasks: { ...appState.customTasks, [key]: [...prev, { text, done: false }] } });
+        textInput.value = '';
+        formContainer.style.display = 'none';
+        renderCurrentDayTasks();
+    };
+    cancelBtn.onclick = () => { formContainer.style.display = 'none'; };
 }
 
 // Load last selected tier for dashboard form when module loads (if saved in localStorage)
