@@ -115,7 +115,10 @@ function handleDashboardRankUpdate(event) {
     const tier = form.elements['dashboardRankTier'].value; 
     const division = form.elements['dashboardRankDivisionValue'].value; 
 
-    if (!tier || !division) { alert("Please select a Tier and Division."); return; }
+    if (!tier || !division) { 
+        alert("Please select a Tier and Division."); 
+        return; 
+    }
     
     addRankEntry({ 
         type: 'daily', 
@@ -136,5 +139,6 @@ function handleDashboardRankUpdate(event) {
     const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
     if(dashboardRankTierSelect) dashboardRankTierSelect.value = tier;
 
-    renderDashboardRankChart(); 
+    // Re-render the chart with updated data
+    renderDashboardRankChart();
 }

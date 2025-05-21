@@ -3,6 +3,8 @@
 import { appState, updateAppState } from './app-state.js';
 import { programData } from './program-data.js';
 import { updateNavigationButtons } from './main-navigation.js';
+import { createRankChartConfig } from './ui-render-progress.js';
+import { rankChartInstanceDashboard } from './ui-render-dashboard-main.js';
 
 export function renderCurrentWeekProgress() {
     const progressTextEl = document.getElementById('currentWeekProgressText');
@@ -318,6 +320,34 @@ function saveDailyNoteWithDebounce(noteKey, text) {
 }
 
 export function renderDashboardRankChart() {
-    // This function is still called from the main dashboard file for now
-    // You may want to move chart logic here if it grows
+    const chartContainer = document.getElementById('dashboardRankChartContainer');
+    const canvasEl = document.getElementById('dashboardRankChart');
+    if (!canvasEl || !chartContainer) return;
+
+    if (rankChartInstanceDashboard) rankChartInstanceDashboard.destroy();
+
+    // Get current cycle's rank data
+    const currentCycleRankData = [...appState.rankHistory]
+        .filter(r => r.cycle === appState.currentCycle)
+        .sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
+
+    if (currentCycleRankData.length === 0) {
+        chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px;">No rank data logged for current cycle.</p>';
+        return;
+    }
+
+    // Ensure canvas exists
+    if (!document.getElementById('dashboardRankChart')) {
+        chartContainer.innerHTML = '<canvas id="dashboardRankChart"></canvas>';
+    }
+
+    // Create the chart with current cycle's data
+    const chartConfig = createRankChartConfig(currentCycleRankData, "Current Cycle Rank Progression");
+    const newCanvasEl = document.getElementById('dashboardRankChart');
+    
+    if (newCanvasEl) {
+        rankChartInstanceDashboard = new Chart(newCanvasEl, chartConfig);
+    } else {
+        console.error("Dashboard chart canvas not found after attempting to re-add it.");
+    }
 }
