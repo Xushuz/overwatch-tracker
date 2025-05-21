@@ -4,23 +4,25 @@
 
 .resource-category { 
     margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three columns */
-    gap: 12px; /* Uniform gap */
     padding: 15px; /* Add padding to maintain space from edges */
 }
 
 .resource-category h3 { 
     /* Uses .content-card h3 from base.css */
     margin-bottom: 15px;
+    color: var(--current-accent-color);
+    font-size: 1.2em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--current-border-color);
 }
 
 .resource-category ul {
-    list-style: none; /* Or use 'disc' or 'circle' if preferred */
-    padding-left: 0; /* Remove default ul padding if no list-style disc/circle */
-    /* If using list-style disc/circle, you might want padding-left: 20px; */
-    margin-top: 0; /* Remove default ul margin */
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
     display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 12px; /* Uniform gap */
     grid-template-columns: repeat(2, 1fr);
     gap: 10px 15px;
 }
@@ -89,13 +91,13 @@
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
-    .resource-category {
+    .resource-category ul {
         grid-template-columns: repeat(2, 1fr); /* Two columns on tablet */
     }
 }
 
 @media (max-width: 640px) {
-    .resource-category {
+    .resource-category ul {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 }
