@@ -116,10 +116,19 @@ body {
     background-color: var(--current-bg-color);
     color: var(--current-text-color);
     line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 16px; 
     -webkit-font-smoothing: antialiased; 
     -moz-osx-font-smoothing: grayscale; 
+}
+
+/* Theme transition for all themed elements */
+*,
+*::before,
+*::after {
+    transition-property: background-color, border-color, color, box-shadow, transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.light-mode {
@@ -211,6 +220,7 @@ body.pink-mode {
 
 .app-main { 
     padding: 15px; 
+    animation: fadeIn 0.3s ease-out;
 }
 
 /* General Page Titles */
@@ -233,6 +243,8 @@ body.pink-mode {
     padding: 15px; 
     margin-bottom: 20px; 
     box-shadow: 0 2px 4px var(--current-card-shadow);
+    animation: slideUp 0.3s ease-out;
+    animation-fill-mode: both;
 }
 .content-card h3 { 
     margin-top: 0; 
@@ -244,12 +256,52 @@ body.pink-mode {
 }
 
 /* Progress Bar General Styles */
-.progress-bar-container { width: 100%; background-color: var(--current-progress-bar-bg); border-radius: 4px; overflow: hidden; height: 22px; margin-top: 5px; border: 1px solid var(--current-border-color); }
-.progress-bar-fill { background-color: var(--current-accent-color); height: 100%; transition: width 0.5s ease-in-out; text-align: center; color: var(--current-accent-text); font-weight: bold; line-height: 22px; font-size: 0.8em; display: flex; align-items: center; justify-content: center; }
+.progress-bar-container { 
+    width: 100%; 
+    background-color: var(--current-progress-bar-bg); 
+    border-radius: 4px; 
+    overflow: hidden; 
+    height: 22px; 
+    margin-top: 5px; 
+    border: 1px solid var(--current-border-color); 
+}
+
+.progress-bar-fill { 
+    background-color: var(--current-accent-color); 
+    height: 100%; 
+    transition: all 0.5s ease-in-out; 
+    text-align: center; 
+    color: var(--current-accent-text); 
+    font-weight: bold; 
+    line-height: 22px; 
+    font-size: 0.8em; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
 body.pink-mode .progress-bar-fill { color: var(--text-color-pink); } 
 body.dark-mode .progress-bar-fill { color: var(--current-accent-text); } /* Dark text on orange fill */
 body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
 
+/* Chart text colors */
+.chart-text { 
+    fill: var(--current-chart-text-color) !important; 
+}
+
+.chart-grid line { 
+    stroke: var(--current-chart-grid-color) !important; 
+}
+
+.chart-tooltip { 
+    background-color: var(--current-chart-tooltip-bg) !important; 
+    color: var(--current-chart-tooltip-text-color) !important; 
+    border: 1px solid var(--current-border-color); 
+    padding: 8px; 
+    border-radius: 4px; 
+    font-size: 0.9em; 
+    box-shadow: 0 2px 4px var(--current-card-shadow); 
+}
 
 /* General Form Grouping for consistency */
 .form-group {
@@ -299,4 +351,117 @@ body.light-mode .form-button { color: var(--current-accent-text); }
 .form-button:hover { 
     background-color: var(--current-accent-hover-color);
     opacity: 1; 
+}
+
+/* Page Transitions */
+.app-main {
+    padding: 15px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Content transition animations */
+.content-card,
+.resource-button,
+.week-card,
+.task-list li,
+.daily-notes-section,
+.dashboard-rank-section {
+    animation: slideUp 0.3s ease-out;
+    animation-fill-mode: both;
+}
+
+/* Navigation transitions */
+.app-nav .nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.app-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--current-accent-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.app-nav .nav-link:hover::after,
+.app-nav .nav-link.active::after {
+    width: 100%;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger animations for list items */
+.task-list li:nth-child(1) { animation-delay: 0.1s; }
+.task-list li:nth-child(2) { animation-delay: 0.15s; }
+.task-list li:nth-child(3) { animation-delay: 0.2s; }
+.task-list li:nth-child(4) { animation-delay: 0.25s; }
+.task-list li:nth-child(5) { animation-delay: 0.3s; }
+
+.resource-button:nth-child(1) { animation-delay: 0.1s; }
+.resource-button:nth-child(2) { animation-delay: 0.15s; }
+.resource-button:nth-child(3) { animation-delay: 0.2s; }
+.resource-button:nth-child(4) { animation-delay: 0.25s; }
+.resource-button:nth-child(5) { animation-delay: 0.3s; }
+
+.week-card:nth-child(1) { animation-delay: 0.1s; }
+.week-card:nth-child(2) { animation-delay: 0.15s; }
+.week-card:nth-child(3) { animation-delay: 0.2s; }
+.week-card:nth-child(4) { animation-delay: 0.25s; }
+.week-card:nth-child(5) { animation-delay: 0.3s; }
+
+/* Smooth transitions for all interactive elements */
+button,
+input,
+select,
+textarea,
+.form-button,
+.nav-button,
+.resource-button,
+.week-card,
+.task-list li {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal animations */
+.modal {
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
