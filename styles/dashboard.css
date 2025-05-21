@@ -287,3 +287,90 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
     border: 1px solid var(--current-border-color);
     border-radius: 4px;
 }
+
+/* Custom Warm-up and Custom Task UI (theming) */
+.custom-warmup-section,
+#customWarmupList,
+#customWarmupFormContainer,
+#customTaskFormContainer {
+    background: var(--current-container-bg);
+    border-radius: 6px;
+    padding: 10px 0 0 0;
+    margin-bottom: 10px;
+}
+#customWarmupList li,
+.custom-task {
+    background: var(--current-textarea-bg);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    color: var(--current-text-color);
+    display: flex;
+    align-items: center;
+    font-size: 0.97em;
+}
+.custom-warmup-task {
+    background: var(--current-textarea-bg);
+    border: 1px dashed var(--current-accent-color);
+    color: var(--current-accent-color);
+    font-weight: 500;
+}
+#customWarmupList button,
+.custom-task button,
+#addCustomWarmupBtn,
+#addCustomTaskBtn,
+#saveCustomWarmupBtn,
+#cancelCustomWarmupBtn,
+#saveCustomTaskBtn,
+#cancelCustomTaskBtn,
+#editPersonalFocusBtn,
+#savePersonalFocusBtn,
+#cancelPersonalFocusBtn {
+    background: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+    border-radius: 4px;
+    margin-left: 6px;
+    padding: 4px 10px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+#customWarmupList button:hover,
+.custom-task button:hover,
+#addCustomWarmupBtn:hover,
+#addCustomTaskBtn:hover,
+#saveCustomWarmupBtn:hover,
+#cancelCustomWarmupBtn:hover,
+#saveCustomTaskBtn:hover,
+#cancelCustomTaskBtn:hover,
+#editPersonalFocusBtn:hover,
+#savePersonalFocusBtn:hover,
+#cancelPersonalFocusBtn:hover {
+    background: var(--current-accent-color);
+    color: #fff;
+    border-color: var(--current-accent-hover-color);
+}
+#customWarmupName,
+#customWarmupDesc,
+#customTaskText,
+#personalFocusInput {
+    background: var(--current-input-bg);
+    color: var(--current-text-color);
+    border: 1px solid var(--current-input-border);
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin-right: 6px;
+    font-size: 1em;
+}
+#personalFocusDisplay {
+    color: var(--current-accent-color);
+    font-weight: 500;
+}
+/* Completed custom task styling */
+.custom-task .task-details.completed {
+    text-decoration: line-through;
+    color: var(--completed-text-color);
+    opacity: 0.7;
+}
