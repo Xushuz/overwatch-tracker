@@ -395,27 +395,29 @@ function setupCustomWarmupUI() {
         (appState.customWarmups || []).forEach((w, idx) => {
             const li = document.createElement('li');
             li.textContent = w.name + (w.description ? `: ${w.description}` : '');
-            // Custom theme checkbox
             const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
             const included = (w.days || []).includes(key);
-            const includeBox = document.createElement('input');
-            includeBox.type = 'checkbox';
-            includeBox.checked = included;
-            includeBox.title = 'Include in today\'s warmup';
-            includeBox.className = 'themed-checkbox';
-            includeBox.onchange = () => {
-                const updated = [...appState.customWarmups];
-                if (!updated[idx].days) updated[idx].days = [];
-                if (includeBox.checked) {
-                    if (!updated[idx].days.includes(key)) updated[idx].days.push(key);
-                } else {
-                    updated[idx].days = updated[idx].days.filter(d => d !== key);
-                }
-                updateAppState({ customWarmups: updated });
-                renderList();
-                renderCurrentDayTasks();
-            };
-            li.appendChild(includeBox);
+            // Only show the checkbox if this warmup is NOT included for today
+            if (!included) {
+                const includeBox = document.createElement('input');
+                includeBox.type = 'checkbox';
+                includeBox.checked = false;
+                includeBox.title = 'Include in today\'s warmup';
+                includeBox.className = 'themed-checkbox';
+                includeBox.onchange = () => {
+                    const updated = [...appState.customWarmups];
+                    if (!updated[idx].days) updated[idx].days = [];
+                    if (includeBox.checked) {
+                        if (!updated[idx].days.includes(key)) updated[idx].days.push(key);
+                    } else {
+                        updated[idx].days = updated[idx].days.filter(d => d !== key);
+                    }
+                    updateAppState({ customWarmups: updated });
+                    renderList();
+                    renderCurrentDayTasks();
+                };
+                li.appendChild(includeBox);
+            }
             // Edit button
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Edit';
@@ -489,7 +491,8 @@ function setupCustomWarmupUI() {
         const name = nameInput.value.trim();
         const description = descInput.value.trim();
         if (!name) return;
-        updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description, days: [] }] });
+        const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+        updateAppState({ customWarmups: [...(appState.customWarmups || []), { name, description, days: [key] }] });
         modal.style.display = 'none';
         renderList();
         renderCurrentDayTasks();
