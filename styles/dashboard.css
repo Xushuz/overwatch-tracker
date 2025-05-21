@@ -80,29 +80,45 @@
     list-style: none; 
     padding: 0; 
 }
+
+/* Clickable Task Area Styling */
 .task-list li { 
     display: flex; 
     align-items: center; 
-    padding: 10px 0; 
-    border-bottom: 1px solid var(--current-border-color); 
+    padding: 10px 8px; /* Slightly more padding */
+    border: 1px solid var(--current-border-color); /* Add border to look more like a button */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 6px; /* Space between task "buttons" */
+    cursor: pointer; 
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .task-list li:last-child { 
-    border-bottom: none; 
+    /* No bottom border needed if margin-bottom is used and border is on all sides */
 }
+
 .task-list li:hover { 
-    background-color: rgba(0,0,0,0.03); 
+    background-color: var(--current-button-bg); /* Use general button hover background */
+    border-color: var(--current-accent-color); /* Accent border on hover */
+    box-shadow: 0 2px 5px var(--current-card-shadow); /* Slight lift effect */
 }
-body.dark-mode .task-list li:hover { background-color: rgba(255,255,255,0.03); }
-body.pink-mode .task-list li:hover { background-color: rgba(255, 182, 193, 0.1); }
+body.dark-mode .task-list li:hover { 
+    background-color: var(--current-button-bg);
+}
+body.pink-mode .task-list li:hover { 
+    background-color: var(--current-button-bg);
+    border-color: var(--current-accent-color);
+}
+
 
 .task-list input[type="checkbox"] { 
-    margin-right: 10px; 
+    margin-right: 12px; 
     min-width: 20px; 
     width: 20px; 
     height: 20px; 
-    cursor: pointer; 
+    /* pointer-events: none; */ /* Optional: If ONLY the li click should toggle. Default allows both. */
     accent-color: var(--current-accent-color); 
 }
+
 .task-details { 
     flex-grow: 1; 
     font-size: 0.95em; 
@@ -110,10 +126,23 @@ body.pink-mode .task-list li:hover { background-color: rgba(255, 182, 193, 0.1);
 .task-details.completed { 
     text-decoration: line-through; 
     color: var(--completed-text-color); 
+    opacity: 0.7; 
 }
 body.pink-mode .task-details.completed { 
     color: #ff7eb9; 
+    opacity: 0.6; /* Make it a bit more faded in pink mode when completed */
 }
+.task-list li.task-completed { /* New class to style the LI when task is done */
+    background-color: var(--current-textarea-bg); /* Slightly different background */
+    opacity: 0.75;
+    border-left: 4px solid var(--completed-text-color); /* Visual indicator on the left */
+}
+.task-list li.task-completed:hover {
+    background-color: var(--current-button-bg); /* Still allow hover effect */
+    opacity: 0.85;
+}
+
+
 .task-focus { 
     font-size: 0.8em; 
     opacity: 0.7; 
@@ -156,11 +185,11 @@ body.pink-mode .nav-button:hover {
     background-color: var(--accent-color-pink);
     border-color: var(--accent-hover-color-pink);
 }
-body.light-mode .nav-button:hover, /* Ensure contrast for light/dark themes */
+body.light-mode .nav-button:hover,
 body.dark-mode .nav-button:hover {
-    color: #fff; 
+    color: #fff; /* Default white text on accent hover for light/dark */
 }
-body.dark-mode .nav-button:hover { /* Specifically for orange accent on dark */
+body.dark-mode .nav-button:hover { /* Specific for orange accent on dark */
     color: #111; /* Dark text on orange */
 }
 
@@ -172,7 +201,7 @@ body.dark-mode .nav-button:hover { /* Specifically for orange accent on dark */
     color: var(--current-button-text); 
     border-color: var(--current-border-color); 
 }
-.nav-button:disabled:hover { /* Prevent hover style on disabled */
+.nav-button:disabled:hover { 
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
     border-color: var(--current-border-color);
@@ -230,23 +259,24 @@ body.dark-mode .nav-button:hover { /* Specifically for orange accent on dark */
 }
 .dashboard-rank-update-form .division-buttons button.selected { 
     background-color: var(--current-accent-color); 
-    color: white; /* Default for selected accent buttons */
+    color: white; 
     border-color: var(--current-accent-color); 
     font-weight: bold;
 }
-body.pink-mode .dashboard-rank-update-form .division-buttons button.selected { color: #fff; }
-body.dark-mode .dashboard-rank-update-form .division-buttons button.selected { color: #111; } /* Dark text for orange */
+body.pink-mode .dashboard-rank-update-form .division-buttons button.selected { 
+    color: #fff; 
+}
+body.dark-mode .dashboard-rank-update-form .division-buttons button.selected { 
+    color: #111; /* Dark text for orange */
+}
 
-
-/* Explicitly style the submit button in this form using the .form-button class rules */
-/* The .form-button class itself is defined in base.css */
+/* Ensure the "Update Today's Rank" button uses .form-button styles */
 .dashboard-rank-update-form button[type="submit"].form-button { 
-    /* It will inherit all styles from .form-button (defined in base.css) */
-    /* Add any specific overrides for *this context* if needed, e.g., margin */
+    /* Inherits styles from .form-button (defined in base.css) */
     margin-top: 10px; 
-    font-size: 0.9em; /* Match general form button style */
-    /* width: auto; /* If you don't want it full-width in this specific form context */ 
-    /* align-self: flex-start; */
+    font-size: 0.9em; 
+    padding: 8px 12px; 
+    width: 100%; /* Ensure it's full width within its column */
 }
 
 #dashboardRankChartContainer { 

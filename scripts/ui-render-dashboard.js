@@ -1,12 +1,12 @@
 // scripts/ui-render-dashboard.js
-import { appState, updateAppState } from './app-state.js';
+import { appState, updateAppState, saveState } from './app-state.js'; // Added saveState
 import { programData, getTotalDaysInWeek } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
-// toggleTaskCompletion is now on window object, called from event listener directly
 import { populateRankSelects, generateDivisionButtons, addRankEntry, createRankChartConfig } from './ui-render-progress.js'; 
 
 let dailyNoteSaveTimeout = null;
 export let rankChartInstanceDashboard = null; 
+let lastSelectedDashboardTier = ''; // Variable to store the last selected tier
 
 export function renderDashboardPage(mainContentEl) {
     mainContentEl.innerHTML = `
@@ -49,7 +49,7 @@ export function renderDashboardPage(mainContentEl) {
                             <div id="dashboardRankDivisionButtons" class="division-buttons"></div>
                             <input type="hidden" id="dashboardRankDivisionValue" name="dashboardRankDivisionValue">
                         </div>
-                        <button type="submit" class="form-button">Update Today's Rank</button> <!-- Ensured .form-button class -->
+                        <button type="submit" class="form-button">Update Today's Rank</button>
                     </form>
                     <div id="dashboardRankChartContainer" style="min-height: 220px; position: relative;">
                          <canvas id="dashboardRankChart"></canvas>
@@ -59,12 +59,27 @@ export function renderDashboardPage(mainContentEl) {
         </div>
     `;
     
-    // Populate rank dropdowns and generate division buttons for the dashboard form
-    populateRankSelects(document.getElementById('dashboardRankTier'));
+    const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
+    populateRankSelects(dashboardRankTierSelect);
+    // Pre-select last used tier if available
+    if (lastSelectedDashboardTier && dashboardRankTierSelect) {
+        dashboardRankTierSelect.value = lastSelectedDashboardTier;
+    }
+    // Add event listener to remember the selected tier
+    if (dashboardRankTierSelect) {
+        dashboardRankTierSelect.addEventListener('change', (e) => {
+            lastSelectedDashboardTier = e.target.value;
+            // Optionally, save this preference to localStorage if you want it to persist across sessions
+            // localStorage.setItem('lastDashboardTier', lastSelectedDashboardTier);
+            // If saving to localStorage, you'd load it in init() or at the top of this module.
+        });
+    }
+
+
     generateDivisionButtons(
         document.getElementById('dashboardRankDivisionButtons'),
         document.getElementById('dashboardRankDivisionValue'),
-        'dashboard' // Prefix for button IDs
+        'dashboard' 
     );
 
     const localPrevDayBtn = document.getElementById('prevDayBtn');
@@ -149,14 +164,19 @@ export function renderCurrentDayTasks() {
             const li = document.createElement('li');
             const checkbox = document.createElement('input');
             const taskKey = `c${appState.currentCycle}-${task.id}`; 
+            
             checkbox.type = 'checkbox';
             checkbox.id = taskKey; 
             checkbox.checked = appState.taskCompletions[taskKey] || false;
-            checkbox.addEventListener('change', () => window.toggleTaskCompletion(task.id)); 
-
+            // The checkbox itself will still toggle if clicked directly due to default browser behavior.
+            // We add a listener to the LI, and the LI listener will also toggle the checkbox.
+            
             const taskDetailsDiv = document.createElement('div');
             taskDetailsDiv.classList.add('task-details');
-            if (checkbox.checked) taskDetailsDiv.classList.add('completed');
+            if (checkbox.checked) {
+                taskDetailsDiv.classList.add('completed');
+                li.classList.add('task-completed'); // Add class to LI for styling
+            }
             
             const taskTextSpan = document.createElement('span');
             taskTextSpan.textContent = task.text;
@@ -171,6 +191,26 @@ export function renderCurrentDayTasks() {
             
             li.appendChild(checkbox);
             li.appendChild(taskDetailsDiv);
+
+            // Add click listener to the entire list item (li)
+            li.addEventListener('click', (event) => {
+                // Prevent toggling if the click was directly on the checkbox itself,
+                // as that would cause it to toggle twice.
+                if (event.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked; // Manually toggle checkbox state
+                }
+                window.toggleTaskCompletion(task.id); // Call the global toggle function
+                
+                // Update visual style of LI immediately
+                if (checkbox.checked) {
+                    li.classList.add('task-completed');
+                    taskDetailsDiv.classList.add('completed');
+                } else {
+                    li.classList.remove('task-completed');
+                    taskDetailsDiv.classList.remove('completed');
+                }
+            });
+
             localTaskListEl.appendChild(li);
         });
     } else {
@@ -214,11 +254,18 @@ function handleDashboardRankUpdate(event) {
         division 
     }); 
 
-    form.reset(); 
+    lastSelectedDashboardTier = tier; // Remember the tier
+    // form.reset(); // Resetting will clear the tier, so we might not want to do this if we want sticky tier
+    // Instead of full reset, just clear division
     const dashboardDivButtons = document.getElementById('dashboardRankDivisionButtons');
     if(dashboardDivButtons) dashboardDivButtons.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
     const dashboardDivValueInput = document.getElementById('dashboardRankDivisionValue');
     if(dashboardDivValueInput) dashboardDivValueInput.value = '';
+    
+    // Re-apply the selected tier to the dropdown
+    const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
+    if(dashboardRankTierSelect) dashboardRankTierSelect.value = lastSelectedDashboardTier;
+
 
     renderDashboardRankChart(); 
 }
@@ -243,10 +290,16 @@ export function renderDashboardRankChart() {
     }
 
     const chartConfig = createRankChartConfig(currentCycleRankData, "Daily Rank Trend");
-    const newCanvasEl = document.getElementById('dashboardRankChart'); // Re-fetch canvas after potential innerHTML change
+    const newCanvasEl = document.getElementById('dashboardRankChart'); 
     if (newCanvasEl) {
       rankChartInstanceDashboard = new Chart(newCanvasEl, chartConfig);
     } else {
         console.error("Dashboard chart canvas not found after attempting to re-add it.");
     }
 }
+
+// Load last selected tier for dashboard form when module loads (if saved in localStorage)
+// Or initialize from appState if we decide to store it there.
+// For now, using a simple module-scoped variable.
+// If you saved 'lastDashboardTier' to localStorage:
+// lastSelectedDashboardTier = localStorage.getItem('lastDashboardTier') || '';
