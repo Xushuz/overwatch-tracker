@@ -8,22 +8,67 @@
 /* Show hamburger menu on small screens.
    .google-nav is already fixed and off-screen by default from google-layout.css */
 .hamburger-menu-btn {
-    display: inline-flex; /* Or block, to show it */
+    display: inline-flex; 
     align-items: center;
     justify-content: center;
+    order: -1; /* Ensure hamburger is on the left of the title */
+    margin-right: 10px; /* Space between hamburger and title */
 }
 
 /* Ensure app-main takes full width when sidebar is overlaid (mobile view) */
 .app-main {
     width: 100%;
     margin-left: 0; 
+    padding: 15px; /* Reduced padding for mobile by default */
+    box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+
+/* Modal adjustments for very small screens */
+.rank-prompt-modal .division-buttons {
+    flex-wrap: wrap; /* Allow division buttons to wrap if not enough space */
+    /* justify-content: center; /* Center them if they wrap */
+}
+.rank-prompt-modal .division-buttons .form-button {
+    /* min-width: 60px; /* Adjust if buttons become too narrow when wrapping */
+    /* flex-basis: calc(33.33% - 6px); /* Example for 3 buttons per row, accounting for gap */
 }
 
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+    /* Restore header styles for larger screens */
+    .app-header {
+        flex-wrap: nowrap; /* Prevent wrapping */
+        padding: 10px 20px; /* Restore original padding */
+    }
+    .app-header h1 {
+        font-size: 1.4em; /* Restore original h1 size from header-nav.css */
+        /* Potentially 1.6em as per original responsive.css, but 1.4em is base */
+    }
+    .header-controls {
+        gap: 15px; /* Restore original gap */
+        /* flex-basis: auto; /* Reset basis if it was changed for mobile */
+        /* justify-content: flex-end; */
+    }
+    .header-controls span#currentDate {
+        font-size: 0.875em; /* Restore original font size */
+        white-space: nowrap; /* Prevent wrapping */
+        /* order: 0; Reset order if changed */
+        /* margin-right: 10px; /* Restore if removed */
+    }
+    .theme-toggle-btn, 
+    .new-cycle-btn {
+        padding: 8px 16px; /* Restore original .form-button padding */
+        font-size: 0.875rem; /* Restore original .form-button font size */
+    }
+
     .hamburger-menu-btn {
         display: none; /* Hide hamburger on larger screens */
+        order: 0; /* Reset order */
+    }
+    
+    .app-main {
+        padding: 20px; /* Restore original padding */
     }
 
     .google-nav {
@@ -52,26 +97,20 @@
         /* margin-left: 250px; /* Not needed if .app-body-content is display:flex */
        flex-grow: 1; /* Ensure it takes available space next to sidebar */
        width: auto; /* Reset mobile-specific width */
+       /* padding: 20px; /* Already restored above */
     }
     
     /* --- Original Tablet Styles --- */
     body {
-        padding: 20px; 
+        /* padding: 20px; /* Body padding can sometimes contribute to complexity with 100vw elements or viewport units. Manage padding on .container or .app-main instead. */
         font-size: 17px; 
     }
 
-    .app-header h1 {
-        font-size: 1.6em;
-        flex-basis: auto; 
-        text-align: left; 
-    }
-    .header-controls {
-        width: auto; 
-        justify-content: flex-end; 
-    }
-    .theme-toggle-btn, .new-cycle-btn {
-        font-size: 0.85em;
-    }
+    /* Overrides for h1 and header controls for tablet are now part of the header restoration block above.
+       If specific font sizes for 768px are different from base, they can be re-applied here.
+       Example: .app-header h1 { font-size: 1.6em; } /* If 1.6em is specifically for 768px+ */
+    */
+    /* .theme-toggle-btn, .new-cycle-btn { font-size: 0.85em; } /* This was an old override, .form-button defaults are now restored. */
 
     .dashboard-layout {
         flex-direction: row; 
@@ -169,7 +208,8 @@
         font-size: 18px; 
     }
     .container { 
-        max-width: 1200px; /* Wider container for desktops */
+        /* max-width: 1200px; /* Old value */
+        max-width: 1600px; /* New value - Utilize more space */
     }
 
     .app-header h1 {

@@ -1,7 +1,8 @@
 // scripts/script.js (Main Orchestrator)
 import { appState, loadState, saveState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
-import { initThemeControls, applyTheme } from './ui-theme.js';
+// import { initThemeControls, applyTheme } from './ui-theme.js'; // initThemeControls removed, applyTheme used in main-navigation
+import { applyTheme } from './ui-theme.js'; // applyTheme will be used directly
 import { initMainNavigation, renderPage as RENDER_PAGE_FROM_MAIN_NAV } from './main-navigation.js';
 import { initRankPromptModal, promptForRank } from './ui-modals.js';
 import { renderCurrentWeekProgress } from './ui-render-dashboard-tasks.js';
@@ -11,8 +12,8 @@ import { renderProgramOverviewPage, initProgramModals as initProgramWeekDetailsM
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Element Selection ---
     const currentDateEl = document.getElementById('currentDate');
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const newCycleBtn = document.getElementById('newCycleBtn');
+    // const themeToggleBtn = document.getElementById('themeToggleBtn'); // Removed
+    // const newCycleBtn = document.getElementById('newCycleBtn'); // Removed
     const mainContentEl = document.querySelector('.app-main');
     const navLinks = document.querySelectorAll('.app-nav .nav-link');
 
@@ -88,7 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function startNewCycle() {
+    // Export this function to be used in settings page
+    export function startNewCycle() { 
         if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
             const newCycleNumber = appState.currentCycle + 1;
             
@@ -134,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadState(); 
         setCurrentDate(); 
         
-        initThemeControls(themeToggleBtn); 
+        // initThemeControls(themeToggleBtn); // Removed
         initMainNavigation(mainContentEl, navLinks); 
         
         // Initialize modals
@@ -152,9 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Attach event listeners
-        if (newCycleBtn) {
-            newCycleBtn.addEventListener('click', startNewCycle);
-        }
+        // if (newCycleBtn) { // Removed
+        //     newCycleBtn.addEventListener('click', startNewCycle);
+        // }
         
         RENDER_PAGE_FROM_MAIN_NAV(); // Render the initial page based on appState
         applyTheme(); // Apply the loaded or default theme

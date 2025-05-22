@@ -24,10 +24,10 @@
 
 .app-header {
     display: flex;
-    /* flex-wrap: wrap; /* Retaining wrap for responsiveness */
+    flex-wrap: wrap; /* Allow wrapping for small screens by default */
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Adjusted padding as per instructions */
+    padding: 10px 15px; /* Reduced padding for mobile */
     background-color: var(--current-header-bg);
     border-bottom: 1px solid var(--current-border-color);
     position: sticky; /* Making header sticky */
@@ -42,21 +42,25 @@
     /* flex-basis: auto; /* Reset flex-basis to allow natural sizing */
     /* text-align: left; /* Reset text-align */
     font-weight: 500; /* Medium weight as per Google style */
+    line-height: 1.4; /* Ensure consistent line height */
+    overflow-wrap: break-word; /* Allow long title to break to prevent overflow */
 }
 
 .header-controls {
     display: flex;
     align-items: center;
-    /* width: auto; /* Reset width */
-    /* justify-content: flex-end; /* Align controls to the end */
-    gap: 15px; /* Added gap for consistency */
+    gap: 10px; /* Reduced gap for mobile */
+    /* flex-basis: 100%; /* Uncomment if controls should always wrap to a new line on mobile */
+    /* justify-content: flex-end; /* Uncomment if controls should align to end when wrapped */
 }
 
 .header-controls span#currentDate { 
-    margin-right: 10px; /* Keep or adjust as needed */
-    font-size: 0.875em; /* 14px, Google style */
-    opacity: 0.75; /* Adjusted opacity */
-    white-space: nowrap; 
+    font-size: 0.8em; /* Smaller font for date on mobile */
+    opacity: 0.75; 
+    white-space: normal; /* Allow date to wrap by default */
+    /* margin-right: 0; /* Gap handles spacing */
+    /* order: 1; /* Example: if it needs to wrap and appear last */
+    /* text-align: right; /* If it wraps and takes full width */
 }
 
 /* Buttons in header will use general button styles from base.css,
@@ -65,25 +69,15 @@
 */
 .theme-toggle-btn, 
 .new-cycle-btn {
-    /* padding: 6px 10px; */ /* Using base.css button padding for now */
-    /* background-color: var(--current-button-bg); */ /* From base.css */
-    /* color: var(--current-button-text); */ /* From base.css */
-    /* border: 1px solid var(--current-border-color); */ /* From base.css */
-    /* border-radius: 4px; */ /* From base.css */
-    cursor: pointer;
-    font-size: 0.875rem; /* 14px, Google style */
-    /* margin-left: 8px; */ /* Using gap from header-controls */
-    transition: all 0.2s ease; /* Consistent transition */
-    white-space: nowrap; 
+    /* .form-button has white-space: nowrap, which is usually fine. */
+    /* Adjust padding and font-size for very small screens if necessary */
+    padding: 6px 12px; /* Slightly reduce padding for mobile */
+    font-size: 0.8rem; /* Slightly reduce font size for mobile */
 }
 
-.theme-toggle-btn:hover, 
-.new-cycle-btn:hover {
-    /* Hover effects will be inherited from base.css general button styles */
-    /* background-color: var(--current-accent-hover-color); */
-    /* color: var(--current-accent-text); */
-    /* border-color: var(--current-accent-hover-color); */
-}
+/* Hover effects are now handled by .form-button in base.css */
+/* .theme-toggle-btn:hover, 
+.new-cycle-btn:hover {} */
 
 /* 
     All styles for .app-nav and .app-nav .nav-link have been removed.

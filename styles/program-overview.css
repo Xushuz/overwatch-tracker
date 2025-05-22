@@ -25,6 +25,7 @@
     color: var(--current-text-color);
     font-family: var(--font-family);
     font-size: inherit; /* Inherit from container/body */
+    box-sizing: border-box; /* Ensure padding/border are included in width/height */
 }
 
 .week-card:hover {
