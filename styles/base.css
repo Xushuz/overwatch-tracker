@@ -17,6 +17,7 @@
     --textarea-bg-light: #f8f9fa;
     --card-shadow-light: rgba(0, 0, 0, 0.05);
     --accent-color-light: #007bff; /* Default Blue for light mode */
+    --accent-color-light-rgb: 0, 123, 255;
     --accent-hover-color-light: #0056b3;
     --accent-text-light: #fff; /* New variable for accent text */
     --nav-active-bg-light: rgba(0, 123, 255, 0.1);
@@ -42,6 +43,7 @@
     --textarea-bg-dark: #252525;
     --card-shadow-dark: rgba(100, 100, 100, 0.1); 
     --accent-color-dark: #FFA500; /* Vibrant Orange */
+    --accent-color-dark-rgb: 255, 165, 0;
     --accent-hover-color-dark: #FF8C00; /* Darker Orange */
     --accent-text-dark: #1e1e1e; /* New variable for accent text in dark mode */
     --nav-active-bg-dark: rgba(255, 165, 0, 0.2); /* Orange with alpha */
@@ -67,6 +69,7 @@
     --textarea-bg-pink: #fffafa;
     --card-shadow-pink: rgba(255, 105, 180, 0.1); 
     --accent-color-pink: #ff69b4; 
+    --accent-color-pink-rgb: 255, 105, 180;
     --accent-hover-color-pink: #ff1493; 
     --accent-text-pink: #581845; /* New variable for accent text */
     --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
@@ -98,6 +101,8 @@
     --current-textarea-bg: var(--textarea-bg-light);
     --current-card-shadow: var(--card-shadow-light);
     --current-accent-color: var(--accent-color-light);
+    --current-accent-color-rgb: var(--accent-color-light-rgb);
+    --current-accent-color-rgb: var(--accent-color-light-rgb);
     --current-accent-hover-color: var(--accent-hover-color-light);
     --current-accent-text: var(--accent-text-light);
     --current-nav-active-bg: var(--nav-active-bg-light);
@@ -170,6 +175,7 @@ body.dark-mode {
     --current-textarea-bg: var(--textarea-bg-dark);
     --current-card-shadow: var(--card-shadow-dark);
     --current-accent-color: var(--accent-color-dark); /* Orange */
+    --current-accent-color-rgb: var(--accent-color-dark-rgb);
     --current-accent-hover-color: var(--accent-hover-color-dark); /* Darker Orange */
     --current-accent-text: var(--accent-text-dark);
     --current-nav-active-bg: var(--nav-active-bg-dark); /* Orange based */
@@ -195,6 +201,7 @@ body.pink-mode {
     --current-textarea-bg: var(--textarea-bg-pink);
     --current-card-shadow: var(--card-shadow-pink);
     --current-accent-color: var(--accent-color-pink);
+    --current-accent-color-rgb: var(--accent-color-pink-rgb);
     --current-accent-hover-color: var(--accent-hover-color-pink);
     --current-accent-text: var(--accent-text-pink);
     --current-nav-active-bg: var(--nav-active-bg-pink);
