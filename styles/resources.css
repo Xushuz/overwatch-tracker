@@ -52,7 +52,7 @@
     color: var(--current-text-color);
     font-size: 1rem; /* Standard font size for card content */
     cursor: pointer;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease; /* Added background-color */
     display: flex;
     flex-direction: column;
     gap: 6px; /* Adjusted gap */
@@ -62,18 +62,23 @@
 }
 
 .resource-button:hover {
-    /* background: var(--current-bg-color); /* Keep background white on hover */
-    /* color: var(--current-text-color); /* Keep text color same on hover */
-    border-color: var(--current-border-color); /* Or slightly darken: var(--current-accent-color) if subtle accent is okay */
-    /* transform: translateY(-1px); /* Optional */
+    background-color: rgba(var(--current-accent-color-rgb), 0.05); /* Subtle accent background on hover */
+    border-color: var(--current-accent-color); 
     box-shadow: var(--shadow-md); /* Increase shadow on hover */
 }
+.resource-button:active {
+    background-color: rgba(var(--current-accent-color-rgb), 0.1); /* Slightly darker for active state */
+    border-color: var(--current-accent-color);
+    box-shadow: var(--shadow-sm); /* Revert to smaller shadow on active */
+}
 
-.resource-button .resource-link-text { /* Added a span inside <a> for the main link text if needed, or style <a> directly */
+/* Styling for the resource name text */
+.resource-name-text {
     font-weight: 500; /* Medium weight for the main link text */
     color: var(--current-accent-color); /* Make the link text itself accent colored */
+    text-decoration: none; /* Remove default underline if any from parent anchor-like button */
 }
-.resource-button:hover .resource-link-text {
+.resource-button:hover .resource-name-text {
     text-decoration: underline; /* Underline main link text on hover */
 }
 

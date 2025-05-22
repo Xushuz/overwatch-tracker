@@ -8,7 +8,7 @@
     padding: 10px; /* Base padding */
     margin-right: 10px; /* Space from title */
     z-index: 1001; /* Above sidebar and header content if it overlaps */
-    border-radius: 50%; /* Make it circular for a more "button" like feel */
+    border-radius: var(--border-radius); /* Consistent rounded corners (4px) */
     transition: background-color 0.2s ease; /* Smooth transition for hover/active states */
 }
 /* Remove the last margin from the last span to better center the icon if padding is symmetrical */
