@@ -9,6 +9,49 @@ import { renderCurrentWeekProgress } from './ui-render-dashboard-tasks.js';
 import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage, initProgramModals as initProgramWeekDetailsModalListeners } from './ui-render-program.js';
 
+// Moved to top level
+function checkAndPromptForInitialRank() {
+    // Don't prompt on the very first application run (before any state is saved)
+    if (!appState.hasRunOnce) {
+        return; 
+    }
+
+    const currentCycleInitialRankExists = appState.rankHistory.some(
+        rankEntry => rankEntry.cycle === appState.currentCycle && rankEntry.type === 'initial'
+    );
+
+    // Prompt if initial rank for the current cycle doesn't exist and hasn't been prompted yet
+    if (!currentCycleInitialRankExists && !appState.hasPromptedInitialRankThisCycle) {
+        // Delay slightly to allow page rendering to settle
+        setTimeout(() => promptForRank(0, 'initial'), 600); 
+    }
+}
+
+// Moved to top level and exported
+export function startNewCycle() { 
+    if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
+        const newCycleNumber = appState.currentCycle + 1;
+        
+        // Clear rank prompts for the new cycle
+        const newHasPromptedRankForWeek = Object.fromEntries(
+            Object.entries(appState.hasPromptedRankForWeek)
+                  .filter(([key]) => !key.startsWith(`c${newCycleNumber}w`))
+        );
+
+        updateAppState({
+            currentCycle: newCycleNumber,
+            currentWeek: 1,
+            currentDay: 1,
+            hasPromptedInitialRankThisCycle: false,
+            hasPromptedRankForWeek: newHasPromptedRankForWeek
+        });
+
+        alert(`New Cycle (#${appState.currentCycle}) started!`);
+        RENDER_PAGE_FROM_MAIN_NAV(); // Refresh the current page view
+        checkAndPromptForInitialRank(); // Check if initial rank for the new cycle is needed
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Element Selection ---
     const currentDateEl = document.getElementById('currentDate');
@@ -89,47 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Export this function to be used in settings page
-    export function startNewCycle() { 
-        if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
-            const newCycleNumber = appState.currentCycle + 1;
-            
-            // Clear rank prompts for the new cycle
-            const newHasPromptedRankForWeek = Object.fromEntries(
-                Object.entries(appState.hasPromptedRankForWeek)
-                      .filter(([key]) => !key.startsWith(`c${newCycleNumber}w`))
-            );
+    // Export this function to be used in settings page - MOVED TO TOP LEVEL
+    // export function startNewCycle() { ... }
 
-            updateAppState({
-                currentCycle: newCycleNumber,
-                currentWeek: 1,
-                currentDay: 1,
-                hasPromptedInitialRankThisCycle: false,
-                hasPromptedRankForWeek: newHasPromptedRankForWeek
-            });
-
-            alert(`New Cycle (#${appState.currentCycle}) started!`);
-            RENDER_PAGE_FROM_MAIN_NAV(); // Refresh the current page view
-            checkAndPromptForInitialRank(); // Check if initial rank for the new cycle is needed
-        }
-    }
-
-    function checkAndPromptForInitialRank() {
-        // Don't prompt on the very first application run (before any state is saved)
-        if (!appState.hasRunOnce) {
-            return; 
-        }
-
-        const currentCycleInitialRankExists = appState.rankHistory.some(
-            rankEntry => rankEntry.cycle === appState.currentCycle && rankEntry.type === 'initial'
-        );
-
-        // Prompt if initial rank for the current cycle doesn't exist and hasn't been prompted yet
-        if (!currentCycleInitialRankExists && !appState.hasPromptedInitialRankThisCycle) {
-            // Delay slightly to allow page rendering to settle
-            setTimeout(() => promptForRank(0, 'initial'), 600); 
-        }
-    }
+    // function checkAndPromptForInitialRank() { ... } // MOVED TO TOP LEVEL
 
     // --- Application Initialization ---
     function initializeApp() {
