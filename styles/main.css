@@ -1,6 +1,7 @@
 /* styles/main.css */
 
 @import url('base.css');
+@import url('google-layout.css'); /* Added new layout CSS */
 @import url('header-nav.css');
 @import url('dashboard.css');
 @import url('program-overview.css');

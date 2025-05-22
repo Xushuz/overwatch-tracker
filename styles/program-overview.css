@@ -6,152 +6,142 @@
     display: grid;
     /* grid-template-columns: 1fr; Default to single column */
     /* Responsive.css will change this to repeat(auto-fill, minmax(280px, 1fr)) or similar */
-    gap: 20px; /* Increased gap for better separation */
+    gap: 16px; /* Adjusted gap */
 }
 
 .week-card {
     width: 100%;
     text-align: left;
-    background-color: var(--current-container-bg); 
+    background-color: var(--current-bg-color); /* Cards are white */
     border: 1px solid var(--current-border-color);
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px var(--current-card-shadow);
+    padding: 16px; /* Consistent padding */
+    border-radius: var(--border-radius); /* Use 4px from base.css */
+    box-shadow: var(--shadow-sm); /* Use new base shadow */
     display: flex; 
     flex-direction: column;
-    gap: 10px;
+    gap: 12px; /* Adjusted gap within card */
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease; /* Smoother transition */
     color: var(--current-text-color);
     font-family: var(--font-family);
-    font-size: inherit;
+    font-size: inherit; /* Inherit from container/body */
 }
 
 .week-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--current-card-shadow);
-    border-color: var(--current-accent-color);
-    background-color: var(--current-container-bg);
+    /* transform: translateY(-2px); /* Optional: keep if desired, but shadow change is more Google-like */
+    box-shadow: var(--shadow-md); /* Increase shadow on hover */
+    border-color: var(--current-border-color); /* Keep border same, or slightly darker if desired */
+    /* background-color: var(--current-bg-color); /* Keep background same */
 }
 
 .week-card:active {
-    transform: translateY(0);
+    transform: translateY(0); /* Reset if transform was used on hover */
+    box-shadow: var(--shadow-sm); /* Revert to base shadow on active */
 }
 
+/* This seems to be the "View Details" text, style as a text button or link */
 .week-card-action {
     color: var(--current-accent-color);
-    font-size: 0.95em;
-    font-weight: 500;
-    margin-top: auto;
+    font-size: 0.875em; /* 14px */
+    font-weight: 500; /* Medium weight for actions */
+    margin-top: auto; /* Pushes to bottom */
     padding-top: 8px;
+    text-decoration: none; /* Remove underline by default */
     transition: color 0.2s ease;
+    align-self: flex-start; /* Align to start */
 }
 
 .week-card:hover .week-card-action {
-    text-decoration: underline;
+    text-decoration: underline; /* Underline on hover for link-like behavior */
 }
 
 .week-card-header {
     display: flex;
     justify-content: space-between; 
     align-items: flex-start; 
-    margin-bottom: 10px; /* Increased margin */
+    margin-bottom: 8px; /* Adjusted margin */
     flex-wrap: wrap; 
-    padding-bottom: 8px; /* Increased padding */
-    border-bottom: 1px solid var(--current-border-color); /* Changed from dashed to solid for header */
+    padding-bottom: 8px; 
+    border-bottom: 1px solid var(--current-border-color); 
 }
 
-.week-card-header h3 { /* Week Title within card */
-    margin: 0 0 5px 0; 
-    font-size: 1.15em; /* Slightly larger */
-    color: var(--current-accent-color); 
-    line-height: 1.3; 
+/* .week-card-header h3 is replaced by .week-card-title for semantics and to avoid duplicate h3 */
+/* If .week-card-header h3 must be kept, style it like .week-card-title */
+
+.week-card-title { /* This is effectively the card's main title */
+    /* min-height: 3.9em; /* Removed fixed height for more natural flow */
+    /* max-height: 3.9em; */
+    /* display: -webkit-box; /* Removed webkit box clamping for simplicity, rely on line-height */
+    /* -webkit-line-clamp: 3; */
+    /* line-clamp: 3; */
+    /* -webkit-box-orient: vertical; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    line-height: 1.35; /* Adjusted line height */
+    margin: 0; /* Removed bottom margin as gap handles spacing */
+    font-size: 1.125em; /* 18px, good for card titles */
+    color: var(--current-text-color); /* Standard text color for titles */
+    font-weight: 500; /* Medium weight */
     flex-grow: 1; 
     padding-right: 10px; 
     border-bottom: none; 
     padding-bottom: 0; 
-}
-
-.week-card-title {
-    min-height: 3.9em; /* 3 lines at ~1.3em line-height */
-    max-height: 3.9em;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.3;
-    margin: 0 0 5px 0;
-    font-size: 1.15em;
-    color: var(--current-accent-color);
-    flex-grow: 1;
-    padding-right: 10px;
-    border-bottom: none;
-    padding-bottom: 0;
     font-family: var(--font-family);
 }
 
 .week-progress {
-    font-size: 0.9em; 
-    font-weight: bold;
+    font-size: 0.875em; /* 14px */
+    font-weight: 500; /* Medium weight */
     white-space: nowrap; 
-    line-height: 1.3; 
+    line-height: 1.4; 
     color: var(--current-text-color); 
-    background-color: var(--current-button-bg); 
-    padding: 3px 7px; /* Slightly more padding */
-    border-radius: 4px; /* More pronounced radius */
-    align-self: flex-start; /* Align with the start of the flex line if title wraps */
+    background-color: rgba(var(--current-text-color-rgb, 32,33,36), 0.08); /* Subtle background */
+    padding: 4px 8px; /* Adjusted padding */
+    border-radius: var(--border-radius); 
+    align-self: flex-start; 
 }
 
 .week-card-focus {
-    font-size: 0.95em;
-    margin-bottom: 15px; /* More space before the button */
-    opacity: 0.9; /* Slightly more visible */
-    flex-grow: 1; /* This makes the focus area take up remaining space, pushing button down */
-    line-height: 1.5; /* Improved readability */
+    font-size: 0.875em; /* 14px */
+    margin-bottom: 12px; /* Adjusted margin */
+    opacity: 0.75; /* Adjusted opacity */
+    flex-grow: 1; 
+    line-height: 1.5; 
     color: var(--current-text-color);
-    /* To prevent wildly different heights due to text, you can add a max-height and overflow: auto/hidden */
-    /* For example:
-    max-height: 100px; 
-    overflow-y: auto; 
-    padding-right: 5px; // if scrollbar appears
-    */
 }
 
+/* This button should align with base.css button styles */
 .view-week-details-btn {
-    padding: 9px 14px; /* Slightly larger button */
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85em; 
-    font-weight: 500; /* Slightly bolder button text */
-    margin-top: auto; /* THIS IS KEY: Pushes button to the bottom of the flex column */
-    align-self: flex-start; /* Ensures button doesn't stretch full width if card is wide */
-    width: auto; /* Let content define width, or set a fixed/max-width */
-    min-width: 120px; /* Ensure a decent minimum width */
+    /* Inherit from base.css .button class */
+    /* padding: 8px 16px; /* From base.css */
+    /* background-color: var(--current-button-bg); /* From base.css */
+    /* color: var(--current-button-text); /* From base.css */
+    /* border: 1px solid var(--current-border-color); /* From base.css */
+    /* border-radius: var(--border-radius); /* From base.css */
+    /* cursor: pointer; */
+    /* font-size: 0.875rem; /* From base.css */
+    /* font-weight: 500; /* From base.css */
+    margin-top: auto; 
+    align-self: flex-start; 
+    width: auto; 
+    min-width: auto; /* Remove min-width or set to something like 100px */
     text-align: center;
-    transition: all 0.2s ease;
+    /* transition: all 0.2s ease; /* From base.css */
+
+    /* For a text button style (more Google like for secondary actions on cards): */
+    background-color: transparent;
+    color: var(--current-accent-color);
+    border: none; /* Or 1px solid transparent */
+    box-shadow: none;
 }
 
 .view-week-details-btn:hover {
-    opacity: 1; /* Full opacity on hover */
-    background-color: var(--current-accent-color); 
-    color: var(--current-accent-text);
-    border-color: var(--current-accent-hover-color);
+    /* opacity: 1; */ /* Not needed for text button */
+    background-color: rgba(var(--current-accent-color-rgb), 0.08); /* Accent hover for text button */
+    /* color: var(--current-accent-text); /* Text color usually stays same for text button hover */
+    /* border-color: var(--current-accent-hover-color); /* Not needed for text button */
 }
-body.pink-mode .view-week-details-btn:hover {
-    color: #581845; 
-    background-color: var(--accent-color-pink);
-    border-color: var(--accent-hover-color-pink);
-}
-body.dark-mode .view-week-details-btn:hover { /* Specific for orange accent on dark */
-    color: #111; 
-}
-body.light-mode .view-week-details-btn:hover {
-    color: #fff;
-}
+/* Theme specific hover styles can be removed if the above is sufficient */
+
 
 /* Modal styles for week details are in modals.css */
