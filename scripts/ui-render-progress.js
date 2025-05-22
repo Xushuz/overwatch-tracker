@@ -252,9 +252,12 @@ export function generateDivisionButtons(containerEl, hiddenInputEl, prefix = 'fo
     for (let i = 5; i >= 1; i--) {
         const button = document.createElement('button');
         button.type = 'button';
+        button.classList.add('form-button'); // Apply the standard button class
+        // Consider adding a more specific class if these need further unique styling beyond .form-button
+        // e.g., button.classList.add('division-group-button');
         button.textContent = i;
         button.dataset.division = i;
-        button.id = `${prefix}DivBtn${i}`; 
+        button.id = `${prefix}DivBtn${i}`;
         button.addEventListener('click', (e) => {
             const selectedButton = e.target;
             const division = selectedButton.dataset.division;

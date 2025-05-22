@@ -1,6 +1,8 @@
 // main-navigation.js
 import { appState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
+import { applyTheme } from './ui-theme.js'; // Added
+import { startNewCycle } from './script.js'; // Added
 import { renderDashboardPage, renderDashboardRankChart, rankChartInstanceDashboard } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage } from './ui-render-program.js';
 import { renderDailyNotesSummaryPage } from './ui-render-notes.js';
@@ -75,12 +77,72 @@ export function renderPage() {
         case 'resources':
             renderResourcesPage(mainContentEl);
             break;
+        case 'settings': // Added settings page
+            renderSettingsPage(mainContentEl);
+            break;
         default:
             updateAppState({ currentPage: 'dashboard' }); // Fallback and save
             renderDashboardPage(mainContentEl); // Re-render dashboard
             return; // Exit early to avoid double saveState call
     }
     // saveState(); // saveState is now called by updateAppState or by functions that directly modify appState significantly
+}
+
+export function renderSettingsPage(mainContentEl) {
+    mainContentEl.innerHTML = `
+        <div class="settings-page content-card">
+            <h2>Settings</h2>
+
+            <section class="settings-section">
+                <h3>Theme Selection</h3>
+                <div class="theme-options">
+                    <label>
+                        <input type="radio" name="theme" value="light" data-theme-option> Light
+                    </label>
+                    <label>
+                        <input type="radio" name="theme" value="dark" data-theme-option> Dark
+                    </label>
+                    <label>
+                        <input type="radio" name="theme" value="pink" data-theme-option> Pink
+                    </label>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h3>Data Management</h3>
+                <p>This will reset your current cycle, rank history for the current cycle, and task completions. Program data itself will remain.</p>
+                <button class="form-button form-button--danger" id="resetAllDataBtn">Reset Application Data</button>
+            </section>
+        </div>
+    `;
+
+    // Set the currently active theme radio button
+    const currentTheme = appState.theme;
+    const themeRadioButtons = mainContentEl.querySelectorAll('input[name="theme"]');
+    themeRadioButtons.forEach(radio => {
+        if (radio.value === currentTheme) {
+            radio.checked = true;
+        }
+        radio.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                updateAppState({ theme: event.target.value });
+                applyTheme(); // applyTheme from ui-theme.js should handle applying body class and re-rendering charts
+            }
+        });
+    });
+
+    // Add event listener for Reset All Data button
+    const resetAllDataBtn = document.getElementById('resetAllDataBtn');
+    if (resetAllDataBtn) {
+        resetAllDataBtn.addEventListener('click', () => {
+            if (typeof startNewCycle === 'function') {
+                startNewCycle(); 
+            } else {
+                console.error('Reset data function (startNewCycle) not available.');
+                alert('Error: Reset functionality is currently unavailable.');
+            }
+        });
+    }
 }
 
 

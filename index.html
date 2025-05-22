@@ -18,8 +18,8 @@
             <h1>Overwatch Pro Path Tracker</h1>
             <div class="header-controls">
                 <span id="currentDate">Loading date...</span>
-                <button class="theme-toggle-btn" id="themeToggleBtn">Toggle Theme</button>
-                <button class="new-cycle-btn" id="newCycleBtn">New Cycle</button>
+                <button class="form-button theme-toggle-btn" id="themeToggleBtn">Toggle Theme</button>
+                <button class="form-button new-cycle-btn" id="newCycleBtn">New Cycle</button>
             </div>
         </header>
 
@@ -30,6 +30,7 @@
                 <a href="#" class="nav-link" data-page="dailyNotes">Daily Notes</a>
                 <a href="#" class="nav-link" data-page="progress">Rank History</a>
                 <a href="#" class="nav-link" data-page="resources">Resources</a>
+                <a href="#" class="nav-link" data-page="settings">Settings</a>
             </nav>
             <main class="app-main"> <!-- Existing main content area -->
                 <p>Loading application...</p> <!-- Initial placeholder -->
@@ -66,8 +67,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-button save" id="saveModalRankLogBtn">Save Rank</button>
-                    <button class="modal-button cancel" id="cancelModalRankLogBtn">Skip for now</button>
+                    <button class="form-button form-button--primary form-button--full-width modal-button save" id="saveModalRankLogBtn">Save Rank</button>
+                    <button class="form-button form-button--secondary form-button--full-width modal-button cancel" id="cancelModalRankLogBtn">Skip for now</button>
                 </div>
             </div>
         </div>
@@ -83,7 +84,7 @@
                     <!-- Daily breakdown will be injected here -->
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-button cancel" id="okWeekDetailsModalBtn">OK</button>
+                    <button class="form-button form-button--secondary modal-button cancel" id="okWeekDetailsModalBtn">OK</button>
                 </div>
             </div>
         </div>

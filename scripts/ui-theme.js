@@ -5,10 +5,10 @@ import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgressPageRankChart } from './ui-render-progress.js';
 
 const body = document.body;
-let themeToggleBtnEl = null; 
+// let themeToggleBtnEl = null; // Removed
 
 export function applyTheme() {
-    if (!body || !themeToggleBtnEl) {
+    if (!body) { // Check only for body as button is removed
         return;
     }
 
@@ -17,9 +17,9 @@ export function applyTheme() {
     });
     body.classList.add(appState.theme + '-mode'); 
     
-    const currentThemeIndex = themes.indexOf(appState.theme);
-    const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
-    themeToggleBtnEl.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)}`;
+    // const currentThemeIndex = themes.indexOf(appState.theme); // Removed
+    // const nextThemeIndex = (currentThemeIndex + 1) % themes.length; // Removed
+    // themeToggleBtnEl.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)}`; // Removed
     
     // Re-render charts if they are currently displayed to update their colors
     if (appState.currentPage === 'dashboard') {
@@ -48,19 +48,19 @@ export function applyTheme() {
     }
 }
 
-export function toggleTheme() {
-    const currentThemeIndex = themes.indexOf(appState.theme);
-    const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
-    updateAppState({ theme: themes[nextThemeIndex] }); 
-    applyTheme(); 
-}
+// export function toggleTheme() { // Removed
+//     const currentThemeIndex = themes.indexOf(appState.theme);
+//     const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
+//     updateAppState({ theme: themes[nextThemeIndex] }); 
+//     applyTheme(); 
+// }
 
-export function initThemeControls(buttonElement) {
-    if (!buttonElement) {
-        console.error("Theme toggle button element not provided to initThemeControls.");
-        return;
-    }
-    themeToggleBtnEl = buttonElement;
-    themeToggleBtnEl.addEventListener('click', toggleTheme);
-    applyTheme(); 
-}
+// export function initThemeControls(buttonElement) { // Removed
+//     if (!buttonElement) {
+//         console.error("Theme toggle button element not provided to initThemeControls.");
+//         return;
+//     }
+//     themeToggleBtnEl = buttonElement;
+//     themeToggleBtnEl.addEventListener('click', toggleTheme);
+//     applyTheme(); 
+// }

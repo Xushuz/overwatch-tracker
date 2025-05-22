@@ -84,36 +84,20 @@
     margin-top: 20px; /* Adjusted margin */
 }
 
-/* Modal buttons should inherit from base.css button styles */
-.modal-button { 
-    /* Remove specific padding, border-radius, font-size, font-weight if they match base.css */
-    /* border: none; /* Base button might have a border */
+/* Modal buttons now use .form-button, .form-button--primary, .form-button--secondary */
+/* .modal-button class can be kept for specificity if needed for margin or other layout */
+.modal-button {
     margin-left: 8px; /* Google style for button spacing in dialogs */
-    /* transition: all 0.2s ease; /* Inherited from base.css */
+    /* Other specific styles removed, will be inherited from .form-button and its modifiers */
+}
+.modal-button:first-child {
+    margin-left: 0; /* No margin for the first button in the footer if using flex-end */
 }
 
-.modal-button.save {
-    /* This is a primary action button, should use accent color */
-    /* background-color: var(--current-accent-color); /* From base.css if .button.primary or similar */
-    /* color: var(--current-accent-text); /* From base.css */
-    /* These are already set by .form-button in base.css, assuming .save is also .form-button */
-}
-
-.modal-button.save:hover {
-    /* background-color: var(--current-accent-hover-color); /* From base.css */
-}
-
-.modal-button.cancel {
-    /* This is often a text button or a less emphasized button */
-    background-color: transparent; 
-    color: var(--current-accent-color); /* Text button style */
-    border: none; 
-    box-shadow: none; /* Remove shadow if it's a text button */
-}
-.modal-button.cancel:hover {
-    background-color: rgba(var(--current-accent-color-rgb), 0.08); /* Subtle hover for text buttons */
-    /* opacity: 1; */
-}
+/* Styles for .modal-button.save and .modal-button.cancel are now handled by
+   .form-button--primary and .form-button--secondary directly on the HTML elements.
+   The .save and .cancel classes on .modal-button can be removed from HTML if not used for other JS selection.
+*/
 
 /* --- Custom Warmup Modal Specific Styles --- */
 #customWarmupModal .modal-content {
@@ -148,29 +132,18 @@
     /* color: var(--current-text-color); /* From base.css */
 }
 
-/* Buttons in custom warmup modal should also use base button styling */
-#customWarmupModal .form-button {
-    /* min-width: 90px; */ /* Base button has decent min-width via padding */
-    /* padding: 8px 16px; /* From base.css button */
-    /* font-size: 0.875rem; /* From base.css button */
-    /* border: 1px solid var(--current-border-color); /* Base button style */
-    /* border-radius: var(--border-radius); /* Base button style */
-    /* cursor: pointer; */
-    /* transition: all 0.2s ease; */
-}
-
-#customWarmupModal .form-button:hover {
-    /* Inherits from base.css .form-button:hover */
-}
+/* Buttons in custom warmup modal should also use .form-button and its modifiers */
+/* #customWarmupModal .form-button {} */ /* This selector is fine if it's already using .form-button */
 
 #customWarmupModal .form-button.danger { /* Add a class for danger action */
-    background: var(--danger-color);
-    color: #fff;
-    border-color: var(--danger-color);
+    background: var(--danger-color); /* Consider making this a CSS variable */
+    color: #fff; /* Ensure contrast */
+    border-color: var(--danger-color); /* Or transparent if background is enough */
 }
-
 #customWarmupModal .form-button.danger:hover {
-    opacity: 0.85; /* Slightly different hover for danger */
+    background-color: #c82333; /* Darker shade of danger */
+    border-color: #bd2130; /* Darker shade for border */
+    /* opacity: 0.85; */ /* Alternative hover effect */
 }
 
 /* --- Rank Prompt Modal Specific Styles --- */
@@ -216,29 +189,22 @@
     justify-content: space-between; 
     gap: 8px; /* Adjusted gap */
 }
-.rank-prompt-modal .division-buttons button { 
-    flex-grow: 1; 
-    /* padding: 8px 6px; /* Adjusted padding from base.css button if needed */
-    /* font-size: 0.875rem; /* From base.css button */
-    /* border: 1px solid var(--current-border-color); /* From base.css button */
-    /* background-color: var(--current-button-bg); /* From base.css button */
-    /* color: var(--current-button-text); /* From base.css button */
-    /* border-radius: var(--border-radius); /* From base.css button */
-    /* cursor: pointer; */
-    /* transition: all 0.2s ease; /* From base.css button */
+.rank-prompt-modal .division-buttons button { /* These will have .form-button applied via JS */
+    flex-grow: 1;
+    /* Padding and font-size will come from .form-button. May need slight adjustment if too large. */
+    /* e.g., padding: 6px 10px; font-size: 0.8rem; if smaller buttons are needed */
 }
 .rank-prompt-modal .division-buttons button:hover {
-    /* opacity: 0.8; /* Base button hover is better */
-    border-color: var(--current-accent-color); /* Keep this subtle hover effect */
+    /* Hover state from .form-button is fine, or can be customized */
+    /* border-color: var(--current-accent-color); /* Kept from original, good for secondary-like buttons */
 }
 .rank-prompt-modal .division-buttons button.selected {
-    background-color: var(--current-accent-color);
-    color: var(--current-accent-text);
-    border-color: var(--current-accent-color);
-    font-weight: 500; /* Medium weight for selected */
+    background-color: var(--button-primary-bg); /* Use primary button background for selected */
+    color: var(--button-primary-text); /* Use primary button text color */
+    border-color: var(--button-primary-bg); /* Match background color */
+    /* font-weight: 500; /* Already set by .form-button */
 }
-/* Theme specific .selected text color can be removed if base.css --current-accent-text handles it */
-/* body.pink-mode .rank-prompt-modal .division-buttons button.selected { ... } */
+/* Theme specific text color for .selected should be handled by --button-primary-text */
 
 /* --- Program Week Details Modal Specific Styles --- */
 .program-week-details-modal .modal-content {

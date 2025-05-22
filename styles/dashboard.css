@@ -264,6 +264,7 @@
     border-radius: var(--border-radius); /* Use new base border-radius */
     background-color: var(--current-bg-color); /* White card */
     box-shadow: var(--shadow-sm); /* Use new base shadow */
+    box-sizing: border-box; /* Ensure padding/border are included in width/height */
 }
 
 #dashboardRankChart {
