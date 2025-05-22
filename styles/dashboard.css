@@ -35,20 +35,20 @@
 }
 
 .week-info h2 { /* Week Title */
-    font-size: 1.25em; /* Slightly adjusted */
+    font-size: 1.25rem; /* Slightly adjusted */
     margin-top: 0;
     margin-bottom: 8px; 
     color: var(--current-text-color); /* Titles usually text color, not accent */
 }
 
 .week-info p#weekFocus { /* Week Focus Text */
-    font-size: 0.9em; /* Adjusted */
+    font-size: 0.9rem; /* Adjusted */
     margin-bottom: 12px; /* Adjusted */
     opacity: 0.8; /* Adjusted */
 }
 
 .week-info h3#dayTitle { /* Day Title */
-    font-size: 1.1em;
+    font-size: 1.1rem;
     margin-top: 15px; /* Adjusted */
     margin-bottom: 12px; /* Adjusted */
     padding-bottom: 8px; /* Adjusted */
@@ -59,7 +59,7 @@
     margin-bottom: 15px;
 }
 .current-week-progress p#currentWeekProgressText {
-    font-size: 0.9em;
+    font-size: 0.9rem;
     margin-bottom: 5px;
     text-align: center;
     font-weight: 500;
@@ -71,7 +71,7 @@
     margin-bottom: 15px; 
 }
 .tasks-section h4 {
-    font-size: 1.05em;
+    font-size: 1.05rem;
     margin-bottom: 10px;
     color: var(--current-text-color); 
 }
@@ -118,7 +118,7 @@
 
 .task-details { 
     flex-grow: 1; 
-    font-size: 0.9em; /* Adjusted */
+    font-size: 0.9rem; /* Adjusted */
 }
 .task-details.completed { 
     text-decoration: line-through; 
@@ -139,7 +139,7 @@
 
 
 .task-focus { 
-    font-size: 0.8em; 
+    font-size: 0.8rem; 
     opacity: 0.65; /* Adjusted */
     display: block; 
     margin-top: 2px; 
@@ -182,7 +182,7 @@
 
 .daily-notes-section h4, 
 .dashboard-rank-section h4 { 
-    font-size: 1em; /* Adjusted */
+    font-size: 1rem; /* Adjusted */
     margin-top: 0; 
     margin-bottom: 12px; /* Adjusted */
     color: var(--current-text-color); /* Use text color for subtitles */
@@ -197,7 +197,7 @@
     border-radius: var(--border-radius); /* Use new base border-radius */
     background-color: var(--current-input-bg); 
     color: var(--current-text-color); 
-    font-size: 0.9em; /* Adjusted */
+    font-size: 0.9rem; /* Adjusted */
     line-height: 1.5; 
     resize: vertical; 
     box-sizing: border-box;
@@ -225,7 +225,7 @@
 .dashboard-rank-update-form .division-buttons button { 
     flex-grow: 1; 
     padding: 8px 6px; /* Adjusted padding */
-    font-size: 0.875em; /* Standardized font size */
+    font-size: 0.875rem; /* Standardized font size */
     border: 1px solid var(--current-border-color);
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
@@ -272,20 +272,9 @@
     height: 100% !important;
 }
 
-/* Chart text colors */
-#dashboardRankChartContainer .chart-text { 
-    fill: var(--current-chart-text-color) !important; 
-}
-
-#dashboardRankChartContainer .chart-grid line { 
-    stroke: var(--current-chart-grid-color) !important; 
-}
-
-#dashboardRankChartContainer .chart-tooltip { 
-    background-color: var(--current-chart-tooltip-bg) !important; 
-    color: var(--current-chart-tooltip-text-color) !important; 
-    border: 1px solid var(--current-border-color); 
-}
+/* Chart text colors are handled by generic .chart-text in base.css */
+/* Chart grid line colors are handled by generic .chart-grid line in base.css */
+/* Chart tooltip styles are handled by generic .chart-tooltip in base.css */
 
 /* Custom Warm-up and Custom Task UI (theming) */
 .custom-warmup-section,
@@ -307,7 +296,7 @@
     color: var(--current-text-color);
     display: flex;
     align-items: center;
-    font-size: 0.97em;
+    font-size: 0.97rem;
 }
 .custom-warmup-task {
     background: var(--current-textarea-bg);
@@ -334,7 +323,7 @@
     border-radius: var(--border-radius);
     margin-left: 8px; /* Adjusted */
     padding: 5px 10px; /* Adjusted */
-    font-size: 0.85em; /* Adjusted */
+    font-size: 0.85rem; /* Adjusted */
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
@@ -363,7 +352,7 @@
     border-radius: var(--border-radius);
     padding: 6px 10px; /* Adjusted */
     margin-right: 8px; /* Adjusted */
-    font-size: 0.9em; /* Adjusted */
+    font-size: 0.9rem; /* Adjusted */
 }
 #personalFocusDisplay {
     color: var(--current-accent-color);
@@ -383,7 +372,7 @@
     border: 1px solid var(--current-input-border);
     border-radius: var(--border-radius); /* Use new base border-radius */
     padding: 10px 12px; /* Consistent with base.css inputs */
-    font-size: 0.9em; /* Adjusted */
+    font-size: 0.9rem; /* Adjusted */
     width: 100%;
     margin-bottom: 0;
 }
@@ -435,20 +424,7 @@
     outline-offset: 1px;
 }
 
-/* Progress bar */
-.progress-bar-fill {
-    background-color: var(--current-accent-color);
-    color: var(--current-accent-text);
-    height: 100%;
-    transition: width 0.5s ease-in-out;
-    text-align: center;
-    font-weight: bold;
-    line-height: 22px;
-    font-size: 0.8em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/* Progress bar styling is now handled by base.css */
 
 /* Custom Warmup List Specific Styles */
 #customWarmupList { /* UL element */
@@ -504,7 +480,7 @@
 
 .custom-warmup-item .actions button {
     padding: 0.3em 0.6em; 
-    font-size: 0.85em;
+    font-size: 0.85rem;
     /* Inherit from base.css button styles for background, color, border */
 }
 .custom-warmup-item .actions button:hover {

@@ -41,17 +41,14 @@
         flex-wrap: nowrap; /* Prevent wrapping */
         padding: 10px 20px; /* Restore original padding */
     }
-    .app-header h1 {
-        font-size: 1.4em; /* Restore original h1 size from header-nav.css */
-        /* Potentially 1.6em as per original responsive.css, but 1.4em is base */
-    }
+    /* .app-header h1 font-size is 1.4rem in header-nav.css, no change needed here unless different */
     .header-controls {
         gap: 15px; /* Restore original gap */
         /* flex-basis: auto; /* Reset basis if it was changed for mobile */
         /* justify-content: flex-end; */
     }
     .header-controls span#currentDate {
-        font-size: 0.875em; /* Restore original font size */
+        font-size: 0.875rem; /* Restore original font size */
         white-space: nowrap; /* Prevent wrapping */
         /* order: 0; Reset order if changed */
         /* margin-right: 10px; /* Restore if removed */
@@ -102,15 +99,15 @@
     
     /* --- Original Tablet Styles --- */
     body {
-        /* padding: 20px; /* Body padding can sometimes contribute to complexity with 100vw elements or viewport units. Manage padding on .container or .app-main instead. */
-        font-size: 17px; 
+        font-size: 1.0625rem; /* Was 17px */
     }
 
-    /* Overrides for h1 and header controls for tablet are now part of the header restoration block above.
-       If specific font sizes for 768px are different from base, they can be re-applied here.
-       Example: .app-header h1 { font-size: 1.6em; } /* If 1.6em is specifically for 768px+ */
+    /*
+       Removed commented-out:
+       - body padding
+       - specific h1 font-size for tablet (handled by base or other media queries)
+       - .theme-toggle-btn, .new-cycle-btn font-size (handled by base .form-button styles)
     */
-    /* .theme-toggle-btn, .new-cycle-btn { font-size: 0.85em; } /* This was an old override, .form-button defaults are now restored. */
 
     .dashboard-layout {
         flex-direction: row; 
@@ -130,7 +127,8 @@
         margin-top: 0; 
     }
     #dailyNotesTextarea {
-        font-size: 1em; 
+        font-size: 1em; /* This is 1rem in dashboard.css, should be consistent or removed if inheriting. */
+        /* For now, keeping as 1em as it might be a specific override for tablet. */
         min-height: 200px; 
         max-height: none; 
         height: 250px; 
@@ -139,17 +137,10 @@
         min-height: 220px; 
     }
 
-    /* .app-nav styles are now for .google-nav, which is handled above for layout.
-       Specific link styling can remain if needed for responsiveness.
-    .app-nav {
-        flex-wrap: nowrap; 
-        justify-content: center; 
-    }
-    .app-nav .nav-link {
-        font-size: 0.9em;
-        flex-grow: 0; 
-        padding: 10px 20px; 
-    }
+    /* 
+      Commented-out .app-nav styles removed as .google-nav is used.
+      Styling for .google-nav .nav-link at this breakpoint can be added here if needed,
+      but general .google-nav .nav-link styles are in google-layout.css.
     */
 
     .week-card-header {
@@ -157,12 +148,12 @@
         align-items: center; /* Vertically align title and progress */
         flex-wrap: nowrap; /* Prevent wrapping on tablet for header */
     }
-    .week-card-header h3 {
+    .week-card-header h3 { /* Assuming this h3 is still in use, or applies to .week-card-title if it's an h3 */
         margin: 0; /* Remove bottom margin from stacked view */
-        font-size: 1.2em;
+        font-size: 1.2rem; /* Was 1.2em */
     }
     .week-progress {
-        font-size: 0.9em;
+        font-size: 0.9rem; /* Was 0.9em */
         margin-left: auto; /* Pushes progress to the right */
         padding-left: 10px; /* Space from title if title is short */
     }
@@ -205,7 +196,7 @@
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     body {
-        font-size: 18px; 
+        font-size: 1.125rem; /* Was 18px */
     }
     .container { 
         /* max-width: 1200px; /* Old value */
@@ -213,14 +204,14 @@
     }
 
     .app-header h1 {
-        font-size: 1.8em;
+        font-size: 1.8rem; /* Was 1.8em */
     }
     .theme-toggle-btn, .new-cycle-btn {
-        font-size: 0.9em;
+        font-size: 0.9rem; /* Was 0.9em */
     }
 
-    .app-nav .nav-link {
-        font-size: 1em;
+    .google-nav .nav-link { /* Changed from .app-nav .nav-link */
+        font-size: 1rem; /* Was 1em */
     }
     
     .weeks-container { 

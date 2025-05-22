@@ -60,7 +60,7 @@ export function renderDashboardPage(mainContentEl) {
                 <section class="custom-warmup-section">
                     <h4>Custom Warm-up/Aim Routine</h4>
                     <ul id="customWarmupList"></ul>
-                    <button id="addCustomWarmupBtn" style="margin-top:6px;">Add Warm-up Drill</button>
+                    <button class="form-button" id="addCustomWarmupBtn" style="margin-top:6px;">Add Warm-up Drill</button>
                 </section>
                 <div id="customWarmupModal" class="modal">
                     <div class="modal-content">
@@ -74,8 +74,8 @@ export function renderDashboardPage(mainContentEl) {
                             <input id="customWarmupDesc" type="text" maxlength="80" placeholder="Description, workshop code, or link" />
                         </div>
                         <div style="display:flex; gap:12px; justify-content:flex-end;">
-                            <button id="saveCustomWarmupBtn" class="form-button">Save</button>
-                            <button id="cancelCustomWarmupBtn" class="form-button" style="background:var(--danger-color); color:#fff;">Cancel</button>
+                            <button id="saveCustomWarmupBtn" class="form-button form-button--primary">Save</button>
+                            <button id="cancelCustomWarmupBtn" class="form-button form-button--danger">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -84,8 +84,8 @@ export function renderDashboardPage(mainContentEl) {
                     <ul class="task-list" id="taskList"></ul>
                 </section>
                 <section class="day-navigation-controls">
-                    <button class="nav-button prev-day-btn" id="prevDayBtn">« Previous Day</button>
-                    <button class="nav-button next-day-btn" id="nextDayBtn">Next Day »</button>
+                    <button class="form-button nav-button prev-day-btn" id="prevDayBtn">« Previous Day</button>
+                    <button class="form-button nav-button next-day-btn" id="nextDayBtn">Next Day »</button>
                 </section>
             </div>
             <aside class="dashboard-side-panel">
@@ -105,7 +105,7 @@ export function renderDashboardPage(mainContentEl) {
                             <div id="dashboardRankDivisionButtons" class="division-buttons"></div>
                             <input type="hidden" id="dashboardRankDivisionValue" name="dashboardRankDivisionValue">
                         </div>
-                        <button type="submit" class="form-button">Update Today's Rank</button>
+                        <button type="submit" class="form-button form-button--primary form-button--full-width">Update Today's Rank</button>
                     </form>
                     <div id="dashboardRankChartContainer" style="min-height: 220px; position: relative;">
                          <canvas id="dashboardRankChart"></canvas>

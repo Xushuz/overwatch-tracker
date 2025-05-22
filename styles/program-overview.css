@@ -45,7 +45,7 @@
 /* This seems to be the "View Details" text, style as a text button or link */
 .week-card-action {
     color: var(--current-accent-color);
-    font-size: 0.875em; /* 14px */
+    font-size: 0.875rem; /* 14px */
     font-weight: 500; /* Medium weight for actions */
     margin-top: auto; /* Pushes to bottom */
     padding-top: 8px;
@@ -82,7 +82,7 @@
     /* text-overflow: ellipsis; */
     line-height: 1.35; /* Adjusted line height */
     margin: 0; /* Removed bottom margin as gap handles spacing */
-    font-size: 1.125em; /* 18px, good for card titles */
+    font-size: 1.125rem; /* 18px, good for card titles */
     color: var(--current-text-color); /* Standard text color for titles */
     font-weight: 500; /* Medium weight */
     flex-grow: 1; 
@@ -93,7 +93,7 @@
 }
 
 .week-progress {
-    font-size: 0.875em; /* 14px */
+    font-size: 0.875rem; /* 14px */
     font-weight: 500; /* Medium weight */
     white-space: nowrap; 
     line-height: 1.4; 
@@ -105,7 +105,7 @@
 }
 
 .week-card-focus {
-    font-size: 0.875em; /* 14px */
+    font-size: 0.875rem; /* 14px */
     margin-bottom: 12px; /* Adjusted margin */
     opacity: 0.75; /* Adjusted opacity */
     flex-grow: 1; 

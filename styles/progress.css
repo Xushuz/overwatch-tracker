@@ -8,7 +8,7 @@
 }
 
 #overallProgramProgressContainer p {
-    font-size: 0.9em; /* Adjusted size */
+    font-size: 0.9rem; /* Adjusted size */
     text-align: center;
     margin-bottom: 8px; /* Adjusted space */
     font-weight: 500; /* Medium weight */
@@ -35,7 +35,7 @@
 .rank-history-list li {
     padding: 12px 16px; /* Adjusted padding */
     border-bottom: 1px solid var(--current-border-color); /* Solid border */
-    font-size: 0.9em; /* Adjusted size */
+    font-size: 0.9rem; /* Adjusted size */
     display: flex;
     justify-content: space-between;
     align-items: center; 
@@ -66,7 +66,7 @@
 
 .rank-history-list .rank-date {
     opacity: 0.75; /* Adjusted opacity */
-    font-size: 0.875em; /* 14px */
+    font-size: 0.875rem; /* 14px */
     white-space: nowrap; 
     color: var(--current-text-color);
 }
@@ -89,22 +89,10 @@
 #dashboardRankChartContainer p { 
     text-align:center; 
     padding-top:20px; 
-    font-size:0.9em;
+    font-size:0.9rem;
     color: var(--current-text-color);
     opacity: 0.65; /* Adjusted opacity */
 }
 
-/* This button should use base.css button styling, with a danger variant */
-.reset-rank-history-btn {
-    /* Inherit from base.css .button */
-    /* Add a specific class like .button-danger or rely on JS to add inline styles for danger */
-    background-color: var(--danger-color);
-    color: #fff; /* Text color for danger buttons */
-    border-color: var(--danger-color);
-    /* transition: background-color 0.2s, color 0.2s, border-color 0.2s; /* Inherited */
-}
-.reset-rank-history-btn:hover {
-    background-color: #c82333; /* Darker danger color on hover */
-    border-color: #bd2130; /* Darker danger border */
-    color: #fff;
-}
+/* Reset rank history button styling is now handled by .form-button and .form-button--danger in base.css */
+/* Apply classes .form-button and .form-button--danger to the relevant button in HTML. */

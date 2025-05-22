@@ -52,7 +52,7 @@ body.dark-mode .modal-header {
 
 .modal-header h3 {
     margin: 0;
-    font-size: 1.25em; /* Material title size (e.g., 20sp) */
+    font-size: 1.25rem; /* Material title size (e.g., 20sp) */
     color: var(--current-text-color); /* Standard text color for titles */
     font-weight: 500; /* Medium weight for titles */
     line-height: 1.4;
@@ -142,16 +142,8 @@ body.dark-mode .modal-footer {
 /* Buttons in custom warmup modal should also use .form-button and its modifiers */
 /* #customWarmupModal .form-button {} */ /* This selector is fine if it's already using .form-button */
 
-#customWarmupModal .form-button.danger { /* Add a class for danger action */
-    background: var(--danger-color); /* Consider making this a CSS variable */
-    color: #fff; /* Ensure contrast */
-    border-color: var(--danger-color); /* Or transparent if background is enough */
-}
-#customWarmupModal .form-button.danger:hover {
-    background-color: #c82333; /* Darker shade of danger */
-    border-color: #bd2130; /* Darker shade for border */
-    /* opacity: 0.85; */ /* Alternative hover effect */
-}
+/* Danger button styling is now handled by .form-button--danger in base.css */
+/* Apply class .form-button--danger to the relevant button in HTML. */
 
 /* --- Rank Prompt Modal Specific Styles --- */
 .rank-prompt-modal .modal-content { 
@@ -227,7 +219,7 @@ body.dark-mode .modal-footer {
 .program-week-details-modal #weekDetailsModalBody ul li {
     padding: 10px 0; 
     border-bottom: 1px dashed var(--current-border-color);
-    font-size: 0.95em;
+    font-size: 0.95rem;
 }
 .program-week-details-modal #weekDetailsModalBody ul li:last-child {
     border-bottom: none;
@@ -237,7 +229,7 @@ body.dark-mode .modal-footer {
     color: var(--current-accent-color);
     display: block;
     margin-bottom: 5px; 
-    font-size: 1.05em;
+    font-size: 1.05rem;
 }
 
 .program-week-details-modal #weekDetailsModalBody ul li .task-text {
@@ -248,7 +240,7 @@ body.dark-mode .modal-footer {
     margin-top: 3px; 
 }
 .program-week-details-modal #weekDetailsModalBody ul li .jump-to-day-link-modal {
-    font-size: 0.8em;
+    font-size: 0.8rem;
     margin-left: 8px;
     color: var(--current-accent-color);
     text-decoration: none;

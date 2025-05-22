@@ -19,7 +19,7 @@
 .settings-section h3 {
     margin-top: 0;
     margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     color: var(--current-text-color);
 }
 
@@ -27,7 +27,7 @@
     display: block;
     margin-bottom: 10px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 .theme-options input[type="radio"] {
@@ -36,7 +36,7 @@
 }
 
 .settings-section p {
-    font-size: 0.9em;
+    font-size: 0.9rem;
     margin-bottom: 15px;
     line-height: 1.5;
 }
