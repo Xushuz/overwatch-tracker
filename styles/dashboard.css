@@ -465,3 +465,77 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
     align-items: center;
     justify-content: center;
 }
+
+/* Custom Warmup List Specific Styles */
+#customWarmupList { /* UL element */
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.custom-warmup-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 0.25rem;
+    border-bottom: 1px solid var(--current-border-color);
+    cursor: pointer; /* For the persistence toggle via data-action='toggle-persist' */
+}
+.custom-warmup-item:last-child {
+    border-bottom: none;
+}
+
+.custom-warmup-item.persistent {
+    position: relative;
+    /* background-color: rgba(var(--current-accent-color-rgb, 0, 123, 255), 0.05); */ /* Using border instead */
+}
+.custom-warmup-item.persistent::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    bottom: 15%;
+    width: 3px;
+    background-color: var(--current-accent-color);
+    border-radius: 1.5px;
+}
+
+.custom-warmup-item.not-persistent {
+    opacity: 0.75;
+}
+.custom-warmup-item.not-persistent:hover {
+    opacity: 1; /* Full opacity on hover for non-persistent items */
+}
+
+.custom-warmup-item-text {
+    flex-grow: 1;
+    padding-left: 8px; /* Space from edge, or from persistent marker */
+}
+
+.custom-warmup-item .actions { /* Container for action buttons */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.custom-warmup-item .actions button {
+    padding: 0.3em 0.6em; /* Smaller buttons */
+    font-size: 0.85em;
+    /* General button styles from base.css or header-nav.css will apply for color, hover etc. */
+    /* Ensure they use current-button-bg and current-button-text by default if not accent */
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-border-color);
+}
+.custom-warmup-item .actions button:hover {
+    background-color: var(--current-accent-color);
+    color: var(--current-accent-text);
+    border-color: var(--current-accent-hover-color);
+}
+/* Special case for dark mode accent text on buttons */
+body.dark-mode .custom-warmup-item .actions button:hover {
+    color: var(--dark-text); /* Ensure text is dark on orange buttons */
+}
+body.pink-mode .custom-warmup-item .actions button:hover {
+     color: var(--light-text); /* Ensure text is light on pink buttons if needed */
+}

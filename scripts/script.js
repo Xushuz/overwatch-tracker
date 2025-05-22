@@ -46,26 +46,43 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskKey = `c${appState.currentCycle}-${taskId}`;
         const newCompletions = { ...appState.taskCompletions, [taskKey]: !appState.taskCompletions[taskKey] };
         updateAppState({ taskCompletions: newCompletions });
-        
-        if (appState.currentPage === 'dashboard') renderCurrentWeekProgress();
-        if (appState.currentPage === 'program') renderProgramOverviewPage(mainContentEl);
-        
-        const checkbox = document.getElementById(taskKey); 
+
+        if (appState.currentPage === 'dashboard') {
+            renderCurrentWeekProgress();
+        }
+        if (appState.currentPage === 'program') {
+            renderProgramOverviewPage(mainContentEl);
+        }
+
+        const checkbox = document.getElementById(taskKey);
         const taskDetailsDiv = checkbox?.closest('li')?.querySelector('.task-details');
         if (checkbox && taskDetailsDiv) {
-            if (appState.taskCompletions[taskKey]) taskDetailsDiv.classList.add('completed');
-            else taskDetailsDiv.classList.remove('completed');
+            // Toggle the 'completed' class based on the current task completion state
+            taskDetailsDiv.classList.toggle('completed', appState.taskCompletions[taskKey]);
         }
         
-        const weekData = programData[appState.currentWeek];
-        if(weekData?.days?.[appState.currentDay]){
-            const dayTasks = weekData.days[appState.currentDay].tasks;
-            const allDayTasksCompleted = dayTasks.every(task => appState.taskCompletions[`c${appState.currentCycle}-${task.id}`]);
+        promptForRankAtEndOfWeekIfNeeded();
+    }
+
+    function promptForRankAtEndOfWeekIfNeeded() {
+        const currentWeekData = programData[appState.currentWeek];
+        // Ensure current week and day data exists
+        if (currentWeekData?.days?.[appState.currentDay]) {
+            const dayTasks = currentWeekData.days[appState.currentDay].tasks;
+            const allDayTasksCompleted = dayTasks.every(task => 
+                appState.taskCompletions[`c${appState.currentCycle}-${task.id}`]
+            );
+            
             const promptKey = `c${appState.currentCycle}w${appState.currentWeek}_endOfWeekPrompt`;
-            if(allDayTasksCompleted && 
-                appState.currentDay === getTotalDaysInWeek(appState.currentWeek) && 
-                appState.currentWeek >= 1 && appState.currentWeek <= 6 && 
+
+            // Check if all tasks for the current day are completed,
+            // if it's the last day of the week, for relevant weeks,
+            // and if the rank prompt hasn't been shown for this week yet.
+            if (allDayTasksCompleted &&
+                appState.currentDay === getTotalDaysInWeek(appState.currentWeek) &&
+                appState.currentWeek >= 1 && appState.currentWeek <= 6 && // Assuming ranks are prompted for weeks 1-6
                 !appState.hasPromptedRankForWeek[promptKey]) {
+                // Use a short delay to ensure UI updates before showing the prompt
                 setTimeout(() => promptForRank(appState.currentWeek, 'endOfWeek'), 200);
             }
         }
@@ -74,59 +91,82 @@ document.addEventListener('DOMContentLoaded', () => {
     function startNewCycle() {
         if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
             const newCycleNumber = appState.currentCycle + 1;
-            let newHasPromptedRankForWeek = { ...appState.hasPromptedRankForWeek };
-            Object.keys(newHasPromptedRankForWeek).forEach(key => {
-                if (key.startsWith(`c${newCycleNumber}w`)) delete newHasPromptedRankForWeek[key];
-            });
+            
+            // Clear rank prompts for the new cycle
+            const newHasPromptedRankForWeek = Object.fromEntries(
+                Object.entries(appState.hasPromptedRankForWeek)
+                      .filter(([key]) => !key.startsWith(`c${newCycleNumber}w`))
+            );
+
             updateAppState({
-                currentCycle: newCycleNumber, currentWeek: 1, currentDay: 1,
+                currentCycle: newCycleNumber,
+                currentWeek: 1,
+                currentDay: 1,
                 hasPromptedInitialRankThisCycle: false,
                 hasPromptedRankForWeek: newHasPromptedRankForWeek
             });
+
             alert(`New Cycle (#${appState.currentCycle}) started!`);
-            RENDER_PAGE_FROM_MAIN_NAV(); 
-            checkAndPromptForInitialRank(); 
+            RENDER_PAGE_FROM_MAIN_NAV(); // Refresh the current page view
+            checkAndPromptForInitialRank(); // Check if initial rank for the new cycle is needed
         }
     }
 
     function checkAndPromptForInitialRank() {
-        if (!appState.hasRunOnce) { // Don't prompt on the very first app execution
+        // Don't prompt on the very first application run (before any state is saved)
+        if (!appState.hasRunOnce) {
             return; 
         }
+
         const currentCycleInitialRankExists = appState.rankHistory.some(
-            r => r.cycle === appState.currentCycle && r.type === 'initial'
+            rankEntry => rankEntry.cycle === appState.currentCycle && rankEntry.type === 'initial'
         );
+
+        // Prompt if initial rank for the current cycle doesn't exist and hasn't been prompted yet
         if (!currentCycleInitialRankExists && !appState.hasPromptedInitialRankThisCycle) {
+            // Delay slightly to allow page rendering to settle
             setTimeout(() => promptForRank(0, 'initial'), 600); 
         }
     }
 
-    // --- Initialization ---
+    // --- Application Initialization ---
     function initializeApp() {
         loadState(); 
         setCurrentDate(); 
+        
         initThemeControls(themeToggleBtn); 
         initMainNavigation(mainContentEl, navLinks); 
+        
+        // Initialize modals
         initRankPromptModal( 
             rankPromptModalEl, rankPromptTitleEl, modalRankLogFormEl,
             modalRankLogWeekInputEl, modalRankLogTypeInputEl, modalRankTierSelectEl,
             modalRankDivisionButtonsEl, modalRankDivisionValueInputEl,
             closeRankPromptModalBtnEl, saveModalRankLogBtnEl, cancelModalRankLogBtnEl
         );
+
         if (typeof initProgramWeekDetailsModalListeners === 'function' && programWeekDetailsModalEl && closeWeekDetailsModalBtnEl && okWeekDetailsModalBtnEl) {
             initProgramWeekDetailsModalListeners(closeWeekDetailsModalBtnEl, okWeekDetailsModalBtnEl, programWeekDetailsModalEl);
-        } else { console.error("Failed to init Program Week Details Modal."); }
+        } else { 
+            console.error("Failed to initialize Program Week Details Modal: Listeners or elements missing."); 
+        }
         
-        if (newCycleBtn) newCycleBtn.addEventListener('click', startNewCycle);
+        // Attach event listeners
+        if (newCycleBtn) {
+            newCycleBtn.addEventListener('click', startNewCycle);
+        }
         
-        RENDER_PAGE_FROM_MAIN_NAV(); 
-        applyTheme(); 
+        RENDER_PAGE_FROM_MAIN_NAV(); // Render the initial page based on appState
+        applyTheme(); // Apply the loaded or default theme
         
+        // Handle first run and initial rank prompt
         if (!appState.hasRunOnce) {
             updateAppState({ hasRunOnce: true }); 
         } else {
             checkAndPromptForInitialRank(); 
         }
     }
+
+    // Start the application
     initializeApp();
 });

@@ -38,20 +38,41 @@ export function loadState() {
                 parsedState.theme = themes[0];
             }
 
-            // Merge carefully, ensuring nested objects are properly handled
-            appState = { 
-                ...appState, // Start with current defaults
-                ...parsedState, // Override with stored values
-                // Explicitly merge/assign nested objects to avoid them being overwritten by an empty {} from default
-                taskCompletions: { ...(parsedState.taskCompletions || {}) },
-                dailyNotes: { ...(parsedState.dailyNotes || {}) },
-                rankHistory: [ ...(parsedState.rankHistory || []) ],
-                hasPromptedInitialRankThisCycle: parsedState.hasPromptedInitialRankThisCycle || false,
-                hasPromptedRankForWeek: { ...(parsedState.hasPromptedRankForWeek || {}) },
-                customWarmups: [ ...(parsedState.customWarmups || []) ],
-                customTasks: { ...(parsedState.customTasks || {}) },
-                lastSelectedTier: parsedState.lastSelectedTier || '',
-            };
+            let newState = { ...appState }; // Start with a copy of default appState
+
+            // Iterate over the keys of the default appState structure
+            // to ensure that only expected properties are loaded from localStorage.
+            for (const key in newState) {
+                // Use hasOwnProperty to ensure the key is directly on parsedState and not from its prototype.
+                if (parsedState.hasOwnProperty(key)) {
+                    const defaultValue = newState[key];
+                    const storedValue = parsedState[key];
+
+                    if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+                        // Merge nested objects: combine defaults with stored values.
+                        // Ensure storedValue is an object before spreading.
+                        newState[key] = { ...defaultValue, ...(typeof storedValue === 'object' && storedValue !== null ? storedValue : {}) };
+                    } else if (Array.isArray(defaultValue)) {
+                        // Assign arrays: use stored array if valid, otherwise keep default (or empty array).
+                        newState[key] = Array.isArray(storedValue) ? storedValue : defaultValue;
+                    } else {
+                        // Assign primitives: directly use the stored value if it's of a compatible type,
+                        // otherwise consider keeping the default (though current logic just assigns).
+                        // This part could be enhanced with type checking if stricter loading is needed.
+                        newState[key] = storedValue;
+                    }
+                }
+            }
+            
+            // Theme validation: explicitly check and set the theme.
+            // This overrides any theme value that might have been set in the loop if it was invalid.
+            if (parsedState.hasOwnProperty('theme') && themes.includes(parsedState.theme)) {
+                newState.theme = parsedState.theme;
+            } else {
+                newState.theme = themes[0]; // Default to the first theme if stored theme is invalid or not present.
+            }
+
+            appState = newState;
         }
     } catch (e) {
         console.error("Error loading state from localStorage:", e);
