@@ -182,32 +182,70 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
     const googleNav = document.querySelector('.google-nav'); // Sidebar
     const appMain = document.querySelector('.app-main'); // Main content area
+    // Conceptual: Ensure an overlay div exists in index.html: <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    const sidebarOverlay = document.getElementById('sidebarOverlay'); 
 
     if (hamburgerMenuBtn && googleNav) {
         hamburgerMenuBtn.addEventListener('click', () => {
-            googleNav.classList.toggle('sidebar-visible');
             hamburgerMenuBtn.classList.toggle('active');
-            
-            // Optional: Add a class to body to prevent scrolling or dim main content
-            // document.body.classList.toggle('body-sidebar-open');
 
-            // Close sidebar if user clicks on a nav link (for mobile)
-            if (googleNav.classList.contains('sidebar-visible')) {
-                const navLinksInSidebar = googleNav.querySelectorAll('.nav-link');
-                navLinksInSidebar.forEach(link => {
-                    link.addEventListener('click', () => {
-                        googleNav.classList.remove('sidebar-visible');
-                        hamburgerMenuBtn.classList.remove('active');
-                        // document.body.classList.remove('body-sidebar-open');
-                    }, { once: true }); // Ensure listener is removed after one click
-                });
-                // Optional: Close sidebar if user clicks outside of it (on app-main)
-                // appMain.addEventListener('click', () => {
-                //     googleNav.classList.remove('sidebar-visible');
-                //     hamburgerMenuBtn.classList.remove('active');
-                //     document.body.classList.remove('body-sidebar-open');
-                // }, { once: true });
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                // Mobile behavior: Overlay
+                googleNav.classList.toggle('sidebar-visible');
+                document.body.classList.toggle('body-sidebar-open');
+
+                if (googleNav.classList.contains('sidebar-visible')) {
+                    // If sidebar is open, listen for clicks on overlay or nav links to close it
+                    if (sidebarOverlay) {
+                        sidebarOverlay.addEventListener('click', closeMobileSidebar, { once: true });
+                    }
+                    const navLinksInSidebar = googleNav.querySelectorAll('.nav-link');
+                    navLinksInSidebar.forEach(link => {
+                        link.addEventListener('click', closeMobileSidebar, { once: true });
+                    });
+                } else {
+                    // If sidebar is closed by hamburger, ensure overlay listener is also removed
+                    if (sidebarOverlay) {
+                        sidebarOverlay.removeEventListener('click', closeMobileSidebar);
+                    }
+                }
+            } else {
+                // Desktop behavior: Push content
+                document.body.classList.toggle('body-sidebar-desktop-closed');
             }
         });
     }
+
+    function closeMobileSidebar() {
+        if (googleNav) googleNav.classList.remove('sidebar-visible');
+        if (hamburgerMenuBtn) hamburgerMenuBtn.classList.remove('active');
+        document.body.classList.remove('body-sidebar-open');
+        if (sidebarOverlay) {
+            sidebarOverlay.removeEventListener('click', closeMobileSidebar);
+        }
+    }
+    
+    // Optional: Add a resize listener to handle edge cases if window is resized
+    // while mobile sidebar is open, to switch to desktop layout cleanly.
+    window.addEventListener('resize', () => {
+        if (!window.matchMedia("(max-width: 768px)").matches) {
+            // If we are now on desktop view
+            if (document.body.classList.contains('body-sidebar-open')) {
+                // If mobile overlay was open, close it and ensure desktop state is default (open)
+                closeMobileSidebar();
+                document.body.classList.remove('body-sidebar-desktop-closed'); // Ensure desktop sidebar is open
+            }
+        } else {
+            // If we are now on mobile view
+            if (!document.body.classList.contains('body-sidebar-desktop-closed')) {
+                // If desktop sidebar was open, it should be closed by default on mobile (hidden off-screen)
+                // unless explicitly opened by hamburger.
+                // No direct action needed here as mobile CSS handles the default hidden state.
+            }
+             if (document.body.classList.contains('body-sidebar-desktop-closed')) {
+                // If desktop sidebar was closed, ensure mobile overlay is not active
+                closeMobileSidebar();
+            }
+        }
+    });
 });

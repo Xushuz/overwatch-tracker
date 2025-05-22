@@ -91,7 +91,7 @@
     margin-bottom: 8px; /* Adjusted space */
     cursor: pointer; 
     background-color: var(--current-bg-color); /* Card-like background */
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
 }
 .task-list li:last-child { 
     margin-bottom: 0;
@@ -119,22 +119,50 @@
 .task-details { 
     flex-grow: 1; 
     font-size: 0.9rem; /* Adjusted */
+    transition: color 0.3s ease, opacity 0.3s ease; 
 }
-.task-details.completed { 
-    text-decoration: line-through; 
-    color: var(--completed-text-color); 
-    opacity: 0.65; /* Adjusted opacity */
-}
-/* body.pink-mode .task-details.completed { ... } /* Removed for simplicity, base completed is fine */
 
-.task-list li.task-completed { /* Class to style the LI when task is done */
-    background-color: rgba(var(--current-text-color-rgb, 32, 33, 36), 0.03); /* Very subtle background change */
-    opacity: 0.7; /* Adjusted opacity */
-    /* border-left: 3px solid var(--completed-text-color); /* Optional: keep if desired */
+/* Task text styling when completed */
+.task-details.completed {
+    color: var(--completed-text-color);
+    opacity: 0.65; 
 }
+/* Apply strikethrough to the first span (task text) within a completed task-details */
+.task-details.completed span:first-child {
+    text-decoration: line-through;
+}
+
+/* body.pink-mode .task-details.completed { ... } /* Base completed is fine */
+
+/* Styling for the LI element when a task is completed */
+.task-list li.task-completed {
+    opacity: 0.75; 
+    /* background-color transition is handled by the base .task-list li rule */
+}
+
+/* Theme-specific backgrounds for completed LIs */
+body:not(.dark-mode):not(.pink-mode) .task-list li.task-completed { /* Light Theme */
+    background-color: rgba(0, 0, 0, 0.03); /* Subtle dark */
+}
+body.dark-mode .task-list li.task-completed { /* Dark Theme */
+    background-color: rgba(255, 255, 255, 0.04); /* Subtle light */
+}
+body.pink-mode .task-list li.task-completed { /* Pink Theme */
+     background-color: rgba(88, 24, 69, 0.05); /* Subtle from text-color-pink */
+}
+
 .task-list li.task-completed:hover {
-    background-color: rgba(var(--current-text-color-rgb, 32, 33, 36), 0.06); 
-    opacity: 0.8;
+    /* Slightly darken/lighten the completed background on hover for better feedback */
+    opacity: 0.85; /* General opacity increase on hover for completed items */
+}
+body:not(.dark-mode):not(.pink-mode) .task-list li.task-completed:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body.dark-mode .task-list li.task-completed:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+body.pink-mode .task-list li.task-completed:hover {
+    background-color: rgba(88, 24, 69, 0.08);
 }
 
 

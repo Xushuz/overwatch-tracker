@@ -5,22 +5,74 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;
+    padding: 10px; /* Base padding */
     margin-right: 10px; /* Space from title */
     z-index: 1001; /* Above sidebar and header content if it overlaps */
+    border-radius: 50%; /* Make it circular for a more "button" like feel */
+    transition: background-color 0.2s ease; /* Smooth transition for hover/active states */
 }
+/* Remove the last margin from the last span to better center the icon if padding is symmetrical */
+.hamburger-menu-btn span:last-child {
+    margin-bottom: 0;
+}
+
 .hamburger-menu-btn span {
     display: block;
     width: 22px;
     height: 3px;
     background-color: var(--current-text-color);
-    margin-bottom: 4px;
+    margin-bottom: 4px; 
     border-radius: 1px;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.hamburger-menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger-menu-btn.active span:nth-child(2) { opacity: 0; }
-.hamburger-menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Active state (X icon) - ensure precise rotation and translation */
+/* The original 7px was 3px (height) + 4px (margin). If last margin is removed, middle bar is reference. */
+/* Spans are 3px high, margin 4px. Total height for 3 bars with 2 margins = 3*3 + 2*4 = 17px. */
+/* Centering an X: top bar moves down (17/2 - 3/2 - some_adjust) = approx 7px. */
+/* Let's adjust translateY slightly if needed for visual centering of X. Original 7px seems fine for 3px height + 4px margin. */
+.hamburger-menu-btn.active span:nth-child(1) { 
+    transform: translateY(7px) rotate(45deg); 
+}
+.hamburger-menu-btn.active span:nth-child(2) { 
+    opacity: 0; 
+}
+.hamburger-menu-btn.active span:nth-child(3) { 
+    transform: translateY(-7px) rotate(-45deg); 
+}
+
+
+/* Mobile specific enhancements */
+@media (max-width: 768px) {
+    .hamburger-menu-btn {
+        padding: 12px; /* Increased padding for larger tap target */
+        /* margin: 5px; /* Ensure some space around it */
+    }
+
+    /* Default/Light mode hover/active */
+    body:not(.dark-mode):not(.pink-mode) .hamburger-menu-btn:hover {
+        background-color: rgba(32, 33, 36, 0.05); /* Subtle black, from --text-color-light */
+    }
+    body:not(.dark-mode):not(.pink-mode) .hamburger-menu-btn:active {
+        background-color: rgba(32, 33, 36, 0.1);  /* Subtle black, from --text-color-light */
+    }
+
+    /* Dark mode hover/active */
+    body.dark-mode .hamburger-menu-btn:hover {
+        background-color: rgba(232, 234, 237, 0.08); /* Subtle white, from --text-color-dark */
+    }
+    body.dark-mode .hamburger-menu-btn:active {
+        background-color: rgba(232, 234, 237, 0.12); /* Subtle white, from --text-color-dark */
+    }
+
+    /* Pink theme specific hover/active */
+    body.pink-mode .hamburger-menu-btn:hover { 
+        background-color: rgba(88, 24, 69, 0.1); /* Using --text-color-pink's RGB */
+    }
+    body.pink-mode .hamburger-menu-btn:active {
+        background-color: rgba(88, 24, 69, 0.15);
+    }
+}
 
 .app-header {
     display: flex;
