@@ -284,7 +284,8 @@ body.pink-mode .task-list li.task-completed:hover {
 }
 
 #dashboardRankChartContainer { 
-    min-height: 250px; /* Adjusted height */
+    min-height: 250px; /* Base minimum height */
+    max-height: 350px; /* Max height for mobile and default */
     position: relative; 
     margin-top: 20px; /* Adjusted margin */
     padding: 15px; 

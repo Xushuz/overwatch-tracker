@@ -71,9 +71,9 @@
     .google-nav {
         position: static; /* Sidebar becomes part of the layout flow */
         left: auto; /* Reset fixed positioning effect */
-        height: auto; /* Content dictates height */
+        height: calc(100vh - 57px); /* Fill available height below header */
         width: 250px; /* Defined width */
-        /* transition: none; /* Will be overridden for collapse/expand */
+        overflow-y: auto; /* Allow sidebar to scroll its own content if needed */
         z-index: auto; /* Reset z-index */
         border-top: none; /* If it had one for fixed positioning */
         transform: none; /* Ensure it's not translated off-screen if that was used */
@@ -81,6 +81,7 @@
         /* Ensure padding and border are part of the main style for open state */
         padding: 15px; 
         border-right: 1px solid var(--current-border-color);
+        /* position: static; is inherited or correctly set by default for block in flex */
     }
     
     /* .sidebar-visible is for mobile overlay, not desktop push state */
