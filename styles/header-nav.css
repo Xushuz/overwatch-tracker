@@ -36,7 +36,7 @@
 }
 
 .app-header h1 {
-    font-size: 1.4em; /* Google-like header font size */
+    font-size: 1.4rem; /* Google-like header font size */
     margin: 0; /* Removed bottom margin */
     color: var(--current-text-color); /* Changed from accent to text color */
     /* flex-basis: auto; /* Reset flex-basis to allow natural sizing */
@@ -55,7 +55,7 @@
 }
 
 .header-controls span#currentDate { 
-    font-size: 0.8em; /* Smaller font for date on mobile */
+    font-size: 0.8rem; /* Smaller font for date on mobile */
     opacity: 0.75; 
     white-space: normal; /* Allow date to wrap by default */
     /* margin-right: 0; /* Gap handles spacing */

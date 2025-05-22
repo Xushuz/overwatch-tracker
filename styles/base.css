@@ -36,34 +36,27 @@
     --text-on-orange: #202124; /* Dark text for good contrast on orange */
     --orange-500-rgb: 255, 165, 0;
 
-
-    /* Dark Theme Variables (Original Google Blue Style) */
+    /* Base Dark Theme Variables (colors not tied to accent) */
     --bg-color-dark: #202124; 
     --text-color-dark: #e8eaed; 
     --container-bg-dark: #202124; 
     --border-color-dark: #5f6368; 
     --header-bg-dark: #202124; 
     --nav-bg-dark: #202124; 
-    --original-button-bg-dark: #8ab4f8; /* Google Blue 300 for dark theme buttons */
-    --original-button-text-dark: #202124; /* Dark text on light blue buttons */
     --input-bg-dark: #3c4043; 
     --input-border-dark: #5f6368;
     --textarea-bg-dark: #3c4043;
     --card-shadow-dark: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15); 
-    --original-accent-color-dark: #8ab4f8; /* Google Blue 300 */
-    --original-accent-color-dark-rgb: 138, 180, 248;
-    --original-accent-hover-color-dark: #aecbfa; /* Lighter for hover on dark */
-    --original-accent-text-dark: #202124; /* Dark text on light blue accent areas */
-    --original-nav-active-bg-dark: rgba(138, 180, 248, 0.12); 
-    --progress-bar-bg-dark: #5f6368;
-    --modal-content-bg-dark: #292a2d; 
-    --chart-text-color-dark: #e8eaed;
-    --chart-grid-color-dark: #5f6368;
-    --chart-tooltip-bg-dark: rgba(41, 42, 45, 0.95); 
-    --chart-tooltip-text-color-dark: #e8eaed;
+    --progress-bar-bg-dark: #5f6368; /* General dark theme progress bar background */
+    --modal-content-bg-dark: #292a2d; /* General dark theme modal background */
+    --chart-text-color-dark: #e8eaed; /* General dark theme chart text */
+    --chart-grid-color-dark: #5f6368; /* General dark theme chart grid */
+    --chart-tooltip-bg-dark: rgba(41, 42, 45, 0.95);  /* General dark theme chart tooltip */
+    --chart-tooltip-text-color-dark: #e8eaed; /* General dark theme chart tooltip text */
 
-    /* Dark Mode Orange Theme Semantic Variables */
-    --button-bg-dark-orange: var(--orange-500);
+    /* Dark Mode Orange Accent Theme Semantic Variables */
+    /* These define the orange accent specific colors for dark mode */
+    --button-bg-dark-orange: var(--orange-500); /* Not directly used, covered by button overrides */
     --button-text-dark-orange: var(--text-on-orange);
     --accent-color-dark-orange: var(--orange-500);
     --accent-color-dark-orange-rgb: var(--orange-500-rgb);
@@ -140,7 +133,6 @@
     --current-card-shadow: var(--card-shadow-light);
     --current-accent-color: var(--accent-color-light);
     --current-accent-color-rgb: var(--accent-color-light-rgb);
-    --current-accent-color-rgb: var(--accent-color-light-rgb);
     --current-accent-hover-color: var(--accent-hover-color-light);
     --current-accent-text: var(--accent-text-light);
     --current-nav-active-bg: var(--nav-active-bg-light);
@@ -180,14 +172,11 @@ body {
     -moz-osx-font-smoothing: grayscale; 
 }
 
-/* Theme transition for all themed elements */
-*,
-*::before,
-*::after {
-    transition-property: background-color, border-color, color, box-shadow, transform, opacity;
-    transition-duration: 0.3s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
+/*
+    The global transition rule (*, *::before, *::after) has been removed.
+    Specific transitions are applied to elements that need them,
+    such as interactive elements (buttons, inputs) or for theme switching (body).
+*/
 
 body.light-mode {
     --current-bg-color: var(--bg-color-light);
@@ -233,42 +222,42 @@ body.dark-mode {
     --current-border-color: var(--border-color-dark);
     --current-header-bg: var(--header-bg-dark);
     --current-nav-bg: var(--nav-bg-dark);
-    --current-button-bg: var(--button-bg-dark);
-    --current-button-text: var(--button-text-dark);
-    /* Update button variables based on dark theme */
-    --button-primary-bg: var(--accent-color-dark);
-    --button-primary-text: var(--accent-text-dark);
-    --button-primary-hover-bg: var(--accent-hover-color-dark);
-    --button-secondary-bg: transparent;
-    --button-secondary-text: var(--accent-color-dark);
-    --button-secondary-hover-bg: rgba(var(--accent-color-dark-rgb), 0.08);
-    --button-secondary-border: var(--accent-color-dark);
-    --button-default-bg: var(--button-bg-dark);
-    --button-default-text: var(--button-text-dark);
-    --button-default-hover-bg: var(--accent-hover-color-dark); /* Or a darker shade of default bg */
-    --button-default-border: var(--border-color-dark);
+    --current-button-bg: var(--button-default-bg-dark-override); /* Default buttons in dark mode */
+    --current-button-text: var(--button-default-text-dark-override);
+    /* Update button variables based on dark theme using ORANGE ACCENT */
+    --button-primary-bg: var(--button-primary-bg-dark-override);
+    --button-primary-text: var(--button-primary-text-dark-override);
+    --button-primary-hover-bg: var(--button-primary-hover-bg-dark-override);
+    --button-secondary-bg: var(--button-secondary-bg-dark-override);
+    --button-secondary-text: var(--button-secondary-text-dark-override);
+    --button-secondary-hover-bg: var(--button-secondary-hover-bg-dark-override);
+    --button-secondary-border: var(--button-secondary-border-dark-override);
+    --button-default-bg: var(--button-default-bg-dark-override);
+    --button-default-text: var(--button-default-text-dark-override);
+    --button-default-hover-bg: var(--button-default-hover-bg-dark-override);
+    --button-default-border: var(--button-default-border-dark-override);
     --current-input-bg: var(--input-bg-dark);
     --current-input-border: var(--input-border-dark);
     --current-textarea-bg: var(--textarea-bg-dark);
     --current-card-shadow: var(--card-shadow-dark);
-    --current-accent-color: var(--accent-color-dark); /* Will now be orange */
-    --current-accent-color-rgb: var(--accent-color-dark-rgb); /* Will now be orange RGB */
-    --current-accent-hover-color: var(--accent-hover-color-dark); /* Will now be orange hover */
-    --current-accent-text: var(--accent-text-dark); /* Will now be text-on-orange */
-    --current-nav-active-bg: var(--nav-active-bg-dark); /* Will now be orange based */
-    --current-progress-bar-bg: var(--progress-bar-bg-dark);
-    --current-modal-content-bg: var(--modal-content-bg-dark);
+    --current-accent-color: var(--accent-color-dark-orange);
+    --current-accent-color-rgb: var(--accent-color-dark-orange-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-dark-orange);
+    --current-accent-text: var(--accent-text-dark-orange);
+    --current-nav-active-bg: var(--nav-active-bg-dark-orange);
+    --current-progress-bar-bg: var(--progress-bar-bg-dark); /* This seems fine, not directly accent-colored */
+    --current-modal-content-bg: var(--modal-content-bg-dark); /* This seems fine, not directly accent-colored */
     --current-chart-text-color: var(--chart-text-color-dark);
     --current-chart-grid-color: var(--chart-grid-color-dark);
     --current-chart-tooltip-bg: var(--chart-tooltip-bg-dark);
     --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-dark);
 }
 body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button) { /* Target general links, exclude button-like links */
-    color: var(--current-accent-color); /* Orange links in dark mode */
+    color: var(--accent-color-dark-orange); /* Ensure links also use the orange accent */
 }
 body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
     text-decoration: underline;
-    color: var(--current-accent-hover-color); /* Lighter/darker orange on hover for general links */
+    color: var(--accent-hover-color-dark-orange); /* Ensure link hover also uses orange accent */
 }
 
 
@@ -379,7 +368,7 @@ body.pink-mode {
     color: var(--current-accent-text); 
     font-weight: bold; 
     line-height: 22px; 
-    font-size: 0.8em; 
+    font-size: 0.8rem; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
@@ -483,7 +472,7 @@ body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
 }
 /* Ensure primary button text color has good contrast across themes */
 body.light-mode .form-button--primary { color: var(--accent-text-light); }
-body.dark-mode .form-button--primary { color: var(--accent-text-dark); }
+body.dark-mode .form-button--primary { color: var(--button-primary-text-dark-override); } /* Use the orange-theme text */
 body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 
 
@@ -496,6 +485,18 @@ body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 .form-button--secondary:hover {
     background-color: var(--button-secondary-hover-bg);
     /* color: var(--button-secondary-text); /* Text color might change or not on hover */
+}
+
+/* Danger Button Style */
+.form-button--danger {
+    background-color: var(--danger-color);
+    color: var(--light-text); /* Assuming light text on danger color */
+    border-color: var(--danger-color); /* Or transparent */
+}
+.form-button--danger:hover {
+    background-color: #c82333; /* Darker shade of var(--danger-color) */
+    border-color: #bd2130; /* Darker shade */
+    color: var(--light-text);
 }
 
 
@@ -586,7 +587,7 @@ button, /* This will apply to native buttons */
 input,
 select,
 textarea,
-/* .form-button, /* Already has its own transition */
+/* .form-button is excluded here as it has its own more specific transition rule */
 .nav-button, /* If this class exists and is for buttons */
 .resource-button, /* If this class exists and is for buttons */
 .week-card,

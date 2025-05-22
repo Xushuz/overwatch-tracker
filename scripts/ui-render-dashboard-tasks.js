@@ -252,6 +252,7 @@ export function setupCustomWarmupUI() {
 
             // Edit button
             const editBtn = document.createElement('button');
+            editBtn.classList.add('form-button', 'form-button--secondary');
             editBtn.textContent = 'Edit';
             editBtn.dataset.action = 'edit-warmup';
             editBtn.dataset.index = index;
@@ -260,6 +261,7 @@ export function setupCustomWarmupUI() {
             // Reorder buttons (Up and Down)
             if (index > 0) {
                 const upBtn = document.createElement('button');
+                upBtn.classList.add('form-button', 'form-button--secondary');
                 upBtn.textContent = '↑';
                 upBtn.title = "Move up";
                 upBtn.dataset.action = 'move-warmup-up';
@@ -268,6 +270,7 @@ export function setupCustomWarmupUI() {
             }
             if (index < appState.customWarmups.length - 1) {
                 const downBtn = document.createElement('button');
+                downBtn.classList.add('form-button', 'form-button--secondary');
                 downBtn.textContent = '↓';
                 downBtn.title = "Move down";
                 downBtn.dataset.action = 'move-warmup-down';
@@ -277,6 +280,7 @@ export function setupCustomWarmupUI() {
 
             // Delete button
             const delBtn = document.createElement('button');
+            delBtn.classList.add('form-button', 'form-button--secondary'); // Using secondary for a less intrusive '✕'
             delBtn.textContent = '✕';
             delBtn.title = "Delete";
             delBtn.dataset.action = 'delete-warmup';
