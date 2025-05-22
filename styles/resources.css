@@ -3,15 +3,16 @@
 /* Page title h2 is styled in base.css via .resources-page h2 */
 
 .resource-category { 
-    margin-bottom: 20px;
-    padding: 15px; /* Add padding to maintain space from edges */
+    margin-bottom: 24px; /* Adjusted margin */
+    padding: 0; /* Remove padding if titles are directly above grid */
 }
 
 .resource-category h3 { 
-    /* Uses .content-card h3 from base.css */
-    margin-bottom: 15px;
-    color: var(--current-accent-color);
-    font-size: 1.2em;
+    /* This should align with .content-card h3 from base.css if it's a section title */
+    margin-bottom: 16px; /* Adjusted margin */
+    color: var(--current-text-color); /* Standard text color for titles */
+    font-size: 1.125em; /* 18px, consistent with other section titles */
+    font-weight: 500; /* Medium weight */
     padding-bottom: 8px;
     border-bottom: 1px solid var(--current-border-color);
 }
@@ -21,72 +22,74 @@
     padding-left: 0;
     margin-top: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three columns */
-    gap: 12px; /* Uniform gap */
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 15px;
+    /* grid-template-columns: repeat(3, 1fr); /* Default for larger screens */
+    /* Responsive.css will handle changes for smaller screens */
+    gap: 16px; /* Adjusted gap */
 }
 
 .resource-category li {
     padding: 0;
     border: none;
-    line-height: 1.5; /* Improve readability if notes wrap */
+    /* line-height: 1.5; /* Let content within .resource-button define this */
+    display: flex; /* Ensure li takes height of .resource-button */
 }
 
 .resource-category li:last-child {
-    border-bottom: none;
+    /* border-bottom: none; /* Not needed if li has no border */
 }
 
-.resource-category li a {
-    color: var(--current-text-color); /* Standard text color for links for readability */
-    text-decoration: none;
-    font-weight: 500; /* Make link text slightly bolder */
-    transition: color 0.2s ease; /* Smooth color transition on hover */
-}
+/* .resource-category li a: Styling is now handled by .resource-button as the <a> tag itself */
 
-.resource-category li a:hover {
-    color: var(--current-accent-color); /* Change to accent color on hover */
-    text-decoration: underline;
-}
 
-.resource-button {
+.resource-button { /* This is the <a> tag now styled as a card/button */
     width: 100%;
     text-align: left;
-    padding: 10px 14px;
-    background: var(--current-container-bg);
+    padding: 16px; /* Consistent padding */
+    background: var(--current-bg-color); /* White card */
     border: 1px solid var(--current-border-color);
-    border-radius: 6px;
+    border-radius: var(--border-radius); /* Use 4px from base.css */
+    box-shadow: var(--shadow-sm); /* Use new base shadow */
     color: var(--current-text-color);
-    font-size: 0.95em; /* Slightly smaller for better fit */
+    font-size: 1em; /* Standard font size for card content */
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    height: 100%; /* Ensure consistent height in grid */
+    gap: 6px; /* Adjusted gap */
+    height: 100%; 
+    text-decoration: none; /* Remove underline from link */
 }
 
 .resource-button:hover {
-    background: var(--current-accent-color);
-    color: var(--current-accent-text);
-    border-color: var(--current-accent-hover-color);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 5px var(--current-card-shadow);
+    /* background: var(--current-bg-color); /* Keep background white on hover */
+    /* color: var(--current-text-color); /* Keep text color same on hover */
+    border-color: var(--current-border-color); /* Or slightly darken: var(--current-accent-color) if subtle accent is okay */
+    /* transform: translateY(-1px); /* Optional */
+    box-shadow: var(--shadow-md); /* Increase shadow on hover */
 }
 
+.resource-button .resource-link-text { /* Added a span inside <a> for the main link text if needed, or style <a> directly */
+    font-weight: 500; /* Medium weight for the main link text */
+    color: var(--current-accent-color); /* Make the link text itself accent colored */
+}
+.resource-button:hover .resource-link-text {
+    text-decoration: underline; /* Underline main link text on hover */
+}
+
+
 .resource-note {
-    font-size: 0.85em; /* Slightly larger for better readability */
-    opacity: 0.85; /* Slightly more prominent */
-    display: block; /* Make notes appear on a new line below the link */
-    margin-top: 3px; /* Small space between link and note */
-    padding-left: 15px; /* Indent notes slightly */
-    color: var(--current-text-color); /* Ensure note text is readable */
-    transition: all 0.2s ease;
+    font-size: 0.875em; /* 14px */
+    opacity: 0.75; /* Adjusted opacity */
+    display: block; 
+    margin-top: 4px; /* Adjusted space */
+    padding-left: 0; /* No indent needed if text aligns left */
+    color: var(--current-text-color); 
+    transition: color 0.2s ease, opacity 0.2s ease; /* Smooth transition */
 }
 
 .resource-button:hover .resource-note {
-    color: var(--current-accent-text);
-    opacity: 0.9;
+    color: var(--current-text-color); /* Keep note text color same on hover */
+    opacity: 0.85; /* Slightly more prominent on hover */
 }
 
 /* Responsive adjustments */

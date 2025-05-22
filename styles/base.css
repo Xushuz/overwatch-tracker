@@ -1,61 +1,61 @@
 /* styles/base.css */
 
 :root {
-    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     
-    /* Light Theme Variables */
-    --bg-color-light: #f4f7f6;
-    --text-color-light: #333;
-    --container-bg-light: #ffffff;
-    --border-color-light: #e0e0e0;
-    --header-bg-light: #ffffff;
-    --nav-bg-light: #f9f9f9;
-    --button-bg-light: #e9ecef; 
-    --button-text-light: #495057; 
-    --input-bg-light: #fdfdfd;
-    --input-border-light: #ced4da;
-    --textarea-bg-light: #f8f9fa;
-    --card-shadow-light: rgba(0, 0, 0, 0.05);
-    --accent-color-light: #007bff; /* Default Blue for light mode */
-    --accent-color-light-rgb: 0, 123, 255;
-    --accent-hover-color-light: #0056b3;
-    --accent-text-light: #fff; /* New variable for accent text */
-    --nav-active-bg-light: rgba(0, 123, 255, 0.1);
-    --progress-bar-bg-light: #e9ecef;
+    /* Light Theme Variables (Google Style) */
+    --bg-color-light: #fff; /* Google's light background */
+    --text-color-light: #202124; /* Google's primary text color */
+    --container-bg-light: #fff; /* Page background, same as body */
+    --border-color-light: #dadce0; /* Google's subtle border color */
+    --header-bg-light: #fff;
+    --nav-bg-light: #f8f9fa; /* Lighter gray for nav (Google style sidebar) */
+    --button-bg-light: #1a73e8; /* Google Blue */
+    --button-text-light: #fff; 
+    --input-bg-light: #fff;
+    --input-border-light: #dadce0;
+    --textarea-bg-light: #fff;
+    --card-shadow-light: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); /* Google-like shadow */
+    --accent-color-light: #1a73e8; /* Google blue */
+    --accent-color-light-rgb: 26, 115, 232;
+    --accent-hover-color-light: #1765cc; /* Darker Google blue */
+    --accent-text-light: #fff; 
+    --nav-active-bg-light: #e8f0fe; /* Lighter blue for active nav (Google style) */
+    --progress-bar-bg-light: #e0e0e0; /* Subtler progress bar background */
     --modal-content-bg-light: #ffffff;
-    --chart-text-color-light: #333; 
-    --chart-grid-color-light: #e0e0e0; 
-    --chart-tooltip-bg-light: rgba(255, 255, 255, 0.9);
-    --chart-tooltip-text-color-light: #333;
+    --chart-text-color-light: #202124; 
+    --chart-grid-color-light: #dadce0; 
+    --chart-tooltip-bg-light: rgba(255, 255, 255, 0.95);
+    --chart-tooltip-text-color-light: #202124;
 
 
-    /* Dark Theme Variables - UPDATED ACCENT TO ORANGE */
-    --bg-color-dark: #121212;
-    --text-color-dark: #e0e0e0;
-    --container-bg-dark: #1e1e1e;
-    --border-color-dark: #444444;
-    --header-bg-dark: #1e1e1e; 
-    --nav-bg-dark: #2c2c2c;
-    --button-bg-dark: #3a3a3a; 
-    --button-text-dark: #e0e0e0; 
-    --input-bg-dark: #333;
-    --input-border-dark: #555;
-    --textarea-bg-dark: #252525;
-    --card-shadow-dark: rgba(100, 100, 100, 0.1); 
-    --accent-color-dark: #FFA500; /* Vibrant Orange */
-    --accent-color-dark-rgb: 255, 165, 0;
-    --accent-hover-color-dark: #FF8C00; /* Darker Orange */
-    --accent-text-dark: #1e1e1e; /* New variable for accent text in dark mode */
-    --nav-active-bg-dark: rgba(255, 165, 0, 0.2); /* Orange with alpha */
-    --progress-bar-bg-dark: #3a3a3a;
-    --modal-content-bg-dark: #2c2c2c;
-    --chart-text-color-dark: #e0e0e0;
-    --chart-grid-color-dark: #444;
-    --chart-tooltip-bg-dark: rgba(44, 44, 44, 0.9);
-    --chart-tooltip-text-color-dark: #e0e0e0;
+    /* Dark Theme Variables (Google Style) */
+    --bg-color-dark: #202124; /* Google Dark background */
+    --text-color-dark: #e8eaed; /* Google Dark text */
+    --container-bg-dark: #202124; /* Page background, same as body */
+    --border-color-dark: #5f6368; /* Google Dark border */
+    --header-bg-dark: #202124; 
+    --nav-bg-dark: #202124; /* Sidebar background same as page */
+    --button-bg-dark: #8ab4f8; /* Google Blue 300 for dark theme buttons */
+    --button-text-dark: #202124; /* Dark text on light blue buttons */
+    --input-bg-dark: #3c4043; /* Slightly lighter for inputs */
+    --input-border-dark: #5f6368;
+    --textarea-bg-dark: #3c4043;
+    --card-shadow-dark: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15); /* Google-like dark shadow */
+    --accent-color-dark: #8ab4f8; /* Google Blue 300 */
+    --accent-color-dark-rgb: 138, 180, 248;
+    --accent-hover-color-dark: #aecbfa; /* Lighter for hover on dark */
+    --accent-text-dark: #202124; /* Dark text on light blue accent areas */
+    --nav-active-bg-dark: rgba(138, 180, 248, 0.12); /* Subtle blue for active nav item background */
+    --progress-bar-bg-dark: #5f6368;
+    --modal-content-bg-dark: #292a2d; /* Consistent with other surfaces */
+    --chart-text-color-dark: #e8eaed;
+    --chart-grid-color-dark: #5f6368;
+    --chart-tooltip-bg-dark: rgba(41, 42, 45, 0.95); /* #292a2d with opacity */
+    --chart-tooltip-text-color-dark: #e8eaed;
 
 
-    /* Pink Theme Variables */
+    /* Pink Theme Variables (Keeping existing, can be updated to Google style if needed) */
     --bg-color-pink: #fff0f5; 
     --text-color-pink: #581845; 
     --container-bg-pink: #ffffff; 
@@ -71,7 +71,7 @@
     --accent-color-pink: #ff69b4; 
     --accent-color-pink-rgb: 255, 105, 180;
     --accent-hover-color-pink: #ff1493; 
-    --accent-text-pink: #581845; /* New variable for accent text */
+    --accent-text-pink: #581845; 
     --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
     --progress-bar-bg-pink: #ffdde5;
     --modal-content-bg-pink: #ffffff;
@@ -82,6 +82,10 @@
 
 
     /* General Non-Theme Specific */
+    --border-radius: 4px; /* Google uses 4px for many elements */
+    --shadow-sm: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); /* Google-like */
+    --shadow-md: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15); /* Google-like */
+    --shadow-lg: 0 4px 5px 0 rgba(60,64,67,.3), 0 1px 10px 3px rgba(60,64,67,.15); /* Google-like */
     --completed-text-color: #6c757d; 
     --danger-color: #dc3545;
     --dark-text: #1e1e1e;
@@ -117,7 +121,7 @@
 body {
     font-family: var(--font-family);
     margin: 0;
-    padding: 10px; 
+    padding: 0; /* Removed body padding */
     background-color: var(--current-bg-color);
     color: var(--current-text-color);
     line-height: 1.6;
@@ -215,20 +219,20 @@ body.pink-mode {
 
 .container {
     width: 100%; 
-    max-width: 1100px; 
+    /* max-width: 1200px; /* Optional: Slightly wider if needed, or remove for full-width app feel */
+    min-height: 100vh; /* Ensure container takes full viewport height */
     margin: 0 auto;
-    background-color: var(--current-container-bg);
-    border: 1px solid var(--current-border-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--current-card-shadow); 
-    overflow: hidden; 
+    background-color: var(--current-bg-color); /* Container uses body background */
+    /* border: 1px solid var(--current-border-color); /* No border for main container */
+    /* border-radius: 8px; /* No radius for main container */
+    /* box-shadow: 0 2px 8px var(--current-card-shadow); /* No shadow for main container */
+    /* overflow: hidden; /* Removed, let app-body-content handle overflow if needed */
     box-sizing: border-box; 
+    display: flex; /* Added for header and app-body-content flex column */
+    flex-direction: column; /* Stack header and app-body-content vertically */
 }
 
-.app-main { 
-    padding: 15px; 
-    animation: fadeIn 0.3s ease-out;
-}
+/* .app-main is now styled in google-layout.css */
 
 /* General Page Titles */
 .program-overview-page h2, 
@@ -329,42 +333,45 @@ body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
     border: 1px solid var(--current-input-border);
     background-color: var(--current-input-bg);
     color: var(--current-text-color);
-    border-radius: 4px;
+    border-radius: var(--border-radius); /* Use general border-radius */
     font-size: 1em;
     width: 100%;
     box-sizing: border-box;
 }
+.form-group select:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="text"]:focus {
+    border-color: var(--current-accent-color); /* Highlight with accent color on focus */
+    box-shadow: 0 0 0 2px rgba(var(--current-accent-color-rgb), 0.25); /* Google-like focus ring */
+}
+
 
 /* General .form-button style for submit/action buttons in forms */
 .form-button { 
-    padding: 10px 15px; 
+    padding: 8px 16px; /* Google-like padding */
     background-color: var(--current-accent-color);
-    color: var(--current-accent-text); /* Default text color for accent buttons */
-    border: 1px solid var(--current-accent-color);
-    border-radius: 4px;
+    color: var(--current-accent-text); 
+    border: 1px solid transparent; /* Consistent with general buttons */
+    border-radius: var(--border-radius); /* Use general border-radius */
     cursor: pointer;
-    font-size: 0.9em; 
+    font-size: 0.875rem; /* 14px */
     font-weight: 500;
-    transition: opacity 0.2s ease, background-color 0.2s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
     width: 100%; 
     box-sizing: border-box;
     text-align: center;
 }
 /* Text color adjustments for form buttons based on theme accent */
 body.pink-mode .form-button { color: var(--current-accent-text); }
-body.dark-mode .form-button { color: var(--current-accent-text); } /* Dark text on orange button */
+body.dark-mode .form-button { color: var(--current-accent-text); } 
 body.light-mode .form-button { color: var(--current-accent-text); }
 
 .form-button:hover { 
     background-color: var(--current-accent-hover-color);
-    opacity: 1; 
+    /* box-shadow: var(--shadow-sm); /* Optional: add shadow on hover */
 }
 
-/* Page Transitions */
-.app-main {
-    padding: 15px;
-    animation: fadeIn 0.3s ease-out;
-}
+/* Page Transitions - .app-main is now in google-layout.css */
 
 /* Content transition animations */
 .content-card,

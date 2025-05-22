@@ -1,0 +1,75 @@
+/* styles/google-layout.css */
+
+.app-body-content {
+    display: flex; /* This will be the default for larger screens */
+    /* min-height: calc(100vh - 60px - 20px); /* Adjust based on actual header height and if body has padding */
+    /* The header is sticky, so app-body-content starts below it.
+       min-height needs to account for viewport height minus header.
+       Assuming header height is around 60px (padding + line-height).
+       If body has no padding, and header is ~60px, then 100vh - 60px.
+    */
+   min-height: calc(100vh - 57px); /* Assuming header is approx 57px based on its 10px padding top/bottom + h1 size */
+}
+
+.google-nav {
+    width: 250px; /* Sidebar width */
+    background-color: var(--current-nav-bg); 
+    border-right: 1px solid var(--current-border-color);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    /* transition: width 0.3s ease; /* Keep for potential future use if width changes */
+    
+    /* --- Mobile-first: Hidden off-screen --- */
+    position: fixed; 
+    left: -250px; /* Initially off-screen */
+    top: 0; /* Align with top. Header is sticky, so this might need adjustment or header needs higher z-index */
+    /* top: 57px; /* If header is fixed and has a known height */
+    height: 100vh;
+    z-index: 999; /* Below header (1000) and hamburger (1001) but above main content */
+    transition: left 0.3s ease; 
+    overflow-y: auto; /* Allow sidebar to scroll if content is long */
+}
+
+.google-nav.sidebar-visible {
+    left: 0; /* Slide in */
+}
+
+.google-nav .nav-link {
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--current-text-color);
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.google-nav .nav-link:hover {
+    background-color: var(--current-nav-active-bg);
+    color: var(--current-accent-color);
+}
+
+.google-nav .nav-link.active {
+    background-color: var(--current-nav-active-bg);
+    color: var(--current-accent-color);
+    font-weight: bold;
+}
+
+/* Adjust .app-main to work with the new flex layout */
+.app-main {
+    flex-grow: 1; 
+    padding: 20px; 
+    background-color: var(--current-bg-color); 
+    overflow-y: auto;
+    /* margin-left: 0; /* Default for mobile when sidebar is hidden or fixed */
+    /* transition: margin-left 0.3s ease; /* For when sidebar pushes content on larger screens */
+}
+
+/* When sidebar is open on mobile, consider adding an overlay or dimming the main content */
+/* This can be done via a class on body or app-body-content */
+.body-sidebar-open .app-main {
+    /* Example: Dim content, prevent interaction */
+    /* opacity: 0.5; */
+    /* pointer-events: none; */
+}

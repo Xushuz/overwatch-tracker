@@ -169,4 +169,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start the application
     initializeApp();
+
+    // --- Hamburger Menu & Sidebar Toggle ---
+    const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
+    const googleNav = document.querySelector('.google-nav'); // Sidebar
+    const appMain = document.querySelector('.app-main'); // Main content area
+
+    if (hamburgerMenuBtn && googleNav) {
+        hamburgerMenuBtn.addEventListener('click', () => {
+            googleNav.classList.toggle('sidebar-visible');
+            hamburgerMenuBtn.classList.toggle('active');
+            
+            // Optional: Add a class to body to prevent scrolling or dim main content
+            // document.body.classList.toggle('body-sidebar-open');
+
+            // Close sidebar if user clicks on a nav link (for mobile)
+            if (googleNav.classList.contains('sidebar-visible')) {
+                const navLinksInSidebar = googleNav.querySelectorAll('.nav-link');
+                navLinksInSidebar.forEach(link => {
+                    link.addEventListener('click', () => {
+                        googleNav.classList.remove('sidebar-visible');
+                        hamburgerMenuBtn.classList.remove('active');
+                        // document.body.classList.remove('body-sidebar-open');
+                    }, { once: true }); // Ensure listener is removed after one click
+                });
+                // Optional: Close sidebar if user clicks outside of it (on app-main)
+                // appMain.addEventListener('click', () => {
+                //     googleNav.classList.remove('sidebar-visible');
+                //     hamburgerMenuBtn.classList.remove('active');
+                //     document.body.classList.remove('body-sidebar-open');
+                // }, { once: true });
+            }
+        });
+    }
 });

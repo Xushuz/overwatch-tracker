@@ -1,99 +1,91 @@
 /* styles/header-nav.css */
 
+.hamburger-menu-btn {
+    display: none; /* Hidden by default, shown in responsive.css */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px; /* Space from title */
+    z-index: 1001; /* Above sidebar and header content if it overlaps */
+}
+.hamburger-menu-btn span {
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: var(--current-text-color);
+    margin-bottom: 4px;
+    border-radius: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.hamburger-menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-menu-btn.active span:nth-child(2) { opacity: 0; }
+.hamburger-menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 .app-header {
     display: flex;
-    flex-wrap: wrap; 
+    /* flex-wrap: wrap; /* Retaining wrap for responsiveness */
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px; 
+    padding: 10px 20px; /* Adjusted padding as per instructions */
     background-color: var(--current-header-bg);
     border-bottom: 1px solid var(--current-border-color);
+    position: sticky; /* Making header sticky */
+    top: 0;
+    z-index: 1000; /* Ensure it's above other content, including new sidebar */
 }
 
 .app-header h1 {
-    font-size: 1.5em; 
-    margin: 0 0 5px 0; 
-    color: var(--current-accent-color); 
-    flex-basis: 100%; /* Allow h1 to take full width if controls wrap on very small screens */
-    text-align: center; /* Center h1 if it takes full width */
+    font-size: 1.4em; /* Google-like header font size */
+    margin: 0; /* Removed bottom margin */
+    color: var(--current-text-color); /* Changed from accent to text color */
+    /* flex-basis: auto; /* Reset flex-basis to allow natural sizing */
+    /* text-align: left; /* Reset text-align */
+    font-weight: 500; /* Medium weight as per Google style */
 }
 
 .header-controls {
     display: flex;
     align-items: center;
-    width: 100%; /* Allow controls to take full width if wrapped */
-    justify-content: center; /* Center controls if wrapped */
+    /* width: auto; /* Reset width */
+    /* justify-content: flex-end; /* Align controls to the end */
+    gap: 15px; /* Added gap for consistency */
 }
 
-.header-controls span#currentDate { /* Specific for date */
-    margin-right: 10px;
-    font-size: 0.85em;
-    opacity: 0.8;
-    white-space: nowrap; /* Prevent date from wrapping awkwardly */
+.header-controls span#currentDate { 
+    margin-right: 10px; /* Keep or adjust as needed */
+    font-size: 0.875em; /* 14px, Google style */
+    opacity: 0.75; /* Adjusted opacity */
+    white-space: nowrap; 
 }
 
+/* Buttons in header will use general button styles from base.css,
+   or can have specific styles here if needed.
+   The general button styles in base.css were updated to be more Google-like.
+*/
 .theme-toggle-btn, 
 .new-cycle-btn {
-    padding: 6px 10px;
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
-    border-radius: 4px;
+    /* padding: 6px 10px; */ /* Using base.css button padding for now */
+    /* background-color: var(--current-button-bg); */ /* From base.css */
+    /* color: var(--current-button-text); */ /* From base.css */
+    /* border: 1px solid var(--current-border-color); */ /* From base.css */
+    /* border-radius: 4px; */ /* From base.css */
     cursor: pointer;
-    font-size: 0.8em;
-    margin-left: 8px;
-    transition: all 0.3s ease;
-    white-space: nowrap; /* Prevent button text from wrapping */
+    font-size: 0.875rem; /* 14px, Google style */
+    /* margin-left: 8px; */ /* Using gap from header-controls */
+    transition: all 0.2s ease; /* Consistent transition */
+    white-space: nowrap; 
 }
 
 .theme-toggle-btn:hover, 
 .new-cycle-btn:hover {
-    background-color: var(--current-accent-color);
-    color: var(--current-accent-text);
-    border-color: var(--current-accent-hover-color);
+    /* Hover effects will be inherited from base.css general button styles */
+    /* background-color: var(--current-accent-hover-color); */
+    /* color: var(--current-accent-text); */
+    /* border-color: var(--current-accent-hover-color); */
 }
 
-.app-nav {
-    display: flex;
-    justify-content: space-around; 
-    flex-wrap: wrap; 
-    padding: 5px 0; 
-    background-color: var(--current-nav-bg);
-    border-top: 1px solid var(--current-border-color);
-    box-shadow: 0 -1px 3px var(--current-card-shadow); /* Subtle shadow above nav */
-}
-
-.app-nav .nav-link {
-    padding: 8px 10px; 
-    color: var(--current-text-color);
-    text-decoration: none;
-    font-weight: 500;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    font-size: 0.85em; 
-    text-align: center;
-    flex-grow: 1; /* Make them take up equal space, good for few items */
-    margin: 2px; 
-    min-width: 80px; /* Minimum width for tappability */
-}
-
-.app-nav .nav-link:hover {
-    color: var(--current-accent-color);
-    background-color: var(--current-nav-active-bg);
-}
-
-body.light-mode .app-nav .nav-link:hover {
-    background-color: rgba(0, 123, 255, 0.05);
-}
-body.dark-mode .app-nav .nav-link:hover { 
-    background-color: rgba(102, 191, 255, 0.1);
-}
-body.pink-mode .app-nav .nav-link:hover {
-    background-color: rgba(255, 105, 180, 0.1); 
-}
-
-.app-nav .nav-link.active {
-    color: var(--current-accent-color); 
-    font-weight: bold;
-    background-color: var(--current-nav-active-bg); 
-}
+/* 
+    All styles for .app-nav and .app-nav .nav-link have been removed.
+    These are now handled by .google-nav in styles/google-layout.css
+*/

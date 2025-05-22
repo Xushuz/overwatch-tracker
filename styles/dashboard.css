@@ -25,9 +25,9 @@
 .dashboard-rank-section {
     padding: 15px;
     border: 1px solid var(--current-border-color);
-    border-radius: 6px;
-    background-color: var(--current-container-bg); 
-    box-shadow: 0 1px 3px var(--current-card-shadow);
+    border-radius: var(--border-radius); /* Use new base border-radius */
+    background-color: var(--current-bg-color); /* Cards are white on white page, rely on shadow */
+    box-shadow: var(--shadow-sm); /* Use new base shadow */
 }
 
 .week-info {
@@ -35,24 +35,24 @@
 }
 
 .week-info h2 { /* Week Title */
-    font-size: 1.3em;
+    font-size: 1.25em; /* Slightly adjusted */
     margin-top: 0;
-    margin-bottom: 5px; 
-    color: var(--current-accent-color); 
+    margin-bottom: 8px; 
+    color: var(--current-text-color); /* Titles usually text color, not accent */
 }
 
 .week-info p#weekFocus { /* Week Focus Text */
-    font-size: 0.95em;
-    margin-bottom: 10px;
-    opacity: 0.9;
+    font-size: 0.9em; /* Adjusted */
+    margin-bottom: 12px; /* Adjusted */
+    opacity: 0.8; /* Adjusted */
 }
 
 .week-info h3#dayTitle { /* Day Title */
     font-size: 1.1em;
-    margin-top: 10px; 
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dashed var(--current-border-color);
+    margin-top: 15px; /* Adjusted */
+    margin-bottom: 12px; /* Adjusted */
+    padding-bottom: 8px; /* Adjusted */
+    border-bottom: 1px solid var(--current-border-color); /* Solid border */
 }
 
 .current-week-progress {
@@ -85,67 +85,62 @@
 .task-list li { 
     display: flex; 
     align-items: center; 
-    padding: 10px 8px; /* Slightly more padding */
-    border: 1px solid var(--current-border-color); /* Add border to look more like a button */
-    border-radius: 5px; /* Rounded corners */
-    margin-bottom: 6px; /* Space between task "buttons" */
+    padding: 12px 10px; /* Adjusted padding */
+    border: 1px solid var(--current-border-color); 
+    border-radius: var(--border-radius); /* Use new base border-radius */
+    margin-bottom: 8px; /* Adjusted space */
     cursor: pointer; 
+    background-color: var(--current-bg-color); /* Card-like background */
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .task-list li:last-child { 
-    /* No bottom border needed if margin-bottom is used and border is on all sides */
+    margin-bottom: 0;
 }
 
 .task-list li:hover { 
-    background-color: var(--current-button-bg); /* Use general button hover background */
-    border-color: var(--current-accent-color); /* Accent border on hover */
-    box-shadow: 0 2px 5px var(--current-card-shadow); /* Slight lift effect */
+    background-color: rgba(var(--current-text-color-rgb, 32, 33, 36), 0.05); /* Subtle hover, text color based */
+    border-color: var(--current-border-color); /* Keep border same on hover, or slightly darker */
+    box-shadow: var(--shadow-sm); /* Add subtle shadow on hover */
 }
-body.dark-mode .task-list li:hover { 
-    background-color: var(--current-button-bg);
-}
-body.pink-mode .task-list li:hover { 
-    background-color: var(--current-button-bg);
-    border-color: var(--current-accent-color);
-}
+/* Theme specific hover for task list items if needed, else the generic one above is fine */
+/* body.dark-mode .task-list li:hover { ... } */
+/* body.pink-mode .task-list li:hover { ... } */
 
 
 .task-list input[type="checkbox"] { 
-    margin-right: 12px; 
-    min-width: 20px; 
-    width: 20px; 
-    height: 20px; 
-    /* pointer-events: none; */ /* Optional: If ONLY the li click should toggle. Default allows both. */
+    margin-right: 15px; /* Increased space */
+    min-width: 18px; /* Google style checkboxes are often smaller */
+    width: 18px; 
+    height: 18px; 
     accent-color: var(--current-accent-color); 
+    cursor: pointer;
 }
 
 .task-details { 
     flex-grow: 1; 
-    font-size: 0.95em; 
+    font-size: 0.9em; /* Adjusted */
 }
 .task-details.completed { 
     text-decoration: line-through; 
     color: var(--completed-text-color); 
-    opacity: 0.7; 
+    opacity: 0.65; /* Adjusted opacity */
 }
-body.pink-mode .task-details.completed { 
-    color: #ff7eb9; 
-    opacity: 0.6; /* Make it a bit more faded in pink mode when completed */
-}
-.task-list li.task-completed { /* New class to style the LI when task is done */
-    background-color: var(--current-textarea-bg); /* Slightly different background */
-    opacity: 0.75;
-    border-left: 4px solid var(--completed-text-color); /* Visual indicator on the left */
+/* body.pink-mode .task-details.completed { ... } /* Removed for simplicity, base completed is fine */
+
+.task-list li.task-completed { /* Class to style the LI when task is done */
+    background-color: rgba(var(--current-text-color-rgb, 32, 33, 36), 0.03); /* Very subtle background change */
+    opacity: 0.7; /* Adjusted opacity */
+    /* border-left: 3px solid var(--completed-text-color); /* Optional: keep if desired */
 }
 .task-list li.task-completed:hover {
-    background-color: var(--current-button-bg); /* Still allow hover effect */
-    opacity: 0.85;
+    background-color: rgba(var(--current-text-color-rgb, 32, 33, 36), 0.06); 
+    opacity: 0.8;
 }
 
 
 .task-focus { 
     font-size: 0.8em; 
-    opacity: 0.7; 
+    opacity: 0.65; /* Adjusted */
     display: block; 
     margin-top: 2px; 
 }
@@ -161,76 +156,57 @@ body.pink-mode .task-details.completed {
 
 /* Navigational buttons (Prev/Next Day) specific styling */
 .nav-button {
-    padding: 8px 12px; 
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em; 
-    font-weight: 500; 
-    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    /* Inherit general button styles from base.css */
+    /* Remove specific background, color, border, border-radius, font-size, font-weight */
+    /* Keep flex-grow and text-align if they are specific to this button's layout */
+    padding: 8px 16px; /* Consistent with base.css button padding */
+    /* transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; */ /* Transition from base.css */
     flex-grow: 1; 
     text-align: center;
+    /* Hover and disabled states will also be largely inherited from base.css */
 }
 
-.nav-button:hover {
-    opacity: 1; 
+/* Specific hover overrides if base.css is not enough (e.g. different accent behavior) */
+/* .nav-button:hover {
     background-color: var(--current-accent-color);
     color: var(--current-accent-text); 
     border-color: var(--current-accent-hover-color);
-}
-body.pink-mode .nav-button:hover {
-    color: var(--button-text-pink); 
-    background-color: var(--accent-color-pink);
-    border-color: var(--accent-hover-color-pink);
-}
-body.light-mode .nav-button:hover,
-body.dark-mode .nav-button:hover {
-    color: #fff; /* Default white text on accent hover for light/dark */
-}
-body.dark-mode .nav-button:hover { /* Specific for orange accent on dark */
-    color: #111; /* Dark text on orange */
-}
+} */
+/* Theme-specific hovers for .nav-button can be removed if base button hover is sufficient */
 
 
-.nav-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--current-button-bg); 
-    color: var(--current-button-text); 
-    border-color: var(--current-border-color); 
-}
-.nav-button:disabled:hover { 
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border-color: var(--current-border-color);
-    opacity: 0.5;
-}
+/* Disabled state will be handled by base.css button:disabled style */
+/* .nav-button:disabled { ... } */
+/* .nav-button:disabled:hover { ... } */
 
 
 .daily-notes-section h4, 
 .dashboard-rank-section h4 { 
-    font-size: 1.05em; 
+    font-size: 1em; /* Adjusted */
     margin-top: 0; 
-    margin-bottom: 10px;
-    color: var(--current-accent-color); 
+    margin-bottom: 12px; /* Adjusted */
+    color: var(--current-text-color); /* Use text color for subtitles */
 }
 #dailyNotesTextarea { 
-    width: calc(100% - 22px); 
-    min-height: 150px; 
+    width: 100%; /* Simpler width */
+    min-height: 120px; /* Adjusted */
     height: auto; 
-    max-height: 300px; 
-    padding: 10px; 
+    max-height: 250px; /* Adjusted */
+    padding: 10px 12px; /* Consistent with base.css inputs */
     border: 1px solid var(--current-input-border); 
-    border-radius: 4px; 
-    background-color: var(--current-textarea-bg); 
+    border-radius: var(--border-radius); /* Use new base border-radius */
+    background-color: var(--current-input-bg); 
     color: var(--current-text-color); 
-    font-size: 0.95em; 
+    font-size: 0.9em; /* Adjusted */
     line-height: 1.5; 
     resize: vertical; 
     box-sizing: border-box;
 }
+#dailyNotesTextarea:focus {
+    border-color: var(--current-accent-color); /* Highlight with accent color on focus */
+    box-shadow: 0 0 0 2px rgba(var(--current-accent-color-rgb), 0.25); /* Google-like focus ring */
+}
+
 
 /* Rank Update Form on Dashboard */
 .dashboard-rank-update-form { 
@@ -243,51 +219,51 @@ body.dark-mode .nav-button:hover { /* Specific for orange accent on dark */
 .dashboard-rank-update-form .division-buttons { 
     display: flex; 
     justify-content: space-between; 
-    gap: 6px; 
-    margin-top: 4px; 
+    gap: 8px; /* Adjusted gap */
+    margin-top: 5px; /* Adjusted margin */
 }
 .dashboard-rank-update-form .division-buttons button { 
     flex-grow: 1; 
-    padding: 8px 5px; 
-    font-size: 0.85em; 
+    padding: 8px 6px; /* Adjusted padding */
+    font-size: 0.875em; /* Standardized font size */
     border: 1px solid var(--current-border-color);
     background-color: var(--current-button-bg);
     color: var(--current-button-text);
-    border-radius: 3px;
+    border-radius: var(--border-radius); /* Use new base border-radius */
     cursor: pointer;
     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.dashboard-rank-update-form .division-buttons button:hover {
+    border-color: var(--current-accent-color);
 }
 .dashboard-rank-update-form .division-buttons button.selected { 
     background-color: var(--current-accent-color); 
     color: var(--current-accent-text); 
     border-color: var(--current-accent-color); 
-    font-weight: bold;
+    font-weight: 500; /* Medium weight for selected */
 }
-body.pink-mode .dashboard-rank-update-form .division-buttons button.selected { 
-    color: #fff; 
-}
-body.dark-mode .dashboard-rank-update-form .division-buttons button.selected { 
-    color: #111; /* Dark text for orange */
-}
+/* Theme specific selected button text color can be removed if base.css accent-text covers it */
+/* body.pink-mode .dashboard-rank-update-form .division-buttons button.selected { ... } */
+/* body.dark-mode .dashboard-rank-update-form .division-buttons button.selected { ... } */
 
 /* Ensure the "Update Today's Rank" button uses .form-button styles */
 .dashboard-rank-update-form button[type="submit"].form-button { 
     /* Inherits styles from .form-button (defined in base.css) */
-    margin-top: 10px; 
-    font-size: 0.9em; 
-    padding: 8px 12px; 
-    width: 100%; /* Ensure it's full width within its column */
+    margin-top: 15px; /* Adjusted margin */
+    /* font-size: 0.9em; /* Inherit from .form-button in base.css */
+    /* padding: 8px 12px; /* Inherit from .form-button in base.css */
+    width: 100%; 
 }
 
 #dashboardRankChartContainer { 
-    min-height: 220px; 
+    min-height: 250px; /* Adjusted height */
     position: relative; 
-    margin-top: 15px; 
+    margin-top: 20px; /* Adjusted margin */
     padding: 15px; 
     border: 1px solid var(--current-border-color);
-    border-radius: 6px;
-    background-color: var(--current-container-bg);
-    box-shadow: 0 1px 3px var(--current-card-shadow);
+    border-radius: var(--border-radius); /* Use new base border-radius */
+    background-color: var(--current-bg-color); /* White card */
+    box-shadow: var(--shadow-sm); /* Use new base shadow */
 }
 
 #dashboardRankChart {
@@ -349,13 +325,15 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
 #editPersonalFocusBtn,
 #savePersonalFocusBtn,
 #cancelPersonalFocusBtn {
-    background: var(--current-button-bg);
+    /* General button styling from base.css will be inherited. */
+    /* These buttons are small, so slightly adjust padding & font-size if needed. */
+    background: var(--current-button-bg); /* Or transparent if they are icon-like */
     color: var(--current-button-text);
     border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    margin-left: 6px;
-    padding: 4px 10px;
-    font-size: 0.95em;
+    border-radius: var(--border-radius);
+    margin-left: 8px; /* Adjusted */
+    padding: 5px 10px; /* Adjusted */
+    font-size: 0.85em; /* Adjusted */
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
@@ -381,10 +359,10 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
     background: var(--current-input-bg);
     color: var(--current-text-color);
     border: 1px solid var(--current-input-border);
-    border-radius: 4px;
-    padding: 5px 8px;
-    margin-right: 6px;
-    font-size: 1em;
+    border-radius: var(--border-radius);
+    padding: 6px 10px; /* Adjusted */
+    margin-right: 8px; /* Adjusted */
+    font-size: 0.9em; /* Adjusted */
 }
 #personalFocusDisplay {
     color: var(--current-accent-color);
@@ -402,12 +380,17 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
     background: var(--current-input-bg);
     color: var(--current-text-color);
     border: 1px solid var(--current-input-border);
-    border-radius: 5px;
-    padding: 8px 10px;
-    font-size: 1em;
+    border-radius: var(--border-radius); /* Use new base border-radius */
+    padding: 10px 12px; /* Consistent with base.css inputs */
+    font-size: 0.9em; /* Adjusted */
     width: 100%;
     margin-bottom: 0;
 }
+#customWarmupModal input[type="text"]:focus {
+    border-color: var(--current-accent-color);
+    box-shadow: 0 0 0 2px rgba(var(--current-accent-color-rgb), 0.25);
+}
+
 /* Form button styles moved to modals.css */
 #customWarmupModal .form-button[style*="background:var(--danger-color)"] {
     background: var(--danger-color);
@@ -423,8 +406,8 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid var(--current-accent-color);
-    border-radius: 4px;
+    border: 2px solid var(--current-input-border); /* Use input border for unchecked state */
+    border-radius: var(--border-radius);
     background: var(--current-input-bg);
     margin-left: 10px;
     position: relative;
@@ -519,23 +502,18 @@ body.dark-mode .dashboard-rank-update-form .division-buttons button.selected {
 }
 
 .custom-warmup-item .actions button {
-    padding: 0.3em 0.6em; /* Smaller buttons */
+    padding: 0.3em 0.6em; 
     font-size: 0.85em;
-    /* General button styles from base.css or header-nav.css will apply for color, hover etc. */
-    /* Ensure they use current-button-bg and current-button-text by default if not accent */
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
+    /* Inherit from base.css button styles for background, color, border */
 }
 .custom-warmup-item .actions button:hover {
+    /* Inherit from base.css button:hover styles */
+    /* If specific accent behavior is needed for these small buttons:
     background-color: var(--current-accent-color);
     color: var(--current-accent-text);
-    border-color: var(--current-accent-hover-color);
+    border-color: var(--current-accent-hover-color); 
+    */
 }
-/* Special case for dark mode accent text on buttons */
-body.dark-mode .custom-warmup-item .actions button:hover {
-    color: var(--dark-text); /* Ensure text is dark on orange buttons */
-}
-body.pink-mode .custom-warmup-item .actions button:hover {
-     color: var(--light-text); /* Ensure text is light on pink buttons if needed */
-}
+/* Theme-specific hover overrides can be removed if base button hover is sufficient */
+/* body.dark-mode .custom-warmup-item .actions button:hover { ... } */
+/* body.pink-mode .custom-warmup-item .actions button:hover { ... } */

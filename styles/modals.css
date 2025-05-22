@@ -10,54 +10,55 @@
     width: 100%;
     height: 100%;
     overflow-y: auto; 
-    background-color: rgba(0, 0, 0, 0.75); /* Darker overlay for better focus */
+    background-color: rgba(0, 0, 0, 0.5); /* Google-style overlay */
     /* Flex properties for centering will be activated when JS sets display:flex */
     align-items: center;
     justify-content: center;
-    padding: 15px; 
+    padding: 20px; /* Consistent padding */
     box-sizing: border-box;
 }
 
 .modal-content {
-    background-color: var(--current-modal-content-bg);
-    padding: 20px 25px; 
-    border: 1px solid var(--current-border-color);
-    border-radius: 8px;
+    background-color: var(--current-modal-content-bg); /* Should be white in light, dark grey in dark */
+    padding: 24px; /* Material Design dialog padding */
+    border: none; /* Material dialogs often have no border, rely on shadow */
+    border-radius: var(--border-radius); /* Use 4px from base.css */
     width: 100%; 
-    max-width: 500px; /* Default max-width for modals */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); 
-    animation: fadeInModal 0.3s ease-out;
+    max-width: 500px; 
+    box-shadow: var(--shadow-lg); /* Prominent shadow for modals */
+    animation: fadeInModal 0.2s ease-out; /* Faster animation */
     position: relative; 
-    margin: 0; /* Centered by flex on .modal parent when visible */
-    overflow-y: auto; /* If content inside this box is too tall */
-    max-height: 90vh; /* Prevent modal from being taller than viewport */
+    margin: 0; 
+    overflow-y: auto; 
+    max-height: calc(100vh - 40px); /* Ensure some viewport margin */
 }
 
 @keyframes fadeInModal {
-    from { opacity: 0; transform: scale(0.95); } 
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: translateY(10px) scale(0.98); } /* Subtle slide up */
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 12px;
+    padding-bottom: 16px; /* Adjusted padding */
     border-bottom: 1px solid var(--current-border-color);
-    margin-bottom: 18px;
+    margin-bottom: 20px; /* Adjusted margin */
 }
 
 .modal-header h3 {
     margin: 0;
-    font-size: 1.2em; 
-    color: var(--current-accent-color); 
-    line-height: 1.3;
+    font-size: 1.25em; /* Material title size (e.g., 20sp) */
+    color: var(--current-text-color); /* Standard text color for titles */
+    font-weight: 500; /* Medium weight for titles */
+    line-height: 1.4;
 }
 
 .close-btn { 
     color: var(--current-text-color);
-    opacity: 0.6; 
-    font-size: 24px; 
+    opacity: 0.7; /* Adjusted opacity */
+    font-size: 28px; /* Larger for easier click target, or use an SVG icon */
     font-weight: bold;
     cursor: pointer;
     transition: opacity 0.2s ease;
@@ -78,96 +79,98 @@
     display: flex;
     justify-content: flex-end;
     align-items: center; 
-    padding-top: 15px;
+    padding-top: 20px; /* Adjusted padding */
     border-top: 1px solid var(--current-border-color);
-    margin-top: 10px; 
+    margin-top: 20px; /* Adjusted margin */
 }
 
+/* Modal buttons should inherit from base.css button styles */
 .modal-button { 
-    padding: 9px 16px; 
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.95em; 
-    font-weight: 500;
-    margin-left: 10px;
-    transition: all 0.2s ease;
+    /* Remove specific padding, border-radius, font-size, font-weight if they match base.css */
+    /* border: none; /* Base button might have a border */
+    margin-left: 8px; /* Google style for button spacing in dialogs */
+    /* transition: all 0.2s ease; /* Inherited from base.css */
 }
 
 .modal-button.save {
-    background-color: var(--current-accent-color);
-    color: var(--current-accent-text);
+    /* This is a primary action button, should use accent color */
+    /* background-color: var(--current-accent-color); /* From base.css if .button.primary or similar */
+    /* color: var(--current-accent-text); /* From base.css */
+    /* These are already set by .form-button in base.css, assuming .save is also .form-button */
 }
 
 .modal-button.save:hover {
-    background-color: var(--current-accent-hover-color);
+    /* background-color: var(--current-accent-hover-color); /* From base.css */
 }
 
 .modal-button.cancel {
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border: 1px solid var(--current-border-color);
+    /* This is often a text button or a less emphasized button */
+    background-color: transparent; 
+    color: var(--current-accent-color); /* Text button style */
+    border: none; 
+    box-shadow: none; /* Remove shadow if it's a text button */
 }
 .modal-button.cancel:hover {
-    opacity: 0.8;
+    background-color: rgba(var(--current-accent-color-rgb), 0.08); /* Subtle hover for text buttons */
+    /* opacity: 1; */
 }
 
 /* --- Custom Warmup Modal Specific Styles --- */
 #customWarmupModal .modal-content {
-    max-width: 400px;
-    padding: 28px 32px;
+    max-width: 400px; /* Keep specific max-width */
+    padding: 24px; /* Consistent padding */
 }
 
-#customWarmupModal h3 {
-    margin-top: 0;
-    margin-bottom: 18px;
+#customWarmupModal h3 { /* Already styled by .modal-header h3 */
+    /* margin-top: 0; */
+    /* margin-bottom: 18px; */
 }
 
 #customWarmupModal .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px; /* Consistent spacing */
 }
 
-#customWarmupModal label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
+#customWarmupModal label { /* Standard form label styling from base.css should apply */
+    /* display: block; */
+    /* margin-bottom: 6px; */
+    /* font-weight: 500; */
 }
 
 #customWarmupModal input[type="text"] {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 1em;
-    margin-bottom: 0;
-    border: 1px solid var(--current-input-border);
-    border-radius: 5px;
-    background: var(--current-input-bg);
-    color: var(--current-text-color);
+    /* Inherit styles from base.css for inputs */
+    /* width: 100%; */
+    /* padding: 10px 12px; /* From base.css */
+    /* font-size: 1em; /* From base.css */
+    /* margin-bottom: 0; */
+    /* border: 1px solid var(--current-input-border); /* From base.css */
+    /* border-radius: var(--border-radius); /* From base.css */
+    /* background: var(--current-input-bg); /* From base.css */
+    /* color: var(--current-text-color); /* From base.css */
 }
 
+/* Buttons in custom warmup modal should also use base button styling */
 #customWarmupModal .form-button {
-    min-width: 90px;
-    padding: 7px 18px;
-    font-size: 1em;
-    border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    /* min-width: 90px; */ /* Base button has decent min-width via padding */
+    /* padding: 8px 16px; /* From base.css button */
+    /* font-size: 0.875rem; /* From base.css button */
+    /* border: 1px solid var(--current-border-color); /* Base button style */
+    /* border-radius: var(--border-radius); /* Base button style */
+    /* cursor: pointer; */
+    /* transition: all 0.2s ease; */
 }
 
 #customWarmupModal .form-button:hover {
-    background-color: var(--current-accent-color);
-    color: var(--current-accent-text);
-    border-color: var(--current-accent-hover-color);
+    /* Inherits from base.css .form-button:hover */
 }
 
-#customWarmupModal .form-button[style*="background:var(--danger-color)"] {
+#customWarmupModal .form-button.danger { /* Add a class for danger action */
     background: var(--danger-color);
     color: #fff;
     border-color: var(--danger-color);
 }
 
-#customWarmupModal .form-button[style*="background:var(--danger-color)"]:hover {
-    opacity: 0.9;
+#customWarmupModal .form-button.danger:hover {
+    opacity: 0.85; /* Slightly different hover for danger */
 }
 
 /* --- Rank Prompt Modal Specific Styles --- */
@@ -179,62 +182,63 @@
 .rank-prompt-modal .modal-form { 
     display: flex;
     flex-direction: column;
-    gap: 18px; /* Increased gap from 15px */
+    gap: 20px; /* Adjusted gap */
 }
 
 /* Styling for form groups within the rank prompt modal */
 .rank-prompt-modal .form-group {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; /* Already default for .form-group in base.css */
+    /* flex-direction: column; /* Already default for .form-group in base.css */
 }
 
 .rank-prompt-modal .form-group label {
-    margin-bottom: 6px;
-    font-size: 0.9em;
-    font-weight: 500;
-    color: var(--current-text-color);
+    /* Inherit from base.css .form-group label */
+    /* margin-bottom: 5px; */
+    /* font-size: 0.9em; */
+    /* font-weight: 500; */
+    /* color: var(--current-text-color); */
 }
 
 .rank-prompt-modal .form-group select {
-    padding: 10px 12px;
-    border: 1px solid var(--current-input-border);
-    background-color: var(--current-input-bg);
-    color: var(--current-text-color);
-    border-radius: 4px;
-    font-size: 1em;
-    width: 100%;
-    box-sizing: border-box;
+    /* Inherit from base.css .form-group select */
+    /* padding: 10px 12px; */
+    /* border: 1px solid var(--current-input-border); */
+    /* background-color: var(--current-input-bg); */
+    /* color: var(--current-text-color); */
+    /* border-radius: var(--border-radius); */
+    /* font-size: 1em; */
+    /* width: 100%; */
+    /* box-sizing: border-box; */
 }
 
 .rank-prompt-modal .division-buttons { 
     display: flex; 
     justify-content: space-between; 
-    gap: 6px; 
+    gap: 8px; /* Adjusted gap */
 }
 .rank-prompt-modal .division-buttons button { 
     flex-grow: 1; 
-    padding: 8px 5px; 
-    font-size: 0.9em; 
-    border: 1px solid var(--current-border-color);
-    background-color: var(--current-button-bg);
-    color: var(--current-button-text);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    /* padding: 8px 6px; /* Adjusted padding from base.css button if needed */
+    /* font-size: 0.875rem; /* From base.css button */
+    /* border: 1px solid var(--current-border-color); /* From base.css button */
+    /* background-color: var(--current-button-bg); /* From base.css button */
+    /* color: var(--current-button-text); /* From base.css button */
+    /* border-radius: var(--border-radius); /* From base.css button */
+    /* cursor: pointer; */
+    /* transition: all 0.2s ease; /* From base.css button */
 }
 .rank-prompt-modal .division-buttons button:hover {
-    opacity: 0.8;
-    border-color: var(--current-accent-color);
+    /* opacity: 0.8; /* Base button hover is better */
+    border-color: var(--current-accent-color); /* Keep this subtle hover effect */
 }
 .rank-prompt-modal .division-buttons button.selected {
     background-color: var(--current-accent-color);
     color: var(--current-accent-text);
     border-color: var(--current-accent-color);
-    font-weight: bold;
+    font-weight: 500; /* Medium weight for selected */
 }
-body.pink-mode .rank-prompt-modal .division-buttons button.selected {
-    color: #fff; 
-}
+/* Theme specific .selected text color can be removed if base.css --current-accent-text handles it */
+/* body.pink-mode .rank-prompt-modal .division-buttons button.selected { ... } */
 
 /* --- Program Week Details Modal Specific Styles --- */
 .program-week-details-modal .modal-content {
