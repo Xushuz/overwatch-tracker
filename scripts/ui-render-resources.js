@@ -14,7 +14,7 @@ export function renderResourcesPage(mainContentEl) {
         resourcesArray.forEach(resource => {
             listHtml += `<li>
                             <button class="resource-button" onclick="window.open('${resource.url}', '_blank', 'noopener,noreferrer')">
-                                ${resource.name}
+                                <span class="resource-name-text">${resource.name}</span>
                                 ${resource.note ? `<span class="resource-note">${resource.note}</span>` : ''}
                             </button>
                          </li>`;
