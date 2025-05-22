@@ -70,31 +70,42 @@
 
     .google-nav {
         position: static; /* Sidebar becomes part of the layout flow */
-        left: 0; /* Reset fixed positioning effect */
+        left: auto; /* Reset fixed positioning effect */
         height: auto; /* Content dictates height */
         width: 250px; /* Defined width */
-        transition: none; /* No transition for static positioning */
+        /* transition: none; /* Will be overridden for collapse/expand */
         z-index: auto; /* Reset z-index */
         border-top: none; /* If it had one for fixed positioning */
-        transform: translateX(0); /* Ensure it's not translated off-screen if that was used */
+        transform: none; /* Ensure it's not translated off-screen if that was used */
+        transition: width 0.3s ease, padding 0.3s ease, border 0.3s ease; /* Added for smooth collapse */
+        /* Ensure padding and border are part of the main style for open state */
+        padding: 15px; 
+        border-right: 1px solid var(--current-border-color);
     }
     
-    .google-nav.sidebar-visible {
-        /* This class is not strictly needed for large screens if it's always visible,
-           but ensure 'left: 0' is maintained and no transform. */
-        left: 0; 
-        transform: translateX(0);
-    }
+    /* .sidebar-visible is for mobile overlay, not desktop push state */
 
     .app-body-content {
         display: flex; /* Main layout: sidebar + main content */
     }
 
     .app-main {
-        /* margin-left: 250px; /* Not needed if .app-body-content is display:flex */
        flex-grow: 1; /* Ensure it takes available space next to sidebar */
        width: auto; /* Reset mobile-specific width */
+       margin-left: 250px; /* Default margin when sidebar is open */
        /* padding: 20px; /* Already restored above */
+    }
+
+    /* Desktop sidebar closed state */
+    body.body-sidebar-desktop-closed .google-nav {
+        width: 0;
+        padding-left: 0;
+        padding-right: 0;
+        border-right: none;
+        overflow: hidden;
+    }
+    body.body-sidebar-desktop-closed .app-main {
+        margin-left: 0;
     }
     
     /* --- Original Tablet Styles --- */
@@ -108,6 +119,10 @@
        - specific h1 font-size for tablet (handled by base or other media queries)
        - .theme-toggle-btn, .new-cycle-btn font-size (handled by base .form-button styles)
     */
+    /* Hamburger button is displayed by default on mobile, hidden here for desktop */
+    /* This rule to hide hamburger on desktop is already present below, but ensure it's correct. */
+    /* .hamburger-menu-btn { display: none; } */
+
 
     .dashboard-layout {
         flex-direction: row; 

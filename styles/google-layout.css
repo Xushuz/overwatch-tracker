@@ -18,6 +18,7 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
     /* transition: width 0.3s ease; /* Keep for potential future use if width changes */
     
     /* --- Mobile-first: Hidden off-screen --- */
@@ -62,8 +63,8 @@
     padding: 20px; 
     background-color: var(--current-bg-color); 
     overflow-y: auto;
-    /* margin-left: 0; /* Default for mobile when sidebar is hidden or fixed */
-    /* transition: margin-left 0.3s ease; /* For when sidebar pushes content on larger screens */
+    margin-left: 0; /* Default for mobile when sidebar is hidden or fixed, and for desktop when sidebar is closed */
+    transition: margin-left 0.3s ease; /* For when sidebar pushes content on larger screens */
 }
 
 /* When sidebar is open on mobile, consider adding an overlay or dimming the main content */

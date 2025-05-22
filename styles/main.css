@@ -10,4 +10,5 @@
 @import url('resources.css');
 @import url('notes-summary.css');
 @import url('settings.css'); /* Added settings page styles */
+@import url('sidebar-overlay.css'); /* Added for mobile sidebar overlay */
 @import url('responsive.css');
