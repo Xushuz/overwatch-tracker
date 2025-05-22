@@ -263,6 +263,14 @@ body.dark-mode {
     --current-chart-tooltip-bg: var(--chart-tooltip-bg-dark);
     --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-dark);
 }
+body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button) { /* Target general links, exclude button-like links */
+    color: var(--current-accent-color); /* Orange links in dark mode */
+}
+body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+    text-decoration: underline;
+    color: var(--current-accent-hover-color); /* Lighter/darker orange on hover for general links */
+}
+
 
 body.pink-mode { 
     --current-bg-color: var(--bg-color-pink);

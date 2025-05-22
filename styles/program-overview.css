@@ -30,9 +30,11 @@
 
 .week-card:hover {
     /* transform: translateY(-2px); /* Optional: keep if desired, but shadow change is more Google-like */
-    box-shadow: var(--shadow-md); /* Increase shadow on hover */
-    border-color: var(--current-border-color); /* Keep border same, or slightly darker if desired */
+    /* box-shadow: var(--shadow-md); /* Increase shadow on hover */
+    /* border-color: var(--current-border-color); /* Keep border same, or slightly darker if desired */
     /* background-color: var(--current-bg-color); /* Keep background same */
+    border-color: var(--current-accent-color);
+    box-shadow: 0 0 8px rgba(var(--current-accent-color-rgb), 0.3); /* Optional: add a subtle glow */
 }
 
 .week-card:active {

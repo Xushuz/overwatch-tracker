@@ -43,8 +43,11 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 16px; /* Adjusted padding */
-    border-bottom: 1px solid var(--current-border-color);
+    border-bottom: 1px solid var(--current-border-color); /* Default border */
     margin-bottom: 20px; /* Adjusted margin */
+}
+body.dark-mode .modal-header {
+    border-bottom-color: var(--current-accent-color); /* Orange border in dark mode */
 }
 
 .modal-header h3 {
@@ -68,7 +71,8 @@
     line-height: 1; 
 }
 .close-btn:hover {
-    opacity: 1;
+    /* opacity: 1; */ /* Original hover */
+    color: var(--current-accent-color); /* Orange hover for close button */
 }
 
 .modal-body { 
@@ -80,8 +84,11 @@
     justify-content: flex-end;
     align-items: center; 
     padding-top: 20px; /* Adjusted padding */
-    border-top: 1px solid var(--current-border-color);
+    border-top: 1px solid var(--current-border-color); /* Default border */
     margin-top: 20px; /* Adjusted margin */
+}
+body.dark-mode .modal-footer {
+    border-top-color: var(--current-accent-color); /* Orange border in dark mode */
 }
 
 /* Modal buttons now use .form-button, .form-button--primary, .form-button--secondary */
