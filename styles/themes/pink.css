@@ -1,0 +1,118 @@
+/* styles/themes/pink.css */
+
+:root {
+    /* Pink Theme Variables */
+    --bg-color-pink: #fff0f5; 
+    --bg-color-pink-rgb: 255, 240, 245;
+    --text-color-pink: #581845; 
+    --text-color-pink-rgb: 88, 24, 69;
+    --container-bg-pink: #ffffff; 
+    --container-bg-pink-rgb: 255, 255, 255;
+    --border-color-pink: #ffc0cb; 
+    --border-color-pink-rgb: 255, 192, 203;
+    --header-bg-pink: #ffffff;
+    --header-bg-pink-rgb: 255, 255, 255;
+    --nav-bg-pink: #ffe4e1; 
+    --nav-bg-pink-rgb: 255, 228, 225;
+    --button-bg-pink: #ffb6c1; 
+    --button-bg-pink-rgb: 255, 182, 193;
+    --button-text-pink: #581845; 
+    --button-text-pink-rgb: 88, 24, 69;
+    --input-bg-pink: #fffafa; 
+    --input-bg-pink-rgb: 255, 250, 250;
+    --input-border-pink: #ffc0cb;
+    --input-border-pink-rgb: 255, 192, 203;
+    --textarea-bg-pink: #fffafa;
+    --textarea-bg-pink-rgb: 255, 250, 250;
+    --card-shadow-pink: rgba(255, 105, 180, 0.1); 
+    --accent-color-pink: #ff69b4; 
+    --accent-color-pink-rgb: 255, 105, 180;
+    --accent-hover-color-pink: #ff1493; 
+    --accent-hover-color-pink-rgb: 255, 20, 147;
+    --accent-text-pink: #581845; 
+    --accent-text-pink-rgb: 88, 24, 69;
+    --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
+    /* --nav-active-bg-pink-rgb: not directly applicable */
+    --progress-bar-bg-pink: #ffdde5;
+    --progress-bar-bg-pink-rgb: 255, 221, 229;
+    --modal-content-bg-pink: #ffffff;
+    --modal-content-bg-pink-rgb: 255, 255, 255;
+    --chart-text-color-pink: #581845; 
+    --chart-text-color-pink-rgb: 88, 24, 69;
+    --chart-grid-color-pink: #ffdae0; 
+    --chart-grid-color-pink-rgb: 255, 218, 224;
+    --chart-tooltip-bg-pink: rgba(255, 255, 255, 0.95); 
+    --chart-tooltip-text-color-pink: #581845; 
+    --chart-tooltip-text-color-pink-rgb: 88, 24, 69;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-pink: rgba(var(--text-color-pink-rgb), 0.05);
+    --task-completed-hover-bg-pink: rgba(var(--text-color-pink-rgb), 0.08);
+    --hamburger-hover-bg-pink: rgba(var(--text-color-pink-rgb), 0.1);
+    --hamburger-active-bg-pink: rgba(var(--text-color-pink-rgb), 0.15);
+}
+
+body.pink-mode { 
+    --current-bg-color: var(--bg-color-pink);
+    --current-bg-color-rgb: var(--bg-color-pink-rgb);
+    --current-text-color: var(--text-color-pink);
+    --current-text-color-rgb: var(--text-color-pink-rgb);
+    --current-container-bg: var(--container-bg-pink);
+    --current-container-bg-rgb: var(--container-bg-pink-rgb);
+    --current-border-color: var(--border-color-pink);
+    --current-border-color-rgb: var(--border-color-pink-rgb);
+    --current-header-bg: var(--header-bg-pink);
+    --current-header-bg-rgb: var(--header-bg-pink-rgb);
+    --current-nav-bg: var(--nav-bg-pink);
+    --current-nav-bg-rgb: var(--nav-bg-pink-rgb);
+    --current-button-bg: var(--button-bg-pink);
+    --current-button-bg-rgb: var(--button-bg-pink-rgb);
+    --current-button-text: var(--button-text-pink);
+    --current-button-text-rgb: var(--button-text-pink-rgb);
+    
+    --button-primary-bg: var(--accent-color-pink);
+    --button-primary-text: var(--accent-text-pink); 
+    --button-primary-hover-bg: var(--accent-hover-color-pink);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--accent-color-pink);
+    --button-secondary-hover-bg: rgba(var(--accent-color-pink-rgb), 0.08);
+    --button-secondary-border: var(--accent-color-pink);
+    --button-default-bg: var(--button-bg-pink);
+    --button-default-text: var(--button-text-pink);
+    --button-default-hover-bg: var(--accent-hover-color-pink); 
+    --button-default-border: var(--border-color-pink);
+    
+    --current-input-bg: var(--input-bg-pink);
+    --current-input-bg-rgb: var(--input-bg-pink-rgb);
+    --current-input-border: var(--input-border-pink);
+    --current-input-border-rgb: var(--input-border-pink-rgb);
+    --current-textarea-bg: var(--textarea-bg-pink);
+    --current-textarea-bg-rgb: var(--textarea-bg-pink-rgb);
+    --current-card-shadow: var(--card-shadow-pink);
+    
+    --current-accent-color: var(--accent-color-pink);
+    --current-accent-color-rgb: var(--accent-color-pink-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-pink);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-pink-rgb);
+    --current-accent-text: var(--accent-text-pink);
+    --current-accent-text-rgb: var(--accent-text-pink-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-pink);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-pink-rgb); /* Not applicable */
+    --current-progress-bar-bg: var(--progress-bar-bg-pink);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-pink-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-pink);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-pink-rgb);
+    --current-chart-text-color: var(--chart-text-color-pink);
+    --current-chart-text-color-rgb: var(--chart-text-color-pink-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-pink);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-pink-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-pink);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-pink);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-pink-rgb);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-pink);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-pink);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-pink);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-pink);
+}

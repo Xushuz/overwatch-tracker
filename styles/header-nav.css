@@ -82,28 +82,12 @@
         transition: transform 0.3s ease 0.1s, opacity 0.2s ease 0.1s; /* Delay X appearance */
     }
 
-    /* Default/Light mode hover/active */
-    body:not(.dark-mode):not(.pink-mode) .hamburger-menu-btn:hover {
-        background-color: rgba(32, 33, 36, 0.05); /* Subtle black, from --text-color-light */
+    /* Unified hover/active states using CSS variables */
+    .hamburger-menu-btn:hover {
+        background-color: var(--current-hamburger-hover-bg);
     }
-    body:not(.dark-mode):not(.pink-mode) .hamburger-menu-btn:active {
-        background-color: rgba(32, 33, 36, 0.1);  /* Subtle black, from --text-color-light */
-    }
-
-    /* Dark mode hover/active */
-    body.dark-mode .hamburger-menu-btn:hover {
-        background-color: rgba(232, 234, 237, 0.08); /* Subtle white, from --text-color-dark */
-    }
-    body.dark-mode .hamburger-menu-btn:active {
-        background-color: rgba(232, 234, 237, 0.12); /* Subtle white, from --text-color-dark */
-    }
-
-    /* Pink theme specific hover/active */
-    body.pink-mode .hamburger-menu-btn:hover { 
-        background-color: rgba(88, 24, 69, 0.1); /* Using --text-color-pink's RGB */
-    }
-    body.pink-mode .hamburger-menu-btn:active {
-        background-color: rgba(88, 24, 69, 0.15);
+    .hamburger-menu-btn:active {
+        background-color: var(--current-hamburger-active-bg);
     }
 }
 

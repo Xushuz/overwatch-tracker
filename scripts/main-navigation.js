@@ -96,15 +96,8 @@ export function renderSettingsPage(mainContentEl) {
             <section class="settings-section">
                 <h3>Theme Selection</h3>
                 <div class="theme-options">
-                    <label>
-                        <input type="radio" name="theme" value="light" data-theme-option> Light
-                    </label>
-                    <label>
-                        <input type="radio" name="theme" value="dark" data-theme-option> Dark
-                    </label>
-                    <label>
-                        <input type="radio" name="theme" value="pink" data-theme-option> Pink
-                    </label>
+                    <label for="themeSelector" style="display: block; margin-bottom: 8px;">Select Theme:</label>
+                    <select id="themeSelector" name="theme" class="form-control" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--current-input-border); background-color: var(--current-input-bg); color: var(--current-text-color);"></select>
                 </div>
             </section>
 
@@ -116,19 +109,22 @@ export function renderSettingsPage(mainContentEl) {
         </div>
     `;
 
-    // Set the currently active theme radio button
-    const currentTheme = appState.theme;
-    const themeRadioButtons = mainContentEl.querySelectorAll('input[name="theme"]');
-    themeRadioButtons.forEach(radio => {
-        if (radio.value === currentTheme) {
-            radio.checked = true;
-        }
-        radio.addEventListener('change', (event) => {
-            if (event.target.checked) {
-                updateAppState({ theme: event.target.value });
-                applyTheme(); // applyTheme from ui-theme.js should handle applying body class and re-rendering charts
-            }
-        });
+    // Populate and handle the theme selector dropdown
+    const themeSelector = mainContentEl.querySelector('#themeSelector');
+    const availableThemes = appState.themes; // appState.themes is imported via appState
+
+    availableThemes.forEach(themeName => {
+        const option = document.createElement('option');
+        option.value = themeName;
+        option.textContent = themeName.charAt(0).toUpperCase() + themeName.slice(1);
+        themeSelector.appendChild(option);
+    });
+
+    themeSelector.value = appState.theme;
+
+    themeSelector.addEventListener('change', (event) => {
+        updateAppState({ theme: event.target.value });
+        applyTheme();
     });
 
     // Add event listener for Reset All Data button

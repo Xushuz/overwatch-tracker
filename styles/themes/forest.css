@@ -1,0 +1,118 @@
+/* styles/themes/forest.css */
+
+:root {
+    /* Forest Theme Variables */
+    --bg-color-forest: #FAF3E0; 
+    --bg-color-forest-rgb: 250, 243, 224;
+    --text-color-forest: #4A3B31; 
+    --text-color-forest-rgb: 74, 59, 49;
+    --container-bg-forest: #FFFFFF; 
+    --container-bg-forest-rgb: 255, 255, 255;
+    --border-color-forest: #C1B5A5; 
+    --border-color-forest-rgb: 193, 181, 165;
+    --header-bg-forest: #FAF3E0; 
+    --header-bg-forest-rgb: 250, 243, 224;
+    --nav-bg-forest: #FDFBF5; 
+    --nav-bg-forest-rgb: 253, 251, 245;
+    --button-bg-forest: #D2B48C; 
+    --button-bg-forest-rgb: 210, 180, 140;
+    --button-text-forest: #4A3B31; 
+    --button-text-forest-rgb: 74, 59, 49;
+    --input-bg-forest: #FFFFFF; 
+    --input-bg-forest-rgb: 255, 255, 255;
+    --input-border-forest: #C1B5A5; 
+    --input-border-forest-rgb: 193, 181, 165;
+    --textarea-bg-forest: #FFFFFF; 
+    --textarea-bg-forest-rgb: 255, 255, 255;
+    --card-shadow-forest: 0 1px 3px 0 rgba(74,59,49,0.2); 
+    --accent-color-forest: #556B2F; 
+    --accent-color-forest-rgb: 85, 107, 47;
+    --accent-hover-color-forest: #405022; 
+    --accent-hover-color-forest-rgb: 64, 80, 34;
+    --accent-text-forest: #FFFFFF; 
+    --accent-text-forest-rgb: 255, 255, 255;
+    --nav-active-bg-forest: rgba(85, 107, 47, 0.1); 
+    /* --nav-active-bg-forest-rgb: not applicable */
+    --progress-bar-bg-forest: #E0D8C9; 
+    --progress-bar-bg-forest-rgb: 224, 216, 201;
+    --modal-content-bg-forest: #FFFFFF; 
+    --modal-content-bg-forest-rgb: 255, 255, 255;
+    --chart-text-color-forest: #4A3B31; 
+    --chart-text-color-forest-rgb: 74, 59, 49;
+    --chart-grid-color-forest: #D2B48C; 
+    --chart-grid-color-forest-rgb: 210, 180, 140;
+    --chart-tooltip-bg-forest: rgba(255, 255, 255, 0.95); 
+    --chart-tooltip-text-color-forest: #4A3B31;
+    --chart-tooltip-text-color-forest-rgb: 74, 59, 49;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-forest: rgba(var(--text-color-forest-rgb), 0.05);
+    --task-completed-hover-bg-forest: rgba(var(--text-color-forest-rgb), 0.08);
+    --hamburger-hover-bg-forest: rgba(var(--text-color-forest-rgb), 0.1);
+    --hamburger-active-bg-forest: rgba(var(--text-color-forest-rgb), 0.15);
+}
+
+body.forest-mode {
+    --current-bg-color: var(--bg-color-forest);
+    --current-bg-color-rgb: var(--bg-color-forest-rgb);
+    --current-text-color: var(--text-color-forest);
+    --current-text-color-rgb: var(--text-color-forest-rgb);
+    --current-container-bg: var(--container-bg-forest);
+    --current-container-bg-rgb: var(--container-bg-forest-rgb);
+    --current-border-color: var(--border-color-forest);
+    --current-border-color-rgb: var(--border-color-forest-rgb);
+    --current-header-bg: var(--header-bg-forest);
+    --current-header-bg-rgb: var(--header-bg-forest-rgb);
+    --current-nav-bg: var(--nav-bg-forest);
+    --current-nav-bg-rgb: var(--nav-bg-forest-rgb);
+    --current-button-bg: var(--button-bg-forest);
+    --current-button-bg-rgb: var(--button-bg-forest-rgb);
+    --current-button-text: var(--button-text-forest);
+    --current-button-text-rgb: var(--button-text-forest-rgb);
+    --current-input-bg: var(--input-bg-forest);
+    --current-input-bg-rgb: var(--input-bg-forest-rgb);
+    --current-input-border: var(--input-border-forest);
+    --current-input-border-rgb: var(--input-border-forest-rgb);
+    --current-textarea-bg: var(--textarea-bg-forest);
+    --current-textarea-bg-rgb: var(--textarea-bg-forest-rgb);
+    --current-card-shadow: var(--card-shadow-forest);
+    --current-accent-color: var(--accent-color-forest);
+    --current-accent-color-rgb: var(--accent-color-forest-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-forest);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-forest-rgb);
+    --current-accent-text: var(--accent-text-forest);
+    --current-accent-text-rgb: var(--accent-text-forest-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-forest);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-forest-rgb); /* Not applicable */
+    --current-progress-bar-bg: var(--progress-bar-bg-forest);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-forest-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-forest);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-forest-rgb);
+    --current-chart-text-color: var(--chart-text-color-forest);
+    --current-chart-text-color-rgb: var(--chart-text-color-forest-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-forest);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-forest-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-forest);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-forest);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-forest-rgb);
+
+    /* Button specific variables */
+    --button-primary-bg: var(--current-accent-color);
+    --button-primary-text: var(--current-accent-text);
+    --button-primary-hover-bg: var(--current-accent-hover-color);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--current-accent-color);
+    --button-secondary-hover-bg: rgba(var(--current-accent-color-rgb), 0.08);
+    --button-secondary-border: var(--current-accent-color);
+    --button-default-bg: var(--current-button-bg);
+    --button-default-text: var(--current-button-text);
+    --button-default-hover-bg: color-mix(in srgb, var(--current-button-bg) 85%, #000000);
+    --button-default-border: var(--current-border-color);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-forest);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-forest);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-forest);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-forest);
+}
+/* Forest theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

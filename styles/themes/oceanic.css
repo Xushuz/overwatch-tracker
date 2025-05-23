@@ -1,0 +1,125 @@
+/* styles/themes/oceanic.css */
+
+:root {
+    /* Oceanic Theme Variables */
+    --bg-color-oceanic: #0A192F; 
+    --bg-color-oceanic-rgb: 10, 25, 47;
+    --text-color-oceanic: #E0E0E0; 
+    --text-color-oceanic-rgb: 224, 224, 224;
+    --container-bg-oceanic: #172A45; 
+    --container-bg-oceanic-rgb: 23, 42, 69;
+    --border-color-oceanic: #304A6E; 
+    --border-color-oceanic-rgb: 48, 74, 110;
+    --header-bg-oceanic: #0A192F; 
+    --header-bg-oceanic-rgb: 10, 25, 47;
+    --nav-bg-oceanic: #172A45; 
+    --nav-bg-oceanic-rgb: 23, 42, 69;
+    --button-bg-oceanic: #223A5E; 
+    --button-bg-oceanic-rgb: 34, 58, 94;
+    --button-text-oceanic: #E0E0E0; 
+    --button-text-oceanic-rgb: 224, 224, 224;
+    --input-bg-oceanic: #172A45; 
+    --input-bg-oceanic-rgb: 23, 42, 69;
+    --input-border-oceanic: #304A6E; 
+    --input-border-oceanic-rgb: 48, 74, 110;
+    --textarea-bg-oceanic: #172A45; 
+    --textarea-bg-oceanic-rgb: 23, 42, 69;
+    --card-shadow-oceanic: 0 2px 4px 0 rgba(0,0,0,0.5); 
+    --accent-color-oceanic: #64FFDA; 
+    --accent-color-oceanic-rgb: 100, 255, 218;
+    --accent-hover-color-oceanic: #52DAB4; 
+    --accent-hover-color-oceanic-rgb: 82, 218, 180;
+    --accent-text-oceanic: #0A192F; 
+    --accent-text-oceanic-rgb: 10, 25, 47;
+    --nav-active-bg-oceanic: rgba(100, 255, 218, 0.1); 
+    /* --nav-active-bg-oceanic-rgb: not applicable */
+    --progress-bar-bg-oceanic: #304A6E; 
+    --progress-bar-bg-oceanic-rgb: 48, 74, 110;
+    --modal-content-bg-oceanic: #172A45; 
+    --modal-content-bg-oceanic-rgb: 23, 42, 69;
+    --chart-text-color-oceanic: #E0E0E0; 
+    --chart-text-color-oceanic-rgb: 224, 224, 224;
+    --chart-grid-color-oceanic: #304A6E; 
+    --chart-grid-color-oceanic-rgb: 48, 74, 110;
+    --chart-tooltip-bg-oceanic: rgba(10, 25, 47, 0.9); 
+    --chart-tooltip-text-color-oceanic: #E0E0E0;
+    --chart-tooltip-text-color-oceanic-rgb: 224, 224, 224;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-oceanic: rgba(var(--text-color-oceanic-rgb), 0.04);
+    --task-completed-hover-bg-oceanic: rgba(var(--text-color-oceanic-rgb), 0.06);
+    --hamburger-hover-bg-oceanic: rgba(var(--text-color-oceanic-rgb), 0.08);
+    --hamburger-active-bg-oceanic: rgba(var(--text-color-oceanic-rgb), 0.12);
+}
+
+body.oceanic-mode {
+    --current-bg-color: var(--bg-color-oceanic);
+    --current-bg-color-rgb: var(--bg-color-oceanic-rgb);
+    --current-text-color: var(--text-color-oceanic);
+    --current-text-color-rgb: var(--text-color-oceanic-rgb);
+    --current-container-bg: var(--container-bg-oceanic);
+    --current-container-bg-rgb: var(--container-bg-oceanic-rgb);
+    --current-border-color: var(--border-color-oceanic);
+    --current-border-color-rgb: var(--border-color-oceanic-rgb);
+    --current-header-bg: var(--header-bg-oceanic);
+    --current-header-bg-rgb: var(--header-bg-oceanic-rgb);
+    --current-nav-bg: var(--nav-bg-oceanic);
+    --current-nav-bg-rgb: var(--nav-bg-oceanic-rgb);
+    --current-button-bg: var(--button-bg-oceanic);
+    --current-button-bg-rgb: var(--button-bg-oceanic-rgb);
+    --current-button-text: var(--button-text-oceanic);
+    --current-button-text-rgb: var(--button-text-oceanic-rgb);
+    --current-input-bg: var(--input-bg-oceanic);
+    --current-input-bg-rgb: var(--input-bg-oceanic-rgb);
+    --current-input-border: var(--input-border-oceanic);
+    --current-input-border-rgb: var(--input-border-oceanic-rgb);
+    --current-textarea-bg: var(--textarea-bg-oceanic);
+    --current-textarea-bg-rgb: var(--textarea-bg-oceanic-rgb);
+    --current-card-shadow: var(--card-shadow-oceanic);
+    --current-accent-color: var(--accent-color-oceanic);
+    --current-accent-color-rgb: var(--accent-color-oceanic-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-oceanic);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-oceanic-rgb);
+    --current-accent-text: var(--accent-text-oceanic);
+    --current-accent-text-rgb: var(--accent-text-oceanic-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-oceanic);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-oceanic-rgb); /* Not applicable */
+    --current-progress-bar-bg: var(--progress-bar-bg-oceanic);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-oceanic-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-oceanic);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-oceanic-rgb);
+    --current-chart-text-color: var(--chart-text-color-oceanic);
+    --current-chart-text-color-rgb: var(--chart-text-color-oceanic-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-oceanic);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-oceanic-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-oceanic);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-oceanic);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-oceanic-rgb);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-oceanic-rgb);
+
+    /* Button specific variables */
+    --button-primary-bg: var(--current-accent-color);
+    --button-primary-text: var(--current-accent-text);
+    --button-primary-hover-bg: var(--current-accent-hover-color);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--current-accent-color);
+    --button-secondary-hover-bg: rgba(var(--current-accent-color-rgb), 0.08);
+    --button-secondary-border: var(--current-accent-color);
+    --button-default-bg: var(--current-button-bg);
+    --button-default-text: var(--current-button-text);
+    --button-default-hover-bg: color-mix(in srgb, var(--current-button-bg) 85%, #000000);
+    --button-default-border: var(--current-border-color);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-oceanic);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-oceanic);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-oceanic);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-oceanic);
+}
+
+body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--current-accent-color); 
+}
+body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover { 
+    color: var(--current-accent-hover-color); 
+}

@@ -1,0 +1,124 @@
+/* styles/themes/sunset.css */
+
+:root {
+    /* Sunset Theme Variables */
+    --bg-color-sunset: #2C1A3B; 
+    --bg-color-sunset-rgb: 44, 26, 59;
+    --text-color-sunset: #FFFACD; 
+    --text-color-sunset-rgb: 255, 250, 205;
+    --container-bg-sunset: #3B2E4D; 
+    --container-bg-sunset-rgb: 59, 46, 77;
+    --border-color-sunset: #5A52A5; 
+    --border-color-sunset-rgb: 90, 82, 165;
+    --header-bg-sunset: #2C1A3B; 
+    --header-bg-sunset-rgb: 44, 26, 59;
+    --nav-bg-sunset: #3B2E4D; 
+    --nav-bg-sunset-rgb: 59, 46, 77;
+    --button-bg-sunset: #A0522D; 
+    --button-bg-sunset-rgb: 160, 82, 45;
+    --button-text-sunset: #FFFACD; 
+    --button-text-sunset-rgb: 255, 250, 205;
+    --input-bg-sunset: #3B2E4D; 
+    --input-bg-sunset-rgb: 59, 46, 77;
+    --input-border-sunset: #5A52A5; 
+    --input-border-sunset-rgb: 90, 82, 165;
+    --textarea-bg-sunset: #3B2E4D; 
+    --textarea-bg-sunset-rgb: 59, 46, 77;
+    --card-shadow-sunset: 0 2px 4px 0 rgba(0,0,0,0.5); 
+    --accent-color-sunset: #FF8C00; 
+    --accent-color-sunset-rgb: 255, 140, 0;
+    --accent-hover-color-sunset: #E07B00; 
+    --accent-hover-color-sunset-rgb: 224, 123, 0;
+    --accent-text-sunset: #2C1A3B; 
+    --accent-text-sunset-rgb: 44, 26, 59;
+    --nav-active-bg-sunset: rgba(255, 140, 0, 0.15); 
+    /* --nav-active-bg-sunset-rgb: not applicable */
+    --progress-bar-bg-sunset: #5A52A5; 
+    --progress-bar-bg-sunset-rgb: 90, 82, 165;
+    --modal-content-bg-sunset: #3B2E4D; 
+    --modal-content-bg-sunset-rgb: 59, 46, 77;
+    --chart-text-color-sunset: #FFFACD; 
+    --chart-text-color-sunset-rgb: 255, 250, 205;
+    --chart-grid-color-sunset: #5A52A5; 
+    --chart-grid-color-sunset-rgb: 90, 82, 165;
+    --chart-tooltip-bg-sunset: rgba(44, 26, 59, 0.9); 
+    --chart-tooltip-text-color-sunset: #FFFACD;
+    --chart-tooltip-text-color-sunset-rgb: 255, 250, 205;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-sunset: rgba(var(--text-color-sunset-rgb), 0.04);
+    --task-completed-hover-bg-sunset: rgba(var(--text-color-sunset-rgb), 0.06);
+    --hamburger-hover-bg-sunset: rgba(var(--text-color-sunset-rgb), 0.08);
+    --hamburger-active-bg-sunset: rgba(var(--text-color-sunset-rgb), 0.12);
+}
+
+body.sunset-mode {
+    --current-bg-color: var(--bg-color-sunset);
+    --current-bg-color-rgb: var(--bg-color-sunset-rgb);
+    --current-text-color: var(--text-color-sunset);
+    --current-text-color-rgb: var(--text-color-sunset-rgb);
+    --current-container-bg: var(--container-bg-sunset);
+    --current-container-bg-rgb: var(--container-bg-sunset-rgb);
+    --current-border-color: var(--border-color-sunset);
+    --current-border-color-rgb: var(--border-color-sunset-rgb);
+    --current-header-bg: var(--header-bg-sunset);
+    --current-header-bg-rgb: var(--header-bg-sunset-rgb);
+    --current-nav-bg: var(--nav-bg-sunset);
+    --current-nav-bg-rgb: var(--nav-bg-sunset-rgb);
+    --current-button-bg: var(--button-bg-sunset);
+    --current-button-bg-rgb: var(--button-bg-sunset-rgb);
+    --current-button-text: var(--button-text-sunset);
+    --current-button-text-rgb: var(--button-text-sunset-rgb);
+    --current-input-bg: var(--input-bg-sunset);
+    --current-input-bg-rgb: var(--input-bg-sunset-rgb);
+    --current-input-border: var(--input-border-sunset);
+    --current-input-border-rgb: var(--input-border-sunset-rgb);
+    --current-textarea-bg: var(--textarea-bg-sunset);
+    --current-textarea-bg-rgb: var(--textarea-bg-sunset-rgb);
+    --current-card-shadow: var(--card-shadow-sunset);
+    --current-accent-color: var(--accent-color-sunset);
+    --current-accent-color-rgb: var(--accent-color-sunset-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-sunset);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-sunset-rgb);
+    --current-accent-text: var(--accent-text-sunset);
+    --current-accent-text-rgb: var(--accent-text-sunset-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-sunset);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-sunset-rgb); /* Not applicable */
+    --current-progress-bar-bg: var(--progress-bar-bg-sunset);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-sunset-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-sunset);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-sunset-rgb);
+    --current-chart-text-color: var(--chart-text-color-sunset);
+    --current-chart-text-color-rgb: var(--chart-text-color-sunset-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-sunset);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-sunset-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-sunset);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-sunset);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-sunset-rgb);
+
+    /* Button specific variables */
+    --button-primary-bg: var(--current-accent-color);
+    --button-primary-text: var(--current-accent-text);
+    --button-primary-hover-bg: var(--current-accent-hover-color);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--current-accent-color);
+    --button-secondary-hover-bg: rgba(var(--current-accent-color-rgb), 0.08);
+    --button-secondary-border: var(--current-accent-color);
+    --button-default-bg: var(--current-button-bg);
+    --button-default-text: var(--current-button-text);
+    --button-default-hover-bg: color-mix(in srgb, var(--current-button-bg) 85%, #000000);
+    --button-default-border: var(--current-border-color);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-sunset);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-sunset);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-sunset);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-sunset);
+}
+
+body.sunset-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--current-accent-color); 
+}
+body.sunset-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover { 
+    color: var(--current-accent-hover-color); 
+}

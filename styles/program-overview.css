@@ -98,7 +98,7 @@
     white-space: nowrap; 
     line-height: 1.4; 
     color: var(--current-text-color); 
-    background-color: rgba(var(--current-text-color-rgb, 32,33,36), 0.08); /* Subtle background */
+    background-color: rgba(var(--current-text-color-rgb), 0.08); /* Subtle background, fallback removed */
     padding: 4px 8px; /* Adjusted padding */
     border-radius: var(--border-radius); 
     align-self: flex-start; 
