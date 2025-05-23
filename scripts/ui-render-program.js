@@ -87,8 +87,13 @@ export function showProgramWeekDetailsModal(weekNum) {
             if (day.tasks && day.tasks.length > 0) {
                 day.tasks.forEach(task => {
                     const taskKey = `c${appState.currentCycle}-${task.id}`;
-                    const isCompleted = appState.taskCompletions[taskKey] ? '✔️' : '🔲';
-                    dailyHtml += `<span class="task-text">${isCompleted} ${task.text}</span>`;
+                    const isCompleted = appState.taskCompletions[taskKey] || false;
+                    // Using a more standard checkbox representation that can be targeted by the event delegate
+                    dailyHtml += `
+                        <div class="task-item-program-modal">
+                            <input type="checkbox" class="task-item-checkbox" id="${taskKey}" ${isCompleted ? 'checked' : ''}>
+                            <label for="${taskKey}" class="task-text ${isCompleted ? 'completed' : ''}">${task.text}</label>
+                        </div>`;
                 });
             } else {
                 dailyHtml += `<span class="task-text">- No specific tasks listed.</span>`;

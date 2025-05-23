@@ -60,6 +60,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContentEl = document.querySelector('.app-main');
     const navLinks = document.querySelectorAll('.app-nav .nav-link');
 
+    // New event handler for task completion
+    function handleTaskClick(event) {
+        const checkbox = event.target;
+        // Check if the clicked element is a task checkbox and is an INPUT element
+        if (checkbox.tagName === 'INPUT' && checkbox.type === 'checkbox' && checkbox.classList.contains('task-item-checkbox')) {
+            const taskKey = checkbox.id; // Assumes checkbox ID is the unique taskKey (e.g., c1-w1d1t1)
+
+            // Update application state
+            const newCompletions = { ...appState.taskCompletions, [taskKey]: checkbox.checked };
+            updateAppState({ taskCompletions: newCompletions });
+
+            // Re-render relevant parts of the UI
+            if (appState.currentPage === 'dashboard') {
+                renderCurrentWeekProgress(); // Make sure this function is accessible
+            }
+            if (appState.currentPage === 'program') {
+                // mainContentEl is accessible in this scope from DOMContentLoaded
+                renderProgramOverviewPage(mainContentEl); // Make sure this function is accessible
+            }
+
+            // Update visual style of the task item
+            const taskDetailsDiv = checkbox.closest('li')?.querySelector('.task-details'); // Assumes tasks are in <li> elements
+            if (taskDetailsDiv) {
+                taskDetailsDiv.classList.toggle('completed', checkbox.checked);
+            }
+            
+            // Check if end-of-week rank prompt is needed
+            promptForRankAtEndOfWeekIfNeeded(); // Make sure this function is accessible
+        }
+    }
+    mainContentEl.addEventListener('click', handleTaskClick);
+
     const rankPromptModalEl = document.getElementById('rankPromptModal');
     const rankPromptTitleEl = document.getElementById('rankPromptTitle');
     const modalRankLogFormEl = document.getElementById('modalRankLogForm');
@@ -86,28 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Core App Logic ---
-    window.toggleTaskCompletion = function(taskId) { 
-        const taskKey = `c${appState.currentCycle}-${taskId}`;
-        const newCompletions = { ...appState.taskCompletions, [taskKey]: !appState.taskCompletions[taskKey] };
-        updateAppState({ taskCompletions: newCompletions });
-
-        if (appState.currentPage === 'dashboard') {
-            renderCurrentWeekProgress();
-        }
-        if (appState.currentPage === 'program') {
-            renderProgramOverviewPage(mainContentEl);
-        }
-
-        const checkbox = document.getElementById(taskKey);
-        const taskDetailsDiv = checkbox?.closest('li')?.querySelector('.task-details');
-        if (checkbox && taskDetailsDiv) {
-            // Toggle the 'completed' class based on the current task completion state
-            taskDetailsDiv.classList.toggle('completed', appState.taskCompletions[taskKey]);
-        }
-        
-        promptForRankAtEndOfWeekIfNeeded();
-    }
-
     function promptForRankAtEndOfWeekIfNeeded() {
         const currentWeekData = programData[appState.currentWeek];
         // Ensure current week and day data exists
