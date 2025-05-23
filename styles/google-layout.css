@@ -15,7 +15,7 @@
     width: 250px; /* Sidebar width */
     background-color: var(--current-nav-bg); 
     border-right: 1px solid var(--current-border-color);
-    padding: 57px 15px 15px 15px; /* Top padding to account for header height, existing 15px for R,B,L */
+    padding: 65px 15px 15px 15px; /* Increased top padding to 65px for header */
     display: flex;
     flex-direction: column;
     box-sizing: border-box; /* Ensure padding and border are included in the width */

@@ -10,6 +10,7 @@
     z-index: 1001; /* Above sidebar and header content if it overlaps */
     border-radius: var(--border-radius); /* Consistent rounded corners (4px) */
     transition: background-color 0.2s ease; /* Smooth transition for hover/active states */
+    position: relative; /* For pseudo-elements used in active (X) state */
 }
 /* Remove the last margin from the last span to better center the icon if padding is symmetrical */
 .hamburger-menu-btn span:last-child {
@@ -26,19 +27,16 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Active state (X icon) - ensure precise rotation and translation */
-/* The original 7px was 3px (height) + 4px (margin). If last margin is removed, middle bar is reference. */
-/* Spans are 3px high, margin 4px. Total height for 3 bars with 2 margins = 3*3 + 2*4 = 17px. */
-/* Centering an X: top bar moves down (17/2 - 3/2 - some_adjust) = approx 7px. */
-/* Let's adjust translateY slightly if needed for visual centering of X. Original 7px seems fine for 3px height + 4px margin. */
+/* Base active state for X (globally, if needed, but primarily for mobile) */
+/* This section will be overridden by pseudo-elements for mobile */
 .hamburger-menu-btn.active span:nth-child(1) { 
-    transform: translateY(7px) rotate(45deg); 
+    /* transform: translateY(7px) rotate(45deg); Default hamburger X */
 }
 .hamburger-menu-btn.active span:nth-child(2) { 
-    opacity: 0; 
+    /* opacity: 0; Default hamburger X */
 }
 .hamburger-menu-btn.active span:nth-child(3) { 
-    transform: translateY(-7px) rotate(-45deg); 
+    /* transform: translateY(-7px) rotate(-45deg); Default hamburger X */
 }
 
 
@@ -46,7 +44,42 @@
 @media (max-width: 768px) {
     .hamburger-menu-btn {
         padding: 12px; /* Increased padding for larger tap target */
-        /* margin: 5px; /* Ensure some space around it */
+        /* Kebab dot styles were here, they remain */
+    }
+
+    /* Hide original spans (dots) when active on mobile */
+    .hamburger-menu-btn.active span {
+        opacity: 0; 
+    }
+
+    /* Initial state for pseudo-elements (before active) */
+    .hamburger-menu-btn::before,
+    .hamburger-menu-btn::after {
+        content: '';
+        position: absolute;
+        width: 18px; /* Length of the X arms */
+        height: 3px;  /* Thickness of the X arms */
+        background-color: var(--current-text-color); 
+        border-radius: 1px; 
+        left: 50%;
+        top: 50%;
+        transform-origin: center;
+        opacity: 0; /* Initially hidden */
+        transform: translate(-50%, -50%) rotate(0deg); 
+        transition: opacity 0.2s ease, transform 0.3s ease; 
+    }
+
+    /* Active state for pseudo-elements to form the X */
+    .hamburger-menu-btn.active::before {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(45deg);
+        transition: transform 0.3s ease 0.1s, opacity 0.2s ease 0.1s; /* Delay X appearance */
+    }
+
+    .hamburger-menu-btn.active::after {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        transition: transform 0.3s ease 0.1s, opacity 0.2s ease 0.1s; /* Delay X appearance */
     }
 
     /* Default/Light mode hover/active */
