@@ -211,7 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     const navLinksInSidebar = googleNav.querySelectorAll('.nav-link');
                     navLinksInSidebar.forEach(link => {
-                        link.addEventListener('click', closeMobileSidebar, { once: true });
+                        // link.addEventListener('click', closeMobileSidebar, { once: true });
+                        // Defer closing the sidebar to allow navigation event to process first
+                        link.addEventListener('click', () => {
+                            setTimeout(closeMobileSidebar, 0); 
+                        }, { once: true });
                     });
                 } else {
                     // If sidebar is closed by hamburger, ensure overlay listener is also removed

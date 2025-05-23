@@ -34,6 +34,7 @@
 
 .google-nav.sidebar-visible {
     left: 0; /* Slide in */
+    transform: translateZ(0); /* Promote to its own layer, may help with rendering/interaction issues */
 }
 
 .google-nav .nav-link {

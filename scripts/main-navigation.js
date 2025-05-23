@@ -1,5 +1,5 @@
 // main-navigation.js
-import { appState, updateAppState } from './app-state.js';
+import { appState, updateAppState, themes } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
 import { applyTheme } from './ui-theme.js'; // Added
 import { startNewCycle } from './script.js'; // Added
@@ -111,7 +111,7 @@ export function renderSettingsPage(mainContentEl) {
 
     // Populate and handle the theme selector dropdown
     const themeSelector = mainContentEl.querySelector('#themeSelector');
-    const availableThemes = appState.themes; // appState.themes is imported via appState
+    const availableThemes = themes; // appState.themes is imported via appState
 
     availableThemes.forEach(themeName => {
         const option = document.createElement('option');
