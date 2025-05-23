@@ -85,7 +85,7 @@ export function renderCurrentDayTasks() {
     // However, to be absolutely sure and prevent potential memory leaks if this function
     // was ever called without clearing innerHTML first, a removeEventListener could be used.
     // For now, assuming innerHTML clearing is sufficient.
-    localTaskListEl.addEventListener('click', handleTaskClick);
+    // localTaskListEl.addEventListener('click', handleTaskClick); // Removed: Event delegation handled by script.js
 
     // Render custom warm-ups for today
     const currentDayWarmupKey = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
@@ -142,7 +142,8 @@ function createTaskListItemElement(task) {
     checkbox.type = 'checkbox';
     checkbox.id = taskKey; // ID for label association (if any) and direct manipulation
     checkbox.checked = isCompleted;
-    // Note: The actual change event is handled by the delegated listener on localTaskListEl.
+    checkbox.classList.add('task-item-checkbox'); // Added class for event delegation
+    // Note: The actual change event is handled by the delegated listener on mainContentEl in script.js.
 
     const taskDetailsDiv = document.createElement('div');
     taskDetailsDiv.classList.add('task-details');
@@ -166,43 +167,7 @@ function createTaskListItemElement(task) {
     return li;
 }
 
-/**
- * Handles clicks on the task list for toggling task completion.
- * Uses event delegation.
- * @param {Event} event - The click event.
- */
-function handleTaskClick(event) {
-    const target = event.target;
-    // Find the closest 'li' with a 'data-task-id' attribute
-    const taskLi = target.closest('li[data-task-id]');
-
-    if (!taskLi) {
-        return; // Click was not on a task item or its children
-    }
-
-    const taskId = taskLi.dataset.taskId;
-    const checkbox = taskLi.querySelector('input[type="checkbox"]');
-
-    if (!checkbox) {
-        console.error(`Checkbox not found for task ID: ${taskId}`);
-        return;
-    }
-
-    // If the click was on the <li> itself or other elements within, not the checkbox,
-    // then manually toggle the checkbox's checked state to reflect the intended action.
-    if (target !== checkbox) {
-        checkbox.checked = !checkbox.checked;
-    }
-
-    // Call the global toggleTaskCompletion function (defined in script.js)
-    // This function will update appState and the 'completed' class on the taskDetailsDiv.
-    window.toggleTaskCompletion(taskId); 
-
-    // Update the LI's 'task-completed' class directly for immediate visual feedback.
-    // The class on taskDetailsDiv is handled by toggleTaskCompletion in script.js.
-    taskLi.classList.toggle('task-completed', checkbox.checked);
-}
-
+// Removed handleTaskClick function from here, as it's now in script.js and attached to mainContentEl.
 
 export function setupCustomWarmupUI() {
     // DOM element selections for the custom warmup UI

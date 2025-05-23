@@ -19,7 +19,7 @@
 .app-main {
     width: 100%;
     margin-left: 0; 
-    padding: 15px; /* Reduced padding for mobile by default */
+    padding: 56px 15px 15px; /* Reduced padding for mobile by default */
     box-sizing: border-box; /* Ensure padding doesn't add to width */
 }
 
@@ -65,7 +65,7 @@
     }
     
     .app-main {
-        padding: 20px; /* Restore original padding */
+        padding: 56px 20px 20px; /* Restore original padding */
     }
 
     .google-nav {
