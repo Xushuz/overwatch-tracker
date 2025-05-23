@@ -24,7 +24,7 @@
     display: grid;
     /* grid-template-columns: repeat(3, 1fr); /* Default for larger screens */
     /* Responsive.css will handle changes for smaller screens */
-    gap: 16px; /* Adjusted gap */
+    gap: 24px; /* Increased from 16px for more spacing */
 }
 
 .resource-category li {

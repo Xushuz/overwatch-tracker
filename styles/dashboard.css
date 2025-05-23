@@ -292,33 +292,61 @@
 /* Chart tooltip styles are handled by generic .chart-tooltip in base.css */
 
 /* Custom Warm-up and Custom Task UI (theming) */
-.custom-warmup-section,
-#customWarmupList,
-#customWarmupFormContainer,
-#customTaskFormContainer {
-    background: var(--current-container-bg);
-    border-radius: 6px;
-    padding: 10px 0 0 0;
-    margin-bottom: 10px;
+/* Main container for the entire custom warm-up/routine section */
+.custom-warmup-section {
+    background-color: var(--current-container-bg); /* Unified background */
+    border: 1px solid var(--current-border-color);
+    border-radius: var(--border-radius);
+    padding: 15px; /* Consistent padding */
+    margin-bottom: 20px; /* Consistent with other content cards */
+    box-shadow: var(--shadow-sm);
 }
+
+/* Heading within the custom warmup section */
+.custom-warmup-section h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1rem; /* Match .daily-notes-section h4 */
+    color: var(--current-text-color); /* Match .daily-notes-section h4 */
+}
+
+/* Reset styles for list and form containers if they are children, not the main box */
+#customWarmupList, /* This is the UL itself */
+#customWarmupFormContainer, /* If this exists and is a direct child */
+#customTaskFormContainer { /* If this exists and is a direct child */
+    background: transparent; /* Should not have its own competing background */
+    border-radius: 0;
+    padding: 0; /* Parent provides padding now */
+    margin-bottom: 0; /* Spacing handled by parent or items within */
+    /* margin-top for #customWarmupList is handled by its own rule later or by spacing of elements above it */
+}
+
 #customWarmupList li,
 .custom-task {
-    background: var(--current-textarea-bg);
+    background: var(--current-input-bg); /* Using input-bg for a slightly cleaner look within the card */
     border: 1px solid var(--current-border-color);
-    border-radius: 4px;
-    margin-bottom: 6px;
-    padding: 8px 10px;
+    border-radius: var(--border-radius); /* Consistent radius */
+    margin-bottom: 8px; /* Consistent spacing */
+    padding: 10px 12px; /* Consistent padding */
     color: var(--current-text-color);
     display: flex;
     align-items: center;
-    font-size: 0.97rem;
+    font-size: 0.9rem; /* Harmonize with other similar items like task-details */
 }
+
+/* Specific styling for .custom-warmup-task if it's different from a standard #customWarmupList li */
+/* This was previously overriding the li background and border, ensure it's what we want. */
+/* If .custom-warmup-task items are meant to be styled like regular li, this can be merged or removed. */
 .custom-warmup-task {
-    background: var(--current-textarea-bg);
-    border: 1px dashed var(--current-accent-color);
-    color: var(--current-accent-color);
+    /* This class is applied to LIs that are programmatically added warmups, not user custom ones */
+    /* Let's make them look distinct but harmonious */
+    background: var(--current-bg-color); /* Slightly different from input-bg to differentiate */
+    border: 1px solid var(--current-accent-color); /* Keep accent border to highlight */
+    color: var(--current-accent-text-on-bg); /* Ensure text is readable on current-bg-color, might need new var */
     font-weight: 500;
+    /* padding, margin-bottom, border-radius will be inherited from #customWarmupList li if not specified */
 }
+
 #customWarmupList button,
 .custom-task button,
 #addCustomWarmupBtn,
@@ -446,39 +474,44 @@
 /* Custom Warmup List Specific Styles */
 #customWarmupList { /* UL element */
     list-style: none;
-    padding: 0;
-    margin-top: 1rem;
+    padding: 0; /* Padding is reset above, list items will have their own */
+    margin-top: 1rem; /* Spacing from elements above it like #addCustomWarmupBtn */
 }
 
-.custom-warmup-item {
+.custom-warmup-item { /* This is the class for user-defined li items in #customWarmupList */
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0.6rem 0.25rem;
-    border-bottom: 1px solid var(--current-border-color);
+    /* padding is now handled by #customWarmupList li, .custom-task rule (10px 12px) */
+    /* border-bottom: 1px solid var(--current-border-color); Replaced by full border on the LI */
     cursor: pointer; /* For the persistence toggle via data-action='toggle-persist' */
+    /* display: flex, align-items: center are from #customWarmupList li, .custom-task */
 }
-.custom-warmup-item:last-child {
-    border-bottom: none;
-}
+/* Remove bottom border from .custom-warmup-item as LIs now have full borders */
+/* .custom-warmup-item:last-child {
+    border-bottom: none; 
+} */
 
 .custom-warmup-item.persistent {
     position: relative;
-    /* background-color: rgba(var(--current-accent-color-rgb, 0, 123, 255), 0.05); */ /* Using border instead */
+    /* background-color is handled by #customWarmupList li rule */
+    /* Let's ensure the persistent marker is still visible and well-placed */
 }
 .custom-warmup-item.persistent::before {
+    /* This is the accent color vertical bar */
     content: '';
     position: absolute;
-    left: 0;
-    top: 15%;
-    bottom: 15%;
-    width: 3px;
+    left: 0; /* Aligns with the padding box of the li */
+    top: 0;  /* Aligns with the padding box of the li */
+    bottom: 0; /* Aligns with the padding box of the li */
+    width: 4px; /* Width of the persistent marker bar, slightly thicker */
     background-color: var(--current-accent-color);
-    border-radius: 1.5px;
+    border-top-left-radius: var(--border-radius); /* Match parent LI's radius */
+    border-bottom-left-radius: var(--border-radius); /* Match parent LI's radius */
 }
 
 .custom-warmup-item.not-persistent {
-    opacity: 0.75;
+    opacity: 0.75; /* Make non-persistent items slightly faded */
 }
 .custom-warmup-item.not-persistent:hover {
     opacity: 1; /* Full opacity on hover for non-persistent items */
@@ -486,8 +519,19 @@
 
 .custom-warmup-item-text {
     flex-grow: 1;
-    padding-left: 8px; /* Space from edge, or from persistent marker */
+    /* Adjust padding based on whether the persistent marker is shown */
 }
+
+/* Add left padding to text if item is persistent to make space for the marker */
+.custom-warmup-item.persistent .custom-warmup-item-text {
+    padding-left: 8px; /* marker width (4px) + 4px space */
+}
+
+/* For non-persistent items, if no marker, no extra padding needed beyond LI's own padding */
+.custom-warmup-item.not-persistent .custom-warmup-item-text {
+    padding-left: 0; /* Or rely on LI's base padding which starts at 12px */
+}
+
 
 .custom-warmup-item .actions { /* Container for action buttons */
     display: flex;

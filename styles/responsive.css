@@ -33,6 +33,12 @@
     /* flex-basis: calc(33.33% - 6px); /* Example for 3 buttons per row, accounting for gap */
 }
 
+/* Adjustments for when the sidebar is visible on mobile */
+body.sidebar-visible .google-nav {
+    top: 57px; /* Header height, adjust if necessary */
+    height: calc(100vh - 57px); /* Full height minus header */
+}
+
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {

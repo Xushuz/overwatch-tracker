@@ -261,7 +261,7 @@ body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
 
 .form-button:hover {
     background-color: var(--button-default-hover-bg);
-    /* box-shadow: var(--shadow-sm); /* Optional */
+    box-shadow: var(--shadow-sm); /* Subtle shadow on hover */
 }
 
 .form-button:focus {
@@ -277,7 +277,8 @@ body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
 }
 .form-button--primary:hover {
     background-color: var(--button-primary-hover-bg);
-    border-color: transparent;
+    border-color: transparent; /* Keep border transparent or match bg */
+    box-shadow: var(--shadow-sm); /* Subtle shadow on hover */
 }
 /* Ensure primary button text color has good contrast across themes */
 /* These rules rely on theme-specific variables like --accent-text-light, 
@@ -297,6 +298,7 @@ body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 }
 .form-button--secondary:hover {
     background-color: var(--button-secondary-hover-bg);
+    box-shadow: var(--shadow-sm); /* Subtle shadow on hover */
     /* color: var(--button-secondary-text); /* Text color might change or not on hover */
 }
 
@@ -310,6 +312,7 @@ body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
     background-color: #c82333; /* Darker shade of var(--danger-color) */
     border-color: #bd2130; /* Darker shade */
     color: var(--light-text);
+    box-shadow: var(--shadow-sm); /* Subtle shadow on hover */
 }
 
 
@@ -327,7 +330,8 @@ body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 .week-card,
 .task-list li,
 .daily-notes-section,
-.dashboard-rank-section {
+.dashboard-rank-section,
+#customWarmupList li { /* Added custom warmup items */
     animation: slideUp 0.3s ease-out;
     animation-fill-mode: both;
 }
@@ -382,6 +386,7 @@ body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 .task-list li:nth-child(3) { animation-delay: 0.2s; }
 .task-list li:nth-child(4) { animation-delay: 0.25s; }
 .task-list li:nth-child(5) { animation-delay: 0.3s; }
+/* Consider adding more if lists are longer, or use a script for dynamic delays */
 
 .resource-button:nth-child(1) { animation-delay: 0.1s; }
 .resource-button:nth-child(2) { animation-delay: 0.15s; }
@@ -395,6 +400,12 @@ body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 .week-card:nth-child(4) { animation-delay: 0.25s; }
 .week-card:nth-child(5) { animation-delay: 0.3s; }
 
+#customWarmupList li:nth-child(1) { animation-delay: 0.1s; }
+#customWarmupList li:nth-child(2) { animation-delay: 0.15s; }
+#customWarmupList li:nth-child(3) { animation-delay: 0.2s; }
+#customWarmupList li:nth-child(4) { animation-delay: 0.25s; }
+#customWarmupList li:nth-child(5) { animation-delay: 0.3s; }
+
 /* Smooth transitions for all interactive elements */
 button, /* This will apply to native buttons */
 input,
@@ -404,7 +415,8 @@ textarea,
 .nav-button, /* If this class exists and is for buttons */
 .resource-button, /* If this class exists and is for buttons */
 .week-card,
-.task-list li {
+.task-list li,
+#customWarmupList li { /* Added custom warmup items */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
