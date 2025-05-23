@@ -1,0 +1,118 @@
+/* styles/themes/lavender.css */
+
+:root {
+    /* Lavender Theme Variables */
+    --bg-color-lavender: #E6E6FA; 
+    --bg-color-lavender-rgb: 230, 230, 250;
+    --text-color-lavender: #483D8B; 
+    --text-color-lavender-rgb: 72, 61, 139;
+    --container-bg-lavender: #FFFFFF; 
+    --container-bg-lavender-rgb: 255, 255, 255;
+    --border-color-lavender: #D8BFD8; 
+    --border-color-lavender-rgb: 216, 191, 216;
+    --header-bg-lavender: #E6E6FA; 
+    --header-bg-lavender-rgb: 230, 230, 250;
+    --nav-bg-lavender: #FFF0F5; 
+    --nav-bg-lavender-rgb: 255, 240, 245;
+    --button-bg-lavender: #D0D8E8; 
+    --button-bg-lavender-rgb: 208, 216, 232;
+    --button-text-lavender: #483D8B; 
+    --button-text-lavender-rgb: 72, 61, 139;
+    --input-bg-lavender: #FFFFFF; 
+    --input-bg-lavender-rgb: 255, 255, 255;
+    --input-border-lavender: #D8BFD8; 
+    --input-border-lavender-rgb: 216, 191, 216;
+    --textarea-bg-lavender: #FFFFFF; 
+    --textarea-bg-lavender-rgb: 255, 255, 255;
+    --card-shadow-lavender: 0 1px 3px 0 rgba(72,61,139,0.15); 
+    --accent-color-lavender: #BDB4FE; 
+    --accent-color-lavender-rgb: 189, 180, 254;
+    --accent-hover-color-lavender: #A79AFF; 
+    --accent-hover-color-lavender-rgb: 167, 154, 255;
+    --accent-text-lavender: #2E2360; 
+    --accent-text-lavender-rgb: 46, 35, 96;
+    --nav-active-bg-lavender: rgba(189, 180, 254, 0.2); 
+    /* --nav-active-bg-lavender-rgb: not applicable */
+    --progress-bar-bg-lavender: #E0DDEF; 
+    --progress-bar-bg-lavender-rgb: 224, 221, 239;
+    --modal-content-bg-lavender: #FFFFFF; 
+    --modal-content-bg-lavender-rgb: 255, 255, 255;
+    --chart-text-color-lavender: #483D8B; 
+    --chart-text-color-lavender-rgb: 72, 61, 139;
+    --chart-grid-color-lavender: #D8BFD8; 
+    --chart-grid-color-lavender-rgb: 216, 191, 216;
+    --chart-tooltip-bg-lavender: rgba(255, 255, 255, 0.95); 
+    --chart-tooltip-text-color-lavender: #483D8B;
+    --chart-tooltip-text-color-lavender-rgb: 72, 61, 139;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-lavender: rgba(var(--text-color-lavender-rgb), 0.05);
+    --task-completed-hover-bg-lavender: rgba(var(--text-color-lavender-rgb), 0.08);
+    --hamburger-hover-bg-lavender: rgba(var(--text-color-lavender-rgb), 0.1);
+    --hamburger-active-bg-lavender: rgba(var(--text-color-lavender-rgb), 0.15);
+}
+
+body.lavender-mode {
+    --current-bg-color: var(--bg-color-lavender);
+    --current-bg-color-rgb: var(--bg-color-lavender-rgb);
+    --current-text-color: var(--text-color-lavender);
+    --current-text-color-rgb: var(--text-color-lavender-rgb);
+    --current-container-bg: var(--container-bg-lavender);
+    --current-container-bg-rgb: var(--container-bg-lavender-rgb);
+    --current-border-color: var(--border-color-lavender);
+    --current-border-color-rgb: var(--border-color-lavender-rgb);
+    --current-header-bg: var(--header-bg-lavender);
+    --current-header-bg-rgb: var(--header-bg-lavender-rgb);
+    --current-nav-bg: var(--nav-bg-lavender);
+    --current-nav-bg-rgb: var(--nav-bg-lavender-rgb);
+    --current-button-bg: var(--button-bg-lavender);
+    --current-button-bg-rgb: var(--button-bg-lavender-rgb);
+    --current-button-text: var(--button-text-lavender);
+    --current-button-text-rgb: var(--button-text-lavender-rgb);
+    --current-input-bg: var(--input-bg-lavender);
+    --current-input-bg-rgb: var(--input-bg-lavender-rgb);
+    --current-input-border: var(--input-border-lavender);
+    --current-input-border-rgb: var(--input-border-lavender-rgb);
+    --current-textarea-bg: var(--textarea-bg-lavender);
+    --current-textarea-bg-rgb: var(--textarea-bg-lavender-rgb);
+    --current-card-shadow: var(--card-shadow-lavender);
+    --current-accent-color: var(--accent-color-lavender);
+    --current-accent-color-rgb: var(--accent-color-lavender-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-lavender);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-lavender-rgb);
+    --current-accent-text: var(--accent-text-lavender);
+    --current-accent-text-rgb: var(--accent-text-lavender-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-lavender);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-lavender-rgb); /* Not applicable */
+    --current-progress-bar-bg: var(--progress-bar-bg-lavender);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-lavender-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-lavender);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-lavender-rgb);
+    --current-chart-text-color: var(--chart-text-color-lavender);
+    --current-chart-text-color-rgb: var(--chart-text-color-lavender-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-lavender);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-lavender-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-lavender);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-lavender);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-lavender-rgb);
+
+    /* Button specific variables */
+    --button-primary-bg: var(--current-accent-color);
+    --button-primary-text: var(--current-accent-text);
+    --button-primary-hover-bg: var(--current-accent-hover-color);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--current-accent-color);
+    --button-secondary-hover-bg: rgba(var(--current-accent-color-rgb), 0.08);
+    --button-secondary-border: var(--current-accent-color);
+    --button-default-bg: var(--current-button-bg);
+    --button-default-text: var(--current-button-text);
+    --button-default-hover-bg: color-mix(in srgb, var(--current-button-bg) 85%, #000000);
+    --button-default-border: var(--current-border-color);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-lavender);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-lavender);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-lavender);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-lavender);
+}
+/* Lavender theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

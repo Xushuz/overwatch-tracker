@@ -1,0 +1,116 @@
+/* styles/themes/light.css */
+
+:root {
+    /* Light Theme Variables (Google Style) */
+    --bg-color-light: #fff; 
+    --bg-color-light-rgb: 255, 255, 255;
+    --text-color-light: #202124; 
+    --text-color-light-rgb: 32, 33, 36;
+    --container-bg-light: #fff; 
+    --container-bg-light-rgb: 255, 255, 255;
+    --border-color-light: #dadce0; 
+    --border-color-light-rgb: 218, 220, 224;
+    --header-bg-light: #fff;
+    --header-bg-light-rgb: 255, 255, 255;
+    --nav-bg-light: #f8f9fa; 
+    --nav-bg-light-rgb: 248, 249, 250;
+    --button-bg-light: #1a73e8; 
+    --button-bg-light-rgb: 26, 115, 232;
+    --button-text-light: #fff; 
+    --button-text-light-rgb: 255, 255, 255;
+    --input-bg-light: #fff;
+    --input-bg-light-rgb: 255, 255, 255;
+    --input-border-light: #dadce0;
+    --input-border-light-rgb: 218, 220, 224;
+    --textarea-bg-light: #fff;
+    --textarea-bg-light-rgb: 255, 255, 255;
+    --card-shadow-light: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); 
+    --accent-color-light: #1a73e8; 
+    --accent-color-light-rgb: 26, 115, 232;
+    --accent-hover-color-light: #1765cc; 
+    --accent-hover-color-light-rgb: 23, 101, 204;
+    --accent-text-light: #fff; 
+    --accent-text-light-rgb: 255, 255, 255;
+    --nav-active-bg-light: #e8f0fe; 
+    --nav-active-bg-light-rgb: 232, 240, 254;
+    --progress-bar-bg-light: #e0e0e0; 
+    --progress-bar-bg-light-rgb: 224, 224, 224;
+    --modal-content-bg-light: #ffffff;
+    --modal-content-bg-light-rgb: 255, 255, 255;
+    --chart-text-color-light: #202124; 
+    --chart-text-color-light-rgb: 32, 33, 36;
+    --chart-grid-color-light: #dadce0; 
+    --chart-grid-color-light-rgb: 218, 220, 224;
+    --chart-tooltip-bg-light: rgba(255, 255, 255, 0.95);
+    --chart-tooltip-text-color-light: #202124;
+    --chart-tooltip-text-color-light-rgb: 32, 33, 36;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-light: rgba(var(--text-color-light-rgb), 0.03); /* Using text-color-light-rgb */
+    --task-completed-hover-bg-light: rgba(var(--text-color-light-rgb), 0.05); /* Using text-color-light-rgb */
+    --hamburger-hover-bg-light: rgba(var(--text-color-light-rgb), 0.05);
+    --hamburger-active-bg-light: rgba(var(--text-color-light-rgb), 0.1);
+}
+
+body.light-mode {
+    --current-bg-color: var(--bg-color-light);
+    --current-bg-color-rgb: var(--bg-color-light-rgb);
+    --current-text-color: var(--text-color-light);
+    --current-text-color-rgb: var(--text-color-light-rgb);
+    --current-container-bg: var(--container-bg-light);
+    --current-container-bg-rgb: var(--container-bg-light-rgb);
+    --current-border-color: var(--border-color-light);
+    --current-border-color-rgb: var(--border-color-light-rgb);
+    --current-header-bg: var(--header-bg-light);
+    --current-header-bg-rgb: var(--header-bg-light-rgb);
+    --current-nav-bg: var(--nav-bg-light);
+    --current-nav-bg-rgb: var(--nav-bg-light-rgb);
+    --current-button-bg: var(--button-bg-light);
+    --current-button-bg-rgb: var(--button-bg-light-rgb);
+    --current-button-text: var(--button-text-light);
+    --current-button-text-rgb: var(--button-text-light-rgb);
+    /* Update button variables based on light theme */
+    --button-primary-bg: var(--accent-color-light);
+    --button-primary-text: var(--accent-text-light);
+    --button-primary-hover-bg: var(--accent-hover-color-light);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--accent-color-light);
+    --button-secondary-hover-bg: rgba(var(--accent-color-light-rgb), 0.08);
+    --button-secondary-border: var(--accent-color-light);
+    --button-default-bg: var(--button-bg-light);
+    --button-default-text: var(--button-text-light);
+    --button-default-hover-bg: var(--accent-hover-color-light); 
+    --button-default-border: var(--border-color-light);
+    --current-input-bg: var(--input-bg-light);
+    --current-input-bg-rgb: var(--input-bg-light-rgb);
+    --current-input-border: var(--input-border-light);
+    --current-input-border-rgb: var(--input-border-light-rgb);
+    --current-textarea-bg: var(--textarea-bg-light);
+    --current-textarea-bg-rgb: var(--textarea-bg-light-rgb);
+    --current-card-shadow: var(--card-shadow-light);
+    --current-accent-color: var(--accent-color-light);
+    --current-accent-color-rgb: var(--accent-color-light-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-light);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-light-rgb);
+    --current-accent-text: var(--accent-text-light);
+    --current-accent-text-rgb: var(--accent-text-light-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-light);
+    --current-nav-active-bg-rgb: var(--nav-active-bg-light-rgb);
+    --current-progress-bar-bg: var(--progress-bar-bg-light);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-light-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-light);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-light-rgb);
+    --current-chart-text-color: var(--chart-text-color-light);
+    --current-chart-text-color-rgb: var(--chart-text-color-light-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-light);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-light-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-light);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-light);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-light-rgb);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-light);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-light);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-light);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-light);
+}

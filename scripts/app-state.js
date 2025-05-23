@@ -1,6 +1,6 @@
 // app-state.js
 
-export const themes = ['light', 'dark', 'pink'];
+export const themes = ['light', 'dark', 'pink', 'oceanic', 'forest', 'sunset', 'lavender', 'grayscale'];
 export const APP_STATE_KEY = 'overwatchTrackerAppState_v9'; // Incremented for module structure
 
 export let appState = {

@@ -3,110 +3,34 @@
 :root {
     --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     
-    /* Light Theme Variables (Google Style) */
-    --bg-color-light: #fff; /* Google's light background */
-    --text-color-light: #202124; /* Google's primary text color */
-    --container-bg-light: #fff; /* Page background, same as body */
-    --border-color-light: #dadce0; /* Google's subtle border color */
+    /* Default Light Theme Variables (Google Style) - Fallback if no theme class is applied */
+    /* These are duplicated in themes/light.css but also kept here for default state */
+    --bg-color-light: #fff; 
+    --text-color-light: #202124; 
+    --container-bg-light: #fff; 
+    --border-color-light: #dadce0; 
     --header-bg-light: #fff;
-    --nav-bg-light: #f8f9fa; /* Lighter gray for nav (Google style sidebar) */
-    --button-bg-light: #1a73e8; /* Google Blue */
+    --nav-bg-light: #f8f9fa; 
+    --button-bg-light: #1a73e8; 
     --button-text-light: #fff; 
     --input-bg-light: #fff;
     --input-border-light: #dadce0;
     --textarea-bg-light: #fff;
-    --card-shadow-light: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); /* Google-like shadow */
-    --accent-color-light: #1a73e8; /* Google blue */
+    --card-shadow-light: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); 
+    --accent-color-light: #1a73e8; 
     --accent-color-light-rgb: 26, 115, 232;
-    --accent-hover-color-light: #1765cc; /* Darker Google blue */
+    --accent-hover-color-light: #1765cc; 
     --accent-text-light: #fff; 
-    --nav-active-bg-light: #e8f0fe; /* Lighter blue for active nav (Google style) */
-    --progress-bar-bg-light: #e0e0e0; /* Subtler progress bar background */
+    --nav-active-bg-light: #e8f0fe; 
+    --progress-bar-bg-light: #e0e0e0; 
     --modal-content-bg-light: #ffffff;
     --chart-text-color-light: #202124; 
     --chart-grid-color-light: #dadce0; 
     --chart-tooltip-bg-light: rgba(255, 255, 255, 0.95);
     --chart-tooltip-text-color-light: #202124;
-
-    /* Orange Palette for Dark Mode */
-    --orange-500: #FFA500; /* Base Orange */
-    --orange-400: #FFB732; /* Lighter Orange (for hover on orange elements) */
-    --orange-600: #E59400; /* Darker Orange (alternative hover, or main if 500 is too bright) */
-    --orange-700: #CC8400; /* Even Darker Orange */
-    --text-on-orange: #202124; /* Dark text for good contrast on orange */
-    --orange-500-rgb: 255, 165, 0;
-
-    /* Base Dark Theme Variables (colors not tied to accent) */
-    --bg-color-dark: #202124; 
-    --text-color-dark: #e8eaed; 
-    --container-bg-dark: #202124; 
-    --border-color-dark: #5f6368; 
-    --header-bg-dark: #202124; 
-    --nav-bg-dark: #202124; 
-    --input-bg-dark: #3c4043; 
-    --input-border-dark: #5f6368;
-    --textarea-bg-dark: #3c4043;
-    --card-shadow-dark: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15); 
-    --progress-bar-bg-dark: #5f6368; /* General dark theme progress bar background */
-    --modal-content-bg-dark: #292a2d; /* General dark theme modal background */
-    --chart-text-color-dark: #e8eaed; /* General dark theme chart text */
-    --chart-grid-color-dark: #5f6368; /* General dark theme chart grid */
-    --chart-tooltip-bg-dark: rgba(41, 42, 45, 0.95);  /* General dark theme chart tooltip */
-    --chart-tooltip-text-color-dark: #e8eaed; /* General dark theme chart tooltip text */
-
-    /* Dark Mode Orange Accent Theme Semantic Variables */
-    /* These define the orange accent specific colors for dark mode */
-    --button-bg-dark-orange: var(--orange-500); /* Not directly used, covered by button overrides */
-    --button-text-dark-orange: var(--text-on-orange);
-    --accent-color-dark-orange: var(--orange-500);
-    --accent-color-dark-orange-rgb: var(--orange-500-rgb);
-    --accent-hover-color-dark-orange: var(--orange-400); /* Or var(--orange-600) for darker hover */
-    --accent-text-dark-orange: var(--text-on-orange);
-    --nav-active-bg-dark-orange: rgba(var(--orange-500-rgb), 0.15);
     
-    /* Button specific overrides for dark mode with orange accent */
-    /* These will be assigned to the theme-agnostic button variables in body.dark-mode */
-    --button-primary-bg-dark-override: var(--orange-500);
-    --button-primary-text-dark-override: var(--text-on-orange);
-    --button-primary-hover-bg-dark-override: var(--orange-600); /* Darker orange for primary hover */
-    
-    --button-secondary-bg-dark-override: transparent;
-    --button-secondary-text-dark-override: var(--orange-500);
-    --button-secondary-hover-bg-dark-override: rgba(var(--orange-500-rgb), 0.08);
-    --button-secondary-border-dark-override: var(--orange-500);
-
-    /* Default buttons in dark mode (non-accented) */
-    --button-default-bg-dark-override: #3c4043; /* Dark grey */
-    --button-default-text-dark-override: #e8eaed; /* Light text */
-    --button-default-hover-bg-dark-override: #4a4e52; /* Slightly lighter grey */
-    --button-default-border-dark-override: var(--border-color-dark);
-
-
-    /* Pink Theme Variables (Keeping existing, can be updated to Google style if needed) */
-    --bg-color-pink: #fff0f5; 
-    --text-color-pink: #581845; 
-    --container-bg-pink: #ffffff; 
-    --border-color-pink: #ffc0cb; 
-    --header-bg-pink: #ffffff;
-    --nav-bg-pink: #ffe4e1; 
-    --button-bg-pink: #ffb6c1; 
-    --button-text-pink: #581845; 
-    --input-bg-pink: #fffafa; 
-    --input-border-pink: #ffc0cb;
-    --textarea-bg-pink: #fffafa;
-    --card-shadow-pink: rgba(255, 105, 180, 0.1); 
-    --accent-color-pink: #ff69b4; 
-    --accent-color-pink-rgb: 255, 105, 180;
-    --accent-hover-color-pink: #ff1493; 
-    --accent-text-pink: #581845; 
-    --nav-active-bg-pink: rgba(255, 105, 180, 0.15);
-    --progress-bar-bg-pink: #ffdde5;
-    --modal-content-bg-pink: #ffffff;
-    --chart-text-color-pink: #581845; 
-    --chart-grid-color-pink: #ffdae0; 
-    --chart-tooltip-bg-pink: rgba(255, 255, 255, 0.95); 
-    --chart-tooltip-text-color-pink: #581845; 
-
+    /* Theme-specific variables for dark and pink themes have been moved to their respective files */
+    /* styles/themes/dark.css and styles/themes/pink.css */
 
     /* General Non-Theme Specific */
     --border-radius: 4px; /* Google uses 4px for many elements */
@@ -143,6 +67,9 @@
     --current-chart-tooltip-bg: var(--chart-tooltip-bg-light);
     --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-light);
 
+    /* Modal Overlay */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+
     /* Button Specific Variables */
     --button-primary-bg: var(--current-accent-color);
     --button-primary-text: var(--current-accent-text);
@@ -176,128 +103,9 @@ body {
     The global transition rule (*, *::before, *::after) has been removed.
     Specific transitions are applied to elements that need them,
     such as interactive elements (buttons, inputs) or for theme switching (body).
+    Theme-specific body rules (body.light-mode, body.dark-mode, body.pink-mode) 
+    have been moved to their respective theme files in styles/themes/.
 */
-
-body.light-mode {
-    --current-bg-color: var(--bg-color-light);
-    --current-text-color: var(--text-color-light);
-    --current-container-bg: var(--container-bg-light);
-    --current-border-color: var(--border-color-light);
-    --current-header-bg: var(--header-bg-light);
-    --current-nav-bg: var(--nav-bg-light);
-    --current-button-bg: var(--button-bg-light);
-    --current-button-text: var(--button-text-light);
-    /* Update button variables based on light theme */
-    --button-primary-bg: var(--accent-color-light);
-    --button-primary-text: var(--accent-text-light);
-    --button-primary-hover-bg: var(--accent-hover-color-light);
-    --button-secondary-bg: transparent;
-    --button-secondary-text: var(--accent-color-light);
-    --button-secondary-hover-bg: rgba(var(--accent-color-light-rgb), 0.08);
-    --button-secondary-border: var(--accent-color-light);
-    --button-default-bg: var(--button-bg-light);
-    --button-default-text: var(--button-text-light);
-    --button-default-hover-bg: var(--accent-hover-color-light); /* Or a darker shade of default bg */
-    --button-default-border: var(--border-color-light);
-    --current-input-bg: var(--input-bg-light);
-    --current-input-border: var(--input-border-light);
-    --current-textarea-bg: var(--textarea-bg-light);
-    --current-card-shadow: var(--card-shadow-light);
-    --current-accent-color: var(--accent-color-light);
-    --current-accent-hover-color: var(--accent-hover-color-light);
-    --current-accent-text: var(--accent-text-light);
-    --current-nav-active-bg: var(--nav-active-bg-light);
-    --current-progress-bar-bg: var(--progress-bar-bg-light);
-    --current-modal-content-bg: var(--modal-content-bg-light);
-    --current-chart-text-color: var(--chart-text-color-light);
-    --current-chart-grid-color: var(--chart-grid-color-light);
-    --current-chart-tooltip-bg: var(--chart-tooltip-bg-light);
-    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-light);
-}
-
-body.dark-mode {
-    --current-bg-color: var(--bg-color-dark);
-    --current-text-color: var(--text-color-dark);
-    --current-container-bg: var(--container-bg-dark);
-    --current-border-color: var(--border-color-dark);
-    --current-header-bg: var(--header-bg-dark);
-    --current-nav-bg: var(--nav-bg-dark);
-    --current-button-bg: var(--button-default-bg-dark-override); /* Default buttons in dark mode */
-    --current-button-text: var(--button-default-text-dark-override);
-    /* Update button variables based on dark theme using ORANGE ACCENT */
-    --button-primary-bg: var(--button-primary-bg-dark-override);
-    --button-primary-text: var(--button-primary-text-dark-override);
-    --button-primary-hover-bg: var(--button-primary-hover-bg-dark-override);
-    --button-secondary-bg: var(--button-secondary-bg-dark-override);
-    --button-secondary-text: var(--button-secondary-text-dark-override);
-    --button-secondary-hover-bg: var(--button-secondary-hover-bg-dark-override);
-    --button-secondary-border: var(--button-secondary-border-dark-override);
-    --button-default-bg: var(--button-default-bg-dark-override);
-    --button-default-text: var(--button-default-text-dark-override);
-    --button-default-hover-bg: var(--button-default-hover-bg-dark-override);
-    --button-default-border: var(--button-default-border-dark-override);
-    --current-input-bg: var(--input-bg-dark);
-    --current-input-border: var(--input-border-dark);
-    --current-textarea-bg: var(--textarea-bg-dark);
-    --current-card-shadow: var(--card-shadow-dark);
-    --current-accent-color: var(--accent-color-dark-orange);
-    --current-accent-color-rgb: var(--accent-color-dark-orange-rgb);
-    --current-accent-hover-color: var(--accent-hover-color-dark-orange);
-    --current-accent-text: var(--accent-text-dark-orange);
-    --current-nav-active-bg: var(--nav-active-bg-dark-orange);
-    --current-progress-bar-bg: var(--progress-bar-bg-dark); /* This seems fine, not directly accent-colored */
-    --current-modal-content-bg: var(--modal-content-bg-dark); /* This seems fine, not directly accent-colored */
-    --current-chart-text-color: var(--chart-text-color-dark);
-    --current-chart-grid-color: var(--chart-grid-color-dark);
-    --current-chart-tooltip-bg: var(--chart-tooltip-bg-dark);
-    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-dark);
-}
-body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button) { /* Target general links, exclude button-like links */
-    color: var(--accent-color-dark-orange); /* Ensure links also use the orange accent */
-}
-body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
-    text-decoration: underline;
-    color: var(--accent-hover-color-dark-orange); /* Ensure link hover also uses orange accent */
-}
-
-
-body.pink-mode { 
-    --current-bg-color: var(--bg-color-pink);
-    --current-text-color: var(--text-color-pink);
-    --current-container-bg: var(--container-bg-pink);
-    --current-border-color: var(--border-color-pink);
-    --current-header-bg: var(--header-bg-pink);
-    --current-nav-bg: var(--nav-bg-pink);
-    --current-button-bg: var(--button-bg-pink);
-    --current-button-text: var(--button-text-pink);
-    /* Update button variables based on pink theme */
-    --button-primary-bg: var(--accent-color-pink);
-    --button-primary-text: var(--accent-text-pink); /* Ensure this has good contrast */
-    --button-primary-hover-bg: var(--accent-hover-color-pink);
-    --button-secondary-bg: transparent;
-    --button-secondary-text: var(--accent-color-pink);
-    --button-secondary-hover-bg: rgba(var(--accent-color-pink-rgb), 0.08);
-    --button-secondary-border: var(--accent-color-pink);
-    --button-default-bg: var(--button-bg-pink);
-    --button-default-text: var(--button-text-pink);
-    --button-default-hover-bg: var(--accent-hover-color-pink); /* Or a darker shade of default bg */
-    --button-default-border: var(--border-color-pink);
-    --current-input-bg: var(--input-bg-pink);
-    --current-input-border: var(--input-border-pink);
-    --current-textarea-bg: var(--textarea-bg-pink);
-    --current-card-shadow: var(--card-shadow-pink);
-    --current-accent-color: var(--accent-color-pink);
-    --current-accent-color-rgb: var(--accent-color-pink-rgb);
-    --current-accent-hover-color: var(--accent-hover-color-pink);
-    --current-accent-text: var(--accent-text-pink);
-    --current-nav-active-bg: var(--nav-active-bg-pink);
-    --current-progress-bar-bg: var(--progress-bar-bg-pink);
-    --current-modal-content-bg: var(--modal-content-bg-pink);
-    --current-chart-text-color: var(--chart-text-color-pink);
-    --current-chart-grid-color: var(--chart-grid-color-pink);
-    --current-chart-tooltip-bg: var(--chart-tooltip-bg-pink);
-    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-pink);
-}
 
 .container {
     width: 100%; 
@@ -374,8 +182,9 @@ body.pink-mode {
     justify-content: center; 
 }
 
-body.pink-mode .progress-bar-fill { color: var(--text-color-pink); } 
-body.dark-mode .progress-bar-fill { color: var(--current-accent-text); } /* Dark text on orange fill */
+body.pink-mode .progress-bar-fill { color: var(--text-color-pink); } /* Specific to pink theme text color, defined in pink.css */
+/* The following rules rely on --current-accent-text being correctly set by the active theme */
+body.dark-mode .progress-bar-fill { color: var(--current-accent-text); } 
 body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
 
 /* Chart text colors */
@@ -471,8 +280,12 @@ body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
     border-color: transparent;
 }
 /* Ensure primary button text color has good contrast across themes */
+/* These rules rely on theme-specific variables like --accent-text-light, 
+   --button-primary-text-dark-override, and --accent-text-pink being defined 
+   when the respective theme class (body.light-mode, body.dark-mode, body.pink-mode) is active. 
+   These variables are defined in the individual theme files. */
 body.light-mode .form-button--primary { color: var(--accent-text-light); }
-body.dark-mode .form-button--primary { color: var(--button-primary-text-dark-override); } /* Use the orange-theme text */
+body.dark-mode .form-button--primary { color: var(--button-primary-text-dark-override); } 
 body.pink-mode .form-button--primary { color: var(--accent-text-pink); }
 
 

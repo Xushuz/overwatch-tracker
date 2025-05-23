@@ -1,0 +1,118 @@
+/* styles/themes/grayscale.css */
+
+:root {
+    /* Grayscale Theme Variables (Light Dominant) */
+    --bg-color-grayscale: #FFFFFF; 
+    --bg-color-grayscale-rgb: 255, 255, 255;
+    --text-color-grayscale: #222222; 
+    --text-color-grayscale-rgb: 34, 34, 34;
+    --container-bg-grayscale: #F5F5F5; 
+    --container-bg-grayscale-rgb: 245, 245, 245;
+    --border-color-grayscale: #D3D3D3; 
+    --border-color-grayscale-rgb: 211, 211, 211;
+    --header-bg-grayscale: #FFFFFF; 
+    --header-bg-grayscale-rgb: 255, 255, 255;
+    --nav-bg-grayscale: #EFEFEF; 
+    --nav-bg-grayscale-rgb: 239, 239, 239;
+    --button-bg-grayscale: #E0E0E0; 
+    --button-bg-grayscale-rgb: 224, 224, 224;
+    --button-text-grayscale: #222222; 
+    --button-text-grayscale-rgb: 34, 34, 34;
+    --input-bg-grayscale: #FFFFFF; 
+    --input-bg-grayscale-rgb: 255, 255, 255;
+    --input-border-grayscale: #D3D3D3; 
+    --input-border-grayscale-rgb: 211, 211, 211;
+    --textarea-bg-grayscale: #FFFFFF; 
+    --textarea-bg-grayscale-rgb: 255, 255, 255;
+    --card-shadow-grayscale: 0 1px 2px 0 rgba(0,0,0,0.15), 0 1px 3px 1px rgba(0,0,0,0.1); 
+    --accent-color-grayscale: #505050; 
+    --accent-color-grayscale-rgb: 80, 80, 80;
+    --accent-hover-color-grayscale: #363636; 
+    --accent-hover-color-grayscale-rgb: 54, 54, 54;
+    --accent-text-grayscale: #FFFFFF; 
+    --accent-text-grayscale-rgb: 255, 255, 255;
+    --nav-active-bg-grayscale: rgba(80, 80, 80, 0.1); 
+    /* --nav-active-bg-grayscale-rgb: not applicable */
+    --progress-bar-bg-grayscale: #DCDCDC; 
+    --progress-bar-bg-grayscale-rgb: 220, 220, 220;
+    --modal-content-bg-grayscale: #F5F5F5; 
+    --modal-content-bg-grayscale-rgb: 245, 245, 245;
+    --chart-text-color-grayscale: #222222; 
+    --chart-text-color-grayscale-rgb: 34, 34, 34;
+    --chart-grid-color-grayscale: #D3D3D3; 
+    --chart-grid-color-grayscale-rgb: 211, 211, 211;
+    --chart-tooltip-bg-grayscale: rgba(255, 255, 255, 0.95); 
+    --chart-tooltip-text-color-grayscale: #222222;
+    --chart-tooltip-text-color-grayscale-rgb: 34, 34, 34;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-grayscale: rgba(var(--text-color-grayscale-rgb), 0.05);
+    --task-completed-hover-bg-grayscale: rgba(var(--text-color-grayscale-rgb), 0.08);
+    --hamburger-hover-bg-grayscale: rgba(var(--text-color-grayscale-rgb), 0.1);
+    --hamburger-active-bg-grayscale: rgba(var(--text-color-grayscale-rgb), 0.15);
+}
+
+body.grayscale-mode {
+    --current-bg-color: var(--bg-color-grayscale);
+    --current-bg-color-rgb: var(--bg-color-grayscale-rgb);
+    --current-text-color: var(--text-color-grayscale);
+    --current-text-color-rgb: var(--text-color-grayscale-rgb);
+    --current-container-bg: var(--container-bg-grayscale);
+    --current-container-bg-rgb: var(--container-bg-grayscale-rgb);
+    --current-border-color: var(--border-color-grayscale);
+    --current-border-color-rgb: var(--border-color-grayscale-rgb);
+    --current-header-bg: var(--header-bg-grayscale);
+    --current-header-bg-rgb: var(--header-bg-grayscale-rgb);
+    --current-nav-bg: var(--nav-bg-grayscale);
+    --current-nav-bg-rgb: var(--nav-bg-grayscale-rgb);
+    --current-button-bg: var(--button-bg-grayscale);
+    --current-button-bg-rgb: var(--button-bg-grayscale-rgb);
+    --current-button-text: var(--button-text-grayscale);
+    --current-button-text-rgb: var(--button-text-grayscale-rgb);
+    --current-input-bg: var(--input-bg-grayscale);
+    --current-input-bg-rgb: var(--input-bg-grayscale-rgb);
+    --current-input-border: var(--input-border-grayscale);
+    --current-input-border-rgb: var(--input-border-grayscale-rgb);
+    --current-textarea-bg: var(--textarea-bg-grayscale);
+    --current-textarea-bg-rgb: var(--textarea-bg-grayscale-rgb);
+    --current-card-shadow: var(--card-shadow-grayscale);
+    --current-accent-color: var(--accent-color-grayscale);
+    --current-accent-color-rgb: var(--accent-color-grayscale-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-grayscale);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-grayscale-rgb);
+    --current-accent-text: var(--accent-text-grayscale);
+    --current-accent-text-rgb: var(--accent-text-grayscale-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-grayscale);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-grayscale-rgb); /* Not applicable */
+    --current-progress-bar-bg: var(--progress-bar-bg-grayscale);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-grayscale-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-grayscale);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-grayscale-rgb);
+    --current-chart-text-color: var(--chart-text-color-grayscale);
+    --current-chart-text-color-rgb: var(--chart-text-color-grayscale-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-grayscale);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-grayscale-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-grayscale);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-grayscale);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-grayscale-rgb);
+
+    /* Button specific variables */
+    --button-primary-bg: var(--current-accent-color);
+    --button-primary-text: var(--current-accent-text);
+    --button-primary-hover-bg: var(--current-accent-hover-color);
+    --button-secondary-bg: transparent;
+    --button-secondary-text: var(--current-accent-color);
+    --button-secondary-hover-bg: rgba(var(--current-accent-color-rgb), 0.08);
+    --button-secondary-border: var(--current-accent-color);
+    --button-default-bg: var(--current-button-bg);
+    --button-default-text: var(--current-button-text);
+    --button-default-hover-bg: color-mix(in srgb, var(--current-button-bg) 85%, #000000);
+    --button-default-border: var(--current-border-color);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-grayscale);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-grayscale);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-grayscale);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-grayscale);
+}
+/* Grayscale theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

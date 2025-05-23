@@ -12,3 +12,13 @@
 @import url('settings.css'); /* Added settings page styles */
 @import url('sidebar-overlay.css'); /* Added for mobile sidebar overlay */
 @import url('responsive.css');
+
+/* Theme Styles */
+@import url('themes/light.css');
+@import url('themes/dark.css');
+@import url('themes/pink.css');
+@import url('themes/oceanic.css');
+@import url('themes/forest.css');
+@import url('themes/sunset.css');
+@import url('themes/lavender.css');
+@import url('themes/grayscale.css');
