@@ -43,14 +43,11 @@ export function renderPage() {
     // Destroy charts before clearing content to prevent Chart.js errors and memory leaks
     if (rankChartInstanceDashboard) {
         rankChartInstanceDashboard.destroy();
-        // Set to null to avoid memory leaks
-        // eslint-disable-next-line no-global-assign
-        rankChartInstanceDashboard = null;
+        // Do not reassign imported let variable here
     }
     if (rankChartInstanceProgress) {
         rankChartInstanceProgress.destroy();
-        // eslint-disable-next-line no-global-assign
-        rankChartInstanceProgress = null;
+        // Do not reassign imported let variable here
     }
 
     mainContentEl.innerHTML = '';
