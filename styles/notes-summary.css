@@ -16,6 +16,9 @@
 }
 
 .daily-notes-summary-page .note-entry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-weight: 500; /* Medium weight for header/date */
     margin-bottom: 12px; /* Adjusted space */
     padding-bottom: 8px; 
@@ -31,6 +34,19 @@
     font-size: 0.9rem; /* Slightly smaller for content block */
     color: var(--current-text-color);
     opacity: 0.85; /* Adjusted opacity for content */
+}
+/* Delete button styling for note entries */
+.daily-notes-summary-page .note-delete-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--danger-color, #e53e3e);
+    padding: 4px;
+    font-size: 1rem;
+    line-height: 1;
+}
+.daily-notes-summary-page .note-delete-btn:hover {
+    opacity: 0.8;
 }
 
 .daily-notes-summary-page p { /* For "No notes" messages */

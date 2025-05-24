@@ -1,5 +1,5 @@
 // ui-render-notes.js
-import { appState } from './app-state.js';
+import { appState, updateAppState } from './app-state.js';
 import { programData } from './program-data.js'; // To get day titles
 
 export function renderDailyNotesSummaryPage(mainContentEl) {
@@ -35,11 +35,16 @@ export function renderDailyNotesSummaryPage(mainContentEl) {
                     const dayData = programData[weekNum]?.days?.[dayNum];
                     const dayTitleDisplay = dayData?.title || `Day ${dayNum}`;
                     
-                    notesHtml += `
-                        <div class="note-entry">
-                            <div class="note-entry-header">Cycle ${cycleNum}, Week ${weekNum}, ${dayTitleDisplay}</div>
-                            <div class="note-content">${noteText.replace(/\n/g, '<br>')}</div>
-                        </div>`;
+                notesHtml += `
+                    <div class="note-entry" data-note-key="${noteKey}">
+                        <div class="note-entry-header">
+                            Cycle ${cycleNum}, Week ${weekNum}, ${dayTitleDisplay}
+                            <button class="note-delete-btn" title="Delete note" data-note-key="${noteKey}">
+                                <i data-feather="trash-2"></i>
+                            </button>
+                        </div>
+                        <div class="note-content">${noteText.replace(/\n/g, '<br>')}</div>
+                    </div>`;
                 }
             }
         });
@@ -49,4 +54,23 @@ export function renderDailyNotesSummaryPage(mainContentEl) {
     }
     notesHtml += `</section>`;
     mainContentEl.innerHTML = notesHtml;
+    // Render Feather icons for delete buttons
+    if (window.feather) {
+        window.feather.replace();
+    }
+
+    // Attach delete handlers
+    const deleteButtons = mainContentEl.querySelectorAll('.note-delete-btn');
+    deleteButtons.forEach(btn => {
+        btn.addEventListener('click', event => {
+            event.stopPropagation();
+            const key = btn.dataset.noteKey;
+            if (confirm('Are you sure you want to delete this note?')) {
+                const newNotes = { ...appState.dailyNotes };
+                delete newNotes[key];
+                updateAppState({ dailyNotes: newNotes });
+                renderDailyNotesSummaryPage(mainContentEl);
+            }
+        });
+    });
 }

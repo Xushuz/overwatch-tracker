@@ -106,7 +106,7 @@ export function renderSettingsPage(mainContentEl) {
 
             <section class="settings-section">
                 <h3>Data Management</h3>
-                <p>This will reset your current cycle, rank history for the current cycle, and task completions. Program data itself will remain.</p>
+            <p>This will reset your current cycle, rank history for the current cycle, task completions, and clear all daily notes. Program data itself will remain.</p>
                 <button class="form-button form-button--danger" id="resetAllDataBtn">Reset Application Data</button>
             </section>
         </div>

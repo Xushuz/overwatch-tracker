@@ -45,7 +45,8 @@ export function startNewCycle() {
             currentWeek: 1,
             currentDay: 1,
             hasPromptedInitialRankThisCycle: false,
-            hasPromptedRankForWeek: newHasPromptedRankForWeek
+            hasPromptedRankForWeek: newHasPromptedRankForWeek,
+            dailyNotes: {}
         });
 
         alert(`New Cycle (#${getAppState().currentCycle}) started!`); // Use getAppState() for the latest value after update
@@ -64,7 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
     const googleNav = document.querySelector('.google-nav');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const logoLink = document.querySelector('.logo-link');
 
+    // Logo click navigates to Dashboard
+    if (logoLink) {
+        logoLink.addEventListener('click', event => {
+            event.preventDefault();
+            updateAppState({ currentPage: 'dashboard' });
+            RENDER_PAGE_FROM_MAIN_NAV();
+        });
+    }
     // New event handler for task completion
     function handleTaskClick(event) {
         const clickedElement = event.target;
