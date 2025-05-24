@@ -1,5 +1,5 @@
 // main-navigation.js
-import { appState, updateAppState, themes } from './app-state.js';
+import { getAppState, updateAppState, themes } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
 import { applyTheme } from './ui-theme.js'; // Added
 import { startNewCycle } from './script.js'; // Added
@@ -18,11 +18,13 @@ export function initMainNavigation(mainContentElement, navLinkElements) {
     mainContentEl = mainContentElement;
     navLinks = navLinkElements;
 
+    const currentAppState = getAppState(); // For the event listener
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const newPage = e.target.dataset.page;
-            if (newPage !== appState.currentPage) {
+            // Read currentPage from the most current state within the event handler
+            if (newPage !== getAppState().currentPage) {
                 updateAppState({ currentPage: newPage });
                 renderPage();
             }
@@ -31,6 +33,7 @@ export function initMainNavigation(mainContentElement, navLinkElements) {
 }
 
 export function renderPage() {
+    const currentAppState = getAppState();
     if (!mainContentEl) {
         console.error("Main content element not initialized for page rendering.");
         return;
@@ -55,13 +58,13 @@ export function renderPage() {
     if (navLinks) {
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.dataset.page === appState.currentPage) {
+            if (link.dataset.page === currentAppState.currentPage) {
                 link.classList.add('active');
             }
         });
     }
 
-    switch (appState.currentPage) {
+    switch (currentAppState.currentPage) {
         case 'dashboard':
             renderDashboardPage(mainContentEl);
             break;
@@ -89,6 +92,7 @@ export function renderPage() {
 }
 
 export function renderSettingsPage(mainContentEl) {
+    const currentAppState = getAppState();
     mainContentEl.innerHTML = `
         <div class="settings-page content-card">
             <h2>Settings</h2>
@@ -120,7 +124,7 @@ export function renderSettingsPage(mainContentEl) {
         themeSelector.appendChild(option);
     });
 
-    themeSelector.value = appState.theme;
+    themeSelector.value = currentAppState.theme;
 
     themeSelector.addEventListener('change', (event) => {
         updateAppState({ theme: event.target.value });
@@ -143,11 +147,12 @@ export function renderSettingsPage(mainContentEl) {
 
 
 export function navigateToDay(direction) {
-    const oldWeek = appState.currentWeek;
-    // const oldDay = appState.currentDay; // Not strictly needed here but good for debugging
+    const currentAppState = getAppState();
+    const oldWeek = currentAppState.currentWeek;
+    // const oldDay = currentAppState.currentDay; // Not strictly needed here but good for debugging
 
-    let targetDay = appState.currentDay;
-    let targetWeek = appState.currentWeek;
+    let targetDay = currentAppState.currentDay;
+    let targetWeek = currentAppState.currentWeek;
 
     if (direction === 1) { // Moving to Next Day
         const totalDaysInCurrentWeek = getTotalDaysInWeek(targetWeek);
@@ -182,9 +187,9 @@ export function navigateToDay(direction) {
         
         // Check for end-of-week rank prompt if moving forward into a new week
         // Only prompt if the oldWeek was part of the 6-week program
-        const promptKey = `c${appState.currentCycle}w${oldWeek}_endOfWeekPrompt`;
+        const promptKey = `c${currentAppState.currentCycle}w${oldWeek}_endOfWeekPrompt`;
         if (direction === 1 && targetWeek > oldWeek && oldWeek >= 1 && oldWeek <= 6) {
-            if (!appState.hasPromptedRankForWeek[promptKey]) {
+            if (!currentAppState.hasPromptedRankForWeek[promptKey]) {
                 // Use a small timeout to allow the page to render before showing the modal
                 setTimeout(() => promptForRank(oldWeek, 'endOfWeek'), 250);
             }
@@ -193,13 +198,14 @@ export function navigateToDay(direction) {
     } else {
         console.warn(`Navigation target W${targetWeek}D${targetDay} not found in programData or boundary reached.`);
         // If navigation fails (e.g., trying to go beyond defined program), ensure buttons are updated for current valid day
-        if (appState.currentPage === 'dashboard') {
+        if (getAppState().currentPage === 'dashboard') { // Check current page from fresh state
             updateNavigationButtons();
         }
     }
 }
 
 export function updateNavigationButtons() {
+    const currentAppState = getAppState();
     // This function assumes it's called when the dashboard is the active page
     // and its specific prev/next day buttons exist.
     const prevBtn = document.getElementById('prevDayBtn');
@@ -211,20 +217,20 @@ export function updateNavigationButtons() {
     }
 
     // Disable "Previous Day" if on Week 1, Day 1 of the entire program
-    prevBtn.disabled = (appState.currentWeek === 1 && appState.currentDay === 1);
+    prevBtn.disabled = (currentAppState.currentWeek === 1 && currentAppState.currentDay === 1);
 
     // Determine if there's a "next" day available in programData
     let nextDayExists = false;
-    const currentWeekData = programData[appState.currentWeek];
+    const currentWeekData = programData[currentAppState.currentWeek];
     if (currentWeekData && currentWeekData.days) {
-        const totalDaysInCurrentWeek = getTotalDaysInWeek(appState.currentWeek);
-        if (appState.currentDay < totalDaysInCurrentWeek) { 
+        const totalDaysInCurrentWeek = getTotalDaysInWeek(currentAppState.currentWeek);
+        if (currentAppState.currentDay < totalDaysInCurrentWeek) { 
             // Is there another day in the current week?
-            if (currentWeekData.days[appState.currentDay + 1]) {
+            if (currentWeekData.days[currentAppState.currentDay + 1]) {
                 nextDayExists = true;
             }
         } else { // Current day is the last in the current week, check next week
-            const nextWeekData = programData[appState.currentWeek + 1];
+            const nextWeekData = programData[currentAppState.currentWeek + 1];
             if (nextWeekData && nextWeekData.days && nextWeekData.days[1]) { // Does next week exist and have a day 1?
                 nextDayExists = true;
             }

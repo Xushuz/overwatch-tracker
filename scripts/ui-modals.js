@@ -1,5 +1,5 @@
 // scripts/ui-modals.js
-import { appState, updateAppState } from './app-state.js';
+import { getAppState, updateAppState } from './app-state.js';
 import { populateRankSelects, generateDivisionButtons, addRankEntry } from './ui-render-progress.js';
 import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderRankHistoryPage } from './ui-render-progress.js'; 
@@ -52,22 +52,23 @@ export function promptForRank(week, type = 'initial') {
         return;
     }
     
-    const promptKey = type === 'initial' ? `c${appState.currentCycle}_initialPrompt` : `c${appState.currentCycle}w${week}_${type}Prompt`;
-    if (type === 'endOfWeek' && appState.hasPromptedRankForWeek[promptKey]) {
-        console.log(`Already actioned prompt for rank for end of W${week} C${appState.currentCycle}.`);
+    const currentAppState = getAppState();
+    const promptKey = type === 'initial' ? `c${currentAppState.currentCycle}_initialPrompt` : `c${currentAppState.currentCycle}w${week}_${type}Prompt`;
+    if (type === 'endOfWeek' && currentAppState.hasPromptedRankForWeek[promptKey]) {
+        console.log(`Already actioned prompt for rank for end of W${week} C${currentAppState.currentCycle}.`);
         return; 
     }
-     if (type === 'initial' && appState.hasPromptedInitialRankThisCycle) {
-        const currentCycleInitialRankExists = appState.rankHistory.some(
-            r => r.cycle === appState.currentCycle && r.type === 'initial'
+     if (type === 'initial' && currentAppState.hasPromptedInitialRankThisCycle) {
+        const currentCycleInitialRankExists = currentAppState.rankHistory.some(
+            r => r.cycle === currentAppState.currentCycle && r.type === 'initial'
         );
         if(currentCycleInitialRankExists) {
-            console.log(`Initial rank for Cycle ${appState.currentCycle} already logged or explicitly skipped.`);
+            console.log(`Initial rank for Cycle ${currentAppState.currentCycle} already logged or explicitly skipped.`);
             return;
         }
     }
 
-    rankPromptTitleEl.textContent = type === 'initial' ? `Log Initial Rank (Cycle ${appState.currentCycle})` : `Log Rank for End of Week ${week} (Cycle ${appState.currentCycle})`;
+    rankPromptTitleEl.textContent = type === 'initial' ? `Log Initial Rank (Cycle ${currentAppState.currentCycle})` : `Log Rank for End of Week ${week} (Cycle ${currentAppState.currentCycle})`;
     modalRankLogWeekInputEl.value = (type === 'initial' ? 0 : week); 
     modalRankLogTypeInputEl.value = type;
 
@@ -79,8 +80,8 @@ export function promptForRank(week, type = 'initial') {
     modalRankDivisionValueInputEl.value = ''; // Clear hidden division input explicitly
     if(modalRankDivisionButtonsEl) modalRankDivisionButtonsEl.querySelectorAll('button').forEach(btn => btn.classList.remove('selected')); // Clear button selection
 
-    const latestRankInCycle = appState.rankHistory.slice().reverse().find(r => r.cycle === appState.currentCycle);
-    const latestRankOverall = appState.rankHistory.length > 0 ? appState.rankHistory[appState.rankHistory.length - 1] : null;
+    const latestRankInCycle = currentAppState.rankHistory.slice().reverse().find(r => r.cycle === currentAppState.currentCycle);
+    const latestRankOverall = currentAppState.rankHistory.length > 0 ? currentAppState.rankHistory[currentAppState.rankHistory.length - 1] : null;
     const rankToPrePopulate = latestRankInCycle || latestRankOverall;
 
     if (rankToPrePopulate && modalRankTierSelectEl) {
@@ -104,6 +105,7 @@ export function closeRankPromptModal() {
     const typeInput = document.getElementById('modalRankLogType'); // Re-querying here just in case
     const weekInput = document.getElementById('modalRankLogWeek');
 
+    const currentAppState = getAppState();
     if (!typeInput || !weekInput) return; 
 
     const type = typeInput.value;
@@ -112,14 +114,15 @@ export function closeRankPromptModal() {
     if (type === 'initial') {
         updateAppState({ hasPromptedInitialRankThisCycle: true });
     } else if (type === 'endOfWeek' && !isNaN(week)) { // Ensure week is a number
-        const promptKey = `c${appState.currentCycle}w${week}_${type}Prompt`;
+        const promptKey = `c${currentAppState.currentCycle}w${week}_${type}Prompt`;
         updateAppState({ 
-            hasPromptedRankForWeek: { ...appState.hasPromptedRankForWeek, [promptKey]: true } 
+            hasPromptedRankForWeek: { ...currentAppState.hasPromptedRankForWeek, [promptKey]: true } 
         });
     }
 }
 
 function handleModalRankLogSave() {
+    const currentAppState = getAppState();
     if (!modalRankLogFormEl || !modalRankLogWeekInputEl || !modalRankLogTypeInputEl || !modalRankTierSelectEl || !modalRankDivisionValueInputEl) {
         console.error("Modal form elements for rank log save not found.");
         return;
@@ -144,6 +147,6 @@ function handleModalRankLogSave() {
         
     closeRankPromptModal(); 
     
-    if (appState.currentPage === 'dashboard') renderDashboardRankChart();
-    if (appState.currentPage === 'progress') renderRankHistoryPage();
+    if (currentAppState.currentPage === 'dashboard') renderDashboardRankChart();
+    if (currentAppState.currentPage === 'progress') renderRankHistoryPage();
 }

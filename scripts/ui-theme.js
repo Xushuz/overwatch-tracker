@@ -1,5 +1,5 @@
 // scripts/ui-theme.js
-import { appState, themes, updateAppState } from './app-state.js';
+import { getAppState, themes, updateAppState } from './app-state.js';
 // Import chart rendering functions to call them on theme change
 import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgressPageRankChart } from './ui-render-progress.js';
@@ -12,17 +12,18 @@ export function applyTheme() {
         return;
     }
 
+    const currentAppState = getAppState();
     themes.forEach(themeName => {
         body.classList.remove(themeName + '-mode');
     });
-    body.classList.add(appState.theme + '-mode'); 
+    body.classList.add(currentAppState.theme + '-mode'); 
     
-    // const currentThemeIndex = themes.indexOf(appState.theme); // Removed
+    // const currentThemeIndex = themes.indexOf(currentAppState.theme); // Removed
     // const nextThemeIndex = (currentThemeIndex + 1) % themes.length; // Removed
     // themeToggleBtnEl.textContent = `To ${themes[nextThemeIndex].charAt(0).toUpperCase() + themes[nextThemeIndex].slice(1)}`; // Removed
     
     // Re-render charts if they are currently displayed to update their colors
-    if (appState.currentPage === 'dashboard') {
+    if (currentAppState.currentPage === 'dashboard') {
         const dashboardCanvas = document.getElementById('dashboardRankChart');
         if (dashboardCanvas) {
             // Use a slightly longer delay and requestAnimationFrame to ensure CSS variables are updated
@@ -34,7 +35,7 @@ export function applyTheme() {
             }, 50);
         }
     }
-    if (appState.currentPage === 'progress') {
+    if (currentAppState.currentPage === 'progress') {
         const progressCanvas = document.getElementById('progressPageRankChart');
         if (progressCanvas) {
             // Use a slightly longer delay and requestAnimationFrame to ensure CSS variables are updated
