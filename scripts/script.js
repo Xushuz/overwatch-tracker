@@ -1,5 +1,5 @@
 // scripts/script.js (Main Orchestrator)
-import { appState, loadState, saveState, updateAppState } from './app-state.js';
+import { getAppState, loadState, saveState, updateAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
 // import { initThemeControls, applyTheme } from './ui-theme.js'; // initThemeControls removed, applyTheme used in main-navigation
 import { applyTheme } from './ui-theme.js'; // applyTheme will be used directly
@@ -11,17 +11,18 @@ import { renderProgramOverviewPage, initProgramModals as initProgramWeekDetailsM
 
 // Moved to top level
 function checkAndPromptForInitialRank() {
+    const currentAppState = getAppState();
     // Don't prompt on the very first application run (before any state is saved)
-    if (!appState.hasRunOnce) {
+    if (!currentAppState.hasRunOnce) {
         return; 
     }
 
-    const currentCycleInitialRankExists = appState.rankHistory.some(
-        rankEntry => rankEntry.cycle === appState.currentCycle && rankEntry.type === 'initial'
+    const currentCycleInitialRankExists = currentAppState.rankHistory.some(
+        rankEntry => rankEntry.cycle === currentAppState.currentCycle && rankEntry.type === 'initial'
     );
 
     // Prompt if initial rank for the current cycle doesn't exist and hasn't been prompted yet
-    if (!currentCycleInitialRankExists && !appState.hasPromptedInitialRankThisCycle) {
+    if (!currentCycleInitialRankExists && !currentAppState.hasPromptedInitialRankThisCycle) {
         // Delay slightly to allow page rendering to settle
         setTimeout(() => promptForRank(0, 'initial'), 600); 
     }
@@ -29,12 +30,13 @@ function checkAndPromptForInitialRank() {
 
 // Moved to top level and exported
 export function startNewCycle() { 
+    const currentAppState = getAppState(); // Get current state at the beginning
     if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
-        const newCycleNumber = appState.currentCycle + 1;
+        const newCycleNumber = currentAppState.currentCycle + 1;
         
         // Clear rank prompts for the new cycle
         const newHasPromptedRankForWeek = Object.fromEntries(
-            Object.entries(appState.hasPromptedRankForWeek)
+            Object.entries(currentAppState.hasPromptedRankForWeek)
                   .filter(([key]) => !key.startsWith(`c${newCycleNumber}w`))
         );
 
@@ -46,7 +48,7 @@ export function startNewCycle() {
             hasPromptedRankForWeek: newHasPromptedRankForWeek
         });
 
-        alert(`New Cycle (#${appState.currentCycle}) started!`);
+        alert(`New Cycle (#${getAppState().currentCycle}) started!`); // Use getAppState() for the latest value after update
         RENDER_PAGE_FROM_MAIN_NAV(); // Refresh the current page view
         checkAndPromptForInitialRank(); // Check if initial rank for the new cycle is needed
     }
@@ -65,17 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkbox = event.target;
         // Check if the clicked element is a task checkbox and is an INPUT element
         if (checkbox.tagName === 'INPUT' && checkbox.type === 'checkbox' && checkbox.classList.contains('task-item-checkbox')) {
+            const currentAppState = getAppState(); // Get current state for this handler
             const taskKey = checkbox.id; // Assumes checkbox ID is the unique taskKey (e.g., c1-w1d1t1)
 
             // Update application state
-            const newCompletions = { ...appState.taskCompletions, [taskKey]: checkbox.checked };
+            const newCompletions = { ...currentAppState.taskCompletions, [taskKey]: checkbox.checked };
             updateAppState({ taskCompletions: newCompletions });
 
             // Re-render relevant parts of the UI
-            if (appState.currentPage === 'dashboard') {
+            // Use getAppState() here to get the absolute latest state after the update, if needed for rendering logic.
+            // Or, if the rendering logic doesn't immediately depend on the just-updated state, currentAppState might be fine.
+            // For currentPage, it's unlikely to change within this specific handler, so currentAppState is okay.
+            if (currentAppState.currentPage === 'dashboard') {
                 renderCurrentWeekProgress(); // Make sure this function is accessible
             }
-            if (appState.currentPage === 'program') {
+            if (currentAppState.currentPage === 'program') {
                 // mainContentEl is accessible in this scope from DOMContentLoaded
                 renderProgramOverviewPage(mainContentEl); // Make sure this function is accessible
             }
@@ -119,25 +125,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Core App Logic ---
     function promptForRankAtEndOfWeekIfNeeded() {
-        const currentWeekData = programData[appState.currentWeek];
+        const currentAppState = getAppState();
+        const currentWeekData = programData[currentAppState.currentWeek];
         // Ensure current week and day data exists
-        if (currentWeekData?.days?.[appState.currentDay]) {
-            const dayTasks = currentWeekData.days[appState.currentDay].tasks;
+        if (currentWeekData?.days?.[currentAppState.currentDay]) {
+            const dayTasks = currentWeekData.days[currentAppState.currentDay].tasks;
             const allDayTasksCompleted = dayTasks.every(task => 
-                appState.taskCompletions[`c${appState.currentCycle}-${task.id}`]
+                currentAppState.taskCompletions[`c${currentAppState.currentCycle}-${task.id}`]
             );
             
-            const promptKey = `c${appState.currentCycle}w${appState.currentWeek}_endOfWeekPrompt`;
+            const promptKey = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}_endOfWeekPrompt`;
 
             // Check if all tasks for the current day are completed,
             // if it's the last day of the week, for relevant weeks,
             // and if the rank prompt hasn't been shown for this week yet.
             if (allDayTasksCompleted &&
-                appState.currentDay === getTotalDaysInWeek(appState.currentWeek) &&
-                appState.currentWeek >= 1 && appState.currentWeek <= 6 && // Assuming ranks are prompted for weeks 1-6
-                !appState.hasPromptedRankForWeek[promptKey]) {
+                currentAppState.currentDay === getTotalDaysInWeek(currentAppState.currentWeek) &&
+                currentAppState.currentWeek >= 1 && currentAppState.currentWeek <= 6 && // Assuming ranks are prompted for weeks 1-6
+                !currentAppState.hasPromptedRankForWeek[promptKey]) {
                 // Use a short delay to ensure UI updates before showing the prompt
-                setTimeout(() => promptForRank(appState.currentWeek, 'endOfWeek'), 200);
+                setTimeout(() => promptForRank(currentAppState.currentWeek, 'endOfWeek'), 200);
             }
         }
     }
@@ -174,11 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
         //     newCycleBtn.addEventListener('click', startNewCycle);
         // }
         
-        RENDER_PAGE_FROM_MAIN_NAV(); // Render the initial page based on appState
+        RENDER_PAGE_FROM_MAIN_NAV(); // Render the initial page based on appState (renderPage itself will use getAppState)
         applyTheme(); // Apply the loaded or default theme
         
         // Handle first run and initial rank prompt
-        if (!appState.hasRunOnce) {
+        // loadState() has already run and populated appState. We now use getAppState() to read it.
+        if (!getAppState().hasRunOnce) {
             updateAppState({ hasRunOnce: true }); 
         } else {
             checkAndPromptForInitialRank(); 
