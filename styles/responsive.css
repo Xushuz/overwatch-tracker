@@ -37,7 +37,10 @@
 body.sidebar-visible .google-nav {
     top: 57px; /* Header height, adjust if necessary */
     height: calc(100vh - 57px); /* Full height minus header */
-    padding-top: 15px !important; /* Reduce top padding so first link is always visible */
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
 }
 
 
