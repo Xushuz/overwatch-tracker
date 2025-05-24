@@ -2,6 +2,7 @@
 // Task, warmup, and daily notes logic split from ui-render-dashboard.js
 import { getAppState, updateAppState } from './app-state.js';
 import { programData } from './program-data.js';
+import { getTaskCompletionStats } from './task-utils.js';
 import { updateNavigationButtons } from './main-navigation.js';
 import { createRankChartConfig } from './ui-render-progress.js';
 // Chart rendering is managed by ui-render-dashboard-main.js
@@ -15,25 +16,11 @@ export function renderCurrentWeekProgress() {
     if (!weekData || !weekData.days) {
         progressTextEl.textContent = "Week data not available.";
         progressBarEl.style.width = '0%';
-        progressBarEl.textContent = ''; 
+        progressBarEl.textContent = '';
         return;
     }
-    let tasksInWeek = 0;
-    let completedInWeek = 0;
-    for (const dayNum in weekData.days) {
-        const day = weekData.days[dayNum];
-        if (day.tasks) {
-            tasksInWeek += day.tasks.length;
-            day.tasks.forEach(task => {
-                const taskKey = `c${currentAppState.currentCycle}-${task.id}`;
-                if (currentAppState.taskCompletions[taskKey]) {
-                    completedInWeek++;
-                }
-            });
-        }
-    }
-    const percent = tasksInWeek > 0 ? Math.round((completedInWeek / tasksInWeek) * 100) : 0;
-    progressTextEl.textContent = `Current Week Progress: ${completedInWeek} / ${tasksInWeek} tasks`;
+    const { total, completed, percent } = getTaskCompletionStats({ weekNum: currentAppState.currentWeek });
+    progressTextEl.textContent = `Current Week Progress: ${completed} / ${total} tasks`;
     progressBarEl.style.width = `${percent}%`;
     progressBarEl.textContent = percent > 10 ? `${percent}%` : '';
 }

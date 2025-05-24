@@ -1,6 +1,7 @@
 // scripts/ui-render-program.js
 import { appState, updateAppState } from './app-state.js';
 import { programData } from './program-data.js';
+import { getTaskCompletionStats } from './task-utils.js';
 import { renderPage as RENDER_PAGE_FROM_MAIN_NAV } from './main-navigation.js';
 
 // DOM element references for this modal, initialized by initProgramModals
@@ -16,30 +17,12 @@ export function renderProgramOverviewPage(mainContentEl) {
     for (const weekNum in programData) {
         if (programData.hasOwnProperty(weekNum)) {
             const week = programData[weekNum];
-            let completedTasksInWeek = 0;
-            let totalTasksInWeek = 0;
-
-            for (const dayNum in week.days) {
-                if (week.days.hasOwnProperty(dayNum)) {
-                    const day = week.days[dayNum];
-                    if (day.tasks) {
-                        totalTasksInWeek += day.tasks.length;
-                        day.tasks.forEach(task => {
-                            const taskKey = `c${appState.currentCycle}-${task.id}`;
-                            if (appState.taskCompletions[taskKey]) {
-                                completedTasksInWeek++;
-                            }
-                        });
-                    }
-                }
-            }
-            const progressPercent = totalTasksInWeek > 0 ? Math.round((completedTasksInWeek / totalTasksInWeek) * 100) : 0;
-
+            const { total, completed, percent } = getTaskCompletionStats({ weekNum });
             programHtml += `
                 <button class="week-card" data-week="${weekNum}">
                     <div class="week-card-header">
                         <h3 class="week-card-title">Week ${weekNum}: ${week.title}</h3>
-                        <span class="week-progress">${progressPercent}%</span>
+                        <span class="week-progress">${percent}%</span>
                     </div>
                     <p class="week-card-focus">Focus: ${week.focus}</p>
                     <div class="week-card-action">View Daily Tasks</div>

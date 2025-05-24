@@ -1,6 +1,7 @@
 // scripts/ui-render-progress.js
-import { getAppState, updateAppState } from './app-state.js'; 
-import { programData } from './program-data.js'; 
+import { getAppState, updateAppState } from './app-state.js';
+import { programData } from './program-data.js';
+import { getTaskCompletionStats } from './task-utils.js';
 
 export let rankChartInstanceProgress = null; 
 
@@ -84,31 +85,12 @@ export function renderOverallProgramProgress() {
     const currentAppState = getAppState();
     const progressContainer = document.getElementById('overallProgramProgressContainer');
     if (!progressContainer) return;
-
-    let totalTasksInProgram = 0;
-    let completedTasksInProgram = 0;
-
-    for (const weekNum in programData) {
-        const week = programData[weekNum];
-        for (const dayNum in week.days) {
-            const day = week.days[dayNum];
-            if (day.tasks) {
-                totalTasksInProgram += day.tasks.length;
-                day.tasks.forEach(task => {
-                    const taskKey = `c${currentAppState.currentCycle}-${task.id}`; 
-                    if (currentAppState.taskCompletions[taskKey]) {
-                        completedTasksInProgram++;
-                    }
-                });
-            }
-        }
-    }
-    const overallProgressPercent = totalTasksInProgram > 0 ? Math.round((completedTasksInProgram / totalTasksInProgram) * 100) : 0;
+    const { total, completed, percent } = getTaskCompletionStats({ all: true });
     progressContainer.innerHTML = `
-        <p>You have completed <strong>${completedTasksInProgram}</strong> out of <strong>${totalTasksInProgram}</strong> tasks for Cycle #${currentAppState.currentCycle}.</p>
+        <p>You have completed <strong>${completed}</strong> out of <strong>${total}</strong> tasks for Cycle #${currentAppState.currentCycle}.</p>
         <div class="progress-bar-container">
-            <div class="progress-bar-fill" style="width: ${overallProgressPercent}%;">
-                ${overallProgressPercent > 10 ? `${overallProgressPercent}%` : ''}
+            <div class="progress-bar-fill" style="width: ${percent}%;">
+                ${percent > 10 ? `${percent}%` : ''}
             </div>
         </div>
     `;

@@ -39,20 +39,21 @@ export function renderPage() {
         return;
     }
 
-    // Destroy charts before clearing content to prevent Chart.js errors and memory leaks
-    if (rankChartInstanceDashboard) { 
-        rankChartInstanceDashboard.destroy(); 
-        // Important: ui-render-dashboard.js should re-assign its exported rankChartInstanceDashboard to null after destroy
-        // For now, we assume it handles this or we manage it here if it's passed around.
-        // Let's assume the render functions handle their own chart instances, but good to be aware.
-    }
-    if (rankChartInstanceProgress) { 
-        rankChartInstanceProgress.destroy(); 
-    }
-    // The actual chart instances are managed within their respective ui-render-*.js modules.
-    // This renderPage only clears mainContentEl. The individual render functions will create new charts.
 
-    mainContentEl.innerHTML = ''; // Clear current main content
+    // Destroy charts before clearing content to prevent Chart.js errors and memory leaks
+    if (rankChartInstanceDashboard) {
+        rankChartInstanceDashboard.destroy();
+        // Set to null to avoid memory leaks
+        // eslint-disable-next-line no-global-assign
+        rankChartInstanceDashboard = null;
+    }
+    if (rankChartInstanceProgress) {
+        rankChartInstanceProgress.destroy();
+        // eslint-disable-next-line no-global-assign
+        rankChartInstanceProgress = null;
+    }
+
+    mainContentEl.innerHTML = '';
 
     // Update active nav link
     if (navLinks) {
