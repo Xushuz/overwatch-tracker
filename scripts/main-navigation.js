@@ -19,16 +19,17 @@ export function initMainNavigation(mainContentElement, navLinkElements) {
     navLinks = navLinkElements;
 
     const currentAppState = getAppState(); // For the event listener
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const newPage = e.target.dataset.page;
-            // Read currentPage from the most current state within the event handler
-            if (newPage !== getAppState().currentPage) {
-                updateAppState({ currentPage: newPage });
-                renderPage();
-            }
-        });
+    // Delegate clicks to nav container to reduce listeners
+    navLinks.forEach(link => link.dataset.bound = true);
+    navLinkElements[0].parentElement.addEventListener('click', e => {
+        const target = e.target.closest('[data-page]');
+        if (!target) return;
+        e.preventDefault();
+        const newPage = target.dataset.page;
+        if (newPage !== getAppState().currentPage) {
+            updateAppState({ currentPage: newPage });
+            renderPage();
+        }
     });
 }
 
@@ -152,29 +153,23 @@ export function navigateToDay(direction) {
     let targetDay = currentAppState.currentDay;
     let targetWeek = currentAppState.currentWeek;
 
-    if (direction === 1) { // Moving to Next Day
-        const totalDaysInCurrentWeek = getTotalDaysInWeek(targetWeek);
-        if (targetDay < totalDaysInCurrentWeek) {
-            targetDay++;
-        } else { // End of current week, try to move to next week
-            targetWeek++;
-            targetDay = 1; // Start at day 1 of the new week
-        }
-    } else if (direction === -1) { // Moving to Previous Day
-        if (targetDay > 1) {
-            targetDay--;
-        } else { // Start of current week, try to move to previous week
-            targetWeek--;
-            if (programData[targetWeek] && programData[targetWeek].days && Object.keys(programData[targetWeek].days).length > 0) { 
-                // Ensure previous week actually has days
-                targetDay = getTotalDaysInWeek(targetWeek); // Go to last day of previous week
-            } else {
-                // At the very beginning, clamp to W1D1
-                targetWeek = 1;
-                targetDay = 1;
+    function computeTargetDay(week, day, dir) {
+        const total = getTotalDaysInWeek(week);
+        if (dir === 1) {
+            if (day < total) return { week, day: day + 1 };
+            return { week: week + 1, day: 1 };
+        } else {
+            if (day > 1) return { week, day: day - 1 };
+            if (week > 1 && programData[week - 1]?.days) {
+                const prevWeek = week - 1;
+                return { week: prevWeek, day: getTotalDaysInWeek(prevWeek) };
             }
+            return { week: 1, day: 1 };
         }
     }
+    const { week: newWeek, day: newDay } = computeTargetDay(targetWeek, targetDay, direction);
+    targetWeek = newWeek;
+    targetDay = newDay;
     
     // Check if the target day/week actually exists in programData
     if (programData[targetWeek] && programData[targetWeek].days && programData[targetWeek].days[targetDay]) {

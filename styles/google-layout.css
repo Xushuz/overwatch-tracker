@@ -15,18 +15,17 @@
     width: 250px; /* Sidebar width */
     background-color: var(--current-nav-bg); 
     border-right: 1px solid var(--current-border-color);
-    padding: 15px 15px 15px 15px; /* Reduced padding to avoid link hidden under header */
+    padding: 15px; /* Standard padding */
     display: flex;
     flex-direction: column;
     box-sizing: border-box; /* Ensure padding and border are included in the width */
     /* transition: width 0.3s ease; /* Keep for potential future use if width changes */
     
     /* --- Mobile-first: Hidden off-screen --- */
-    position: fixed; 
+    position: fixed;
     left: -250px; /* Initially off-screen */
-    top: 0; /* Align with top. Header is sticky, so this might need adjustment or header needs higher z-index */
-    /* top: 57px; /* If header is fixed and has a known height */
-    height: 100vh;
+    top: 57px; /* Position below fixed header */
+    height: calc(100vh - 57px); /* Full viewport height minus header */
     z-index: 999; /* Below header (1000) and hamburger (1001) but above main content */
     transition: left 0.3s ease; 
     overflow-y: auto; /* Allow sidebar to scroll if content is long */
@@ -34,11 +33,7 @@
 
 .google-nav.sidebar-visible {
     left: 0; /* Slide in */
-    top: 57px !important; /* Position below header */
-    height: calc(100vh - 57px) !important; /* Adjust height */
     transform: translateZ(0); /* Promote to its own layer */
-    /* Reduced padding so first link is visible */
-    padding: 15px !important;
 }
 
 .google-nav .nav-link {
@@ -61,16 +56,13 @@
     color: var(--current-accent-color);
     font-weight: bold;
 }
-/* Spacer anchor to offset first visible nav link below header */
-.google-nav .nav-link.placeholder-link {
-    display: block;
-    height: 57px; /* Approximate header height */
+/* Spacer to offset first link below fixed header */
+.google-nav .nav-spacer {
+    flex: 0 0 57px;
+    height: 57px;
     visibility: hidden;
     pointer-events: none;
-    margin: 0;
-    padding: 0;
 }
-/* Placeholder link to offset first real link in mobile sidebar */
 
 /* Adjust .app-main to work with the new flex layout */
 .app-main {
@@ -82,10 +74,3 @@
     transition: margin-left 0.3s ease; /* For when sidebar pushes content on larger screens */
 }
 
-/* When sidebar is open on mobile, consider adding an overlay or dimming the main content */
-/* This can be done via a class on body or app-body-content */
-.body-sidebar-open .app-main {
-    /* Example: Dim content, prevent interaction */
-    /* opacity: 0.5; */
-    /* pointer-events: none; */
-}

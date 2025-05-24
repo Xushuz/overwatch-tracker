@@ -22,40 +22,12 @@
     padding: 56px 15px 15px; /* Reduced padding for mobile by default */
     box-sizing: border-box; /* Ensure padding doesn't add to width */
 }
-/* Mobile sidebar offset below header */
-@media (max-width: 768px) {
-  .google-nav {
-    top: 57px !important;
-    padding-top: 12px !important;
-    height: calc(100vh - 57px) !important;
-  }
-}
-/* Offset mobile sidebar below header and remove extra padding */
-.google-nav {
-    top: 57px !important; /* position below header */
-    padding-top: 0 !important; /* remove default large padding */
-    height: calc(100vh - 57px) !important; /* full height minus header */
-}
 
 /* Modal adjustments for very small screens */
 .rank-prompt-modal .division-buttons {
     flex-wrap: wrap; /* Allow division buttons to wrap if not enough space */
-    /* justify-content: center; /* Center them if they wrap */
-}
-.rank-prompt-modal .division-buttons .form-button {
-    /* min-width: 60px; /* Adjust if buttons become too narrow when wrapping */
-    /* flex-basis: calc(33.33% - 6px); /* Example for 3 buttons per row, accounting for gap */
 }
 
-/* Adjustments for when the sidebar is visible on mobile */
-body.sidebar-visible .google-nav {
-    top: 57px; /* Header height, adjust if necessary */
-    height: calc(100vh - 57px); /* Full height minus header */
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
 
 
 /* Medium devices (tablets, 768px and up) */
@@ -221,10 +193,6 @@ body.sidebar-visible .google-nav {
         padding: 10px 15px; /* Match general input padding */
 
     }
-    /* For modal form, it's already column, keep it that way for clarity in modal */
-    .rank-prompt-modal .modal-form {
-        /* Stays column, styles in modals.css */
-    }
 
 
     .weeks-container { 
@@ -258,12 +226,4 @@ body.sidebar-visible .google-nav {
         /* Potentially 3 columns if space, but auto-fill is often better */
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
     }
-}
-
-/* Extra Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    /* .weeks-container { 
-        grid-template-columns: repeat(3, 1fr); // Explicitly 3 columns if desired
-    } */
-    /* Further adjustments if needed for very large screens */
 }

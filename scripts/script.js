@@ -55,12 +55,13 @@ export function startNewCycle() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- DOM Element Selection ---
+    // --- DOM Element Selection & Caching ---
     const currentDateEl = document.getElementById('currentDate');
-    // const themeToggleBtn = document.getElementById('themeToggleBtn'); // Removed
-    // const newCycleBtn = document.getElementById('newCycleBtn'); // Removed
     const mainContentEl = document.querySelector('.app-main');
     const navLinks = document.querySelectorAll('.app-nav .nav-link');
+    const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
+    const googleNav = document.querySelector('.google-nav');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
 
     // New event handler for task completion
     function handleTaskClick(event) {
@@ -213,11 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
 
     // --- Hamburger Menu & Sidebar Toggle ---
-    const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
-    const googleNav = document.querySelector('.google-nav'); // Sidebar
-    const appMain = document.querySelector('.app-main'); // Main content area
-    // Conceptual: Ensure an overlay div exists in index.html: <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    const sidebarOverlay = document.getElementById('sidebarOverlay'); 
+    // Reuse previously cached elements: hamburgerMenuBtn, googleNav, sidebarOverlay
 
     if (hamburgerMenuBtn && googleNav) {
         hamburgerMenuBtn.addEventListener('click', () => {
@@ -265,25 +262,25 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Optional: Add a resize listener to handle edge cases if window is resized
     // while mobile sidebar is open, to switch to desktop layout cleanly.
-    window.addEventListener('resize', () => {
-        if (!window.matchMedia("(max-width: 768px)").matches) {
-            // If we are now on desktop view
+    // Debounced resize handler to switch mobile/desktop sidebar state
+    function debounce(func, ms) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => func(...args), ms);
+        };
+    }
+    window.addEventListener('resize', debounce(() => {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        if (!isMobile) {
             if (document.body.classList.contains('body-sidebar-open')) {
-                // If mobile overlay was open, close it and ensure desktop state is default (open)
                 closeMobileSidebar();
-                document.body.classList.remove('body-sidebar-desktop-closed'); // Ensure desktop sidebar is open
+                document.body.classList.remove('body-sidebar-desktop-closed');
             }
         } else {
-            // If we are now on mobile view
-            if (!document.body.classList.contains('body-sidebar-desktop-closed')) {
-                // If desktop sidebar was open, it should be closed by default on mobile (hidden off-screen)
-                // unless explicitly opened by hamburger.
-                // No direct action needed here as mobile CSS handles the default hidden state.
-            }
-             if (document.body.classList.contains('body-sidebar-desktop-closed')) {
-                // If desktop sidebar was closed, ensure mobile overlay is not active
+            if (document.body.classList.contains('body-sidebar-desktop-closed')) {
                 closeMobileSidebar();
             }
         }
-    });
+    }, 100));
 });

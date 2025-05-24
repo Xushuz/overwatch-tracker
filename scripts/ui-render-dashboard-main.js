@@ -9,7 +9,17 @@ import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
 let lastSelectedDashboardTier = '';
 export let rankChartInstanceDashboard = null;
 
-export function renderDashboardRankChart() {
+export async function renderDashboardRankChart() {
+    // Lazy-load Chart.js only when needed
+    if (typeof window.Chart !== 'function') {
+        await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+            s.onload = resolve;
+            s.onerror = () => reject(new Error('Failed to load Chart.js'));
+            document.head.appendChild(s);
+        });
+    }
     const chartContainer = document.getElementById('dashboardRankChartContainer');
     if (!chartContainer) return;
     
@@ -135,10 +145,11 @@ export function renderDashboardPage(mainContentEl) {
     if (localNextDayBtn) localNextDayBtn.addEventListener('click', () => navigateToDay(1));
     const dashboardRankForm = document.getElementById('dashboardRankUpdateForm');
     if (dashboardRankForm) dashboardRankForm.addEventListener('submit', handleDashboardRankUpdate);
-    renderCurrentDayTasks(); 
+    renderCurrentDayTasks();
     renderCurrentWeekProgress();
     setupDailyNotesArea();
-    renderDashboardRankChart();
+    // Render chart, catch any load errors
+    renderDashboardRankChart().catch(console.error);
     setupCustomWarmupUI();
 }
 
