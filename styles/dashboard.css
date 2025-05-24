@@ -100,8 +100,17 @@
 .task-list li:hover { 
     background-color: rgba(var(--current-text-color-rgb), 0.05); /* Subtle hover, text color based */
     border-color: var(--current-border-color); /* Keep border same on hover, or slightly darker */
-    box-shadow: var(--shadow-sm); /* Add subtle shadow on hover */
+    box-shadow: var(--shadow-md); /* Enhanced shadow on hover */
+    transform: translateY(-1px); /* Slight lift effect */
 }
+
+.task-list li:focus-within, 
+.task-list li.task-completed:focus-within {
+    outline: 2px solid var(--current-accent-color);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-md);
+}
+
 /* Theme specific hover for task list items if needed, else the generic one above is fine */
 /* body.dark-mode .task-list li:hover { ... } */
 /* body.pink-mode .task-list li:hover { ... } */
@@ -133,12 +142,6 @@
 }
 
 /* body.pink-mode .task-details.completed { ... } /* Base completed is fine */
-
-/* Styling for the LI element when a task is completed */
-.task-list li.task-completed {
-    opacity: 0.75; 
-    /* background-color transition is handled by the base .task-list li rule */
-}
 
 /* Styling for the LI element when a task is completed */
 .task-list li.task-completed {
@@ -178,21 +181,29 @@
     flex-grow: 1; 
     text-align: center;
     /* Hover and disabled states will also be largely inherited from base.css */
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease; /* Added transform */
 }
 
-/* Specific hover overrides if base.css is not enough (e.g. different accent behavior) */
-/* .nav-button:hover {
-    background-color: var(--current-accent-color);
-    color: var(--current-accent-text); 
+.nav-button:hover:not(:disabled) {
+    background-color: var(--current-accent-hover-color);
+    color: var(--current-accent-text);
     border-color: var(--current-accent-hover-color);
-} */
-/* Theme-specific hovers for .nav-button can be removed if base button hover is sufficient */
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+}
 
+.nav-button:focus:not(:disabled) {
+    outline: 2px solid var(--current-accent-color);
+    outline-offset: 1px;
+    box-shadow: 0 0 0 3px rgba(var(--current-accent-color-rgb), 0.25);
+}
 
-/* Disabled state will be handled by base.css button:disabled style */
-/* .nav-button:disabled { ... } */
-/* .nav-button:disabled:hover { ... } */
-
+/* Style disabled prev/next day buttons */
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
 .daily-notes-section h4, 
 .dashboard-rank-section h4 { 
@@ -218,7 +229,7 @@
 }
 #dailyNotesTextarea:focus {
     border-color: var(--current-accent-color); /* Highlight with accent color on focus */
-    box-shadow: 0 0 0 2px rgba(var(--current-accent-color-rgb), 0.25); /* Google-like focus ring */
+    box-shadow: 0 0 0 3px rgba(var(--current-accent-color-rgb), 0.25); /* Google-like focus ring - increased spread */
 }
 
 
@@ -245,11 +256,21 @@
     color: var(--current-button-text);
     border-radius: var(--border-radius); /* Use new base border-radius */
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease; /* Added transform and box-shadow */
 }
-.dashboard-rank-update-form .division-buttons button:hover {
+.dashboard-rank-update-form .division-buttons button:hover:not(.selected) {
     border-color: var(--current-accent-color);
+    background-color: rgba(var(--current-accent-color-rgb), 0.08); /* Subtle accent hover */
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
+
+.dashboard-rank-update-form .division-buttons button:focus:not(.selected) {
+    outline: 2px solid var(--current-accent-color);
+    outline-offset: 1px;
+    border-color: var(--current-accent-color); /* Ensure border matches focus ring */
+}
+
 .dashboard-rank-update-form .division-buttons button.selected { 
     background-color: var(--current-accent-color); 
     color: var(--current-accent-text); 
@@ -381,10 +402,30 @@
 #editPersonalFocusBtn:hover,
 #savePersonalFocusBtn:hover,
 #cancelPersonalFocusBtn:hover {
-    background: var(--current-accent-color);
+    background: var(--current-accent-hover-color); /* Use hover variable */
     color: var(--current-accent-text);
     border-color: var(--current-accent-hover-color);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
+
+#customWarmupList button:focus,
+.custom-task button:focus,
+#addCustomWarmupBtn:focus,
+#addCustomTaskBtn:focus,
+#saveCustomWarmupBtn:focus,
+#cancelCustomWarmupBtn:focus,
+#saveCustomTaskBtn:focus,
+#cancelCustomTaskBtn:focus,
+#editPersonalFocusBtn:focus,
+#savePersonalFocusBtn:focus,
+#cancelPersonalFocusBtn:focus {
+    outline: 2px solid var(--current-accent-color);
+    outline-offset: 1px;
+    border-color: var(--current-accent-color); /* Ensure border matches focus ring */
+    box-shadow: 0 0 0 3px rgba(var(--current-accent-color-rgb), 0.25);
+}
+
 #customWarmupName,
 #customWarmupDesc,
 #customTaskText,
@@ -546,12 +587,21 @@
 }
 .custom-warmup-item .actions button:hover {
     /* Inherit from base.css button:hover styles */
-    /* If specific accent behavior is needed for these small buttons:
-    background-color: var(--current-accent-color);
+    /* If specific accent behavior is needed for these small buttons: */
+    background-color: var(--current-accent-hover-color); /* Use hover variable */
     color: var(--current-accent-text);
     border-color: var(--current-accent-hover-color); 
-    */
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
+
+.custom-warmup-item .actions button:focus {
+    outline: 2px solid var(--current-accent-color);
+    outline-offset: 1px;
+    border-color: var(--current-accent-color);
+    box-shadow: 0 0 0 3px rgba(var(--current-accent-color-rgb), 0.25);
+}
+
 /* Theme-specific hover overrides can be removed if base button hover is sufficient */
 /* body.dark-mode .custom-warmup-item .actions button:hover { ... } */
 /* body.pink-mode .custom-warmup-item .actions button:hover { ... } */

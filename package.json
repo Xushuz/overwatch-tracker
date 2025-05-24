@@ -1,0 +1,16 @@
+{
+  "name": "overwatch-tracker",
+  "version": "1.0.0",
+  "description": "A web-based application designed to help Overwatch players follow a structured 6-week training program, inspired by pro guides, to improve their game sense, positioning, decision-making, and team coordination. This tool allows users to track daily tasks, manage weekly focuses, take daily notes with auto-saving, and monitor their in-game rank progression with visual charts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.27.0"
+  }
+}

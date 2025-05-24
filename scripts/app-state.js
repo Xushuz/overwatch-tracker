@@ -121,10 +121,30 @@ export function exportAppState() {
  */
 export function importAppState(importedState) {
     try {
+        // Basic validation: Check if essential properties exist
+        if (!importedState || typeof importedState.currentPage !== 'string' || typeof importedState.currentCycle !== 'number') {
+            alert('Import failed: File does not appear to be a valid application state backup.');
+            return;
+        }
+
+        // Version check (optional but recommended for future compatibility)
+        // For example, if you introduce APP_STATE_VERSION in your state:
+        // if (importedState.APP_STATE_VERSION !== appState.APP_STATE_VERSION) {
+        //     if (!confirm(\`The imported data is from a different app version.
+        //                   This might cause issues. Continue?\`)) {
+        //         return;
+        //     }
+        // }
+
         // Overwrite localStorage and in-memory state
         localStorage.setItem(APP_STATE_KEY, JSON.stringify(importedState));
-        loadState();
-        alert('Data imported successfully.');
+        loadState(); // This will re-parse and apply the new state, including defaults for missing keys
+        alert('Data imported successfully. The application will now reload to apply changes.');
+        
+        // Force a reload to ensure all components re-render with the new state
+        // This is a simple way to handle complex state changes that might not be picked up by all components.
+        location.reload();
+
     } catch (e) {
         console.error('Failed to import app state:', e);
         alert('Error importing data. See console for details.');

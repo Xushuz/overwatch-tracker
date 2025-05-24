@@ -141,16 +141,32 @@ export function renderDashboardPage(mainContentEl) {
     );
     const localPrevDayBtn = document.getElementById('prevDayBtn');
     const localNextDayBtn = document.getElementById('nextDayBtn');
-    if (localPrevDayBtn) localPrevDayBtn.addEventListener('click', () => navigateToDay(-1));
-    if (localNextDayBtn) localNextDayBtn.addEventListener('click', () => navigateToDay(1));
+    if (localPrevDayBtn) {
+        localPrevDayBtn.addEventListener('click', () => {
+            if (!localPrevDayBtn.disabled) {
+                navigateToDay(-1);
+            }
+        });
+    }
+    if (localNextDayBtn) {
+        localNextDayBtn.addEventListener('click', () => {
+            if (!localNextDayBtn.disabled) {
+                navigateToDay(1);
+            }
+        });
+    }
     const dashboardRankForm = document.getElementById('dashboardRankUpdateForm');
     if (dashboardRankForm) dashboardRankForm.addEventListener('submit', handleDashboardRankUpdate);
     renderCurrentDayTasks();
     renderCurrentWeekProgress();
-    setupDailyNotesArea();
+    setupDailyNotesArea(); // Restored call
     // Render chart, catch any load errors
     renderDashboardRankChart().catch(console.error);
     setupCustomWarmupUI();
+    // Ensure navigation buttons are correctly enabled/disabled on initial load
+    updateNavigationButtons();
+    // Ensure prev/next buttons reflect correct disabled state
+    updateNavigationButtons();
 }
 
 function handleDashboardRankUpdate(event) {
