@@ -14,19 +14,7 @@
                 <img src="assets/logo.svg" alt="Tracker Logo" width="32" height="32">
             </a>
             <button class="hamburger-menu-btn" id="hamburgerMenuBtn" aria-label="Open navigation menu">
-                <svg class="menu-grid-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g fill="currentColor">
-                    <circle cx="5" cy="5" r="2"/>
-                    <circle cx="12" cy="5" r="2"/>
-                    <circle cx="19" cy="5" r="2"/>
-                    <circle cx="5" cy="12" r="2"/>
-                    <circle cx="12" cy="12" r="2"/>
-                    <circle cx="19" cy="12" r="2"/>
-                    <circle cx="5" cy="19" r="2"/>
-                    <circle cx="12" cy="19" r="2"/>
-                    <circle cx="19" cy="19" r="2"/>
-                  </g>
-                </svg>
+                <i data-feather="menu"></i>
             </button>
             <h1>Overwatch Pro Path Tracker</h1>
             <div class="header-controls">
@@ -104,6 +92,11 @@
     </div>
 
     <!-- Chart.js is now lazy-loaded only on the dashboard page -->
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => feather.replace());
+    </script>
     <script type="module" src="scripts/script.js"></script>
 </body>
 </html>
