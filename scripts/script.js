@@ -64,37 +64,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // New event handler for task completion
     function handleTaskClick(event) {
-        const checkbox = event.target;
-        // Check if the clicked element is a task checkbox and is an INPUT element
-        if (checkbox.tagName === 'INPUT' && checkbox.type === 'checkbox' && checkbox.classList.contains('task-item-checkbox')) {
-            const currentAppState = getAppState(); // Get current state for this handler
-            const taskKey = checkbox.id; // Assumes checkbox ID is the unique taskKey (e.g., c1-w1d1t1)
+        const clickedElement = event.target;
+        // Find the task list item (li) that was clicked, ensuring it's a direct child of #taskList
+        const taskListItem = clickedElement.closest('#taskList > li');
 
-            // Update application state
-            const newCompletions = { ...currentAppState.taskCompletions, [taskKey]: checkbox.checked };
-            updateAppState({ taskCompletions: newCompletions });
-
-            // Re-render relevant parts of the UI
-            // Use getAppState() here to get the absolute latest state after the update, if needed for rendering logic.
-            // Or, if the rendering logic doesn't immediately depend on the just-updated state, currentAppState might be fine.
-            // For currentPage, it's unlikely to change within this specific handler, so currentAppState is okay.
-            if (currentAppState.currentPage === 'dashboard') {
-                renderCurrentWeekProgress(); // Make sure this function is accessible
-            }
-            if (currentAppState.currentPage === 'program') {
-                // mainContentEl is accessible in this scope from DOMContentLoaded
-                renderProgramOverviewPage(mainContentEl); // Make sure this function is accessible
-            }
-
-            // Update visual style of the task item
-            const taskDetailsDiv = checkbox.closest('li')?.querySelector('.task-details'); // Assumes tasks are in <li> elements
-            if (taskDetailsDiv) {
-                taskDetailsDiv.classList.toggle('completed', checkbox.checked);
-            }
-            
-            // Check if end-of-week rank prompt is needed
-            promptForRankAtEndOfWeekIfNeeded(); // Make sure this function is accessible
+        if (!taskListItem) {
+            return; // Click was not on a task item in the main task list
         }
+
+        const checkbox = taskListItem.querySelector('input[type="checkbox"].task-item-checkbox');
+        if (!checkbox) {
+            return; // This task item doesn't have the expected checkbox
+        }
+
+        // If an interactive element *inside* the task item was clicked (e.g. a hypothetical future link/button),
+        // and it's not the checkbox itself, you might want to prevent toggling.
+        // For now, any click on the LI that isn't the checkbox will toggle the checkbox.
+        // This means if you have other interactive elements, their events might also bubble up here.
+
+        // If the click was not directly on the checkbox, programmatically change its state.
+        // The default checkbox click action will have already changed checkbox.checked by this point if it was a direct click.
+        if (clickedElement !== checkbox) {
+            checkbox.checked = !checkbox.checked;
+        }
+        // Now, checkbox.checked reflects the new state of the task.
+
+        // --- Rest of the logic is the same as original, using the 'checkbox' variable ---
+        const taskKey = checkbox.id;
+        const currentAppState = getAppState();
+
+        const newCompletions = { ...currentAppState.taskCompletions, [taskKey]: checkbox.checked };
+        updateAppState({ taskCompletions: newCompletions });
+
+        if (currentAppState.currentPage === 'dashboard') {
+            renderCurrentWeekProgress();
+        }
+        if (currentAppState.currentPage === 'program') {
+            const mainContentEl = document.querySelector('.app-main'); // Re-select or ensure it's available in this scope
+            renderProgramOverviewPage(mainContentEl);
+        }
+
+        const taskDetailsDiv = taskListItem.querySelector('.task-details');
+        if (taskDetailsDiv) {
+            taskDetailsDiv.classList.toggle('completed', checkbox.checked);
+        }
+        taskListItem.classList.toggle('task-completed', checkbox.checked); // Ensure LI class is also toggled
+
+        promptForRankAtEndOfWeekIfNeeded();
     }
     mainContentEl.addEventListener('click', handleTaskClick);
 
@@ -196,23 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start the application
     initializeApp();
 
-    // --- Adjust nav padding based on header height & Hamburger Menu ---
-    const appHeader = document.querySelector('.app-header');
-    const googleNav = document.querySelector('.google-nav'); // Unified declaration for both features
-
-    function adjustNavPadding() {
-        if (appHeader && googleNav) { // Use unified googleNav
-            const headerHeight = appHeader.offsetHeight;
-            googleNav.style.paddingTop = headerHeight + 'px'; // Use unified googleNav
-        }
-    }
-
-    adjustNavPadding(); // Initial adjustment
-    window.addEventListener('resize', adjustNavPadding); // Adjust on resize
-
     // --- Hamburger Menu & Sidebar Toggle ---
     const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
-    // googleNav is already declared above and used by hamburger logic below
+    const googleNav = document.querySelector('.google-nav'); // Sidebar
     const appMain = document.querySelector('.app-main'); // Main content area
     // Conceptual: Ensure an overlay div exists in index.html: <div class="sidebar-overlay" id="sidebarOverlay"></div>
     const sidebarOverlay = document.getElementById('sidebarOverlay'); 

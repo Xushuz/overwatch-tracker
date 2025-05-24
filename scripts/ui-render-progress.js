@@ -1,5 +1,5 @@
 // scripts/ui-render-progress.js
-import { appState, updateAppState } from './app-state.js'; 
+import { getAppState, updateAppState } from './app-state.js'; 
 import { programData } from './program-data.js'; 
 
 export let rankChartInstanceProgress = null; 
@@ -22,10 +22,11 @@ export const rankTiersAndDivisions = [
 
 
 export function renderRankHistoryPage(mainContentEl) { 
+    const currentAppState = getAppState();
     let historyHtml = `<section class="progress-page"><h2>Rank Update History</h2>`;
     historyHtml += `
         <div class="content-card">
-            <h3>Overall Program Completion (Current Cycle #${appState.currentCycle})</h3>
+            <h3>Overall Program Completion (Current Cycle #${currentAppState.currentCycle})</h3>
             <div id="overallProgramProgressContainer"></div>
         </div>
     `;
@@ -36,10 +37,10 @@ export function renderRankHistoryPage(mainContentEl) {
     </div>`;
     historyHtml += `<ul id="fullRankHistoryList" class="rank-history-list">`;
 
-    if (appState.rankHistory.length === 0) {
+    if (currentAppState.rankHistory.length === 0) {
         historyHtml += `<li>No ranks logged yet.</li>`;
     } else {
-        const sortedHistory = [...appState.rankHistory].sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
+        const sortedHistory = [...currentAppState.rankHistory].sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
         sortedHistory.forEach(rankEntry => {
             let entryLabel = `C${rankEntry.cycle}, `;
             if (rankEntry.type === 'initial') entryLabel += `Initial`;
@@ -80,6 +81,7 @@ export function renderRankHistoryPage(mainContentEl) {
 }
     
 export function renderOverallProgramProgress() {
+    const currentAppState = getAppState();
     const progressContainer = document.getElementById('overallProgramProgressContainer');
     if (!progressContainer) return;
 
@@ -93,8 +95,8 @@ export function renderOverallProgramProgress() {
             if (day.tasks) {
                 totalTasksInProgram += day.tasks.length;
                 day.tasks.forEach(task => {
-                    const taskKey = `c${appState.currentCycle}-${task.id}`; 
-                    if (appState.taskCompletions[taskKey]) {
+                    const taskKey = `c${currentAppState.currentCycle}-${task.id}`; 
+                    if (currentAppState.taskCompletions[taskKey]) {
                         completedTasksInProgram++;
                     }
                 });
@@ -103,7 +105,7 @@ export function renderOverallProgramProgress() {
     }
     const overallProgressPercent = totalTasksInProgram > 0 ? Math.round((completedTasksInProgram / totalTasksInProgram) * 100) : 0;
     progressContainer.innerHTML = `
-        <p>You have completed <strong>${completedTasksInProgram}</strong> out of <strong>${totalTasksInProgram}</strong> tasks for Cycle #${appState.currentCycle}.</p>
+        <p>You have completed <strong>${completedTasksInProgram}</strong> out of <strong>${totalTasksInProgram}</strong> tasks for Cycle #${currentAppState.currentCycle}.</p>
         <div class="progress-bar-container">
             <div class="progress-bar-fill" style="width: ${overallProgressPercent}%;">
                 ${overallProgressPercent > 10 ? `${overallProgressPercent}%` : ''}
@@ -113,21 +115,22 @@ export function renderOverallProgramProgress() {
 }
 
 export function addRankEntry({ week = null, type, tier, division }) {
+    const currentAppState = getAppState();
     const rankString = `${tier} ${division}`;
     const dateLogged = new Date().toISOString().split('T')[0]; 
 
     if (type === 'initial' || type === 'endOfWeek') {
-        const alreadyExists = appState.rankHistory.some(
-            r => r.cycle === appState.currentCycle && r.week === week && r.type === type
+        const alreadyExists = currentAppState.rankHistory.some(
+            r => r.cycle === currentAppState.currentCycle && r.week === week && r.type === type
         );
         if (alreadyExists) {
-             console.warn(`Rank for ${type} W${week} C${appState.currentCycle} already exists. Not adding duplicate.`);
+             console.warn(`Rank for ${type} W${week} C${currentAppState.currentCycle} already exists. Not adding duplicate.`);
              return false; 
         }
     }
     const newRankHistory = [
-        ...appState.rankHistory,
-        { cycle: appState.currentCycle, week: type === 'daily' ? null : week, type, tier, division: parseInt(division), rankString, dateLogged }
+        ...currentAppState.rankHistory,
+        { cycle: currentAppState.currentCycle, week: type === 'daily' ? null : week, type, tier, division: parseInt(division), rankString, dateLogged }
     ];
     newRankHistory.sort((a,b) => {
         const dateComparison = new Date(a.dateLogged) - new Date(b.dateLogged);
@@ -215,11 +218,12 @@ export function createRankChartConfig(rankDataEntries, chartLabelPrefix = "Rank 
 export function renderProgressPageRankChart() {
     const chartContainer = document.getElementById('progressPageRankChartContainer');
     const canvasEl = document.getElementById('progressPageRankChart'); 
+    const currentAppState = getAppState();
     if (!canvasEl || !chartContainer) return;
 
     if (rankChartInstanceProgress) rankChartInstanceProgress.destroy();
     
-    const allRankData = [...appState.rankHistory].sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
+    const allRankData = [...currentAppState.rankHistory].sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
 
     if (allRankData.length === 0) {
         chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px;">No rank data logged yet.</p>'; 
