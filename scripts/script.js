@@ -55,6 +55,8 @@ export function startNewCycle() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Prevent all native dragging of elements to improve UX
+    document.body.addEventListener('dragstart', event => event.preventDefault());
     // --- DOM Element Selection & Caching ---
     const currentDateEl = document.getElementById('currentDate');
     const mainContentEl = document.querySelector('.app-main');
