@@ -1,4 +1,18 @@
 /* styles/header-nav.css */
+.logo-link {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+    /* Optional circle background to improve visibility */
+    background-color: var(--current-bg-color);
+    padding: 4px;
+    border-radius: 50%;
+}
+.logo-link img {
+    width: 56px;
+    height: 56px;
+    display: block;
+}
 
 .hamburger-menu-btn {
     display: none; /* Hidden by default, shown in responsive.css */
@@ -47,7 +61,19 @@
 @media (max-width: 768px) {
     .hamburger-menu-btn {
         padding: 12px; /* Increased padding for larger tap target */
-        /* Kebab dot styles were here, they remain */
+        order: 1;
+    }
+    .logo-link {
+        order: 2;
+    }
+    .app-header h1 {
+        order: 3;
+        font-size: 1.2rem; /* Adjust title size for mobile */
+        flex: 1;        /* Allow title to take remaining space */
+        text-align: center;
+    }
+    .header-controls {
+        order: 4;
     }
 
     /* Hide original spans (dots) when active on mobile */
@@ -96,7 +122,7 @@
 
 .app-header {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping for small screens by default */
+    flex-wrap: nowrap; /* Keep logo, menu and title on one line */
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px; /* Reduced padding for mobile */
