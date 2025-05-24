@@ -1,0 +1,156 @@
+/* styles/themes/dark-red.css */
+
+    :root {
+        /* Dark Red Palette */
+        --red-700: #B71C1C; 
+        --red-700-rgb: 183, 28, 28;
+        --red-600: #C62828; 
+        --red-600-rgb: 198, 40, 40;
+        --red-500: #D32F2F; 
+        --red-500-rgb: 211, 47, 47;
+        --red-400: #E53935; /* Example lighter shade */
+        --red-400-rgb: 229, 57, 53;
+        --text-on-red: #FFFFFF; 
+        --text-on-red-rgb: 255, 255, 255;
+
+        /* Base Dark Theme Variables (colors not tied to accent) */
+        --bg-color-dark: #202124; 
+        --bg-color-dark-rgb: 32, 33, 36;
+        --text-color-dark: #e8eaed; 
+        --text-color-dark-rgb: 232, 234, 237;
+        --container-bg-dark: #202124; 
+        --container-bg-dark-rgb: 32, 33, 36;
+        --border-color-dark: #5f6368; 
+        --border-color-dark-rgb: 95, 99, 104;
+        --header-bg-dark: #202124; 
+        --header-bg-dark-rgb: 32, 33, 36;
+        --nav-bg-dark: #202124; 
+        --nav-bg-dark-rgb: 32, 33, 36;
+        --input-bg-dark: #3c4043; 
+        --input-bg-dark-rgb: 60, 64, 67;
+        --input-border-dark: #5f6368;
+        --input-border-dark-rgb: 95, 99, 104;
+        --textarea-bg-dark: #3c4043;
+        --textarea-bg-dark-rgb: 60, 64, 67;
+        --card-shadow-dark: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15); 
+        --progress-bar-bg-dark: #5f6368; 
+        --progress-bar-bg-dark-rgb: 95, 99, 104;
+        --modal-content-bg-dark: #292a2d; 
+        --modal-content-bg-dark-rgb: 41, 42, 45;
+        --chart-text-color-dark: #e8eaed; 
+        --chart-text-color-dark-rgb: 232, 234, 237;
+        --chart-grid-color-dark: #5f6368; 
+        --chart-grid-color-dark-rgb: 95, 99, 104;
+        --chart-tooltip-bg-dark: rgba(41, 42, 45, 0.95);  
+        --chart-tooltip-text-color-dark: #e8eaed; 
+        --chart-tooltip-text-color-dark-rgb: 232, 234, 237;
+
+        /* Dark Mode Red Accent Theme Semantic Variables */
+        --button-bg-dark-red: var(--red-500); 
+        --button-bg-dark-red-rgb: var(--red-500-rgb);
+        --button-text-dark-red: var(--text-on-red);
+        --button-text-dark-red-rgb: var(--text-on-red-rgb);
+        --accent-color-dark-red: var(--red-500);
+        --accent-color-dark-red-rgb: var(--red-500-rgb);
+        --accent-hover-color-dark-red: var(--red-600); 
+        --accent-hover-color-dark-red-rgb: var(--red-600-rgb);
+        --accent-text-dark-red: var(--text-on-red);
+        --accent-text-dark-red-rgb: var(--text-on-red-rgb);
+        --nav-active-bg-dark-red: rgba(var(--red-500-rgb), 0.15);
+        
+        /* Button specific overrides for dark mode with red accent */
+        --button-primary-bg-dark-override: var(--red-500);
+        --button-primary-text-dark-override: var(--text-on-red);
+        --button-primary-hover-bg-dark-override: var(--red-600); 
+        
+        --button-secondary-bg-dark-override: transparent;
+        --button-secondary-text-dark-override: var(--red-500);
+        --button-secondary-hover-bg-dark-override: rgba(var(--red-500-rgb), 0.08);
+        --button-secondary-border-dark-override: var(--red-500);
+
+        /* Default buttons in dark mode (non-accented) */
+        --button-default-bg-dark-override: #3c4043; 
+        --button-default-bg-dark-override-rgb: 60, 64, 67;
+        --button-default-text-dark-override: #e8eaed; 
+        --button-default-text-dark-override-rgb: 232, 234, 237;
+        --button-default-hover-bg-dark-override: #4a4e52; 
+        --button-default-hover-bg-dark-override-rgb: 74, 78, 82;
+        --button-default-border-dark-override: var(--border-color-dark);
+        --button-default-border-dark-override-rgb: var(--border-color-dark-rgb);
+
+        /* Task Completion & Hamburger Menu Variables */
+        --task-completed-bg-dark: rgba(var(--text-color-dark-rgb), 0.04);
+        --task-completed-hover-bg-dark: rgba(var(--text-color-dark-rgb), 0.06);
+        --hamburger-hover-bg-dark: rgba(var(--text-color-dark-rgb), 0.08);
+        --hamburger-active-bg-dark: rgba(var(--text-color-dark-rgb), 0.12);
+    }
+
+    body.dark-red-mode {
+        --current-bg-color: var(--bg-color-dark);
+        --current-bg-color-rgb: var(--bg-color-dark-rgb);
+        --current-text-color: var(--text-color-dark);
+        --current-text-color-rgb: var(--text-color-dark-rgb);
+        --current-container-bg: var(--container-bg-dark);
+        --current-container-bg-rgb: var(--container-bg-dark-rgb);
+        --current-border-color: var(--border-color-dark);
+        --current-border-color-rgb: var(--border-color-dark-rgb);
+        --current-header-bg: var(--header-bg-dark);
+        --current-header-bg-rgb: var(--header-bg-dark-rgb);
+        --current-nav-bg: var(--nav-bg-dark);
+        --current-nav-bg-rgb: var(--nav-bg-dark-rgb);
+        --current-button-bg: var(--button-default-bg-dark-override); 
+        --current-button-bg-rgb: var(--button-default-bg-dark-override-rgb);
+        --current-button-text: var(--button-default-text-dark-override);
+        --current-button-text-rgb: var(--button-default-text-dark-override-rgb);
+        
+        --button-primary-bg: var(--button-primary-bg-dark-override);
+        --button-primary-text: var(--button-primary-text-dark-override);
+        --button-primary-hover-bg: var(--button-primary-hover-bg-dark-override);
+        --button-secondary-bg: var(--button-secondary-bg-dark-override);
+        --button-secondary-text: var(--button-secondary-text-dark-override);
+        --button-secondary-hover-bg: var(--button-secondary-hover-bg-dark-override);
+        --button-secondary-border: var(--button-secondary-border-dark-override);
+        --button-default-bg: var(--button-default-bg-dark-override);
+        --button-default-text: var(--button-default-text-dark-override);
+        --button-default-hover-bg: var(--button-default-hover-bg-dark-override);
+        --button-default-border: var(--button-default-border-dark-override);
+        
+        --current-input-bg: var(--input-bg-dark);
+        --current-input-bg-rgb: var(--input-bg-dark-rgb);
+        --current-input-border: var(--input-border-dark);
+        --current-input-border-rgb: var(--input-border-dark-rgb);
+        --current-textarea-bg: var(--textarea-bg-dark);
+        --current-textarea-bg-rgb: var(--textarea-bg-dark-rgb);
+        --current-card-shadow: var(--card-shadow-dark);
+        
+        --current-accent-color: var(--accent-color-dark-red);
+        --current-accent-color-rgb: var(--accent-color-dark-red-rgb);
+        --current-accent-hover-color: var(--accent-hover-color-dark-red);
+        --current-accent-hover-color-rgb: var(--accent-hover-color-dark-red-rgb);
+        --current-accent-text: var(--accent-text-dark-red);
+        --current-accent-text-rgb: var(--accent-text-dark-red-rgb);
+        --current-nav-active-bg: var(--nav-active-bg-dark-red);
+        --current-progress-bar-bg: var(--progress-bar-bg-dark); 
+        --current-progress-bar-bg-rgb: var(--progress-bar-bg-dark-rgb);
+        --current-modal-content-bg: var(--modal-content-bg-dark); 
+        --current-modal-content-bg-rgb: var(--modal-content-bg-dark-rgb);
+        --current-chart-text-color: var(--chart-text-color-dark);
+        --current-chart-text-color-rgb: var(--chart-text-color-dark-rgb);
+        --current-chart-grid-color: var(--chart-grid-color-dark);
+        --current-chart-grid-color-rgb: var(--chart-grid-color-dark-rgb);
+        --current-chart-tooltip-bg: var(--chart-tooltip-bg-dark);
+        --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-dark);
+        --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-dark-rgb);
+
+        --current-task-completed-bg: var(--task-completed-bg-dark);
+        --current-task-completed-hover-bg: var(--task-completed-hover-bg-dark);
+        --current-hamburger-hover-bg: var(--hamburger-hover-bg-dark);
+        --current-hamburger-active-bg: var(--hamburger-active-bg-dark);
+    }
+    body.dark-red-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+        color: var(--accent-color-dark-red); 
+    }
+    body.dark-red-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+        text-decoration: underline;
+        color: var(--accent-hover-color-dark-red); 
+    }

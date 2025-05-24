@@ -1,16 +1,17 @@
 // scripts/ui-render-dashboard-tasks.js
 // Task, warmup, and daily notes logic split from ui-render-dashboard.js
-import { appState, updateAppState } from './app-state.js';
+import { getAppState, updateAppState } from './app-state.js';
 import { programData } from './program-data.js';
 import { updateNavigationButtons } from './main-navigation.js';
 import { createRankChartConfig } from './ui-render-progress.js';
 // Chart rendering is managed by ui-render-dashboard-main.js
 
 export function renderCurrentWeekProgress() {
+    const currentAppState = getAppState();
     const progressTextEl = document.getElementById('currentWeekProgressText');
     const progressBarEl = document.getElementById('currentWeekProgressBar');
     if (!progressTextEl || !progressBarEl) return;
-    const weekData = programData[appState.currentWeek];
+    const weekData = programData[currentAppState.currentWeek];
     if (!weekData || !weekData.days) {
         progressTextEl.textContent = "Week data not available.";
         progressBarEl.style.width = '0%';
@@ -24,8 +25,8 @@ export function renderCurrentWeekProgress() {
         if (day.tasks) {
             tasksInWeek += day.tasks.length;
             day.tasks.forEach(task => {
-                const taskKey = `c${appState.currentCycle}-${task.id}`;
-                if (appState.taskCompletions[taskKey]) {
+                const taskKey = `c${currentAppState.currentCycle}-${task.id}`;
+                if (currentAppState.taskCompletions[taskKey]) {
                     completedInWeek++;
                 }
             });
@@ -40,6 +41,7 @@ export function renderCurrentWeekProgress() {
 export function renderCurrentDayTasks() {
     const localWeekTitleEl = document.getElementById('weekTitle');
     const localWeekFocusEl = document.getElementById('weekFocus');
+    const currentAppState = getAppState();
     const localDayTitleEl = document.getElementById('dayTitle');
     const localTaskListEl = document.getElementById('taskList');
 
@@ -48,27 +50,27 @@ export function renderCurrentDayTasks() {
         return; 
     }
 
-    const currentWeekData = programData[appState.currentWeek];
+    const currentWeekData = programData[currentAppState.currentWeek];
     if (!currentWeekData) {
         localWeekTitleEl.textContent = "Error"; 
         if (localWeekFocusEl) { localWeekFocusEl.textContent = ""; }
         if (localDayTitleEl) { localDayTitleEl.textContent = ""; }
-        localTaskListEl.innerHTML = `<li>Week data missing for Week ${appState.currentWeek}.</li>`;
+        localTaskListEl.innerHTML = `<li>Week data missing for Week ${currentAppState.currentWeek}.</li>`;
         updateNavigationButtons(); 
         return;
     }
 
-    const currentDayData = currentWeekData.days[appState.currentDay];
+    const currentDayData = currentWeekData.days[currentAppState.currentDay];
     if (!currentDayData) {
-        localWeekTitleEl.textContent = `W${appState.currentWeek}: ${currentWeekData.title}`;
+        localWeekTitleEl.textContent = `W${currentAppState.currentWeek}: ${currentWeekData.title}`;
         if (localWeekFocusEl) { localWeekFocusEl.textContent = `Focus: ${currentWeekData.focus}`; }
         if (localDayTitleEl) { localDayTitleEl.textContent = "Error: Day data missing"; }
-        localTaskListEl.innerHTML = `<li>Day data missing for W${appState.currentWeek}D${appState.currentDay}.</li>`;
+        localTaskListEl.innerHTML = `<li>Day data missing for W${currentAppState.currentWeek}D${currentAppState.currentDay}.</li>`;
         updateNavigationButtons(); 
         return;
     }
 
-    localWeekTitleEl.textContent = `Week ${appState.currentWeek}: ${currentWeekData.title}`;
+    localWeekTitleEl.textContent = `Week ${currentAppState.currentWeek}: ${currentWeekData.title}`;
     if (localWeekFocusEl) {
         localWeekFocusEl.innerHTML = `Focus: ${currentWeekData.focus}`; // innerHTML for potential HTML entities or simple formatting
     }
@@ -88,10 +90,10 @@ export function renderCurrentDayTasks() {
     // localTaskListEl.addEventListener('click', handleTaskClick); // Removed: Event delegation handled by script.js
 
     // Render custom warm-ups for today
-    const currentDayWarmupKey = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+    const currentDayWarmupKey = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}d${currentAppState.currentDay}`;
     let tasksRendered = false;
-    if (Array.isArray(appState.customWarmups) && appState.customWarmups.length > 0) {
-        appState.customWarmups.forEach((warmup) => {
+    if (Array.isArray(currentAppState.customWarmups) && currentAppState.customWarmups.length > 0) {
+        currentAppState.customWarmups.forEach((warmup) => {
             if (warmup.days && warmup.days.includes(currentDayWarmupKey)) {
                 const li = document.createElement('li');
                 li.classList.add('custom-warmup-task'); // General class for styling warmups in task list
@@ -127,11 +129,12 @@ export function renderCurrentDayTasks() {
  * @returns {HTMLLIElement} The created list item element.
  */
 function createTaskListItemElement(task) {
+    const currentAppState = getAppState();
     const li = document.createElement('li');
     li.dataset.taskId = task.id; // Used for event delegation to identify the task
     
-    const taskKey = `c${appState.currentCycle}-${task.id}`;
-    const isCompleted = appState.taskCompletions[taskKey] || false;
+    const taskKey = `c${currentAppState.currentCycle}-${task.id}`;
+    const isCompleted = currentAppState.taskCompletions[taskKey] || false;
 
     // Apply 'task-completed' class to the LI if the task is completed for visual styling
     if (isCompleted) {
@@ -190,8 +193,9 @@ export function setupCustomWarmupUI() {
      * Renders the list of custom warmups.
      */
     function renderCustomWarmupList() {
+        const currentAppState = getAppState();
         listEl.innerHTML = ''; // Clear existing list items
-        (appState.customWarmups || []).forEach((warmup, index) => {
+        (currentAppState.customWarmups || []).forEach((warmup, index) => {
             const li = document.createElement('li');
             li.classList.add('custom-warmup-item');
             li.dataset.index = index;
@@ -233,7 +237,7 @@ export function setupCustomWarmupUI() {
                 upBtn.dataset.index = index;
                 actionsDiv.appendChild(upBtn);
             }
-            if (index < appState.customWarmups.length - 1) {
+            if (index < currentAppState.customWarmups.length - 1) {
                 const downBtn = document.createElement('button');
                 downBtn.classList.add('form-button', 'form-button--secondary');
                 downBtn.textContent = '↓';
@@ -268,6 +272,7 @@ export function setupCustomWarmupUI() {
         // Ensure index is parsed as an integer
         const index = parseInt(targetElement.dataset.index, 10); 
         
+        const currentAppState = getAppState(); // Get state for actions
         // It's good practice to ensure index is a valid number before proceeding,
         // especially if it might come from unexpected sources or malformed HTML.
         if (isNaN(index) && action !== 'add-warmup') { // add-warmup doesn't need an index from the element
@@ -275,7 +280,7 @@ export function setupCustomWarmupUI() {
             return;
         }
         
-        let currentWarmups = [...appState.customWarmups];
+        let currentWarmups = [...currentAppState.customWarmups];
 
         switch (action) {
             case 'edit-warmup':
@@ -317,7 +322,7 @@ export function setupCustomWarmupUI() {
             case 'toggle-persist':
                 const warmupToToggle = { ...currentWarmups[index] };
                 warmupToToggle.persistAcrossDays = !warmupToToggle.persistAcrossDays;
-                const currentDayKey = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+                const currentDayKey = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}d${currentAppState.currentDay}`;
                 
                 if (warmupToToggle.persistAcrossDays) {
                     // If becoming persistent, add to current day if not already included
@@ -368,9 +373,10 @@ export function setupCustomWarmupUI() {
             return;
         }
 
-        let currentWarmups = [...(appState.customWarmups || [])];
+        const currentAppState = getAppState(); // Get state for saving
+        let currentWarmups = [...(currentAppState.customWarmups || [])];
         // Key for associating warmup with the current day if it's a new, persistent one
-        const currentDayKey = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
+        const currentDayKey = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}d${currentAppState.currentDay}`;
 
         if (editingWarmupIndex !== null && editingWarmupIndex >= 0 && editingWarmupIndex < currentWarmups.length) {
             // Update existing warmup
@@ -403,10 +409,11 @@ export function setupCustomWarmupUI() {
 }
 
 export function updateWarmupDays() {
-    if (!Array.isArray(appState.customWarmups)) return;
+    const currentAppState = getAppState();
+    if (!Array.isArray(currentAppState.customWarmups)) return;
     
-    const key = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-    const updated = appState.customWarmups.map(warmup => {
+    const key = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}d${currentAppState.currentDay}`;
+    const updated = currentAppState.customWarmups.map(warmup => {
         if (warmup.persistAcrossDays) {
             // If the warmup should persist and isn't already in the current day, add it
             if (!warmup.days?.includes(key)) {
@@ -419,18 +426,19 @@ export function updateWarmupDays() {
         return warmup;
     });
     
-    if (JSON.stringify(updated) !== JSON.stringify(appState.customWarmups)) {
+    if (JSON.stringify(updated) !== JSON.stringify(currentAppState.customWarmups)) {
         updateAppState({ customWarmups: updated });
     }
 }
 
 export function setupDailyNotesArea() {
+    const currentAppState = getAppState();
     const dailyNotesTextarea = document.getElementById('dailyNotesTextarea');
     const dailyNotesDateHeader = document.getElementById('dailyNotesDateHeader');
     if (!dailyNotesTextarea || !dailyNotesDateHeader) return;
-    const noteKey = `c${appState.currentCycle}w${appState.currentWeek}d${appState.currentDay}`;
-    dailyNotesDateHeader.textContent = `W${appState.currentWeek}D${appState.currentDay}`;
-    dailyNotesTextarea.value = appState.dailyNotes[noteKey] || '';
+    const noteKey = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}d${currentAppState.currentDay}`;
+    dailyNotesDateHeader.textContent = `W${currentAppState.currentWeek}D${currentAppState.currentDay}`;
+    dailyNotesTextarea.value = currentAppState.dailyNotes[noteKey] || '';
     dailyNotesTextarea.addEventListener('input', () => {
         saveDailyNoteWithDebounce(noteKey, dailyNotesTextarea.value);
     });
@@ -438,15 +446,17 @@ export function setupDailyNotesArea() {
 
 let dailyNoteSaveTimeout = null;
 function saveDailyNoteWithDebounce(noteKey, text) {
+    const currentAppState = getAppState(); // Get current state for saving
     clearTimeout(dailyNoteSaveTimeout);
     dailyNoteSaveTimeout = setTimeout(() => {
-        updateAppState({ dailyNotes: { ...appState.dailyNotes, [noteKey]: text } });
+        updateAppState({ dailyNotes: { ...currentAppState.dailyNotes, [noteKey]: text } });
     }, 750); 
 }
 
 export function prepareRankChartData() {
-    const currentCycleRankData = [...appState.rankHistory]
-        .filter(r => r.cycle === appState.currentCycle)
+    const currentAppState = getAppState();
+    const currentCycleRankData = [...currentAppState.rankHistory]
+        .filter(r => r.cycle === currentAppState.currentCycle)
         .sort((a,b) => new Date(a.dateLogged) - new Date(b.dateLogged));
 
     return {
