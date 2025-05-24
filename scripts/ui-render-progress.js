@@ -197,7 +197,27 @@ export function createRankChartConfig(rankDataEntries, chartLabelPrefix = "Rank 
     };
 }
 
-export function renderProgressPageRankChart() {
+export async function renderProgressPageRankChart() { // Made async
+    // Lazy-load Chart.js only when needed
+    if (typeof window.Chart !== 'function') {
+        try {
+            await new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                s.onload = resolve;
+                s.onerror = () => reject(new Error('Failed to load Chart.js'));
+                document.head.appendChild(s);
+            });
+        } catch (error) {
+            console.error(error.message);
+            const chartContainer = document.getElementById('progressPageRankChartContainer');
+            if (chartContainer) {
+                chartContainer.innerHTML = '<p style="text-align:center; padding-top:20px; color:var(--danger-color);">Failed to load charting library. Please check your internet connection and try again.</p>';
+            }
+            return; // Stop execution if Chart.js fails to load
+        }
+    }
+
     const chartContainer = document.getElementById('progressPageRankChartContainer');
     const canvasEl = document.getElementById('progressPageRankChart'); 
     const currentAppState = getAppState();
