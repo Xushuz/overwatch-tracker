@@ -15,7 +15,7 @@
     width: 250px; /* Sidebar width */
     background-color: var(--current-nav-bg); 
     border-right: 1px solid var(--current-border-color);
-    padding: 65px 15px 15px 15px; /* Increased top padding to 65px for header */
+    padding: 15px 15px 15px 15px; /* Reduced padding to avoid link hidden under header */
     display: flex;
     flex-direction: column;
     box-sizing: border-box; /* Ensure padding and border are included in the width */
@@ -34,7 +34,11 @@
 
 .google-nav.sidebar-visible {
     left: 0; /* Slide in */
-    transform: translateZ(0); /* Promote to its own layer, may help with rendering/interaction issues */
+    top: 57px !important; /* Position below header */
+    height: calc(100vh - 57px) !important; /* Adjust height */
+    transform: translateZ(0); /* Promote to its own layer */
+    /* Reduced padding so first link is visible */
+    padding: 15px !important;
 }
 
 .google-nav .nav-link {
@@ -57,6 +61,16 @@
     color: var(--current-accent-color);
     font-weight: bold;
 }
+/* Spacer anchor to offset first visible nav link below header */
+.google-nav .nav-link.placeholder-link {
+    display: block;
+    height: 57px; /* Approximate header height */
+    visibility: hidden;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+}
+/* Placeholder link to offset first real link in mobile sidebar */
 
 /* Adjust .app-main to work with the new flex layout */
 .app-main {
