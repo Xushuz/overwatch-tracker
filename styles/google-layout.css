@@ -31,6 +31,18 @@
     overflow-y: auto; /* Allow sidebar to scroll if content is long */
 }
 
+/* Add this for desktop sticky sidebar */
+@media (min-width: 768px) { /* Or your desired desktop breakpoint */
+    .google-nav {
+        position: sticky; /* Make it sticky on desktop */
+        top: 57px; /* Stick below the header (adjust if header height changes) */
+        height: calc(100vh - 57px); /* Adjust height to fill viewport below header */
+        /* Reset mobile-specific fixed positioning overrides if any were missed by general desktop styles */
+        left: auto;
+        z-index: auto; /* Or a value appropriate for your stacking context, but usually auto is fine for sticky */
+    }
+}
+
 .google-nav.sidebar-visible {
     left: 0; /* Slide in */
     transform: translateZ(0); /* Promote to its own layer */
