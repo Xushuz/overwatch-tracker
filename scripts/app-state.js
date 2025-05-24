@@ -19,6 +19,10 @@ export let appState = {
     lastSelectedTier: '', // Store the last selected tier from dashboard
 };
 
+export function getAppState() {
+    return appState;
+}
+
 export function saveState() {
     try {
         localStorage.setItem(APP_STATE_KEY, JSON.stringify(appState));
@@ -72,7 +76,12 @@ export function loadState() {
                 newState.theme = themes[0]; // Default to the first theme if stored theme is invalid or not present.
             }
 
-            appState = newState;
+            // Clear all keys from the existing appState object
+            Object.keys(appState).forEach(key => {
+                delete appState[key];
+            });
+            // Assign properties from the newly loaded and validated state
+            Object.assign(appState, newState);
         }
     } catch (e) {
         console.error("Error loading state from localStorage:", e);
@@ -83,6 +92,6 @@ export function loadState() {
 // Function to update parts of the appState and save automatically
 // Example: updateAppState({ currentWeek: newWeekValue, currentDay: newDayValue });
 export function updateAppState(newStateProperties) {
-    appState = { ...appState, ...newStateProperties };
+    Object.assign(appState, newStateProperties);
     saveState();
 }
