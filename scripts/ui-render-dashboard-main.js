@@ -1,7 +1,7 @@
 // scripts/ui-render-dashboard-main.js
 // Main dashboard rendering and navigation logic, split from ui-render-dashboard.js
 import { renderCurrentDayTasks, renderCurrentWeekProgress, prepareRankChartData, setupCustomWarmupUI, setupDailyNotesArea } from './ui-render-dashboard-tasks.js';
-import { appState } from './app-state.js';
+import { getAppState, updateAppState } from './app-state.js';
 import { populateRankSelects, generateDivisionButtons, addRankEntry } from './ui-render-progress.js';
 import { programData } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
@@ -90,7 +90,7 @@ export function renderDashboardPage(mainContentEl) {
             </div>
             <aside class="dashboard-side-panel">
                 <section class="daily-notes-section">
-                    <h4>Daily Notes for <span id="dailyNotesDateHeader">W${appState.currentWeek}D${appState.currentDay}</span></h4>
+                    <h4>Daily Notes for <span id="dailyNotesDateHeader">W${getAppState().currentWeek}D${getAppState().currentDay}</span></h4>
                     <textarea id="dailyNotesTextarea" placeholder="Reflections, VOD notes, goals..."></textarea>
                 </section>
                 <section class="dashboard-rank-section">
@@ -172,6 +172,6 @@ function handleDashboardRankUpdate(event) {
     const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
     if(dashboardRankTierSelect) dashboardRankTierSelect.value = tier;
 
-    // Re-render the chart with updated data
-    renderDashboardRankChart();
+    // Re-render the chart with updated data, with a slight delay
+    setTimeout(() => renderDashboardRankChart(), 50);
 }
