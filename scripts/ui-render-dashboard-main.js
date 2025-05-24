@@ -172,6 +172,6 @@ function handleDashboardRankUpdate(event) {
     const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
     if(dashboardRankTierSelect) dashboardRankTierSelect.value = tier;
 
-    // Re-render the chart with updated data
-    renderDashboardRankChart();
+    // Re-render the chart with updated data, with a slight delay
+    setTimeout(() => renderDashboardRankChart(), 50);
 }

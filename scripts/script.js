@@ -188,9 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start the application
     initializeApp();
 
+    // --- Adjust nav padding based on header height & Hamburger Menu ---
+    const appHeader = document.querySelector('.app-header');
+    const googleNav = document.querySelector('.google-nav'); // Unified declaration for both features
+
+    function adjustNavPadding() {
+        if (appHeader && googleNav) { // Use unified googleNav
+            const headerHeight = appHeader.offsetHeight;
+            googleNav.style.paddingTop = headerHeight + 'px'; // Use unified googleNav
+        }
+    }
+
+    adjustNavPadding(); // Initial adjustment
+    window.addEventListener('resize', adjustNavPadding); // Adjust on resize
+
     // --- Hamburger Menu & Sidebar Toggle ---
     const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
-    const googleNav = document.querySelector('.google-nav'); // Sidebar
+    // googleNav is already declared above and used by hamburger logic below
     const appMain = document.querySelector('.app-main'); // Main content area
     // Conceptual: Ensure an overlay div exists in index.html: <div class="sidebar-overlay" id="sidebarOverlay"></div>
     const sidebarOverlay = document.getElementById('sidebarOverlay'); 
