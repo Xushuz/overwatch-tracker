@@ -95,3 +95,38 @@ export function updateAppState(newStateProperties) {
     Object.assign(appState, newStateProperties);
     saveState();
 }
+/**
+ * Export the entire app state as a JSON file for backup.
+ */
+export function exportAppState() {
+    try {
+        const dataStr = JSON.stringify(appState, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'overwatch-tracker-state.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    } catch (e) {
+        console.error('Failed to export app state:', e);
+        alert('Error exporting data. See console for details.');
+    }
+}
+/**
+ * Import and replace app state from a parsed JSON object.
+ * @param {object} importedState
+ */
+export function importAppState(importedState) {
+    try {
+        // Overwrite localStorage and in-memory state
+        localStorage.setItem(APP_STATE_KEY, JSON.stringify(importedState));
+        loadState();
+        alert('Data imported successfully.');
+    } catch (e) {
+        console.error('Failed to import app state:', e);
+        alert('Error importing data. See console for details.');
+    }
+}

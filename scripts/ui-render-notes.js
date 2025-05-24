@@ -2,8 +2,17 @@
 import { appState, updateAppState } from './app-state.js';
 import { programData } from './program-data.js'; // To get day titles
 
-export function renderDailyNotesSummaryPage(mainContentEl) {
-    let notesHtml = `<section class="daily-notes-summary-page content-card"><h3>All Daily Notes</h3>`;
+/**
+ * Render the Daily Notes summary view with optional search filter.
+ * @param {HTMLElement} mainContentEl
+ * @param {string} filterTerm
+ */
+export function renderDailyNotesSummaryPage(mainContentEl, filterTerm = '') {
+    const searchTerm = filterTerm.trim().toLowerCase();
+    // Search input and header
+    let notesHtml = `<section class="daily-notes-summary-page content-card">
+        <h3>All Daily Notes</h3>
+        <input id="notesSearch" class="notes-search-input" type="text" placeholder="Search notes..." value="${filterTerm}" />`;
     
     // Get all note keys and sort them: c1w1d1, c1w1d2, ..., c2w1d1, ...
     const sortedNoteKeys = Object.keys(appState.dailyNotes).sort((a, b) => {
@@ -24,7 +33,18 @@ export function renderDailyNotesSummaryPage(mainContentEl) {
     if (sortedNoteKeys.length === 0) {
         notesHtml += "<p>No daily notes have been saved yet.</p>";
     } else {
-        sortedNoteKeys.forEach(noteKey => {
+        // Filter keys by search term if provided
+        const keysToShow = searchTerm
+            ? sortedNoteKeys.filter(key => {
+                const text = (appState.dailyNotes[key] || '').toLowerCase();
+                const headerLabel = key.toLowerCase();
+                return text.includes(searchTerm) || headerLabel.includes(searchTerm);
+            })
+            : sortedNoteKeys;
+        if (keysToShow.length === 0) {
+            notesHtml += "<p>No notes match your search.</p>";
+        } else {
+            keysToShow.forEach(noteKey => {
             const noteText = appState.dailyNotes[noteKey];
             if (noteText && noteText.trim() !== '') { 
                 contentFound = true;
@@ -43,7 +63,7 @@ export function renderDailyNotesSummaryPage(mainContentEl) {
                                 <i data-feather="trash-2"></i>
                             </button>
                         </div>
-                        <div class="note-content">${noteText.replace(/\n/g, '<br>')}</div>
+                        <div class="note-content">${ window.marked ? marked.parse(noteText) : noteText.replace(/\n/g, '<br>') }</div>
                     </div>`;
                 }
             }
@@ -57,6 +77,13 @@ export function renderDailyNotesSummaryPage(mainContentEl) {
     // Render Feather icons for delete buttons
     if (window.feather) {
         window.feather.replace();
+    }
+    // Attach search input handler
+    const searchInput = mainContentEl.querySelector('#notesSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', e => {
+            renderDailyNotesSummaryPage(mainContentEl, e.target.value);
+        });
     }
 
     // Attach delete handlers

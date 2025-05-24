@@ -56,3 +56,33 @@
     font-size: 0.9rem; /* Ensure this is present */
     color: var(--current-text-color); /* Ensure it uses themed text color */
 }
+/* Search input styling */
+.daily-notes-summary-page .notes-search-input {
+    width: 100%;
+    padding: 8px;
+    margin: 12px 0;
+    border: 1px solid var(--current-border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--current-input-bg);
+    color: var(--current-text-color);
+}
+/* Markdown rendering styles */
+.daily-notes-summary-page .note-content h1,
+.daily-notes-summary-page .note-content h2,
+.daily-notes-summary-page .note-content h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+.daily-notes-summary-page .note-content p {
+    margin-bottom: 0.75rem;
+}
+.daily-notes-summary-page .note-content pre {
+    background: var(--current-border-color);
+    padding: 8px;
+    overflow-x: auto;
+}
+.daily-notes-summary-page .note-content code {
+    background: var(--current-border-color);
+    padding: 2px 4px;
+    border-radius: 2px;
+}

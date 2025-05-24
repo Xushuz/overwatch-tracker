@@ -1,5 +1,5 @@
 // main-navigation.js
-import { getAppState, updateAppState, themes } from './app-state.js';
+import { getAppState, updateAppState, themes, exportAppState, importAppState } from './app-state.js';
 import { programData, getTotalDaysInWeek } from './program-data.js';
 import { applyTheme } from './ui-theme.js'; // Added
 import { startNewCycle } from './script.js'; // Added
@@ -106,8 +106,15 @@ export function renderSettingsPage(mainContentEl) {
 
             <section class="settings-section">
                 <h3>Data Management</h3>
-            <p>This will reset your current cycle, rank history for the current cycle, task completions, and clear all daily notes. Program data itself will remain.</p>
+                <p>This will reset your current cycle, rank history for the current cycle, task completions, and clear all daily notes. Program data itself will remain.</p>
                 <button class="form-button form-button--danger" id="resetAllDataBtn">Reset Application Data</button>
+            </section>
+
+            <section class="settings-section">
+                <h3>Backup &amp; Restore</h3>
+                <button class="form-button" id="exportDataBtn">Export Data (JSON)</button>
+                <input type="file" id="importDataInput" accept="application/json" style="display:none" />
+                <button class="form-button" id="importDataBtn">Import Data (JSON)</button>
             </section>
         </div>
     `;
@@ -139,6 +146,34 @@ export function renderSettingsPage(mainContentEl) {
             } else {
                 console.error('Reset data function (startNewCycle) not available.');
                 alert('Error: Reset functionality is currently unavailable.');
+            }
+        });
+    }
+    // Export data button
+    const exportDataBtn = document.getElementById('exportDataBtn');
+    if (exportDataBtn) {
+        exportDataBtn.addEventListener('click', () => exportAppState());
+    }
+    // Import data button & input
+    const importDataInput = document.getElementById('importDataInput');
+    const importDataBtn = document.getElementById('importDataBtn');
+    if (importDataBtn && importDataInput) {
+        importDataBtn.addEventListener('click', () => importDataInput.click());
+        importDataInput.addEventListener('change', event => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        importAppState(data);
+                        renderSettingsPage(mainContentEl);
+                    } catch (err) {
+                        console.error('Invalid JSON file:', err);
+                        alert('Failed to import data: invalid JSON.');
+                    }
+                };
+                reader.readAsText(file);
             }
         });
     }
