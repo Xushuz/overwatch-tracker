@@ -13,18 +13,21 @@
     position: relative; /* For pseudo-elements used in active (X) state */
 }
 /* Remove the last margin from the last span to better center the icon if padding is symmetrical */
-.hamburger-menu-btn span:last-child {
-    margin-bottom: 0;
+
+/* Remove old span styles, now using SVG for icon */
+
+.hamburger-menu-btn .menu-grid-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    color: var(--current-text-color);
+    pointer-events: none;
 }
 
-.hamburger-menu-btn span {
-    display: block;
-    width: 22px;
-    height: 3px;
-    background-color: var(--current-text-color);
-    margin-bottom: 4px; 
-    border-radius: 1px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+/* Optional: Add a hover effect for the button */
+.hamburger-menu-btn:hover,
+.hamburger-menu-btn:focus {
+    background-color: var(--current-hamburger-hover-bg, #f0f0f0);
 }
 
 /* Base active state for X (globally, if needed, but primarily for mobile) */
