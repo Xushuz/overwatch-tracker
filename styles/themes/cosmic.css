@@ -183,26 +183,27 @@ body.cosmic-mode .nav-sidebar {
 body.cosmic-mode::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
     background-image: 
         radial-gradient(2px 2px at 20px 30px, white, transparent),
         radial-gradient(2px 2px at 40px 70px, white, transparent),
         radial-gradient(1px 1px at 90px 40px, white, transparent),
         radial-gradient(1px 1px at 130px 80px, white, transparent),
-        radial-gradient(2px 2px at 160px 30px, white, transparent);
+        radial-gradient(2px 2px at 160px 30px, white, transparent),
+        radial-gradient(1px 1px at 180px 90px, white, transparent);
     background-repeat: repeat;
-    background-size: 200px 100px;
-    animation: sparkle 20s linear infinite;
+    background-size: 200px 200px;
+    animation: sparkle 25s linear infinite;
     pointer-events: none;
     z-index: -1;
 }
 
 @keyframes sparkle {
-    from { transform: translateX(0); }
-    to { transform: translateX(200px); }
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-50px, -30px) rotate(360deg); }
 }
 
 /* Cosmic glow effects */

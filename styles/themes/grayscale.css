@@ -115,4 +115,95 @@ body.grayscale-mode {
     --current-hamburger-hover-bg: var(--hamburger-hover-bg-grayscale);
     --current-hamburger-active-bg: var(--hamburger-active-bg-grayscale);
 }
+
+/* Grayscale film noir rain effect */
+body.grayscale-mode::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 120%;
+    height: 140%;
+    background-image: 
+        linear-gradient(80deg, transparent 48%, rgba(128, 128, 128, 0.3) 49%, rgba(128, 128, 128, 0.3) 50%, transparent 51%),
+        linear-gradient(82deg, transparent 48%, rgba(169, 169, 169, 0.2) 49%, rgba(169, 169, 169, 0.2) 50%, transparent 51%),
+        linear-gradient(78deg, transparent 48%, rgba(105, 105, 105, 0.25) 49%, rgba(105, 105, 105, 0.25) 50%, transparent 51%);
+    background-size: 3px 100px, 2px 80px, 4px 120px;
+    animation: filmNoirRain 8s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Grayscale dramatic shadows */
+body.grayscale-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: 160%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 30% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 0, 0, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.05) 50%, transparent 60%);
+    animation: dramaticShadows 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+@keyframes filmNoirRain {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
+}
+
+@keyframes dramaticShadows {
+    0%, 100% { 
+        transform: rotate(0deg) scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: rotate(1deg) scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+/* Grayscale vintage text effects */
+body.grayscale-mode h1,
+body.grayscale-mode h2,
+body.grayscale-mode h3 {
+    text-shadow: 
+        3px 3px 0px rgba(0, 0, 0, 0.3),
+        6px 6px 10px rgba(0, 0, 0, 0.1);
+    animation: vintageType 8s ease-in-out infinite alternate;
+}
+
+@keyframes vintageType {
+    from { 
+        text-shadow: 
+            3px 3px 0px rgba(0, 0, 0, 0.3),
+            6px 6px 10px rgba(0, 0, 0, 0.1);
+    }
+    to { 
+        text-shadow: 
+            4px 4px 0px rgba(0, 0, 0, 0.4),
+            8px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Grayscale button effects */
+body.grayscale-mode .btn-primary,
+body.grayscale-mode button.primary {
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+body.grayscale-mode .btn-primary:hover,
+body.grayscale-mode button.primary:hover {
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
 /* Grayscale theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

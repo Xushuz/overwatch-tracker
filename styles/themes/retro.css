@@ -122,3 +122,90 @@ body.retro-mode .form-button {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+
+/* Retro animated scanlines */
+body.retro-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(0deg, transparent 48%, rgba(218, 165, 32, 0.1) 50%, transparent 52%);
+    background-size: 100% 4px;
+    animation: retroScanlines 2s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Retro floating geometric shapes */
+body.retro-mode::after {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: 
+        linear-gradient(45deg, rgba(218, 165, 32, 0.2) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(160, 82, 45, 0.15) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(218, 165, 32, 0.1) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(160, 82, 45, 0.1) 75%);
+    background-size: 80px 80px, 60px 60px, 100px 100px, 120px 120px;
+    animation: retroGeometry 15s linear infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+@keyframes retroScanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(8px); }
+}
+
+@keyframes retroGeometry {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-30px, -20px) rotate(45deg); }
+}
+
+/* Retro glowing text effects */
+body.retro-mode h1,
+body.retro-mode h2,
+body.retro-mode h3 {
+    text-shadow: 
+        2px 2px 0px rgba(160, 82, 45, 0.8),
+        0 0 10px rgba(218, 165, 32, 0.6);
+    animation: retroTextGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes retroTextGlow {
+    from { 
+        text-shadow: 
+            2px 2px 0px rgba(160, 82, 45, 0.8),
+            0 0 10px rgba(218, 165, 32, 0.6);
+    }
+    to { 
+        text-shadow: 
+            3px 3px 0px rgba(160, 82, 45, 1),
+            0 0 15px rgba(218, 165, 32, 0.9),
+            0 0 25px rgba(218, 165, 32, 0.4);
+    }
+}
+
+/* Retro button effects */
+body.retro-mode .btn-primary,
+body.retro-mode button.primary {
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(218, 165, 32, 0.3);
+    transition: all 0.3s ease;
+}
+
+body.retro-mode .btn-primary:hover,
+body.retro-mode button.primary:hover {
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(218, 165, 32, 0.5);
+}

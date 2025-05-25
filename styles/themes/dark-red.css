@@ -154,3 +154,110 @@
         text-decoration: underline;
         color: var(--accent-hover-color-dark-red); 
     }
+
+    /* Dark-red gothic shadow effects */
+    body.dark-red-mode::before {
+        content: '';
+        position: fixed;
+        top: -10%;
+        left: -10%;
+        width: 120%;
+        height: 120%;
+        background-image: 
+            radial-gradient(ellipse at 20% 30%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, rgba(178, 34, 34, 0.08) 0%, transparent 60%),
+            radial-gradient(ellipse at 60% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 40%);
+        animation: gothicShadows 20s ease-in-out infinite;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* Dark-red blood drop effect */
+    body.dark-red-mode::after {
+        content: '';
+        position: fixed;
+        top: -20%;
+        left: -10%;
+        width: 120%;
+        height: 140%;
+        background-image: 
+            radial-gradient(2px 6px at 100px 20px, rgba(139, 0, 0, 0.6), transparent),
+            radial-gradient(1px 4px at 250px 60px, rgba(178, 34, 34, 0.4), transparent),
+            radial-gradient(3px 8px at 400px 40px, rgba(139, 0, 0, 0.5), transparent),
+            radial-gradient(2px 5px at 550px 80px, rgba(178, 34, 34, 0.3), transparent);
+        background-repeat: repeat;
+        background-size: 600px 300px;
+        animation: bloodDrops 25s linear infinite;
+        pointer-events: none;
+        z-index: -2;
+    }
+
+    @keyframes gothicShadows {
+        0%, 100% { 
+            transform: scale(1) rotate(0deg);
+            opacity: 0.6;
+        }
+        50% { 
+            transform: scale(1.1) rotate(2deg);
+            opacity: 0.9;
+        }
+    }
+
+    @keyframes bloodDrops {
+        0% { 
+            transform: translateY(0);
+            opacity: 0;
+        }
+        20% { 
+            opacity: 0.8;
+        }
+        80% { 
+            opacity: 0.2;
+        }
+        100% { 
+            transform: translateY(100px);
+            opacity: 0;
+        }
+    }
+
+    /* Dark-red gothic text effects */
+    body.dark-red-mode h1,
+    body.dark-red-mode h2,
+    body.dark-red-mode h3 {
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 8px rgba(139, 0, 0, 0.6),
+            0 0 16px rgba(139, 0, 0, 0.3);
+        animation: gothicPulse 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes gothicPulse {
+        from { 
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 8px rgba(139, 0, 0, 0.6),
+                0 0 16px rgba(139, 0, 0, 0.3);
+        }
+        to { 
+            text-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 1),
+                0 0 12px rgba(139, 0, 0, 0.8),
+                0 0 24px rgba(139, 0, 0, 0.5);
+        }
+    }
+
+    /* Dark-red button effects */
+    body.dark-red-mode .btn-primary,
+    body.dark-red-mode button.primary {
+        box-shadow: 
+            0 0 15px rgba(139, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    body.dark-red-mode .btn-primary:hover,
+    body.dark-red-mode button.primary:hover {
+        box-shadow: 
+            0 0 25px rgba(139, 0, 0, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
