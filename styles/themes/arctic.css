@@ -165,11 +165,13 @@ body.arctic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover 
 body.arctic-mode .container,
 body.arctic-mode .card {
     background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(200, 216, 232, 0.3);
 }
 
 body.arctic-mode .nav-sidebar {
     background: rgba(230, 242, 255, 0.9);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
 }

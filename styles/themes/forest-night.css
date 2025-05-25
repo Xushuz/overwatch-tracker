@@ -165,6 +165,7 @@ body.forest-night-mode a:not(.form-button):not(.nav-link):not(.resource-button):
 body.forest-night-mode .container,
 body.forest-night-mode .card {
     background: rgba(26, 45, 26, 0.9);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(34, 139, 34, 0.3);
     box-shadow: 0 0 20px rgba(34, 139, 34, 0.1);
@@ -172,6 +173,7 @@ body.forest-night-mode .card {
 
 body.forest-night-mode .nav-sidebar {
     background: rgba(26, 45, 26, 0.95);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border-right: 1px solid rgba(34, 139, 34, 0.4);
 }

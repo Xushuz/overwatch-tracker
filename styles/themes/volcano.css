@@ -165,6 +165,7 @@ body.volcano-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
 body.volcano-mode .container,
 body.volcano-mode .card {
     background: rgba(45, 27, 15, 0.9);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 69, 0, 0.2);
     box-shadow: 0 0 20px rgba(255, 69, 0, 0.1);
@@ -172,6 +173,7 @@ body.volcano-mode .card {
 
 body.volcano-mode .nav-sidebar {
     background: rgba(45, 27, 15, 0.95);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border-right: 1px solid rgba(255, 69, 0, 0.3);
 }

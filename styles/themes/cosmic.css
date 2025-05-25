@@ -166,6 +166,7 @@ body.cosmic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover 
 body.cosmic-mode .container,
 body.cosmic-mode .card {
     background: rgba(26, 15, 46, 0.8);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(138, 43, 226, 0.3);
     box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
@@ -173,6 +174,7 @@ body.cosmic-mode .card {
 
 body.cosmic-mode .nav-sidebar {
     background: rgba(26, 15, 46, 0.9);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border-right: 1px solid rgba(138, 43, 226, 0.4);
 }
