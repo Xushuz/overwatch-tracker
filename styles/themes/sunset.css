@@ -116,6 +116,78 @@ body.sunset-mode {
     --current-hamburger-active-bg: var(--hamburger-active-bg-sunset);
 }
 
+/* Sunset animated sky gradient */
+body.sunset-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 94, 77, 0.08) 0%,
+        rgba(255, 154, 0, 0.06) 30%,
+        rgba(255, 206, 84, 0.04) 60%,
+        transparent 100%
+    );
+    animation: sunsetGlow 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Sunset floating particles */
+body.sunset-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 100px 50px, rgba(255, 206, 84, 0.6), transparent),
+        radial-gradient(1px 1px at 250px 80px, rgba(255, 154, 0, 0.4), transparent),
+        radial-gradient(3px 3px at 400px 120px, rgba(255, 94, 77, 0.5), transparent),
+        radial-gradient(1px 1px at 550px 40px, rgba(255, 206, 84, 0.7), transparent);
+    background-repeat: repeat;
+    background-size: 600px 200px;
+    animation: sunsetParticles 25s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes sunsetGlow {
+    0%, 100% { 
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes sunsetParticles {
+    from { 
+        transform: translateY(0) rotate(0deg);
+    }
+    to { 
+        transform: translateY(-100px) rotate(360deg);
+    }
+}
+
+/* Sunset glow effects */
+body.sunset-mode .btn-primary,
+body.sunset-mode button.primary {
+    box-shadow: 0 0 20px rgba(255, 94, 77, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+body.sunset-mode .btn-primary:hover,
+body.sunset-mode button.primary:hover {
+    box-shadow: 0 0 30px rgba(255, 94, 77, 0.5);
+}
+
 body.sunset-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
     color: var(--current-accent-color); 
 }

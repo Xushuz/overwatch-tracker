@@ -175,3 +175,67 @@ body.arctic-mode .nav-sidebar {
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
 }
+
+/* Arctic animated snow particles */
+body.arctic-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 30px 20px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 80px 60px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(3px 3px at 120px 100px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 170px 40px, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(2px 2px at 220px 80px, rgba(255, 255, 255, 0.5), transparent);
+    background-repeat: repeat;
+    background-size: 250px 150px;
+    animation: snowfall 15s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Arctic aurora shimmer effect */
+body.arctic-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(100, 149, 237, 0.1) 25%,
+        rgba(135, 206, 250, 0.15) 50%,
+        rgba(100, 149, 237, 0.1) 75%,
+        transparent 100%
+    );
+    animation: auroraShimmer 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes snowfall {
+    from { transform: translate(0, -100px); }
+    to { transform: translate(-50px, 100vh); }
+}
+
+@keyframes auroraShimmer {
+    0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+    50% { opacity: 0.7; transform: scaleX(1.2); }
+}
+
+/* Arctic glow effects */
+body.arctic-mode .btn-primary,
+body.arctic-mode button.primary {
+    box-shadow: 0 0 20px rgba(100, 149, 237, 0.4);
+    transition: box-shadow 0.3s ease;
+}
+
+body.arctic-mode .btn-primary:hover,
+body.arctic-mode button.primary:hover {
+    box-shadow: 0 0 30px rgba(100, 149, 237, 0.6);
+}

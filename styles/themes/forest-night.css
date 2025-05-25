@@ -178,7 +178,7 @@ body.forest-night-mode .nav-sidebar {
     border-right: 1px solid rgba(34, 139, 34, 0.4);
 }
 
-/* Forest mist effect */
+/* Enhanced floating fireflies */
 body.forest-night-mode::before {
     content: '';
     position: fixed;
@@ -186,22 +186,68 @@ body.forest-night-mode::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        45deg,
-        transparent 20%,
-        rgba(34, 139, 34, 0.02) 40%,
-        transparent 60%,
-        rgba(34, 139, 34, 0.02) 80%,
-        transparent 100%
-    );
-    animation: forestMist 15s ease-in-out infinite;
+    background-image: 
+        radial-gradient(2px 2px at 60px 40px, rgba(255, 255, 0, 0.8), transparent),
+        radial-gradient(1px 1px at 150px 80px, rgba(50, 205, 50, 0.7), transparent),
+        radial-gradient(2px 2px at 220px 120px, rgba(255, 255, 0, 0.6), transparent),
+        radial-gradient(1px 1px at 320px 60px, rgba(50, 205, 50, 0.8), transparent),
+        radial-gradient(2px 2px at 400px 100px, rgba(255, 255, 0, 0.5), transparent);
+    background-repeat: repeat;
+    background-size: 500px 200px;
+    animation: firefliesFloat 20s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
 }
 
-@keyframes forestMist {
-    0%, 100% { opacity: 0.3; transform: translateX(-10px); }
-    50% { opacity: 0.7; transform: translateX(10px); }
+/* Enhanced forest mist */
+body.forest-night-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(34, 139, 34, 0.03) 30%,
+        rgba(34, 139, 34, 0.05) 60%,
+        rgba(34, 139, 34, 0.03) 90%,
+        transparent 100%
+    );
+    animation: enhancedMist 18s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+@keyframes firefliesFloat {
+    0%, 100% { 
+        transform: translate(0, 0);
+        opacity: 0.6;
+    }
+    25% { 
+        transform: translate(20px, -30px);
+        opacity: 1;
+    }
+    50% { 
+        transform: translate(-10px, -60px);
+        opacity: 0.8;
+    }
+    75% { 
+        transform: translate(30px, -40px);
+        opacity: 1;
+    }
+}
+
+@keyframes enhancedMist {
+    0%, 100% { 
+        opacity: 0.4; 
+        transform: translateX(-20px) scale(1);
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: translateX(20px) scale(1.1);
+    }
 }
 
 /* Forest night glow effects */
