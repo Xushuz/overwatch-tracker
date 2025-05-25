@@ -193,11 +193,107 @@ body.neon-mode button.primary:hover {
     box-shadow: 0 0 35px rgba(0, 255, 65, 0.8);
 }
 
-/* Neon text glow */
+/* Neon text glow with enhanced effects */
 body.neon-mode h1,
 body.neon-mode h2,
 body.neon-mode h3 {
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    text-shadow: 
+        0 0 5px rgba(0, 255, 65, 0.9),
+        0 0 10px rgba(0, 255, 65, 0.7),
+        0 0 20px rgba(0, 255, 65, 0.5),
+        0 0 30px rgba(0, 255, 65, 0.3);
+    animation: neonTextGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes neonTextGlow {
+    0% {
+        text-shadow: 
+            0 0 5px rgba(0, 255, 65, 0.9),
+            0 0 10px rgba(0, 255, 65, 0.7),
+            0 0 20px rgba(0, 255, 65, 0.5),
+            0 0 30px rgba(0, 255, 65, 0.3);
+    }
+    100% {
+        text-shadow: 
+            0 0 8px rgba(0, 255, 65, 1),
+            0 0 15px rgba(0, 255, 65, 0.9),
+            0 0 25px rgba(0, 255, 65, 0.7),
+            0 0 35px rgba(0, 255, 65, 0.5);
+    }
+}
+
+/* Enhanced neon effects for navigation and interactive elements */
+body.neon-mode .nav-link,
+body.neon-mode .section-title,
+body.neon-mode .card-title {
+    color: #00FF41;
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+    transition: all 0.3s ease;
+}
+
+body.neon-mode .nav-link:hover,
+body.neon-mode .section-title:hover,
+body.neon-mode .card-title:hover {
+    text-shadow: 
+        0 0 5px rgba(0, 255, 65, 1),
+        0 0 10px rgba(0, 255, 65, 0.8),
+        0 0 15px rgba(0, 255, 65, 0.6);
+    transform: translateY(-1px);
+}
+
+/* Neon task items with electric charge effect */
+body.neon-mode .task-item {
+    position: relative;
+    border-left: 2px solid rgba(0, 255, 65, 0.3);
+    transition: all 0.3s ease;
+}
+
+body.neon-mode .task-item:hover {
+    border-left-color: rgba(0, 255, 65, 0.8);
+    box-shadow: -5px 0 15px rgba(0, 255, 65, 0.2);
+}
+
+body.neon-mode .task-item::before {
+    content: '⚡';
+    color: #00FF41;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+    margin-right: 8px;
+    animation: electricPulse 3s ease-in-out infinite;
+}
+
+@keyframes electricPulse {
+    0%, 100% { 
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* Neon completion effects */
+body.neon-mode .task-completed {
+    color: #39FF14;
+    text-shadow: 0 0 6px rgba(57, 255, 20, 0.8);
+}
+
+body.neon-mode .task-completed::after {
+    content: ' ⚡';
+    color: #00FF41;
+    text-shadow: 0 0 8px rgba(0, 255, 65, 1);
+    animation: electricBurst 2s ease-in-out infinite;
+}
+
+@keyframes electricBurst {
+    0%, 90%, 100% { 
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    10%, 20% { 
+        opacity: 1;
+        transform: scale(1.2);
+    }
 }
 
 /* Neon pulse animation */

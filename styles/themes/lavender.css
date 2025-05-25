@@ -116,45 +116,7 @@ body.lavender-mode {
     --current-hamburger-active-bg: var(--hamburger-active-bg-lavender);
 }
 
-/* Lavender floating petals */
-body.lavender-mode::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(3px 6px at 80px 60px, rgba(186, 85, 211, 0.3), transparent),
-        radial-gradient(2px 4px at 200px 100px, rgba(186, 85, 211, 0.2), transparent),
-        radial-gradient(4px 8px at 350px 40px, rgba(186, 85, 211, 0.25), transparent),
-        radial-gradient(2px 5px at 500px 80px, rgba(186, 85, 211, 0.2), transparent);
-    background-repeat: repeat;
-    background-size: 600px 200px;
-    animation: lavenderPetals 30s linear infinite;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Lavender gentle breeze effect */
-body.lavender-mode::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent 40%,
-        rgba(186, 85, 211, 0.02) 50%,
-        transparent 60%
-    );
-    animation: lavenderBreeze 18s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -2;
-}
-
+/* Lavender Animations */
 @keyframes lavenderPetals {
     from { 
         transform: translateY(0) rotate(0deg);
@@ -177,16 +139,263 @@ body.lavender-mode::after {
     }
 }
 
-/* Lavender glow effects */
+@keyframes etherealGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 5px rgba(189, 180, 254, 0.3),
+            0 0 10px rgba(189, 180, 254, 0.2),
+            0 0 15px rgba(186, 85, 211, 0.1);
+    }
+    50% { 
+        text-shadow: 
+            0 0 10px rgba(189, 180, 254, 0.6),
+            0 0 20px rgba(189, 180, 254, 0.4),
+            0 0 30px rgba(186, 85, 211, 0.3),
+            0 0 40px rgba(138, 43, 226, 0.2);
+    }
+}
+
+@keyframes mysticalFloat {
+    0% { 
+        transform: translateY(0) rotateZ(0deg);
+        filter: brightness(1) hue-rotate(0deg);
+    }
+    33% { 
+        transform: translateY(-3px) rotateZ(1deg);
+        filter: brightness(1.1) hue-rotate(5deg);
+    }
+    66% { 
+        transform: translateY(-2px) rotateZ(-1deg);
+        filter: brightness(1.15) hue-rotate(10deg);
+    }
+    100% { 
+        transform: translateY(0) rotateZ(0deg);
+        filter: brightness(1) hue-rotate(0deg);
+    }
+}
+
+@keyframes lavenderShimmer {
+    0% { 
+        background-position: 0% 50%;
+    }
+    50% { 
+        background-position: 100% 50%;
+    }
+    100% { 
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes petalDance {
+    0%, 100% { 
+        box-shadow: 
+            0 0 10px rgba(189, 180, 254, 0.2),
+            inset 0 0 10px rgba(189, 180, 254, 0.1);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 
+            0 0 20px rgba(189, 180, 254, 0.4),
+            0 0 30px rgba(186, 85, 211, 0.3),
+            inset 0 0 20px rgba(189, 180, 254, 0.2);
+        transform: scale(1.01);
+    }
+}
+
+@keyframes dreamyRipple {
+    0% { 
+        transform: translateX(-50px);
+        opacity: 0.3;
+    }
+    50% { 
+        opacity: 0.7;
+    }
+    100% { 
+        transform: translateX(50px);
+        opacity: 0.3;
+    }
+}
+
+@keyframes softBloom {
+    0%, 100% { 
+        background-size: 100% 100%;
+        opacity: 0.4;
+    }
+    50% { 
+        background-size: 105% 105%;
+        opacity: 0.7;
+    }
+}
+
+/* Lavender Background Effects */
+body.lavender-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(3px 6px at 80px 60px, rgba(189, 180, 254, 0.4), transparent),
+        radial-gradient(2px 4px at 200px 100px, rgba(186, 85, 211, 0.3), transparent),
+        radial-gradient(4px 8px at 350px 40px, rgba(189, 180, 254, 0.35), transparent),
+        radial-gradient(2px 5px at 500px 80px, rgba(138, 43, 226, 0.25), transparent),
+        radial-gradient(3px 5px at 150px 150px, rgba(189, 180, 254, 0.3), transparent);
+    background-repeat: repeat;
+    background-size: 600px 200px;
+    animation: lavenderPetals 30s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.lavender-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(189, 180, 254, 0.03) 50%,
+        transparent 60%
+    );
+    animation: dreamyRipple 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Enhanced Heading Effects */
+body.lavender-mode h1,
+body.lavender-mode h2,
+body.lavender-mode h3 {
+    position: relative;
+    animation: etherealGlow 5s ease-in-out infinite;
+}
+
+body.lavender-mode h1::before,
+body.lavender-mode h2::before,
+body.lavender-mode h3::before {
+    content: '🌸';
+    position: absolute;
+    left: -30px;
+    animation: mysticalFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 5px rgba(189, 180, 254, 0.5));
+}
+
+/* Enhanced Task Item Effects */
+body.lavender-mode .task-item {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+body.lavender-mode .task-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(189, 180, 254, 0.1),
+        rgba(186, 85, 211, 0.15),
+        rgba(189, 180, 254, 0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+body.lavender-mode .task-item:hover::before {
+    left: 100%;
+}
+
+body.lavender-mode .task-item:hover {
+    animation: petalDance 2.5s ease-in-out infinite;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Navigation Effects */
+body.lavender-mode .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+body.lavender-mode .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(189, 180, 254, 0.8),
+        rgba(186, 85, 211, 0.6),
+        rgba(138, 43, 226, 0.8)
+    );
+    transition: width 0.4s ease;
+    animation: lavenderShimmer 4s ease-in-out infinite;
+}
+
+body.lavender-mode .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Enhanced Button Effects */
 body.lavender-mode .btn-primary,
 body.lavender-mode button.primary {
-    box-shadow: 0 0 15px rgba(186, 85, 211, 0.2);
-    transition: box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        var(--current-accent-color), 
+        rgba(186, 85, 211, 0.8),
+        rgba(138, 43, 226, 0.6)
+    );
+    animation: petalDance 4s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+body.lavender-mode .btn-primary::before,
+body.lavender-mode button.primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+body.lavender-mode .btn-primary:hover::before,
+body.lavender-mode button.primary:hover::before {
+    left: 100%;
 }
 
 body.lavender-mode .btn-primary:hover,
 body.lavender-mode button.primary:hover {
-    box-shadow: 0 0 25px rgba(186, 85, 211, 0.4);
+    animation: softBloom 2s ease-in-out infinite;
+    transform: translateY(-3px);
+}
+
+/* Completed Task Effects */
+body.lavender-mode .task-item.completed {
+    background: linear-gradient(
+        135deg,
+        rgba(189, 180, 254, 0.1),
+        rgba(186, 85, 211, 0.05)
+    );
+    animation: softBloom 5s ease-in-out infinite;
 }
 
 /* Lavender theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

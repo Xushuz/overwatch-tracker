@@ -124,50 +124,8 @@ body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
     color: var(--current-accent-hover-color); 
 }
 
-/* Oceanic animated wave effects */
-body.oceanic-mode::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(
-            45deg,
-            transparent 30%,
-            rgba(0, 119, 190, 0.03) 35%,
-            rgba(0, 119, 190, 0.05) 40%,
-            rgba(0, 119, 190, 0.03) 45%,
-            transparent 50%
-        );
-    background-size: 400px 200px;
-    animation: oceanWaves 12s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Oceanic bubble effects */
-body.oceanic-mode::after {
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(4px 4px at 80px 90%, rgba(135, 206, 250, 0.4), transparent),
-        radial-gradient(2px 2px at 200px 85%, rgba(135, 206, 250, 0.6), transparent),
-        radial-gradient(6px 6px at 350px 95%, rgba(135, 206, 250, 0.3), transparent),
-        radial-gradient(3px 3px at 500px 80%, rgba(135, 206, 250, 0.5), transparent);
-    background-repeat: repeat;
-    background-size: 600px 300px;
-    animation: oceanBubbles 16s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
-}
-
-@keyframes oceanWaves {
+/* Oceanic Animations */
+@keyframes oceanicTide {
     0%, 100% { 
         transform: translateX(0) scaleY(1);
         opacity: 0.5;
@@ -178,31 +136,265 @@ body.oceanic-mode::after {
     }
 }
 
-@keyframes oceanBubbles {
+@keyframes bubbleRise {
     0% { 
-        transform: translateY(0);
+        transform: translateY(0) scale(0.8);
         opacity: 0;
     }
     10% { 
-        opacity: 0.6;
+        opacity: 0.8;
     }
     90% { 
-        opacity: 0.2;
+        opacity: 0.3;
+        transform: translateY(-300px) scale(1.2);
     }
     100% { 
-        transform: translateY(-300px);
+        transform: translateY(-400px) scale(0);
         opacity: 0;
     }
 }
 
-/* Oceanic glow effects */
+@keyframes oceanicGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 5px rgba(100, 255, 218, 0.3),
+            0 0 10px rgba(100, 255, 218, 0.2),
+            0 0 15px rgba(100, 255, 218, 0.1);
+    }
+    50% { 
+        text-shadow: 
+            0 0 10px rgba(100, 255, 218, 0.6),
+            0 0 20px rgba(100, 255, 218, 0.4),
+            0 0 30px rgba(100, 255, 218, 0.2),
+            0 0 40px rgba(100, 255, 218, 0.1);
+    }
+}
+
+@keyframes waveFlow {
+    0% { 
+        background-position: 0% 50%;
+    }
+    50% { 
+        background-position: 100% 50%;
+    }
+    100% { 
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes deepDive {
+    0% { 
+        transform: translateY(0);
+        filter: brightness(1) hue-rotate(0deg);
+    }
+    50% { 
+        transform: translateY(-10px);
+        filter: brightness(1.2) hue-rotate(10deg);
+    }
+    100% { 
+        transform: translateY(0);
+        filter: brightness(1) hue-rotate(0deg);
+    }
+}
+
+@keyframes coralGlow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 10px rgba(100, 255, 218, 0.2),
+            inset 0 0 10px rgba(100, 255, 218, 0.1);
+    }
+    50% { 
+        box-shadow: 
+            0 0 20px rgba(100, 255, 218, 0.4),
+            inset 0 0 20px rgba(100, 255, 218, 0.2);
+    }
+}
+
+@keyframes tidePool {
+    0% { 
+        background-size: 100% 100%;
+        opacity: 0.3;
+    }
+    50% { 
+        background-size: 120% 120%;
+        opacity: 0.6;
+    }
+    100% { 
+        background-size: 100% 100%;
+        opacity: 0.3;
+    }
+}
+
+/* Oceanic Background Effects */
+body.oceanic-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(
+            90deg,
+            transparent 30%,
+            rgba(100, 255, 218, 0.03) 35%,
+            rgba(100, 255, 218, 0.05) 40%,
+            rgba(100, 255, 218, 0.03) 45%,
+            transparent 50%
+        );
+    background-size: 400px 200px;
+    animation: oceanicTide 15s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.oceanic-mode::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(3px 3px at 80px 90%, rgba(100, 255, 218, 0.4), transparent),
+        radial-gradient(2px 2px at 200px 85%, rgba(100, 255, 218, 0.6), transparent),
+        radial-gradient(4px 4px at 350px 95%, rgba(100, 255, 218, 0.3), transparent),
+        radial-gradient(3px 3px at 500px 80%, rgba(100, 255, 218, 0.5), transparent),
+        radial-gradient(5px 5px at 120px 70%, rgba(100, 255, 218, 0.2), transparent);
+    background-repeat: repeat;
+    background-size: 600px 300px;
+    animation: bubbleRise 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Enhanced Heading Effects */
+body.oceanic-mode h1,
+body.oceanic-mode h2,
+body.oceanic-mode h3 {
+    position: relative;
+    animation: oceanicGlow 4s ease-in-out infinite;
+}
+
+body.oceanic-mode h1::before,
+body.oceanic-mode h2::before,
+body.oceanic-mode h3::before {
+    content: '🌊';
+    position: absolute;
+    left: -30px;
+    animation: deepDive 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 5px rgba(100, 255, 218, 0.5));
+}
+
+/* Enhanced Task Item Effects */
+body.oceanic-mode .task-item {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+body.oceanic-mode .task-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(100, 255, 218, 0.1),
+        rgba(100, 255, 218, 0.2),
+        rgba(100, 255, 218, 0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+body.oceanic-mode .task-item:hover::before {
+    left: 100%;
+}
+
+body.oceanic-mode .task-item:hover {
+    animation: coralGlow 2s ease-in-out infinite;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Navigation Effects */
+body.oceanic-mode .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+body.oceanic-mode .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(100, 255, 218, 0.8),
+        rgba(100, 255, 218, 0.4),
+        rgba(100, 255, 218, 0.8)
+    );
+    transition: width 0.3s ease;
+    animation: waveFlow 3s ease-in-out infinite;
+}
+
+body.oceanic-mode .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Enhanced Button Effects */
 body.oceanic-mode .btn-primary,
 body.oceanic-mode button.primary {
-    box-shadow: 0 0 20px rgba(0, 119, 190, 0.3);
-    transition: box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        var(--current-accent-color), 
+        rgba(100, 255, 218, 0.8)
+    );
+    animation: coralGlow 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+body.oceanic-mode .btn-primary::before,
+body.oceanic-mode button.primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+body.oceanic-mode .btn-primary:hover::before,
+body.oceanic-mode button.primary:hover::before {
+    left: 100%;
 }
 
 body.oceanic-mode .btn-primary:hover,
 body.oceanic-mode button.primary:hover {
-    box-shadow: 0 0 30px rgba(0, 119, 190, 0.5);
+    animation: tidePool 2s ease-in-out infinite;
+    transform: translateY(-3px);
+}
+
+/* Completed Task Effects */
+body.oceanic-mode .task-item.completed {
+    background: linear-gradient(
+        135deg,
+        rgba(100, 255, 218, 0.1),
+        rgba(100, 255, 218, 0.05)
+    );
+    animation: tidePool 4s ease-in-out infinite;
 }

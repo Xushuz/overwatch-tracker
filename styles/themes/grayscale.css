@@ -116,41 +116,7 @@ body.grayscale-mode {
     --current-hamburger-active-bg: var(--hamburger-active-bg-grayscale);
 }
 
-/* Grayscale film noir rain effect */
-body.grayscale-mode::before {
-    content: '';
-    position: fixed;
-    top: -20%;
-    left: -10%;
-    width: 120%;
-    height: 140%;
-    background-image: 
-        linear-gradient(80deg, transparent 48%, rgba(128, 128, 128, 0.3) 49%, rgba(128, 128, 128, 0.3) 50%, transparent 51%),
-        linear-gradient(82deg, transparent 48%, rgba(169, 169, 169, 0.2) 49%, rgba(169, 169, 169, 0.2) 50%, transparent 51%),
-        linear-gradient(78deg, transparent 48%, rgba(105, 105, 105, 0.25) 49%, rgba(105, 105, 105, 0.25) 50%, transparent 51%);
-    background-size: 3px 100px, 2px 80px, 4px 120px;
-    animation: filmNoirRain 8s linear infinite;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Grayscale dramatic shadows */
-body.grayscale-mode::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: -30%;
-    width: 160%;
-    height: 100%;
-    background: 
-        radial-gradient(ellipse at 30% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(0, 0, 0, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.05) 50%, transparent 60%);
-    animation: dramaticShadows 25s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -2;
-}
-
+/* Grayscale Animations */
 @keyframes filmNoirRain {
     0% { transform: translateY(-100px); }
     100% { transform: translateY(100vh); }
@@ -167,43 +133,272 @@ body.grayscale-mode::after {
     }
 }
 
-/* Grayscale vintage text effects */
+@keyframes monochromePulse {
+    0%, 100% { 
+        text-shadow: 
+            2px 2px 0px rgba(0, 0, 0, 0.3),
+            4px 4px 8px rgba(0, 0, 0, 0.15),
+            0 0 15px rgba(128, 128, 128, 0.2);
+    }
+    50% { 
+        text-shadow: 
+            3px 3px 0px rgba(0, 0, 0, 0.4),
+            6px 6px 12px rgba(0, 0, 0, 0.25),
+            0 0 25px rgba(128, 128, 128, 0.35),
+            0 0 35px rgba(169, 169, 169, 0.2);
+    }
+}
+
+@keyframes pencilSketch {
+    0% { 
+        transform: translateX(0) translateY(0) rotate(0deg);
+        filter: brightness(1) contrast(1);
+    }
+    25% { 
+        transform: translateX(0.5px) translateY(-0.5px) rotate(0.2deg);
+        filter: brightness(1.05) contrast(1.1);
+    }
+    50% { 
+        transform: translateX(-0.5px) translateY(0.5px) rotate(-0.2deg);
+        filter: brightness(1.1) contrast(1.2);
+    }
+    75% { 
+        transform: translateX(0.3px) translateY(0.3px) rotate(0.1deg);
+        filter: brightness(1.05) contrast(1.1);
+    }
+    100% { 
+        transform: translateX(0) translateY(0) rotate(0deg);
+        filter: brightness(1) contrast(1);
+    }
+}
+
+@keyframes vintageFade {
+    0% { 
+        background-position: 0% 50%;
+        opacity: 0.3;
+    }
+    50% { 
+        background-position: 100% 50%;
+        opacity: 0.6;
+    }
+    100% { 
+        background-position: 0% 50%;
+        opacity: 0.3;
+    }
+}
+
+@keyframes paperTexture {
+    0%, 100% { 
+        box-shadow: 
+            0 2px 8px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+        transform: scale(1.01);
+    }
+}
+
+@keyframes inkSpread {
+    0% { 
+        transform: translateX(-50px);
+        opacity: 0.2;
+    }
+    50% { 
+        opacity: 0.5;
+    }
+    100% { 
+        transform: translateX(50px);
+        opacity: 0.2;
+    }
+}
+
+@keyframes newspaperPrint {
+    0%, 100% { 
+        background-size: 100% 100%;
+        opacity: 0.4;
+    }
+    50% { 
+        background-size: 105% 105%;
+        opacity: 0.7;
+    }
+}
+
+/* Grayscale Background Effects */
+body.grayscale-mode::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 120%;
+    height: 140%;
+    background-image: 
+        linear-gradient(80deg, transparent 48%, rgba(128, 128, 128, 0.25) 49%, rgba(128, 128, 128, 0.25) 50%, transparent 51%),
+        linear-gradient(82deg, transparent 48%, rgba(169, 169, 169, 0.15) 49%, rgba(169, 169, 169, 0.15) 50%, transparent 51%),
+        linear-gradient(78deg, transparent 48%, rgba(105, 105, 105, 0.2) 49%, rgba(105, 105, 105, 0.2) 50%, transparent 51%);
+    background-size: 3px 100px, 2px 80px, 4px 120px;
+    animation: filmNoirRain 8s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.grayscale-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: 160%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 30% 20%, rgba(0, 0, 0, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.03) 50%, transparent 60%);
+    animation: inkSpread 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Enhanced Heading Effects */
 body.grayscale-mode h1,
 body.grayscale-mode h2,
 body.grayscale-mode h3 {
-    text-shadow: 
-        3px 3px 0px rgba(0, 0, 0, 0.3),
-        6px 6px 10px rgba(0, 0, 0, 0.1);
-    animation: vintageType 8s ease-in-out infinite alternate;
+    position: relative;
+    animation: monochromePulse 6s ease-in-out infinite;
+    font-family: 'Times New Roman', serif;
 }
 
-@keyframes vintageType {
-    from { 
-        text-shadow: 
-            3px 3px 0px rgba(0, 0, 0, 0.3),
-            6px 6px 10px rgba(0, 0, 0, 0.1);
-    }
-    to { 
-        text-shadow: 
-            4px 4px 0px rgba(0, 0, 0, 0.4),
-            8px 8px 15px rgba(0, 0, 0, 0.2);
-    }
+body.grayscale-mode h1::before,
+body.grayscale-mode h2::before,
+body.grayscale-mode h3::before {
+    content: '📰';
+    position: absolute;
+    left: -30px;
+    animation: pencilSketch 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 3px rgba(128, 128, 128, 0.5)) grayscale(1);
 }
 
-/* Grayscale button effects */
+/* Enhanced Task Item Effects */
+body.grayscale-mode .task-item {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+body.grayscale-mode .task-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(128, 128, 128, 0.08),
+        rgba(169, 169, 169, 0.12),
+        rgba(128, 128, 128, 0.08),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+body.grayscale-mode .task-item:hover::before {
+    left: 100%;
+}
+
+body.grayscale-mode .task-item:hover {
+    animation: paperTexture 2s ease-in-out infinite;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Navigation Effects */
+body.grayscale-mode .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+    font-family: 'Times New Roman', serif;
+}
+
+body.grayscale-mode .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(80, 80, 80, 0.8),
+        rgba(128, 128, 128, 0.6),
+        rgba(169, 169, 169, 0.8)
+    );
+    transition: width 0.3s ease;
+    animation: vintageFade 4s ease-in-out infinite;
+}
+
+body.grayscale-mode .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Enhanced Button Effects */
 body.grayscale-mode .btn-primary,
 body.grayscale-mode button.primary {
-    box-shadow: 
-        0 4px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        var(--current-accent-color), 
+        rgba(128, 128, 128, 0.8),
+        rgba(169, 169, 169, 0.6)
+    );
+    animation: paperTexture 4s ease-in-out infinite;
     transition: all 0.3s ease;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+}
+
+body.grayscale-mode .btn-primary::before,
+body.grayscale-mode button.primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.4s ease;
+}
+
+body.grayscale-mode .btn-primary:hover::before,
+body.grayscale-mode button.primary:hover::before {
+    left: 100%;
 }
 
 body.grayscale-mode .btn-primary:hover,
 body.grayscale-mode button.primary:hover {
-    box-shadow: 
-        0 6px 12px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: newspaperPrint 2s ease-in-out infinite;
+    transform: translateY(-3px);
+}
+
+/* Completed Task Effects */
+body.grayscale-mode .task-item.completed {
+    background: linear-gradient(
+        135deg,
+        rgba(128, 128, 128, 0.08),
+        rgba(169, 169, 169, 0.05)
+    );
+    animation: newspaperPrint 5s ease-in-out infinite;
+    border-color: rgba(128, 128, 128, 0.3);
 }
 
 /* Grayscale theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */
