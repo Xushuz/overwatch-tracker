@@ -125,8 +125,8 @@ body.retro-mode .form-button {
 
 /* Retro Animations */
 @keyframes retroScanlines {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(8px); }
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
 }
 
 @keyframes retroGeometry {
@@ -197,11 +197,9 @@ body.retro-mode .form-button {
 
 @keyframes cathodeRay {
     0%, 100% { 
-        background-size: 100% 100%;
         opacity: 0.4;
     }
     50% { 
-        background-size: 110% 110%;
         opacity: 0.7;
     }
 }

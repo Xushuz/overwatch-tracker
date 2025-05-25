@@ -124,11 +124,9 @@ body.grayscale-mode {
 
 @keyframes dramaticShadows {
     0%, 100% { 
-        transform: rotate(0deg) scale(1);
         opacity: 0.6;
     }
     50% { 
-        transform: rotate(1deg) scale(1.05);
         opacity: 0.9;
     }
 }
@@ -199,11 +197,9 @@ body.grayscale-mode {
 
 @keyframes newspaperPrint {
     0%, 100% { 
-        background-size: 100% 100%;
         opacity: 0.4;
     }
     50% { 
-        background-size: 105% 105%;
         opacity: 0.7;
     }
 }

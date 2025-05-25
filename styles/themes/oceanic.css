@@ -136,7 +136,6 @@ body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
 
 @keyframes bubbleRise {
     0% { 
-        transform: translateY(0) scale(0.8);
         opacity: 0;
     }
     10% { 
@@ -144,10 +143,8 @@ body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
     }
     90% { 
         opacity: 0.3;
-        transform: translateY(-300px) scale(1.2);
     }
     100% { 
-        transform: translateY(-400px) scale(0);
         opacity: 0;
     }
 }
@@ -182,15 +179,12 @@ body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
 
 @keyframes deepDive {
     0% { 
-        transform: translateY(0);
         filter: brightness(1) hue-rotate(0deg);
     }
     50% { 
-        transform: translateY(-10px);
         filter: brightness(1.2) hue-rotate(10deg);
     }
     100% { 
-        transform: translateY(0);
         filter: brightness(1) hue-rotate(0deg);
     }
 }
@@ -209,17 +203,11 @@ body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
 }
 
 @keyframes tidePool {
-    0% { 
-        background-size: 100% 100%;
+    0%, 100% { 
         opacity: 0.3;
     }
     50% { 
-        background-size: 120% 120%;
         opacity: 0.6;
-    }
-    100% { 
-        background-size: 100% 100%;
-        opacity: 0.3;
     }
 }
 
@@ -314,7 +302,6 @@ body.oceanic-mode .task-item:hover {
     box-shadow: 
         0 0 20px rgba(100, 255, 218, 0.4),
         inset 0 0 20px rgba(100, 255, 218, 0.2);
-    transform: translateY(-2px);
 }
 
 /* Enhanced Navigation Effects */
@@ -384,7 +371,6 @@ body.oceanic-mode button.primary:hover {
         rgba(100, 255, 218, 0.9), 
         var(--current-accent-color)
     );
-    transform: translateY(-3px);
 }
 
 /* Completed Task Effects */

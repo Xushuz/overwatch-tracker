@@ -123,10 +123,10 @@ body.forest-mode {
 }
 
 @keyframes leafFall {
-    0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+    0% { opacity: 0; }
     20% { opacity: 1; }
     80% { opacity: 1; }
-    100% { transform: translateY(20px) rotate(180deg); opacity: 0; }
+    100% { opacity: 0; }
 }
 
 @keyframes woodlandGlow {
@@ -140,8 +140,8 @@ body.forest-mode {
 }
 
 @keyframes organicPulse {
-    0%, 100% { transform: scale(1); background: linear-gradient(135deg, var(--current-accent-color), #6B8E23); }
-    50% { transform: scale(1.05); background: linear-gradient(135deg, #6B8E23, var(--current-accent-color)); }
+    0%, 100% { background: linear-gradient(135deg, var(--current-accent-color), #6B8E23); }
+    50% { background: linear-gradient(135deg, #6B8E23, var(--current-accent-color)); }
 }
 
 @keyframes earthGlow {
@@ -155,9 +155,9 @@ body.forest-mode {
 }
 
 @keyframes mossGrow {
-    0% { transform: scale(0.95) rotate(0deg); filter: brightness(1); }
-    50% { transform: scale(1.02) rotate(0.5deg); filter: brightness(1.1); }
-    100% { transform: scale(0.98) rotate(-0.3deg); filter: brightness(1.05); }
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.1); }
+    100% { filter: brightness(1.05); }
 }
 
 /* Enhanced Forest Theme Styles */
@@ -194,7 +194,6 @@ body.forest-mode .task-item::before {
 }
 
 body.forest-mode .task-item:hover {
-    transform: translateY(-3px);
     animation: earthGlow 2s ease-in-out infinite;
 }
 

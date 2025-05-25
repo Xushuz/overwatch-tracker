@@ -172,14 +172,12 @@ body.light-mode {
         box-shadow: 
             0 1px 3px rgba(60, 64, 67, 0.3),
             0 1px 6px rgba(60, 64, 67, 0.15);
-        transform: scale(1) translateY(0);
     }
     50% { 
         box-shadow: 
             0 4px 8px rgba(60, 64, 67, 0.3),
             0 6px 20px rgba(60, 64, 67, 0.15),
             0 0 30px rgba(26, 115, 232, 0.1);
-        transform: scale(1.01) translateY(-2px);
     }
 }
 
@@ -194,11 +192,9 @@ body.light-mode {
 
 @keyframes paperShine {
     0%, 100% { 
-        background-size: 100% 100%;
         opacity: 0.3;
     }
     50% { 
-        background-size: 105% 105%;
         opacity: 0.6;
     }
 }

@@ -197,11 +197,9 @@ body.lavender-mode {
 
 @keyframes softBloom {
     0%, 100% { 
-        background-size: 100% 100%;
         opacity: 0.4;
     }
     50% { 
-        background-size: 105% 105%;
         opacity: 0.7;
     }
 }
