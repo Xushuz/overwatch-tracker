@@ -188,12 +188,14 @@ body.cosmic-mode::before {
     width: 140%;
     height: 140%;
     background-image: 
-        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 20px 30px, #FFD700, transparent),
         radial-gradient(2px 2px at 40px 70px, white, transparent),
-        radial-gradient(1px 1px at 90px 40px, white, transparent),
+        radial-gradient(1px 1px at 90px 40px, #FFFF00, transparent),
         radial-gradient(1px 1px at 130px 80px, white, transparent),
-        radial-gradient(2px 2px at 160px 30px, white, transparent),
-        radial-gradient(1px 1px at 180px 90px, white, transparent);
+        radial-gradient(2px 2px at 160px 30px, #FFD700, transparent),
+        radial-gradient(1px 1px at 180px 90px, #F0E68C, transparent),
+        radial-gradient(3px 1px at 200px 50px, #FFD700, transparent), /* shooting star */
+        radial-gradient(2px 1px at 250px 120px, #FFFF00, transparent); /* shooting star */
     background-repeat: repeat;
     background-size: 200px 200px;
     animation: sparkle 25s linear infinite;
@@ -216,4 +218,171 @@ body.cosmic-mode button.primary {
 body.cosmic-mode .btn-primary:hover,
 body.cosmic-mode button.primary:hover {
     box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+}
+
+/* Star-like yellow text effects for cosmic theme */
+body.cosmic-mode h1,
+body.cosmic-mode h2,
+body.cosmic-mode h3 {
+    color: #FFD700; /* Golden yellow like stars */
+    text-shadow: 
+        0 0 10px #FFD700,
+        0 0 20px #FFA500,
+        0 0 30px #FFFF00,
+        0 0 40px #FFD700;
+    animation: starGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes starGlow {
+    0% { 
+        text-shadow: 
+            0 0 10px #FFD700,
+            0 0 20px #FFA500,
+            0 0 30px #FFFF00,
+            0 0 40px #FFD700;
+    }
+    100% { 
+        text-shadow: 
+            0 0 15px #FFD700,
+            0 0 30px #FFA500,
+            0 0 45px #FFFF00,
+            0 0 60px #FFD700,
+            0 0 80px #FFFF00;
+    }
+}
+
+/* Special star effects for navigation and labels */
+body.cosmic-mode .nav-link,
+body.cosmic-mode .section-title,
+body.cosmic-mode .card-title {
+    color: #F0E68C; /* Khaki yellow - softer than gold */
+    text-shadow: 
+        0 0 8px #F0E68C,
+        0 0 15px #FFD700;
+    transition: all 0.3s ease;
+}
+
+body.cosmic-mode .nav-link:hover,
+body.cosmic-mode .section-title:hover,
+body.cosmic-mode .card-title:hover {
+    color: #FFD700;
+    text-shadow: 
+        0 0 12px #FFD700,
+        0 0 25px #FFA500,
+        0 0 35px #FFFF00;
+}
+
+/* Subtle star twinkle for important text */
+body.cosmic-mode .task-title,
+body.cosmic-mode .achievement-text,
+body.cosmic-mode .progress-label {
+    color: #FFFACD; /* Light goldenrod */
+    text-shadow: 
+        0 0 5px #FFFACD,
+        0 0 10px #F0E68C;
+    animation: subtleTwinkle 6s ease-in-out infinite;
+}
+
+@keyframes subtleTwinkle {
+    0%, 100% { 
+        text-shadow: 
+            0 0 5px #FFFACD,
+            0 0 10px #F0E68C;
+    }
+    50% { 
+        text-shadow: 
+            0 0 8px #FFFACD,
+            0 0 15px #F0E68C,
+            0 0 20px #FFD700;
+    }
+}
+
+/* Star-like accent for buttons and interactive elements */
+body.cosmic-mode .btn-secondary,
+body.cosmic-mode button.secondary {
+    color: #FFD700;
+    border-color: #FFD700;
+    text-shadow: 0 0 8px #FFD700;
+}
+
+body.cosmic-mode .btn-secondary:hover,
+body.cosmic-mode button.secondary:hover {
+    color: #FFFF00;
+    border-color: #FFFF00;
+    text-shadow: 
+        0 0 12px #FFFF00,
+        0 0 20px #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Constellation effect for task items */
+body.cosmic-mode .task-item::before {
+    content: '★';
+    color: #FFD700;
+    text-shadow: 
+        0 0 8px #FFD700,
+        0 0 15px #FFA500;
+    margin-right: 8px;
+    animation: starPulse 3s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+    0%, 100% { 
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* Yellow glow for form focus states */
+body.cosmic-mode input:focus,
+body.cosmic-mode textarea:focus,
+body.cosmic-mode select:focus {
+    border-color: #FFD700;
+    box-shadow: 
+        0 0 0 2px rgba(255, 215, 0, 0.2),
+        0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Star constellation for completed tasks */
+body.cosmic-mode .task-completed {
+    color: #FFFF00;
+    text-shadow: 
+        0 0 10px #FFFF00,
+        0 0 20px #FFD700;
+}
+
+body.cosmic-mode .task-completed::after {
+    content: ' ✨';
+    color: #FFD700;
+    text-shadow: 
+        0 0 8px #FFD700,
+        0 0 15px #FFA500;
+    animation: sparkleRotate 4s linear infinite;
+}
+
+@keyframes sparkleRotate {
+    0% { 
+        transform: rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+    25% { 
+        transform: rotate(90deg) scale(1.1);
+        opacity: 1;
+    }
+    50% { 
+        transform: rotate(180deg) scale(0.9);
+        opacity: 0.9;
+    }
+    75% { 
+        transform: rotate(270deg) scale(1.05);
+        opacity: 1;
+    }
+    100% { 
+        transform: rotate(360deg) scale(1);
+        opacity: 0.8;
+    }
 }
