@@ -3,13 +3,13 @@
 /* Page title h2 is styled in base.css via .resources-page h2 */
 
 .resource-category { 
-    margin-bottom: 24px; /* Adjusted margin */
+    margin-bottom: 32px; /* Increased margin between categories */
     padding: 0; /* Remove padding if titles are directly above grid */
 }
 
 .resource-category h3 { 
     /* This should align with .content-card h3 from base.css if it's a section title */
-    margin-bottom: 16px; /* Adjusted margin */
+    margin-bottom: 20px; /* Increased margin for more breathing room */
     color: var(--current-text-color); /* Standard text color for titles */
     font-size: 1.125rem; /* 18px, consistent with other section titles */
     font-weight: 500; /* Medium weight */
@@ -22,9 +22,9 @@
     padding-left: 0;
     margin-top: 0;
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr); /* Default for larger screens */
+    grid-template-columns: repeat(2, 1fr); /* Two columns for better space usage */
     /* Responsive.css will handle changes for smaller screens */
-    gap: 24px; /* Increased from 16px for more spacing */
+    gap: 28px; /* Increased from 24px for more spacing between cards */
 }
 
 .resource-category li {
@@ -44,7 +44,7 @@
 .resource-button { /* This is the <a> tag now styled as a card/button */
     width: 100%;
     text-align: left;
-    padding: 16px; /* Consistent padding */
+    padding: 20px; /* Increased from 16px for more internal spacing */
     background: var(--current-bg-color); /* White card */
     border: 1px solid var(--current-border-color);
     border-radius: var(--border-radius); /* Use 4px from base.css */
@@ -55,7 +55,7 @@
     transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease; /* Added background-color */
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Adjusted gap */
+    gap: 8px; /* Increased from 6px for better spacing between title and note */
     height: 100%; 
     text-decoration: none; /* Remove underline from link */
     box-sizing: border-box; /* Ensure padding/border are included in width/height */
@@ -91,7 +91,7 @@
     font-size: 0.875rem; /* 14px */
     opacity: 0.75; /* Adjusted opacity */
     display: block; 
-    margin-top: 4px; /* Adjusted space */
+    margin-top: 6px; /* Increased from 4px for better separation */
     padding-left: 0; /* No indent needed if text aligns left */
     color: var(--current-text-color); 
     transition: color 0.2s ease, opacity 0.2s ease; /* Smooth transition */
