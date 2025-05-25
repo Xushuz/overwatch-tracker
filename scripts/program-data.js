@@ -325,7 +325,7 @@ export const resourcesData = {
         { name: "r/CompetitiveOverwatch Discord", url: "https://discord.gg/competitiveoverwatch", note: "Hub for discussions and LFG." },
         { name: "Overwatch University Discord", url: "https://discord.gg/overwatchuniversity", note: "Advice, VOD reviews, LFG." },
         { name: "Overwatch Scrim Finder Discords", url: "#", note: "Search Discord for active scrim finder communities (e.g., 'OW Scrim Central', 'EloquentScrims')." },
-        { name: "FACEIT Overwatch Hub", url: "https://www.faceit.com/en/organizers/173c170d-c936-4d01-b1c7-78199ea44147/Overwatch%20Community", note: "FACEIT platform for leagues and PUGs." },
+        { name: "FACEIT Overwatch Hub", url: "https://www.faceit.com/en", note: "FACEIT platform for leagues and PUGs." },
         { name: "Official Overwatch Esports Discord", url: "https://discord.gg/overwatchesports", note: "OD announcements, LFG for OWCS/OD."}
     ],
     toolsWebsites: [
