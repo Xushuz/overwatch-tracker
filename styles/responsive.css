@@ -62,10 +62,9 @@
     
     .app-main {
         padding: 56px 20px 20px; /* Restore original padding */
-    }
-
-    .google-nav {
-        position: static; /* Sidebar becomes part of the layout flow */
+    }    .google-nav {
+        position: sticky; /* Make sidebar sticky so it scrolls with viewport */
+        top: 57px; /* Stick below the header */
         left: auto; /* Reset fixed positioning effect */
         height: calc(100vh - 57px); /* Fill available height below header */
         width: 250px; /* Defined width */
@@ -77,19 +76,16 @@
         /* Ensure padding and border are part of the main style for open state */
         padding: 15px; 
         border-right: 1px solid var(--current-border-color);
-        /* position: static; is inherited or correctly set by default for block in flex */
     }
     
     /* .sidebar-visible is for mobile overlay, not desktop push state */
 
     .app-body-content {
         display: flex; /* Main layout: sidebar + main content */
-    }
-
-    .app-main {
+    }    .app-main {
        flex-grow: 1; /* Ensure it takes available space next to sidebar */
        width: auto; /* Reset mobile-specific width */
-       margin-left: 250px; /* Default margin when sidebar is open */
+       margin-left: 0; /* Remove margin since sticky sidebar is part of flex layout */
        /* padding: 20px; /* Already restored above */
     }
 
