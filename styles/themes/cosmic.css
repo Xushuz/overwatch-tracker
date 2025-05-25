@@ -226,28 +226,21 @@ body.cosmic-mode h2,
 body.cosmic-mode h3 {
     color: #FFD700; /* Golden yellow like stars */
     text-shadow: 
-        0 0 10px #FFD700,
-        0 0 20px #FFA500,
-        0 0 30px #FFFF00,
-        0 0 40px #FFD700;
-    animation: starGlow 4s ease-in-out infinite alternate;
+        0 0 5px rgba(255, 215, 0, 0.4),
+        0 0 10px rgba(255, 165, 0, 0.2);
+    animation: starGlow 6s ease-in-out infinite alternate;
 }
 
 @keyframes starGlow {
     0% { 
         text-shadow: 
-            0 0 10px #FFD700,
-            0 0 20px #FFA500,
-            0 0 30px #FFFF00,
-            0 0 40px #FFD700;
+            0 0 5px rgba(255, 215, 0, 0.4),
+            0 0 10px rgba(255, 165, 0, 0.2);
     }
     100% { 
         text-shadow: 
-            0 0 15px #FFD700,
-            0 0 30px #FFA500,
-            0 0 45px #FFFF00,
-            0 0 60px #FFD700,
-            0 0 80px #FFFF00;
+            0 0 8px rgba(255, 215, 0, 0.6),
+            0 0 15px rgba(255, 165, 0, 0.3);
     }
 }
 
@@ -256,9 +249,7 @@ body.cosmic-mode .nav-link,
 body.cosmic-mode .section-title,
 body.cosmic-mode .card-title {
     color: #F0E68C; /* Khaki yellow - softer than gold */
-    text-shadow: 
-        0 0 8px #F0E68C,
-        0 0 15px #FFD700;
+    text-shadow: 0 0 3px rgba(240, 230, 140, 0.5);
     transition: all 0.3s ease;
 }
 
@@ -266,10 +257,7 @@ body.cosmic-mode .nav-link:hover,
 body.cosmic-mode .section-title:hover,
 body.cosmic-mode .card-title:hover {
     color: #FFD700;
-    text-shadow: 
-        0 0 12px #FFD700,
-        0 0 25px #FFA500,
-        0 0 35px #FFFF00;
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
 }
 
 /* Subtle star twinkle for important text */
@@ -277,23 +265,16 @@ body.cosmic-mode .task-title,
 body.cosmic-mode .achievement-text,
 body.cosmic-mode .progress-label {
     color: #FFFACD; /* Light goldenrod */
-    text-shadow: 
-        0 0 5px #FFFACD,
-        0 0 10px #F0E68C;
-    animation: subtleTwinkle 6s ease-in-out infinite;
+    text-shadow: 0 0 2px rgba(255, 250, 205, 0.4);
+    animation: subtleTwinkle 8s ease-in-out infinite;
 }
 
 @keyframes subtleTwinkle {
     0%, 100% { 
-        text-shadow: 
-            0 0 5px #FFFACD,
-            0 0 10px #F0E68C;
+        text-shadow: 0 0 2px rgba(255, 250, 205, 0.4);
     }
     50% { 
-        text-shadow: 
-            0 0 8px #FFFACD,
-            0 0 15px #F0E68C,
-            0 0 20px #FFD700;
+        text-shadow: 0 0 4px rgba(255, 250, 205, 0.6);
     }
 }
 
@@ -302,38 +283,34 @@ body.cosmic-mode .btn-secondary,
 body.cosmic-mode button.secondary {
     color: #FFD700;
     border-color: #FFD700;
-    text-shadow: 0 0 8px #FFD700;
+    text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
 }
 
 body.cosmic-mode .btn-secondary:hover,
 body.cosmic-mode button.secondary:hover {
     color: #FFFF00;
     border-color: #FFFF00;
-    text-shadow: 
-        0 0 12px #FFFF00,
-        0 0 20px #FFD700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.7);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
 }
 
 /* Constellation effect for task items */
 body.cosmic-mode .task-item::before {
     content: '★';
     color: #FFD700;
-    text-shadow: 
-        0 0 8px #FFD700,
-        0 0 15px #FFA500;
+    text-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
     margin-right: 8px;
-    animation: starPulse 3s ease-in-out infinite;
+    animation: starPulse 5s ease-in-out infinite;
 }
 
 @keyframes starPulse {
     0%, 100% { 
-        opacity: 0.7;
+        opacity: 0.8;
         transform: scale(1);
     }
     50% { 
         opacity: 1;
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 }
 
@@ -342,47 +319,41 @@ body.cosmic-mode input:focus,
 body.cosmic-mode textarea:focus,
 body.cosmic-mode select:focus {
     border-color: #FFD700;
-    box-shadow: 
-        0 0 0 2px rgba(255, 215, 0, 0.2),
-        0 0 15px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.15);
 }
 
 /* Star constellation for completed tasks */
 body.cosmic-mode .task-completed {
     color: #FFFF00;
-    text-shadow: 
-        0 0 10px #FFFF00,
-        0 0 20px #FFD700;
+    text-shadow: 0 0 4px rgba(255, 255, 0, 0.5);
 }
 
 body.cosmic-mode .task-completed::after {
     content: ' ✨';
     color: #FFD700;
-    text-shadow: 
-        0 0 8px #FFD700,
-        0 0 15px #FFA500;
-    animation: sparkleRotate 4s linear infinite;
+    text-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
+    animation: sparkleRotate 6s linear infinite;
 }
 
 @keyframes sparkleRotate {
     0% { 
         transform: rotate(0deg) scale(1);
-        opacity: 0.8;
+        opacity: 0.9;
     }
     25% { 
-        transform: rotate(90deg) scale(1.1);
+        transform: rotate(90deg) scale(1.02);
         opacity: 1;
     }
     50% { 
-        transform: rotate(180deg) scale(0.9);
-        opacity: 0.9;
+        transform: rotate(180deg) scale(0.98);
+        opacity: 0.95;
     }
     75% { 
-        transform: rotate(270deg) scale(1.05);
+        transform: rotate(270deg) scale(1.01);
         opacity: 1;
     }
     100% { 
         transform: rotate(360deg) scale(1);
-        opacity: 0.8;
+        opacity: 0.9;
     }
 }
