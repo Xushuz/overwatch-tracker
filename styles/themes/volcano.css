@@ -1,0 +1,189 @@
+/* styles/themes/volcano.css */
+
+:root {
+    /* Volcano Red-Orange Palette */
+    --volcano-red-500: #FF4500; 
+    --volcano-red-500-rgb: 255, 69, 0;
+    --volcano-red-400: #FF6B35; 
+    --volcano-red-400-rgb: 255, 107, 53;
+    --volcano-red-600: #E53E00; 
+    --volcano-red-600-rgb: 229, 62, 0;
+    --volcano-red-700: #CC3700; 
+    --volcano-red-700-rgb: 204, 55, 0;
+    --text-on-volcano: #FFFFFF; 
+    --text-on-volcano-rgb: 255, 255, 255;
+
+    /* Volcano Dark Theme Base Variables */
+    --bg-color-volcano: #1A0D00; 
+    --bg-color-volcano-rgb: 26, 13, 0;
+    --text-color-volcano: #FFE6D6; 
+    --text-color-volcano-rgb: 255, 230, 214;
+    --container-bg-volcano: #2D1B0F; 
+    --container-bg-volcano-rgb: 45, 27, 15;
+    --border-color-volcano: #8B4513; 
+    --border-color-volcano-rgb: 139, 69, 19;
+    --header-bg-volcano: #2D1B0F; 
+    --header-bg-volcano-rgb: 45, 27, 15;
+    --nav-bg-volcano: #2D1B0F; 
+    --nav-bg-volcano-rgb: 45, 27, 15;
+    --input-bg-volcano: #3D2A1A; 
+    --input-bg-volcano-rgb: 61, 42, 26;
+    --input-border-volcano: #8B4513;
+    --input-border-volcano-rgb: 139, 69, 19;
+    --textarea-bg-volcano: #3D2A1A;
+    --textarea-bg-volcano-rgb: 61, 42, 26;
+    --card-shadow-volcano: 0 4px 16px rgba(255, 69, 0, 0.2), 0 2px 8px rgba(255, 69, 0, 0.1); 
+    --progress-bar-bg-volcano: #8B4513; 
+    --progress-bar-bg-volcano-rgb: 139, 69, 19;
+    --modal-content-bg-volcano: #2D1B0F; 
+    --modal-content-bg-volcano-rgb: 45, 27, 15;
+    --chart-text-color-volcano: #FFE6D6; 
+    --chart-text-color-volcano-rgb: 255, 230, 214;
+    --chart-grid-color-volcano: #8B4513; 
+    --chart-grid-color-volcano-rgb: 139, 69, 19;
+    --chart-tooltip-bg-volcano: rgba(45, 27, 15, 0.95);  
+    --chart-tooltip-text-color-volcano: #FFE6D6; 
+    --chart-tooltip-text-color-volcano-rgb: 255, 230, 214;
+
+    /* Volcano Red Accent Theme Semantic Variables */
+    --button-bg-volcano-red: var(--volcano-red-500); 
+    --button-bg-volcano-red-rgb: var(--volcano-red-500-rgb);
+    --button-text-volcano-red: var(--text-on-volcano);
+    --button-text-volcano-red-rgb: var(--text-on-volcano-rgb);
+    --accent-color-volcano-red: var(--volcano-red-500);
+    --accent-color-volcano-red-rgb: var(--volcano-red-500-rgb);
+    --accent-hover-color-volcano-red: var(--volcano-red-600);
+    --accent-hover-color-volcano-red-rgb: var(--volcano-red-600-rgb);
+    --accent-text-volcano-red: var(--text-on-volcano);
+    --accent-text-volcano-red-rgb: var(--text-on-volcano-rgb);
+    --nav-active-bg-volcano-red: rgba(var(--volcano-red-500-rgb), 0.15);
+    
+    /* Button specific overrides for volcano mode with red accent */
+    --button-primary-bg-volcano-override: var(--volcano-red-500);
+    --button-primary-text-volcano-override: var(--text-on-volcano);
+    --button-primary-hover-bg-volcano-override: var(--volcano-red-600); 
+    
+    --button-secondary-bg-volcano-override: transparent;
+    --button-secondary-text-volcano-override: var(--volcano-red-500);
+    --button-secondary-hover-bg-volcano-override: rgba(var(--volcano-red-500-rgb), 0.08);
+    --button-secondary-border-volcano-override: var(--volcano-red-500);
+
+    /* Default buttons in volcano mode (non-accented) */
+    --button-default-bg-volcano-override: #3D2A1A; 
+    --button-default-bg-volcano-override-rgb: 61, 42, 26;
+    --button-default-text-volcano-override: #FFE6D6; 
+    --button-default-text-volcano-override-rgb: 255, 230, 214;
+    --button-default-hover-bg-volcano-override: #4A3224; 
+    --button-default-hover-bg-volcano-override-rgb: 74, 50, 36;
+    --button-default-border-volcano-override: var(--border-color-volcano);
+    --button-default-border-volcano-override-rgb: var(--border-color-volcano-rgb);
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-volcano: rgba(var(--volcano-red-500-rgb), 0.04);
+    --task-completed-hover-bg-volcano: rgba(var(--volcano-red-500-rgb), 0.06);
+    --hamburger-hover-bg-volcano: rgba(var(--text-color-volcano-rgb), 0.08);
+    --hamburger-active-bg-volcano: rgba(var(--text-color-volcano-rgb), 0.12);
+}
+
+body.volcano-mode {
+    --current-bg-color: var(--bg-color-volcano);
+    --current-bg-color-rgb: var(--bg-color-volcano-rgb);
+    --current-text-color: var(--text-color-volcano);
+    --current-text-color-rgb: var(--text-color-volcano-rgb);
+    --current-container-bg: var(--container-bg-volcano);
+    --current-container-bg-rgb: var(--container-bg-volcano-rgb);
+    --current-border-color: var(--border-color-volcano);
+    --current-border-color-rgb: var(--border-color-volcano-rgb);
+    --current-header-bg: var(--header-bg-volcano);
+    --current-header-bg-rgb: var(--header-bg-volcano-rgb);
+    --current-nav-bg: var(--nav-bg-volcano);
+    --current-nav-bg-rgb: var(--nav-bg-volcano-rgb);
+    --current-button-bg: var(--button-default-bg-volcano-override); 
+    --current-button-bg-rgb: var(--button-default-bg-volcano-override-rgb);
+    --current-button-text: var(--button-default-text-volcano-override);
+    --current-button-text-rgb: var(--button-default-text-volcano-override-rgb);
+    
+    --button-primary-bg: var(--button-primary-bg-volcano-override);
+    --button-primary-text: var(--button-primary-text-volcano-override);
+    --button-primary-hover-bg: var(--button-primary-hover-bg-volcano-override);
+    --button-secondary-bg: var(--button-secondary-bg-volcano-override);
+    --button-secondary-text: var(--button-secondary-text-volcano-override);
+    --button-secondary-hover-bg: var(--button-secondary-hover-bg-volcano-override);
+    --button-secondary-border: var(--button-secondary-border-volcano-override);
+    --button-default-bg: var(--button-default-bg-volcano-override);
+    --button-default-text: var(--button-default-text-volcano-override);
+    --button-default-hover-bg: var(--button-default-hover-bg-volcano-override);
+    --button-default-border: var(--button-default-border-volcano-override);
+    
+    --current-input-bg: var(--input-bg-volcano);
+    --current-input-bg-rgb: var(--input-bg-volcano-rgb);
+    --current-input-border: var(--input-border-volcano);
+    --current-input-border-rgb: var(--input-border-volcano-rgb);
+    --current-textarea-bg: var(--textarea-bg-volcano);
+    --current-textarea-bg-rgb: var(--textarea-bg-volcano-rgb);
+    --current-card-shadow: var(--card-shadow-volcano);
+    
+    --current-accent-color: var(--accent-color-volcano-red);
+    --current-accent-color-rgb: var(--accent-color-volcano-red-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-volcano-red);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-volcano-red-rgb);
+    --current-accent-text: var(--accent-text-volcano-red);
+    --current-accent-text-rgb: var(--accent-text-volcano-red-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-volcano-red);
+    --current-progress-bar-bg: var(--progress-bar-bg-volcano); 
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-volcano-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-volcano); 
+    --current-modal-content-bg-rgb: var(--modal-content-bg-volcano-rgb);
+    --current-chart-text-color: var(--chart-text-color-volcano);
+    --current-chart-text-color-rgb: var(--chart-text-color-volcano-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-volcano);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-volcano-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-volcano);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-volcano);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-volcano-rgb);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-volcano);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-volcano);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-volcano);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-volcano);
+    
+    /* Volcano theme special effects */
+    background: radial-gradient(ellipse at center, #2D1B0F 0%, #1A0D00 70%, #0D0600 100%);
+}
+
+body.volcano-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--accent-color-volcano-red); 
+}
+
+body.volcano-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+    text-decoration: underline;
+    color: var(--accent-hover-color-volcano-red); 
+}
+
+/* Volcano theme special visual effects */
+body.volcano-mode .container,
+body.volcano-mode .card {
+    background: rgba(45, 27, 15, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 69, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.1);
+}
+
+body.volcano-mode .nav-sidebar {
+    background: rgba(45, 27, 15, 0.95);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(255, 69, 0, 0.3);
+}
+
+/* Volcano glow effects */
+body.volcano-mode .btn-primary,
+body.volcano-mode button.primary {
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+body.volcano-mode .btn-primary:hover,
+body.volcano-mode button.primary:hover {
+    box-shadow: 0 0 25px rgba(255, 69, 0, 0.5);
+}

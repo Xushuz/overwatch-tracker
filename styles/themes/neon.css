@@ -1,0 +1,225 @@
+/* styles/themes/neon.css */
+
+:root {
+    /* Neon Green-Cyan Palette */
+    --neon-green-500: #00FF41; 
+    --neon-green-500-rgb: 0, 255, 65;
+    --neon-green-400: #39FF14; 
+    --neon-green-400-rgb: 57, 255, 20;
+    --neon-green-600: #00E53E; 
+    --neon-green-600-rgb: 0, 229, 62;
+    --neon-green-700: #00CC37; 
+    --neon-green-700-rgb: 0, 204, 55;
+    --text-on-neon: #000000; 
+    --text-on-neon-rgb: 0, 0, 0;
+
+    /* Neon Dark Theme Base Variables */
+    --bg-color-neon: #0A0A0A; 
+    --bg-color-neon-rgb: 10, 10, 10;
+    --text-color-neon: #E0FFE0; 
+    --text-color-neon-rgb: 224, 255, 224;
+    --container-bg-neon: #1A1A1A; 
+    --container-bg-neon-rgb: 26, 26, 26;
+    --border-color-neon: #00FF41; 
+    --border-color-neon-rgb: 0, 255, 65;
+    --header-bg-neon: #1A1A1A; 
+    --header-bg-neon-rgb: 26, 26, 26;
+    --nav-bg-neon: #1A1A1A; 
+    --nav-bg-neon-rgb: 26, 26, 26;
+    --input-bg-neon: #2A2A2A; 
+    --input-bg-neon-rgb: 42, 42, 42;
+    --input-border-neon: #00FF41;
+    --input-border-neon-rgb: 0, 255, 65;
+    --textarea-bg-neon: #2A2A2A;
+    --textarea-bg-neon-rgb: 42, 42, 42;
+    --card-shadow-neon: 0 0 20px rgba(0, 255, 65, 0.6), 0 0 40px rgba(0, 255, 65, 0.3); 
+    --progress-bar-bg-neon: #333333; 
+    --progress-bar-bg-neon-rgb: 51, 51, 51;
+    --modal-content-bg-neon: #1A1A1A; 
+    --modal-content-bg-neon-rgb: 26, 26, 26;
+    --chart-text-color-neon: #E0FFE0; 
+    --chart-text-color-neon-rgb: 224, 255, 224;
+    --chart-grid-color-neon: #00FF41; 
+    --chart-grid-color-neon-rgb: 0, 255, 65;
+    --chart-tooltip-bg-neon: rgba(26, 26, 26, 0.95);  
+    --chart-tooltip-text-color-neon: #E0FFE0; 
+    --chart-tooltip-text-color-neon-rgb: 224, 255, 224;
+
+    /* Neon Green Accent Theme Semantic Variables */
+    --button-bg-neon-green: var(--neon-green-500); 
+    --button-bg-neon-green-rgb: var(--neon-green-500-rgb);
+    --button-text-neon-green: var(--text-on-neon);
+    --button-text-neon-green-rgb: var(--text-on-neon-rgb);
+    --accent-color-neon-green: var(--neon-green-500);
+    --accent-color-neon-green-rgb: var(--neon-green-500-rgb);
+    --accent-hover-color-neon-green: var(--neon-green-600);
+    --accent-hover-color-neon-green-rgb: var(--neon-green-600-rgb);
+    --accent-text-neon-green: var(--text-on-neon);
+    --accent-text-neon-green-rgb: var(--text-on-neon-rgb);
+    --nav-active-bg-neon-green: rgba(var(--neon-green-500-rgb), 0.15);
+    
+    /* Button specific overrides for neon mode with green accent */
+    --button-primary-bg-neon-override: var(--neon-green-500);
+    --button-primary-text-neon-override: var(--text-on-neon);
+    --button-primary-hover-bg-neon-override: var(--neon-green-600); 
+    
+    --button-secondary-bg-neon-override: transparent;
+    --button-secondary-text-neon-override: var(--neon-green-500);
+    --button-secondary-hover-bg-neon-override: rgba(var(--neon-green-500-rgb), 0.08);
+    --button-secondary-border-neon-override: var(--neon-green-500);
+
+    /* Default buttons in neon mode (non-accented) */
+    --button-default-bg-neon-override: #2A2A2A; 
+    --button-default-bg-neon-override-rgb: 42, 42, 42;
+    --button-default-text-neon-override: #E0FFE0; 
+    --button-default-text-neon-override-rgb: 224, 255, 224;
+    --button-default-hover-bg-neon-override: #3A3A3A; 
+    --button-default-hover-bg-neon-override-rgb: 58, 58, 58;
+    --button-default-border-neon-override: var(--border-color-neon);
+    --button-default-border-neon-override-rgb: var(--border-color-neon-rgb);
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-neon: rgba(var(--neon-green-500-rgb), 0.04);
+    --task-completed-hover-bg-neon: rgba(var(--neon-green-500-rgb), 0.06);
+    --hamburger-hover-bg-neon: rgba(var(--text-color-neon-rgb), 0.08);
+    --hamburger-active-bg-neon: rgba(var(--text-color-neon-rgb), 0.12);
+}
+
+body.neon-mode {
+    --current-bg-color: var(--bg-color-neon);
+    --current-bg-color-rgb: var(--bg-color-neon-rgb);
+    --current-text-color: var(--text-color-neon);
+    --current-text-color-rgb: var(--text-color-neon-rgb);
+    --current-container-bg: var(--container-bg-neon);
+    --current-container-bg-rgb: var(--container-bg-neon-rgb);
+    --current-border-color: var(--border-color-neon);
+    --current-border-color-rgb: var(--border-color-neon-rgb);
+    --current-header-bg: var(--header-bg-neon);
+    --current-header-bg-rgb: var(--header-bg-neon-rgb);
+    --current-nav-bg: var(--nav-bg-neon);
+    --current-nav-bg-rgb: var(--nav-bg-neon-rgb);
+    --current-button-bg: var(--button-default-bg-neon-override); 
+    --current-button-bg-rgb: var(--button-default-bg-neon-override-rgb);
+    --current-button-text: var(--button-default-text-neon-override);
+    --current-button-text-rgb: var(--button-default-text-neon-override-rgb);
+    
+    --button-primary-bg: var(--button-primary-bg-neon-override);
+    --button-primary-text: var(--button-primary-text-neon-override);
+    --button-primary-hover-bg: var(--button-primary-hover-bg-neon-override);
+    --button-secondary-bg: var(--button-secondary-bg-neon-override);
+    --button-secondary-text: var(--button-secondary-text-neon-override);
+    --button-secondary-hover-bg: var(--button-secondary-hover-bg-neon-override);
+    --button-secondary-border: var(--button-secondary-border-neon-override);
+    --button-default-bg: var(--button-default-bg-neon-override);
+    --button-default-text: var(--button-default-text-neon-override);
+    --button-default-hover-bg: var(--button-default-hover-bg-neon-override);
+    --button-default-border: var(--button-default-border-neon-override);
+    
+    --current-input-bg: var(--input-bg-neon);
+    --current-input-bg-rgb: var(--input-bg-neon-rgb);
+    --current-input-border: var(--input-border-neon);
+    --current-input-border-rgb: var(--input-border-neon-rgb);
+    --current-textarea-bg: var(--textarea-bg-neon);
+    --current-textarea-bg-rgb: var(--textarea-bg-neon-rgb);
+    --current-card-shadow: var(--card-shadow-neon);
+    
+    --current-accent-color: var(--accent-color-neon-green);
+    --current-accent-color-rgb: var(--accent-color-neon-green-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-neon-green);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-neon-green-rgb);
+    --current-accent-text: var(--accent-text-neon-green);
+    --current-accent-text-rgb: var(--accent-text-neon-green-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-neon-green);
+    --current-progress-bar-bg: var(--progress-bar-bg-neon); 
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-neon-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-neon); 
+    --current-modal-content-bg-rgb: var(--modal-content-bg-neon-rgb);
+    --current-chart-text-color: var(--chart-text-color-neon);
+    --current-chart-text-color-rgb: var(--chart-text-color-neon-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-neon);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-neon-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-neon);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-neon);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-neon-rgb);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-neon);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-neon);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-neon);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-neon);
+    
+    /* Neon theme special effects */
+    background: #0A0A0A;
+}
+
+body.neon-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--accent-color-neon-green); 
+}
+
+body.neon-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+    text-decoration: underline;
+    color: var(--accent-hover-color-neon-green); 
+}
+
+/* Neon theme special visual effects */
+body.neon-mode .container,
+body.neon-mode .card {
+    background: rgba(26, 26, 26, 0.9);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 255, 65, 0.8);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(0, 255, 65, 0.1);
+    animation: neonPulse 3s ease-in-out infinite alternate;
+}
+
+body.neon-mode .nav-sidebar {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(15px);
+    border-right: 2px solid rgba(0, 255, 65, 0.8);
+    box-shadow: 5px 0 20px rgba(0, 255, 65, 0.2);
+}
+
+/* Neon glow effects */
+body.neon-mode .btn-primary,
+body.neon-mode button.primary {
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
+    transition: box-shadow 0.3s ease;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+}
+
+body.neon-mode .btn-primary:hover,
+body.neon-mode button.primary:hover {
+    box-shadow: 0 0 35px rgba(0, 255, 65, 0.8);
+}
+
+/* Neon text glow */
+body.neon-mode h1,
+body.neon-mode h2,
+body.neon-mode h3 {
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* Neon pulse animation */
+@keyframes neonPulse {
+    0% {
+        border-color: rgba(0, 255, 65, 0.8);
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(0, 255, 65, 0.1);
+    }
+    100% {
+        border-color: rgba(0, 255, 65, 1);
+        box-shadow: 0 0 40px rgba(0, 255, 65, 0.5), inset 0 0 15px rgba(0, 255, 65, 0.2);
+    }
+}
+
+/* Neon input glow */
+body.neon-mode input,
+body.neon-mode textarea,
+body.neon-mode select {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+body.neon-mode input:focus,
+body.neon-mode textarea:focus,
+body.neon-mode select:focus {
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+}

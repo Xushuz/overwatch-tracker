@@ -1,0 +1,124 @@
+/* styles/themes/cyberpunk.css */
+
+:root {
+    /* Cyberpunk Theme Variables */
+    --bg-color-cyberpunk: #0D001A; 
+    --bg-color-cyberpunk-rgb: 13, 0, 26;
+    --text-color-cyberpunk: #00FFFF; 
+    --text-color-cyberpunk-rgb: 0, 255, 255;
+    --container-bg-cyberpunk: #1A0033; 
+    --container-bg-cyberpunk-rgb: 26, 0, 51;
+    --border-color-cyberpunk: #FF0080; 
+    --border-color-cyberpunk-rgb: 255, 0, 128;
+    --header-bg-cyberpunk: #0D001A; 
+    --header-bg-cyberpunk-rgb: 13, 0, 26;
+    --nav-bg-cyberpunk: #1A0033; 
+    --nav-bg-cyberpunk-rgb: 26, 0, 51;
+    --button-bg-cyberpunk: #330066; 
+    --button-bg-cyberpunk-rgb: 51, 0, 102;
+    --button-text-cyberpunk: #00FFFF; 
+    --button-text-cyberpunk-rgb: 0, 255, 255;
+    --input-bg-cyberpunk: #1A0033; 
+    --input-bg-cyberpunk-rgb: 26, 0, 51;
+    --input-border-cyberpunk: #FF0080; 
+    --input-border-cyberpunk-rgb: 255, 0, 128;
+    --textarea-bg-cyberpunk: #1A0033; 
+    --textarea-bg-cyberpunk-rgb: 26, 0, 51;
+    --card-shadow-cyberpunk: 0 0 10px rgba(255, 0, 128, 0.3), 0 0 20px rgba(0, 255, 255, 0.2); 
+    --accent-color-cyberpunk: #FF0080; 
+    --accent-color-cyberpunk-rgb: 255, 0, 128;
+    --accent-hover-color-cyberpunk: #FF3399; 
+    --accent-hover-color-cyberpunk-rgb: 255, 51, 153;
+    --accent-text-cyberpunk: #0D001A; 
+    --accent-text-cyberpunk-rgb: 13, 0, 26;
+    --nav-active-bg-cyberpunk: rgba(255, 0, 128, 0.15); 
+    --progress-bar-bg-cyberpunk: #330066; 
+    --progress-bar-bg-cyberpunk-rgb: 51, 0, 102;
+    --modal-content-bg-cyberpunk: #1A0033; 
+    --modal-content-bg-cyberpunk-rgb: 26, 0, 51;
+    --chart-text-color-cyberpunk: #00FFFF; 
+    --chart-text-color-cyberpunk-rgb: 0, 255, 255;
+    --chart-grid-color-cyberpunk: #FF0080; 
+    --chart-grid-color-cyberpunk-rgb: 255, 0, 128;
+    --chart-tooltip-bg-cyberpunk: rgba(13, 0, 26, 0.95); 
+    --chart-tooltip-text-color-cyberpunk: #00FFFF;
+    --chart-tooltip-text-color-cyberpunk-rgb: 0, 255, 255;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-cyberpunk: rgba(var(--text-color-cyberpunk-rgb), 0.04);
+    --task-completed-hover-bg-cyberpunk: rgba(var(--text-color-cyberpunk-rgb), 0.06);
+    --hamburger-hover-bg-cyberpunk: rgba(var(--text-color-cyberpunk-rgb), 0.08);
+    --hamburger-active-bg-cyberpunk: rgba(var(--text-color-cyberpunk-rgb), 0.12);
+}
+
+body.cyberpunk-mode {
+    --current-bg-color: var(--bg-color-cyberpunk);
+    --current-bg-color-rgb: var(--bg-color-cyberpunk-rgb);
+    --current-text-color: var(--text-color-cyberpunk);
+    --current-text-color-rgb: var(--text-color-cyberpunk-rgb);
+    --current-container-bg: var(--container-bg-cyberpunk);
+    --current-container-bg-rgb: var(--container-bg-cyberpunk-rgb);
+    --current-border-color: var(--border-color-cyberpunk);
+    --current-border-color-rgb: var(--border-color-cyberpunk-rgb);
+    --current-header-bg: var(--header-bg-cyberpunk);
+    --current-header-bg-rgb: var(--header-bg-cyberpunk-rgb);
+    --current-nav-bg: var(--nav-bg-cyberpunk);
+    --current-nav-bg-rgb: var(--nav-bg-cyberpunk-rgb);
+    --current-button-bg: var(--button-bg-cyberpunk);
+    --current-button-bg-rgb: var(--button-bg-cyberpunk-rgb);
+    --current-button-text: var(--button-text-cyberpunk);
+    --current-button-text-rgb: var(--button-text-cyberpunk-rgb);
+    --current-input-bg: var(--input-bg-cyberpunk);
+    --current-input-bg-rgb: var(--input-bg-cyberpunk-rgb);
+    --current-input-border: var(--input-border-cyberpunk);
+    --current-input-border-rgb: var(--input-border-cyberpunk-rgb);
+    --current-textarea-bg: var(--textarea-bg-cyberpunk);
+    --current-textarea-bg-rgb: var(--textarea-bg-cyberpunk-rgb);
+    --current-card-shadow: var(--card-shadow-cyberpunk);
+    --current-accent-color: var(--accent-color-cyberpunk);
+    --current-accent-color-rgb: var(--accent-color-cyberpunk-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-cyberpunk);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-cyberpunk-rgb);
+    --current-accent-text: var(--accent-text-cyberpunk);
+    --current-accent-text-rgb: var(--accent-text-cyberpunk-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-cyberpunk);
+    --current-progress-bar-bg: var(--progress-bar-bg-cyberpunk);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-cyberpunk-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-cyberpunk);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-cyberpunk-rgb);
+    --current-chart-text-color: var(--chart-text-color-cyberpunk);
+    --current-chart-text-color-rgb: var(--chart-text-color-cyberpunk-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-cyberpunk);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-cyberpunk-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-cyberpunk);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-cyberpunk);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-cyberpunk-rgb);
+
+    /* Mapping for task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-cyberpunk);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-cyberpunk);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-cyberpunk);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-cyberpunk);
+}
+
+body.cyberpunk-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--accent-color-cyberpunk); 
+}
+body.cyberpunk-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+    text-decoration: underline;
+    color: var(--accent-hover-color-cyberpunk); 
+}
+
+/* Special cyberpunk glow effects */
+body.cyberpunk-mode .content-card {
+    box-shadow: var(--card-shadow-cyberpunk);
+    border: 1px solid var(--border-color-cyberpunk);
+}
+
+body.cyberpunk-mode .resource-button:hover {
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+}
+
+body.cyberpunk-mode .form-button--primary {
+    box-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
+}

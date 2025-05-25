@@ -1,0 +1,124 @@
+/* styles/themes/retro.css */
+
+:root {
+    /* Retro Theme Variables */
+    --bg-color-retro: #2E1A0A; 
+    --bg-color-retro-rgb: 46, 26, 10;
+    --text-color-retro: #F5E6D3; 
+    --text-color-retro-rgb: 245, 230, 211;
+    --container-bg-retro: #3D2914; 
+    --container-bg-retro-rgb: 61, 41, 20;
+    --border-color-retro: #8B5A2B; 
+    --border-color-retro-rgb: 139, 90, 43;
+    --header-bg-retro: #2E1A0A; 
+    --header-bg-retro-rgb: 46, 26, 10;
+    --nav-bg-retro: #3D2914; 
+    --nav-bg-retro-rgb: 61, 41, 20;
+    --button-bg-retro: #654321; 
+    --button-bg-retro-rgb: 101, 67, 33;
+    --button-text-retro: #F5E6D3; 
+    --button-text-retro-rgb: 245, 230, 211;
+    --input-bg-retro: #3D2914; 
+    --input-bg-retro-rgb: 61, 41, 20;
+    --input-border-retro: #8B5A2B; 
+    --input-border-retro-rgb: 139, 90, 43;
+    --textarea-bg-retro: #3D2914; 
+    --textarea-bg-retro-rgb: 61, 41, 20;
+    --card-shadow-retro: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(245, 230, 211, 0.1); 
+    --accent-color-retro: #FFB347; 
+    --accent-color-retro-rgb: 255, 179, 71;
+    --accent-hover-color-retro: #FF9500; 
+    --accent-hover-color-retro-rgb: 255, 149, 0;
+    --accent-text-retro: #2E1A0A; 
+    --accent-text-retro-rgb: 46, 26, 10;
+    --nav-active-bg-retro: rgba(255, 179, 71, 0.15); 
+    --progress-bar-bg-retro: #8B5A2B; 
+    --progress-bar-bg-retro-rgb: 139, 90, 43;
+    --modal-content-bg-retro: #3D2914; 
+    --modal-content-bg-retro-rgb: 61, 41, 20;
+    --chart-text-color-retro: #F5E6D3; 
+    --chart-text-color-retro-rgb: 245, 230, 211;
+    --chart-grid-color-retro: #8B5A2B; 
+    --chart-grid-color-retro-rgb: 139, 90, 43;
+    --chart-tooltip-bg-retro: rgba(46, 26, 10, 0.95); 
+    --chart-tooltip-text-color-retro: #F5E6D3;
+    --chart-tooltip-text-color-retro-rgb: 245, 230, 211;
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-retro: rgba(var(--text-color-retro-rgb), 0.04);
+    --task-completed-hover-bg-retro: rgba(var(--text-color-retro-rgb), 0.06);
+    --hamburger-hover-bg-retro: rgba(var(--text-color-retro-rgb), 0.08);
+    --hamburger-active-bg-retro: rgba(var(--text-color-retro-rgb), 0.12);
+}
+
+body.retro-mode {
+    --current-bg-color: var(--bg-color-retro);
+    --current-bg-color-rgb: var(--bg-color-retro-rgb);
+    --current-text-color: var(--text-color-retro);
+    --current-text-color-rgb: var(--text-color-retro-rgb);
+    --current-container-bg: var(--container-bg-retro);
+    --current-container-bg-rgb: var(--container-bg-retro-rgb);
+    --current-border-color: var(--border-color-retro);
+    --current-border-color-rgb: var(--border-color-retro-rgb);
+    --current-header-bg: var(--header-bg-retro);
+    --current-header-bg-rgb: var(--header-bg-retro-rgb);
+    --current-nav-bg: var(--nav-bg-retro);
+    --current-nav-bg-rgb: var(--nav-bg-retro-rgb);
+    --current-button-bg: var(--button-bg-retro);
+    --current-button-bg-rgb: var(--button-bg-retro-rgb);
+    --current-button-text: var(--button-text-retro);
+    --current-button-text-rgb: var(--button-text-retro-rgb);
+    --current-input-bg: var(--input-bg-retro);
+    --current-input-bg-rgb: var(--input-bg-retro-rgb);
+    --current-input-border: var(--input-border-retro);
+    --current-input-border-rgb: var(--input-border-retro-rgb);
+    --current-textarea-bg: var(--textarea-bg-retro);
+    --current-textarea-bg-rgb: var(--textarea-bg-retro-rgb);
+    --current-card-shadow: var(--card-shadow-retro);
+    --current-accent-color: var(--accent-color-retro);
+    --current-accent-color-rgb: var(--accent-color-retro-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-retro);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-retro-rgb);
+    --current-accent-text: var(--accent-text-retro);
+    --current-accent-text-rgb: var(--accent-text-retro-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-retro);
+    --current-progress-bar-bg: var(--progress-bar-bg-retro);
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-retro-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-retro);
+    --current-modal-content-bg-rgb: var(--modal-content-bg-retro-rgb);
+    --current-chart-text-color: var(--chart-text-color-retro);
+    --current-chart-text-color-rgb: var(--chart-text-color-retro-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-retro);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-retro-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-retro);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-retro);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-retro-rgb);
+
+    /* Mapping for task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-retro);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-retro);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-retro);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-retro);
+}
+
+body.retro-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--accent-color-retro); 
+}
+body.retro-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+    text-decoration: underline;
+    color: var(--accent-hover-color-retro); 
+}
+
+/* Retro styling effects */
+body.retro-mode .content-card {
+    border: 2px solid var(--border-color-retro);
+    border-radius: 8px;
+    background: linear-gradient(145deg, var(--container-bg-retro), #2A1B0F);
+}
+
+body.retro-mode .form-button {
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}

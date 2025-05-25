@@ -1,0 +1,216 @@
+/* styles/themes/cosmic.css */
+
+:root {
+    /* Cosmic Purple-Blue Palette */
+    --cosmic-purple-500: #8A2BE2; 
+    --cosmic-purple-500-rgb: 138, 43, 226;
+    --cosmic-purple-400: #9932CC; 
+    --cosmic-purple-400-rgb: 153, 50, 204;
+    --cosmic-purple-600: #7B68EE; 
+    --cosmic-purple-600-rgb: 123, 104, 238;
+    --cosmic-purple-700: #6A5ACD; 
+    --cosmic-purple-700-rgb: 106, 90, 205;
+    --text-on-cosmic: #FFFFFF; 
+    --text-on-cosmic-rgb: 255, 255, 255;
+
+    /* Cosmic Dark Theme Base Variables */
+    --bg-color-cosmic: #0F0520; 
+    --bg-color-cosmic-rgb: 15, 5, 32;
+    --text-color-cosmic: #E6E6FA; 
+    --text-color-cosmic-rgb: 230, 230, 250;
+    --container-bg-cosmic: #1A0F2E; 
+    --container-bg-cosmic-rgb: 26, 15, 46;
+    --border-color-cosmic: #483D8B; 
+    --border-color-cosmic-rgb: 72, 61, 139;
+    --header-bg-cosmic: #1A0F2E; 
+    --header-bg-cosmic-rgb: 26, 15, 46;
+    --nav-bg-cosmic: #1A0F2E; 
+    --nav-bg-cosmic-rgb: 26, 15, 46;
+    --input-bg-cosmic: #2E1B4E; 
+    --input-bg-cosmic-rgb: 46, 27, 78;
+    --input-border-cosmic: #483D8B;
+    --input-border-cosmic-rgb: 72, 61, 139;
+    --textarea-bg-cosmic: #2E1B4E;
+    --textarea-bg-cosmic-rgb: 46, 27, 78;
+    --card-shadow-cosmic: 0 4px 20px rgba(138, 43, 226, 0.3), 0 2px 10px rgba(138, 43, 226, 0.15); 
+    --progress-bar-bg-cosmic: #483D8B; 
+    --progress-bar-bg-cosmic-rgb: 72, 61, 139;
+    --modal-content-bg-cosmic: #1A0F2E; 
+    --modal-content-bg-cosmic-rgb: 26, 15, 46;
+    --chart-text-color-cosmic: #E6E6FA; 
+    --chart-text-color-cosmic-rgb: 230, 230, 250;
+    --chart-grid-color-cosmic: #483D8B; 
+    --chart-grid-color-cosmic-rgb: 72, 61, 139;
+    --chart-tooltip-bg-cosmic: rgba(26, 15, 46, 0.95);  
+    --chart-tooltip-text-color-cosmic: #E6E6FA; 
+    --chart-tooltip-text-color-cosmic-rgb: 230, 230, 250;
+
+    /* Cosmic Purple Accent Theme Semantic Variables */
+    --button-bg-cosmic-purple: var(--cosmic-purple-500); 
+    --button-bg-cosmic-purple-rgb: var(--cosmic-purple-500-rgb);
+    --button-text-cosmic-purple: var(--text-on-cosmic);
+    --button-text-cosmic-purple-rgb: var(--text-on-cosmic-rgb);
+    --accent-color-cosmic-purple: var(--cosmic-purple-500);
+    --accent-color-cosmic-purple-rgb: var(--cosmic-purple-500-rgb);
+    --accent-hover-color-cosmic-purple: var(--cosmic-purple-600);
+    --accent-hover-color-cosmic-purple-rgb: var(--cosmic-purple-600-rgb);
+    --accent-text-cosmic-purple: var(--text-on-cosmic);
+    --accent-text-cosmic-purple-rgb: var(--text-on-cosmic-rgb);
+    --nav-active-bg-cosmic-purple: rgba(var(--cosmic-purple-500-rgb), 0.15);
+    
+    /* Button specific overrides for cosmic mode with purple accent */
+    --button-primary-bg-cosmic-override: var(--cosmic-purple-500);
+    --button-primary-text-cosmic-override: var(--text-on-cosmic);
+    --button-primary-hover-bg-cosmic-override: var(--cosmic-purple-600); 
+    
+    --button-secondary-bg-cosmic-override: transparent;
+    --button-secondary-text-cosmic-override: var(--cosmic-purple-500);
+    --button-secondary-hover-bg-cosmic-override: rgba(var(--cosmic-purple-500-rgb), 0.08);
+    --button-secondary-border-cosmic-override: var(--cosmic-purple-500);
+
+    /* Default buttons in cosmic mode (non-accented) */
+    --button-default-bg-cosmic-override: #2E1B4E; 
+    --button-default-bg-cosmic-override-rgb: 46, 27, 78;
+    --button-default-text-cosmic-override: #E6E6FA; 
+    --button-default-text-cosmic-override-rgb: 230, 230, 250;
+    --button-default-hover-bg-cosmic-override: #3A2664; 
+    --button-default-hover-bg-cosmic-override-rgb: 58, 38, 100;
+    --button-default-border-cosmic-override: var(--border-color-cosmic);
+    --button-default-border-cosmic-override-rgb: var(--border-color-cosmic-rgb);
+
+    /* Task Completion & Hamburger Menu Variables */
+    --task-completed-bg-cosmic: rgba(var(--cosmic-purple-500-rgb), 0.04);
+    --task-completed-hover-bg-cosmic: rgba(var(--cosmic-purple-500-rgb), 0.06);
+    --hamburger-hover-bg-cosmic: rgba(var(--text-color-cosmic-rgb), 0.08);
+    --hamburger-active-bg-cosmic: rgba(var(--text-color-cosmic-rgb), 0.12);
+}
+
+body.cosmic-mode {
+    --current-bg-color: var(--bg-color-cosmic);
+    --current-bg-color-rgb: var(--bg-color-cosmic-rgb);
+    --current-text-color: var(--text-color-cosmic);
+    --current-text-color-rgb: var(--text-color-cosmic-rgb);
+    --current-container-bg: var(--container-bg-cosmic);
+    --current-container-bg-rgb: var(--container-bg-cosmic-rgb);
+    --current-border-color: var(--border-color-cosmic);
+    --current-border-color-rgb: var(--border-color-cosmic-rgb);
+    --current-header-bg: var(--header-bg-cosmic);
+    --current-header-bg-rgb: var(--header-bg-cosmic-rgb);
+    --current-nav-bg: var(--nav-bg-cosmic);
+    --current-nav-bg-rgb: var(--nav-bg-cosmic-rgb);
+    --current-button-bg: var(--button-default-bg-cosmic-override); 
+    --current-button-bg-rgb: var(--button-default-bg-cosmic-override-rgb);
+    --current-button-text: var(--button-default-text-cosmic-override);
+    --current-button-text-rgb: var(--button-default-text-cosmic-override-rgb);
+    
+    --button-primary-bg: var(--button-primary-bg-cosmic-override);
+    --button-primary-text: var(--button-primary-text-cosmic-override);
+    --button-primary-hover-bg: var(--button-primary-hover-bg-cosmic-override);
+    --button-secondary-bg: var(--button-secondary-bg-cosmic-override);
+    --button-secondary-text: var(--button-secondary-text-cosmic-override);
+    --button-secondary-hover-bg: var(--button-secondary-hover-bg-cosmic-override);
+    --button-secondary-border: var(--button-secondary-border-cosmic-override);
+    --button-default-bg: var(--button-default-bg-cosmic-override);
+    --button-default-text: var(--button-default-text-cosmic-override);
+    --button-default-hover-bg: var(--button-default-hover-bg-cosmic-override);
+    --button-default-border: var(--button-default-border-cosmic-override);
+    
+    --current-input-bg: var(--input-bg-cosmic);
+    --current-input-bg-rgb: var(--input-bg-cosmic-rgb);
+    --current-input-border: var(--input-border-cosmic);
+    --current-input-border-rgb: var(--input-border-cosmic-rgb);
+    --current-textarea-bg: var(--textarea-bg-cosmic);
+    --current-textarea-bg-rgb: var(--textarea-bg-cosmic-rgb);
+    --current-card-shadow: var(--card-shadow-cosmic);
+    
+    --current-accent-color: var(--accent-color-cosmic-purple);
+    --current-accent-color-rgb: var(--accent-color-cosmic-purple-rgb);
+    --current-accent-hover-color: var(--accent-hover-color-cosmic-purple);
+    --current-accent-hover-color-rgb: var(--accent-hover-color-cosmic-purple-rgb);
+    --current-accent-text: var(--accent-text-cosmic-purple);
+    --current-accent-text-rgb: var(--accent-text-cosmic-purple-rgb);
+    --current-nav-active-bg: var(--nav-active-bg-cosmic-purple);
+    --current-progress-bar-bg: var(--progress-bar-bg-cosmic); 
+    --current-progress-bar-bg-rgb: var(--progress-bar-bg-cosmic-rgb);
+    --current-modal-content-bg: var(--modal-content-bg-cosmic); 
+    --current-modal-content-bg-rgb: var(--modal-content-bg-cosmic-rgb);
+    --current-chart-text-color: var(--chart-text-color-cosmic);
+    --current-chart-text-color-rgb: var(--chart-text-color-cosmic-rgb);
+    --current-chart-grid-color: var(--chart-grid-color-cosmic);
+    --current-chart-grid-color-rgb: var(--chart-grid-color-cosmic-rgb);
+    --current-chart-tooltip-bg: var(--chart-tooltip-bg-cosmic);
+    --current-chart-tooltip-text-color: var(--chart-tooltip-text-color-cosmic);
+    --current-chart-tooltip-text-color-rgb: var(--chart-tooltip-text-color-cosmic-rgb);
+
+    /* Mapping for new task completion and hamburger variables */
+    --current-task-completed-bg: var(--task-completed-bg-cosmic);
+    --current-task-completed-hover-bg: var(--task-completed-hover-bg-cosmic);
+    --current-hamburger-hover-bg: var(--hamburger-hover-bg-cosmic);
+    --current-hamburger-active-bg: var(--hamburger-active-bg-cosmic);
+    
+    /* Cosmic theme special effects */
+    background: radial-gradient(ellipse at center, #1A0F2E 0%, #0F0520 50%, #030014 100%);
+    position: relative;
+}
+
+body.cosmic-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
+    color: var(--accent-color-cosmic-purple); 
+}
+
+body.cosmic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
+    text-decoration: underline;
+    color: var(--accent-hover-color-cosmic-purple); 
+}
+
+/* Cosmic theme special visual effects */
+body.cosmic-mode .container,
+body.cosmic-mode .card {
+    background: rgba(26, 15, 46, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+}
+
+body.cosmic-mode .nav-sidebar {
+    background: rgba(26, 15, 46, 0.9);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(138, 43, 226, 0.4);
+}
+
+/* Cosmic starfield background effect */
+body.cosmic-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 40px 70px, white, transparent),
+        radial-gradient(1px 1px at 90px 40px, white, transparent),
+        radial-gradient(1px 1px at 130px 80px, white, transparent),
+        radial-gradient(2px 2px at 160px 30px, white, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: sparkle 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes sparkle {
+    from { transform: translateX(0); }
+    to { transform: translateX(200px); }
+}
+
+/* Cosmic glow effects */
+body.cosmic-mode .btn-primary,
+body.cosmic-mode button.primary {
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+    transition: box-shadow 0.3s ease;
+}
+
+body.cosmic-mode .btn-primary:hover,
+body.cosmic-mode button.primary:hover {
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+}
