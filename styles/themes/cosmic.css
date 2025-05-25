@@ -62,11 +62,10 @@
     --button-primary-bg-cosmic-override: var(--cosmic-purple-500);
     --button-primary-text-cosmic-override: var(--text-on-cosmic);
     --button-primary-hover-bg-cosmic-override: var(--cosmic-purple-600); 
-    
-    --button-secondary-bg-cosmic-override: transparent;
-    --button-secondary-text-cosmic-override: var(--cosmic-purple-500);
-    --button-secondary-hover-bg-cosmic-override: rgba(var(--cosmic-purple-500-rgb), 0.08);
-    --button-secondary-border-cosmic-override: var(--cosmic-purple-500);
+      --button-secondary-bg-cosmic-override: transparent;
+    --button-secondary-text-cosmic-override: #FFD700; /* Golden yellow like stars */
+    --button-secondary-hover-bg-cosmic-override: rgba(255, 215, 0, 0.08);
+    --button-secondary-border-cosmic-override: #FFD700;
 
     /* Default buttons in cosmic mode (non-accented) */
     --button-default-bg-cosmic-override: #2E1B4E; 
