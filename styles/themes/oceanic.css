@@ -127,11 +127,9 @@ body.oceanic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover
 /* Oceanic Animations */
 @keyframes oceanicTide {
     0%, 100% { 
-        transform: translateX(0) scaleY(1);
         opacity: 0.5;
     }
     50% { 
-        transform: translateX(100px) scaleY(1.1);
         opacity: 0.8;
     }
 }
@@ -279,11 +277,7 @@ body.oceanic-mode h3 {
 body.oceanic-mode h1::before,
 body.oceanic-mode h2::before,
 body.oceanic-mode h3::before {
-    content: '🌊';
-    position: absolute;
-    left: -30px;
-    animation: deepDive 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 5px rgba(100, 255, 218, 0.5));
+    display: none;
 }
 
 /* Enhanced Task Item Effects */
@@ -317,7 +311,9 @@ body.oceanic-mode .task-item:hover::before {
 }
 
 body.oceanic-mode .task-item:hover {
-    animation: coralGlow 2s ease-in-out infinite;
+    box-shadow: 
+        0 0 20px rgba(100, 255, 218, 0.4),
+        inset 0 0 20px rgba(100, 255, 218, 0.2);
     transform: translateY(-2px);
 }
 
@@ -357,7 +353,6 @@ body.oceanic-mode button.primary {
         var(--current-accent-color), 
         rgba(100, 255, 218, 0.8)
     );
-    animation: coralGlow 3s ease-in-out infinite;
     transition: all 0.3s ease;
 }
 
@@ -385,7 +380,10 @@ body.oceanic-mode button.primary:hover::before {
 
 body.oceanic-mode .btn-primary:hover,
 body.oceanic-mode button.primary:hover {
-    animation: tidePool 2s ease-in-out infinite;
+    background: linear-gradient(135deg, 
+        rgba(100, 255, 218, 0.9), 
+        var(--current-accent-color)
+    );
     transform: translateY(-3px);
 }
 

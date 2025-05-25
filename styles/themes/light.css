@@ -118,12 +118,10 @@ body.light-mode {
 /* Light Theme Animations */
 @keyframes sunlightRays {
     0%, 100% { 
-        transform: rotate(0deg) scale(1);
-        opacity: 0.4;
+        opacity: 0.2;
     }
     50% { 
-        transform: rotate(180deg) scale(1.1);
-        opacity: 0.7;
+        opacity: 0.4;
     }
 }
 
@@ -144,21 +142,13 @@ body.light-mode {
 }
 
 @keyframes cloudFloat {
-    0% { 
-        transform: translateX(0) translateY(0) rotate(0deg);
-        filter: brightness(1) blur(0px);
+    0%, 100% { 
+        opacity: 0.8;
+        filter: brightness(1);
     }
-    33% { 
-        transform: translateX(2px) translateY(-1px) rotate(1deg);
-        filter: brightness(1.05) blur(0.5px);
-    }
-    66% { 
-        transform: translateX(-1px) translateY(1px) rotate(-0.5deg);
-        filter: brightness(1.1) blur(0.3px);
-    }
-    100% { 
-        transform: translateX(0) translateY(0) rotate(0deg);
-        filter: brightness(1) blur(0px);
+    50% { 
+        opacity: 1;
+        filter: brightness(1.1);
     }
 }
 
@@ -194,16 +184,11 @@ body.light-mode {
 }
 
 @keyframes softBreeze {
-    0% { 
-        transform: translateX(-20px);
-        opacity: 0.3;
+    0%, 100% { 
+        opacity: 0.1;
     }
     50% { 
-        opacity: 0.6;
-    }
-    100% { 
-        transform: translateX(20px);
-        opacity: 0.3;
+        opacity: 0.2;
     }
 }
 
@@ -263,16 +248,6 @@ body.light-mode h3 {
     font-family: 'Google Sans', 'Roboto', sans-serif;
 }
 
-body.light-mode h1::before,
-body.light-mode h2::before,
-body.light-mode h3::before {
-    content: '☀️';
-    position: absolute;
-    left: -30px;
-    animation: cloudFloat 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 3px rgba(26, 115, 232, 0.3));
-}
-
 /* Enhanced Task Item Effects */
 body.light-mode .task-item {
     position: relative;
@@ -305,7 +280,9 @@ body.light-mode .task-item:hover::before {
 }
 
 body.light-mode .task-item:hover {
-    animation: googleElevation 2s ease-in-out infinite;
+    box-shadow: 
+        0 4px 8px rgba(60, 64, 67, 0.3),
+        0 6px 20px rgba(60, 64, 67, 0.15);
 }
 
 /* Enhanced Navigation Effects */
@@ -345,7 +322,6 @@ body.light-mode button.primary {
         var(--current-accent-color), 
         rgba(23, 101, 204, 0.9)
     );
-    animation: googleElevation 4s ease-in-out infinite;
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     font-family: 'Google Sans', 'Roboto', sans-serif;
     border-radius: 8px;
@@ -375,8 +351,10 @@ body.light-mode button.primary:hover::before {
 
 body.light-mode .btn-primary:hover,
 body.light-mode button.primary:hover {
-    animation: paperShine 2s ease-in-out infinite;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, 
+        rgba(23, 101, 204, 0.9), 
+        var(--current-accent-color)
+    );
     box-shadow: 
         0 8px 25px rgba(26, 115, 232, 0.15),
         0 16px 40px rgba(26, 115, 232, 0.1);

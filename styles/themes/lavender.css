@@ -119,22 +119,18 @@ body.lavender-mode {
 /* Lavender Animations */
 @keyframes lavenderPetals {
     from { 
-        transform: translateY(0) rotate(0deg);
         opacity: 0.8;
     }
     to { 
-        transform: translateY(-150px) rotate(180deg);
         opacity: 0;
     }
 }
 
 @keyframes lavenderBreeze {
     0%, 100% { 
-        transform: translateX(-30px);
         opacity: 0.3;
     }
     50% { 
-        transform: translateX(30px);
         opacity: 0.6;
     }
 }
@@ -156,21 +152,11 @@ body.lavender-mode {
 }
 
 @keyframes mysticalFloat {
-    0% { 
-        transform: translateY(0) rotateZ(0deg);
+    0%, 100% { 
         filter: brightness(1) hue-rotate(0deg);
     }
-    33% { 
-        transform: translateY(-3px) rotateZ(1deg);
-        filter: brightness(1.1) hue-rotate(5deg);
-    }
-    66% { 
-        transform: translateY(-2px) rotateZ(-1deg);
+    50% { 
         filter: brightness(1.15) hue-rotate(10deg);
-    }
-    100% { 
-        transform: translateY(0) rotateZ(0deg);
-        filter: brightness(1) hue-rotate(0deg);
     }
 }
 
@@ -191,28 +177,21 @@ body.lavender-mode {
         box-shadow: 
             0 0 10px rgba(189, 180, 254, 0.2),
             inset 0 0 10px rgba(189, 180, 254, 0.1);
-        transform: scale(1);
     }
     50% { 
         box-shadow: 
             0 0 20px rgba(189, 180, 254, 0.4),
             0 0 30px rgba(186, 85, 211, 0.3),
             inset 0 0 20px rgba(189, 180, 254, 0.2);
-        transform: scale(1.01);
     }
 }
 
 @keyframes dreamyRipple {
-    0% { 
-        transform: translateX(-50px);
+    0%, 100% { 
         opacity: 0.3;
     }
     50% { 
         opacity: 0.7;
-    }
-    100% { 
-        transform: translateX(50px);
-        opacity: 0.3;
     }
 }
 
@@ -277,11 +256,7 @@ body.lavender-mode h3 {
 body.lavender-mode h1::before,
 body.lavender-mode h2::before,
 body.lavender-mode h3::before {
-    content: '🌸';
-    position: absolute;
-    left: -30px;
-    animation: mysticalFloat 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 5px rgba(189, 180, 254, 0.5));
+    display: none;
 }
 
 /* Enhanced Task Item Effects */
@@ -316,7 +291,6 @@ body.lavender-mode .task-item:hover::before {
 
 body.lavender-mode .task-item:hover {
     animation: petalDance 2.5s ease-in-out infinite;
-    transform: translateY(-2px);
 }
 
 /* Enhanced Navigation Effects */
@@ -339,7 +313,6 @@ body.lavender-mode .nav-link::after {
         rgba(138, 43, 226, 0.8)
     );
     transition: width 0.4s ease;
-    animation: lavenderShimmer 4s ease-in-out infinite;
 }
 
 body.lavender-mode .nav-link:hover::after {
@@ -356,7 +329,6 @@ body.lavender-mode button.primary {
         rgba(186, 85, 211, 0.8),
         rgba(138, 43, 226, 0.6)
     );
-    animation: petalDance 4s ease-in-out infinite;
     transition: all 0.3s ease;
 }
 
@@ -385,7 +357,6 @@ body.lavender-mode button.primary:hover::before {
 body.lavender-mode .btn-primary:hover,
 body.lavender-mode button.primary:hover {
     animation: softBloom 2s ease-in-out infinite;
-    transform: translateY(-3px);
 }
 
 /* Completed Task Effects */

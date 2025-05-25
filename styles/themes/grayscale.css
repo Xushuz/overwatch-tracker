@@ -118,8 +118,8 @@ body.grayscale-mode {
 
 /* Grayscale Animations */
 @keyframes filmNoirRain {
-    0% { transform: translateY(-100px); }
-    100% { transform: translateY(100vh); }
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
 }
 
 @keyframes dramaticShadows {
@@ -150,25 +150,11 @@ body.grayscale-mode {
 }
 
 @keyframes pencilSketch {
-    0% { 
-        transform: translateX(0) translateY(0) rotate(0deg);
+    0%, 100% { 
         filter: brightness(1) contrast(1);
-    }
-    25% { 
-        transform: translateX(0.5px) translateY(-0.5px) rotate(0.2deg);
-        filter: brightness(1.05) contrast(1.1);
     }
     50% { 
-        transform: translateX(-0.5px) translateY(0.5px) rotate(-0.2deg);
         filter: brightness(1.1) contrast(1.2);
-    }
-    75% { 
-        transform: translateX(0.3px) translateY(0.3px) rotate(0.1deg);
-        filter: brightness(1.05) contrast(1.1);
-    }
-    100% { 
-        transform: translateX(0) translateY(0) rotate(0deg);
-        filter: brightness(1) contrast(1);
     }
 }
 
@@ -193,28 +179,21 @@ body.grayscale-mode {
             0 2px 8px rgba(0, 0, 0, 0.1),
             inset 0 1px 0 rgba(255, 255, 255, 0.3),
             inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-        transform: scale(1);
     }
     50% { 
         box-shadow: 
             0 4px 12px rgba(0, 0, 0, 0.15),
             inset 0 1px 0 rgba(255, 255, 255, 0.4),
             inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-        transform: scale(1.01);
     }
 }
 
 @keyframes inkSpread {
-    0% { 
-        transform: translateX(-50px);
+    0%, 100% { 
         opacity: 0.2;
     }
     50% { 
         opacity: 0.5;
-    }
-    100% { 
-        transform: translateX(50px);
-        opacity: 0.2;
     }
 }
 
@@ -275,11 +254,7 @@ body.grayscale-mode h3 {
 body.grayscale-mode h1::before,
 body.grayscale-mode h2::before,
 body.grayscale-mode h3::before {
-    content: '📰';
-    position: absolute;
-    left: -30px;
-    animation: pencilSketch 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 3px rgba(128, 128, 128, 0.5)) grayscale(1);
+    display: none;
 }
 
 /* Enhanced Task Item Effects */
@@ -315,7 +290,6 @@ body.grayscale-mode .task-item:hover::before {
 
 body.grayscale-mode .task-item:hover {
     animation: paperTexture 2s ease-in-out infinite;
-    transform: translateY(-2px);
 }
 
 /* Enhanced Navigation Effects */
@@ -339,7 +313,6 @@ body.grayscale-mode .nav-link::after {
         rgba(169, 169, 169, 0.8)
     );
     transition: width 0.3s ease;
-    animation: vintageFade 4s ease-in-out infinite;
 }
 
 body.grayscale-mode .nav-link:hover::after {
@@ -356,7 +329,6 @@ body.grayscale-mode button.primary {
         rgba(128, 128, 128, 0.8),
         rgba(169, 169, 169, 0.6)
     );
-    animation: paperTexture 4s ease-in-out infinite;
     transition: all 0.3s ease;
     font-family: 'Times New Roman', serif;
     font-weight: bold;
@@ -387,7 +359,6 @@ body.grayscale-mode button.primary:hover::before {
 body.grayscale-mode .btn-primary:hover,
 body.grayscale-mode button.primary:hover {
     animation: newspaperPrint 2s ease-in-out infinite;
-    transform: translateY(-3px);
 }
 
 /* Completed Task Effects */
