@@ -95,9 +95,8 @@ body.pink-mode {
     --current-accent-hover-color: var(--accent-hover-color-pink);
     --current-accent-hover-color-rgb: var(--accent-hover-color-pink-rgb);
     --current-accent-text: var(--accent-text-pink);
-    --current-accent-text-rgb: var(--accent-text-pink-rgb);
-    --current-nav-active-bg: var(--nav-active-bg-pink);
-    /* --current-nav-active-bg-rgb: var(--nav-active-bg-pink-rgb); /* Not applicable */
+    --current-accent-text-rgb: var(--accent-text-pink-rgb);    --current-nav-active-bg: var(--nav-active-bg-pink);
+    /* --current-nav-active-bg-rgb: var(--nav-active-bg-pink-rgb); */ /* Not applicable */
     --current-progress-bar-bg: var(--progress-bar-bg-pink);
     --current-progress-bar-bg-rgb: var(--progress-bar-bg-pink-rgb);
     --current-modal-content-bg: var(--modal-content-bg-pink);
@@ -126,18 +125,20 @@ body.pink-mode::before {
     width: 140%;
     height: 140%;
     background-image: 
-        radial-gradient(circle at 60px 80px, rgba(255, 192, 203, 0.4) 0%, rgba(255, 192, 203, 0.1) 40%, transparent 70%),
-        radial-gradient(circle at 200px 40px, rgba(255, 182, 193, 0.3) 0%, rgba(255, 182, 193, 0.1) 30%, transparent 60%),
-        radial-gradient(circle at 350px 120px, rgba(255, 192, 203, 0.5) 0%, rgba(255, 192, 203, 0.1) 50%, transparent 80%),
-        radial-gradient(circle at 500px 60px, rgba(255, 182, 193, 0.2) 0%, rgba(255, 182, 193, 0.05) 25%, transparent 50%);
+        radial-gradient(circle at 60px 80px, rgba(255, 192, 203, 0.6) 0%, rgba(255, 192, 203, 0.2) 40%, transparent 70%),
+        radial-gradient(circle at 200px 40px, rgba(255, 182, 193, 0.4) 0%, rgba(255, 182, 193, 0.15) 30%, transparent 60%),
+        radial-gradient(circle at 350px 120px, rgba(255, 192, 203, 0.7) 0%, rgba(255, 192, 203, 0.25) 50%, transparent 80%),
+        radial-gradient(circle at 500px 60px, rgba(255, 182, 193, 0.3) 0%, rgba(255, 182, 193, 0.1) 25%, transparent 50%),
+        radial-gradient(circle at 120px 200px, rgba(255, 20, 147, 0.4) 0%, rgba(255, 20, 147, 0.1) 35%, transparent 65%),
+        radial-gradient(circle at 400px 180px, rgba(255, 192, 203, 0.5) 0%, rgba(255, 192, 203, 0.18) 45%, transparent 75%);
     background-repeat: repeat;
-    background-size: 600px 400px;
-    animation: dreamyBubbles 30s ease-in-out infinite;
+    background-size: 600px 400px, 700px 350px, 500px 450px;
+    animation: dreamyBubbles 35s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
 }
 
-/* Pink floating hearts */
+/* Pink floating hearts and sparkles */
 body.pink-mode::after {
     content: '';
     position: fixed;
@@ -146,50 +147,67 @@ body.pink-mode::after {
     width: 120%;
     height: 120%;
     background-image: 
-        radial-gradient(2px 2px at 100px 50px, rgba(255, 20, 147, 0.6), transparent),
-        radial-gradient(1px 1px at 280px 80px, rgba(255, 20, 147, 0.4), transparent),
-        radial-gradient(3px 3px at 450px 30px, rgba(255, 20, 147, 0.5), transparent),
-        radial-gradient(2px 2px at 600px 100px, rgba(255, 20, 147, 0.3), transparent);
+        radial-gradient(2px 2px at 100px 50px, rgba(255, 20, 147, 0.8), transparent),
+        radial-gradient(1px 1px at 280px 80px, rgba(255, 20, 147, 0.6), transparent),
+        radial-gradient(3px 3px at 450px 30px, rgba(255, 20, 147, 0.7), transparent),
+        radial-gradient(2px 2px at 600px 100px, rgba(255, 20, 147, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 150px 150px, rgba(255, 192, 203, 0.9), transparent),
+        radial-gradient(2.5px 2.5px at 350px 200px, rgba(255, 192, 203, 0.7), transparent),
+        radial-gradient(1px 1px at 520px 180px, rgba(255, 182, 193, 0.8), transparent);
     background-repeat: repeat;
-    background-size: 700px 200px;
-    animation: floatingHearts 25s linear infinite;
+    background-size: 700px 200px, 800px 250px, 600px 300px;
+    animation: floatingHearts 20s linear infinite;
     pointer-events: none;
     z-index: -2;
 }
 
 @keyframes dreamyBubbles {
     0%, 100% { 
-        transform: translate(0, 0) scale(1);
-        opacity: 0.7;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 0.8;
     }
     25% { 
-        transform: translate(10px, -20px) scale(1.1);
+        transform: translate(15px, -30px) scale(1.2) rotate(90deg);
         opacity: 1;
     }
     50% { 
-        transform: translate(-5px, -40px) scale(0.9);
-        opacity: 0.8;
+        transform: translate(-10px, -60px) scale(0.8) rotate(180deg);
+        opacity: 0.9;
     }
     75% { 
-        transform: translate(15px, -60px) scale(1.05);
-        opacity: 0.9;
+        transform: translate(20px, -90px) scale(1.1) rotate(270deg);
+        opacity: 0.95;
     }
 }
 
 @keyframes floatingHearts {
     0% { 
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0) rotate(0deg) scale(0.5);
         opacity: 0;
     }
-    10% { 
-        opacity: 0.8;
+    15% { 
+        opacity: 1;
+        transform: translateY(-20px) rotate(45deg) scale(1);
     }
-    90% { 
-        opacity: 0.2;
+    85% { 
+        opacity: 0.3;
+        transform: translateY(-120px) rotate(315deg) scale(0.8);
     }
     100% { 
-        transform: translateY(-150px) rotate(360deg);
+        transform: translateY(-180px) rotate(360deg) scale(0.3);
         opacity: 0;
+    }
+}
+
+/* Additional sparkle animation */
+@keyframes pinkSparkle {
+    0%, 100% { 
+        opacity: 0;
+        transform: scale(0.3) rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
     }
 }
 
@@ -198,24 +216,34 @@ body.pink-mode h1,
 body.pink-mode h2,
 body.pink-mode h3 {
     text-shadow: 
-        0 0 10px rgba(255, 192, 203, 0.8),
-        0 0 20px rgba(255, 192, 203, 0.4),
-        2px 2px 4px rgba(255, 182, 193, 0.6);
-    animation: dreamyGlow 5s ease-in-out infinite alternate;
+        0 0 10px rgba(255, 192, 203, 0.9),
+        0 0 20px rgba(255, 192, 203, 0.6),
+        0 0 30px rgba(255, 20, 147, 0.4),
+        2px 2px 4px rgba(255, 182, 193, 0.7);
+    animation: dreamyGlow 6s ease-in-out infinite alternate;
 }
 
 @keyframes dreamyGlow {
-    from { 
+    0% { 
         text-shadow: 
-            0 0 10px rgba(255, 192, 203, 0.8),
-            0 0 20px rgba(255, 192, 203, 0.4),
-            2px 2px 4px rgba(255, 182, 193, 0.6);
+            0 0 10px rgba(255, 192, 203, 0.9),
+            0 0 20px rgba(255, 192, 203, 0.6),
+            0 0 30px rgba(255, 20, 147, 0.4),
+            2px 2px 4px rgba(255, 182, 193, 0.7);
     }
-    to { 
+    50% { 
         text-shadow: 
             0 0 15px rgba(255, 192, 203, 1),
-            0 0 30px rgba(255, 192, 203, 0.6),
-            3px 3px 6px rgba(255, 182, 193, 0.8);
+            0 0 35px rgba(255, 192, 203, 0.8),
+            0 0 45px rgba(255, 20, 147, 0.6),
+            3px 3px 6px rgba(255, 182, 193, 0.9);
+    }
+    100% { 
+        text-shadow: 
+            0 0 12px rgba(255, 192, 203, 0.95),
+            0 0 25px rgba(255, 192, 203, 0.7),
+            0 0 35px rgba(255, 20, 147, 0.5),
+            2.5px 2.5px 5px rgba(255, 182, 193, 0.8);
     }
 }
 
@@ -223,14 +251,474 @@ body.pink-mode h3 {
 body.pink-mode .btn-primary,
 body.pink-mode button.primary {
     box-shadow: 
-        0 0 15px rgba(255, 20, 147, 0.3),
-        0 4px 15px rgba(255, 192, 203, 0.2);
+        0 0 15px rgba(255, 20, 147, 0.4),
+        0 4px 15px rgba(255, 192, 203, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 20, 147, 0.3);
 }
 
 body.pink-mode .btn-primary:hover,
 body.pink-mode button.primary:hover {
     box-shadow: 
-        0 0 25px rgba(255, 20, 147, 0.5),
-        0 6px 20px rgba(255, 192, 203, 0.4);
+        0 0 25px rgba(255, 20, 147, 0.7),
+        0 6px 20px rgba(255, 192, 203, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Pink containers with enhanced effects */
+body.pink-mode .container,
+body.pink-mode .card {
+    box-shadow: 
+        0 4px 20px rgba(255, 192, 203, 0.15),
+        0 2px 10px rgba(255, 20, 147, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 192, 203, 0.2);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* Pink input effects */
+body.pink-mode input,
+body.pink-mode textarea,
+body.pink-mode select {
+    box-shadow: 
+        0 2px 8px rgba(255, 192, 203, 0.1),
+        inset 0 1px 3px rgba(255, 20, 147, 0.05);
+    transition: all 0.3s ease;
+}
+
+body.pink-mode input:focus,
+body.pink-mode textarea:focus,
+body.pink-mode select:focus {
+    box-shadow: 
+        0 0 15px rgba(255, 20, 147, 0.3),
+        0 4px 12px rgba(255, 192, 203, 0.2),
+        inset 0 1px 3px rgba(255, 20, 147, 0.1);
+    border-color: rgba(255, 20, 147, 0.5);
+}
+
+/* Pink magical shimmer overlay */
+body.pink-mode .main-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 192, 203, 0.1) 50%,
+        transparent 70%
+    );
+    background-size: 200% 200%;
+    animation: shimmerPink 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes shimmerPink {
+    0%, 100% {
+        background-position: -200% -200%;
+        opacity: 0;
+    }
+    50% {
+        background-position: 200% 200%;
+        opacity: 0.3;
+    }
+}
+
+/* Pink progress bars with gradient */
+body.pink-mode .progress,
+body.pink-mode .progress-bar {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 182, 193, 0.8),
+        rgba(255, 192, 203, 0.9),
+        rgba(255, 20, 147, 0.7)
+    );
+    background-size: 200% 100%;
+    animation: progressFlow 3s ease-in-out infinite;
+}
+
+@keyframes progressFlow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Enhanced navigation effects */
+body.pink-mode .nav-item:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 192, 203, 0.2),
+        rgba(255, 20, 147, 0.1)
+    );
+    box-shadow: 
+        0 2px 8px rgba(255, 20, 147, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+/* Pink scrollbar styling */
+body.pink-mode ::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.pink-mode ::-webkit-scrollbar-track {
+    background: rgba(255, 240, 245, 0.3);
+    border-radius: 4px;
+}
+
+body.pink-mode ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 192, 203, 0.8),
+        rgba(255, 20, 147, 0.6)
+    );
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+body.pink-mode ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 192, 203, 1),
+        rgba(255, 20, 147, 0.8)
+    );
+}
+
+/* Pink loading animations */
+body.pink-mode .loading-spinner {
+    border: 3px solid rgba(255, 192, 203, 0.3);
+    border-top: 3px solid rgba(255, 20, 147, 0.8);
+    animation: pinkSpin 1s linear infinite;
+}
+
+@keyframes pinkSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Pink tooltip enhancements */
+body.pink-mode .tooltip {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 240, 245, 0.9)
+    );
+    box-shadow: 
+        0 4px 15px rgba(255, 20, 147, 0.2),
+        0 2px 8px rgba(255, 192, 203, 0.3);
+    border: 1px solid rgba(255, 192, 203, 0.4);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+/* Pink theme special effects for interactive elements */
+body.pink-mode .task-item {
+    position: relative;
+    overflow: hidden;
+}
+
+body.pink-mode .task-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 192, 203, 0.3),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+body.pink-mode .task-item:hover::before {
+    left: 100%;
+}
+
+/* Pink mode card hover effects */
+body.pink-mode .card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 8px 25px rgba(255, 192, 203, 0.25),
+        0 4px 15px rgba(255, 20, 147, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Pink pulse animation for important elements */
+body.pink-mode .notification,
+body.pink-mode .alert {
+    animation: pinkPulse 2s ease-in-out infinite;
+}
+
+@keyframes pinkPulse {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 20, 147, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+    }
+}
+
+/* Pink mode form enhancements */
+body.pink-mode .form-group {
+    position: relative;
+}
+
+body.pink-mode .form-group::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 20, 147, 0.8),
+        rgba(255, 192, 203, 0.6)
+    );
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+body.pink-mode .form-group:focus-within::after {
+    width: 100%;
+}
+
+/* Pink cherry blossom petals effect */
+body.pink-mode .dashboard::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: 
+        radial-gradient(ellipse 4px 8px at 200px 100px, rgba(255, 182, 193, 0.7), transparent),
+        radial-gradient(ellipse 6px 12px at 400px 150px, rgba(255, 192, 203, 0.6), transparent),
+        radial-gradient(ellipse 3px 6px at 600px 80px, rgba(255, 182, 193, 0.8), transparent),
+        radial-gradient(ellipse 5px 10px at 800px 200px, rgba(255, 192, 203, 0.5), transparent);
+    background-repeat: repeat;
+    background-size: 1000px 400px;
+    animation: cherryBlossomFall 40s linear infinite;
+    pointer-events: none;
+    z-index: -3;
+}
+
+@keyframes cherryBlossomFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Pink mode selection highlights */
+body.pink-mode ::selection {
+    background: rgba(255, 20, 147, 0.3);
+    color: rgba(88, 24, 69, 1);
+}
+
+body.pink-mode ::-moz-selection {
+    background: rgba(255, 20, 147, 0.3);
+    color: rgba(88, 24, 69, 1);
+}
+
+/* Pink mode focus indicators */
+body.pink-mode *:focus {
+    outline: 2px solid rgba(255, 20, 147, 0.6);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(255, 192, 203, 0.2);
+}
+
+/* Pink mode table enhancements */
+body.pink-mode table {
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(255, 192, 203, 0.1);
+}
+
+body.pink-mode th {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 192, 203, 0.8),
+        rgba(255, 182, 193, 0.6)
+    );
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+body.pink-mode tr:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 240, 245, 0.5),
+        rgba(255, 192, 203, 0.1)
+    );
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
+/* Pink mode micro-interactions and final touches */
+body.pink-mode .btn,
+body.pink-mode button {
+    position: relative;
+    overflow: hidden;
+}
+
+body.pink-mode .btn::after,
+body.pink-mode button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 192, 203, 0.2) 70%,
+        transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+body.pink-mode .btn:active::after,
+body.pink-mode button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Pink mode smooth scrolling enhancements */
+body.pink-mode {
+    scroll-behavior: smooth;
+}
+
+/* Pink mode custom radio and checkbox styling */
+body.pink-mode input[type="radio"],
+body.pink-mode input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 20, 147, 0.6);
+    background: linear-gradient(135deg, rgba(255, 240, 245, 0.9), rgba(255, 192, 203, 0.3));
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.pink-mode input[type="checkbox"] {
+    border-radius: 4px;
+}
+
+body.pink-mode input[type="radio"]:checked,
+body.pink-mode input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.8), rgba(255, 192, 203, 0.6));
+    border-color: rgba(255, 20, 147, 0.9);
+    box-shadow: 0 0 10px rgba(255, 20, 147, 0.4);
+}
+
+body.pink-mode input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body.pink-mode input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+}
+
+/* Pink mode link hover effects */
+body.pink-mode a {
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+body.pink-mode a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 20, 147, 0.8), rgba(255, 192, 203, 0.6));
+    transition: width 0.3s ease;
+}
+
+body.pink-mode a:hover::before {
+    width: 100%;
+}
+
+body.pink-mode a:hover {
+    color: rgba(255, 20, 147, 0.9);
+    text-shadow: 0 0 5px rgba(255, 192, 203, 0.5);
+}
+
+/* Pink mode final magical touch - soft ambient glow */
+body.pink-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 192, 203, 0.03) 0%,
+        rgba(255, 240, 245, 0.02) 40%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: -10;
+    animation: ambientGlow 10s ease-in-out infinite alternate;
+}
+
+@keyframes ambientGlow {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
 }
