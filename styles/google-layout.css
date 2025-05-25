@@ -56,6 +56,10 @@
     color: var(--current-text-color);
     font-weight: 500;
     transition: background-color 0.2s ease, color 0.2s ease;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Prevent text selection */
 }
 
 .google-nav .nav-link:hover {

@@ -59,6 +59,10 @@
     height: 100%; 
     text-decoration: none; /* Remove underline from link */
     box-sizing: border-box; /* Ensure padding/border are included in width/height */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Prevent text selection */
 }
 
 .resource-button:hover {

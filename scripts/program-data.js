@@ -311,10 +311,10 @@ export const programData = {
 
 export const resourcesData = {
     youtubersCoaches: [
-        { name: "Spilo (Coaching VODs)", url: "https://www.youtube.com/@Spilo", note: "Search for his Discord for VOD archives." }, // Corrected probable Spilo link
+        { name: "Spilo (Coaching VODs)", url: "https://www.youtube.com/@CoachSpilo", note: "Search for his Discord for VOD archives." }, // Corrected probable Spilo link
         { name: "ioStux (Hero Guides)", url: "https://www.youtube.com/@ioStux", note: "In-depth hero guides." },
         { name: "KarQ (Tips for Every Hero)", url: "https://www.youtube.com/@KarQ", note: "Quick tips and hero interactions." },
-        { name: "SVB (Analytical Coaching)", url: "https://www.youtube.com/@ آگے SVB", note: "Analytical content and meta discussions." }, // Corrected probable SVB link
+        { name: "SVB (Analytical Coaching)", url: "https://www.youtube.com/@SVBOW", note: "Analytical content and meta discussions." }, // Corrected probable SVB link
         { name: "GameLeap (Advanced Guides)", url: "https://www.gameleap.com/overwatch", note: "Subscription for some content." },
         { name: "Emongg (Streamer)", url: "https://www.twitch.tv/emongg", note: "Insightful gameplay commentary (Tank focus usually)." },
         { name: "Wanted (Streamer - Hitscan)", url: "https://www.twitch.tv/wantedow", note: "High-level hitscan gameplay." },
@@ -336,7 +336,7 @@ export const resourcesData = {
         { name: "Overwatch Liquipedia", url: "https://liquipedia.net/overwatch/", note: "Esports news, tournament info, player bios." }
     ],
     keyGuideLinks: [
-        { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@Spilo", note: "Fundamental positioning pillars."}
+        { name: "Spilo's DPS Positioning Concepts (Find on Channel/Discord)", url: "https://www.youtube.com/@CoachSpilo", note: "Fundamental positioning pillars."}
     ]
 };
 

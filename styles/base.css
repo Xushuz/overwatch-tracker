@@ -257,6 +257,10 @@ body.light-mode .progress-bar-fill { color: var(--current-accent-text); }
     box-sizing: border-box;
     text-decoration: none; /* For <a> tags styled as buttons */
     white-space: nowrap; /* Prevent wrapping */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Prevent text selection */
 }
 
 .form-button:hover {
