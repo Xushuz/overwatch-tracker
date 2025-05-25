@@ -43,20 +43,18 @@
     --chart-grid-color-cosmic-rgb: 72, 61, 139;
     --chart-tooltip-bg-cosmic: rgba(26, 15, 46, 0.95);  
     --chart-tooltip-text-color-cosmic: #E6E6FA; 
-    --chart-tooltip-text-color-cosmic-rgb: 230, 230, 250;
-
-    /* Cosmic Purple Accent Theme Semantic Variables */
+    --chart-tooltip-text-color-cosmic-rgb: 230, 230, 250;    /* Cosmic Purple Accent Theme Semantic Variables */
     --button-bg-cosmic-purple: var(--cosmic-purple-500); 
     --button-bg-cosmic-purple-rgb: var(--cosmic-purple-500-rgb);
     --button-text-cosmic-purple: var(--text-on-cosmic);
     --button-text-cosmic-purple-rgb: var(--text-on-cosmic-rgb);
-    --accent-color-cosmic-purple: var(--cosmic-purple-500);
-    --accent-color-cosmic-purple-rgb: var(--cosmic-purple-500-rgb);
-    --accent-hover-color-cosmic-purple: var(--cosmic-purple-600);
-    --accent-hover-color-cosmic-purple-rgb: var(--cosmic-purple-600-rgb);
+    --accent-color-cosmic-purple: #FFD700; /* Changed to golden yellow for text visibility */
+    --accent-color-cosmic-purple-rgb: 255, 215, 0; /* Updated RGB values */
+    --accent-hover-color-cosmic-purple: #FFFF00; /* Bright yellow for hover */
+    --accent-hover-color-cosmic-purple-rgb: 255, 255, 0; /* Updated RGB values */
     --accent-text-cosmic-purple: var(--text-on-cosmic);
     --accent-text-cosmic-purple-rgb: var(--text-on-cosmic-rgb);
-    --nav-active-bg-cosmic-purple: rgba(var(--cosmic-purple-500-rgb), 0.15);
+    --nav-active-bg-cosmic-purple: rgba(255, 215, 0, 0.15); /* Golden yellow background */
     
     /* Button specific overrides for cosmic mode with purple accent */
     --button-primary-bg-cosmic-override: var(--cosmic-purple-500);
@@ -153,12 +151,19 @@ body.cosmic-mode {
 }
 
 body.cosmic-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 
-    color: var(--accent-color-cosmic-purple); 
+    color: #FFD700; /* Golden yellow for better contrast */
 }
 
 body.cosmic-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
     text-decoration: underline;
-    color: var(--accent-hover-color-cosmic-purple); 
+    color: #FFFF00; /* Bright yellow on hover */
+}
+
+/* Fix personal focus display and other accent color text elements */
+body.cosmic-mode #personalFocusDisplay,
+body.cosmic-mode .accent-text {
+    color: #FFD700 !important; /* Golden yellow instead of dark purple */
+    text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
 }
 
 /* Cosmic theme special visual effects */
