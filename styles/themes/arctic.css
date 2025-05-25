@@ -223,13 +223,13 @@ body.arctic-mode::after {
 
 /* Enhanced Arctic Theme Animations and Effects */
 @keyframes snowfall {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(-50px, 50px) rotate(360deg); }
+    0% { opacity: 0.3; }
+    100% { opacity: 0.8; }
 }
 
 @keyframes auroraShimmer {
-    0%, 100% { transform: translateX(0) scaleX(0.8); opacity: 0.4; }
-    50% { transform: translateX(-30px) scaleX(1.2); opacity: 0.8; }
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
 }
 
 @keyframes arcticCrystalGlow {
@@ -247,34 +247,27 @@ body.arctic-mode::after {
 
 @keyframes arcticFreeze {
     0% {
-        transform: scale(1);
         filter: blur(0px);
     }
     50% {
-        transform: scale(1.05);
         filter: blur(0.5px);
     }
     100% {
-        transform: scale(1);
         filter: blur(0px);
     }
 }
 
 @keyframes arcticIcicle {
     0%, 100% {
-        transform: translateY(0) rotate(0deg);
         opacity: 0.7;
     }
     25% {
-        transform: translateY(-3px) rotate(1deg);
         opacity: 0.9;
     }
     50% {
-        transform: translateY(-6px) rotate(-1deg);
         opacity: 1;
     }
     75% {
-        transform: translateY(-3px) rotate(0.5deg);
         opacity: 0.8;
     }
 }
@@ -292,15 +285,12 @@ body.arctic-mode::after {
 
 @keyframes frostForm {
     0% {
-        transform: scale(0) rotate(0deg);
         opacity: 0;
     }
     50% {
-        transform: scale(1.2) rotate(180deg);
         opacity: 0.8;
     }
     100% {
-        transform: scale(1) rotate(360deg);
         opacity: 1;
     }
 }

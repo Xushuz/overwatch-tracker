@@ -222,19 +222,15 @@ body.forest-night-mode::after {
 
 @keyframes firefliesFloat {
     0%, 100% { 
-        transform: translate(0, 0);
         opacity: 0.6;
     }
     25% { 
-        transform: translate(20px, -30px);
         opacity: 1;
     }
     50% { 
-        transform: translate(-10px, -60px);
         opacity: 0.8;
     }
     75% { 
-        transform: translate(30px, -40px);
         opacity: 1;
     }
 }
@@ -242,11 +238,9 @@ body.forest-night-mode::after {
 @keyframes enhancedMist {
     0%, 100% { 
         opacity: 0.4; 
-        transform: translateX(-20px) scale(1);
     }
     50% { 
         opacity: 0.8; 
-        transform: translateX(20px) scale(1.1);
     }
 }
 
@@ -254,37 +248,33 @@ body.forest-night-mode::after {
 @keyframes firefly {
     0%, 100% { 
         opacity: 0.3; 
-        transform: translateY(-50%) translateX(0);
+        transform: translateY(-50%);
     }
     25% {
         opacity: 0.8;
-        transform: translateY(-50%) translateX(2px);
+        transform: translateY(-50%);
     }
     50% { 
         opacity: 1; 
-        transform: translateY(-50%) translateX(-1px);
+        transform: translateY(-50%);
     }
     75% {
         opacity: 0.6;
-        transform: translateY(-50%) translateX(1px);
+        transform: translateY(-50%);
     }
 }
 
 @keyframes forestBreeze {
     0%, 100% {
-        transform: translateX(0) rotate(0deg);
         opacity: 0.7;
     }
     25% {
-        transform: translateX(-2px) rotate(-0.5deg);
         opacity: 0.9;
     }
     50% {
-        transform: translateX(3px) rotate(0.5deg);
         opacity: 1;
     }
     75% {
-        transform: translateX(-1px) rotate(-0.2deg);
         opacity: 0.8;
     }
 }
@@ -306,11 +296,9 @@ body.forest-night-mode::after {
 
 @keyframes leafRustle {
     0%, 100% {
-        transform: scale(1) rotate(0deg);
         box-shadow: 0 0 10px rgba(34, 139, 34, 0.3);
     }
     50% {
-        transform: scale(1.02) rotate(0.5deg);
         box-shadow: 0 0 20px rgba(50, 205, 50, 0.5),
                     0 0 30px rgba(34, 139, 34, 0.3);
     }
@@ -319,19 +307,15 @@ body.forest-night-mode::after {
 @keyframes dewDrop {
     0%, 100% {
         opacity: 0.6;
-        transform: translateY(0) scale(1);
     }
     25% {
         opacity: 0.9;
-        transform: translateY(-2px) scale(1.1);
     }
     50% {
         opacity: 1;
-        transform: translateY(-4px) scale(1.2);
     }
     75% {
         opacity: 0.8;
-        transform: translateY(-2px) scale(1.05);
     }
 }
 
@@ -440,7 +424,6 @@ body.forest-night-mode .task-item:hover {
                 rgba(26, 45, 26, 1) 30%, 
                 rgba(38, 63, 38, 0.95) 70%,
                 rgba(144, 238, 144, 0.03) 100%);
-    transform: translateX(4px) scale(1.01);
     box-shadow: 0 8px 25px rgba(34, 139, 34, 0.3),
                 0 0 20px rgba(50, 205, 50, 0.2);
     animation: leafRustle 3s ease-in-out infinite;
@@ -464,7 +447,7 @@ body.forest-night-mode .task-item:not(.completed)::after {
 body.forest-night-mode .task-item:not(.completed):hover::after {
     opacity: 0.8;
     animation: forestBreeze 3s ease-in-out infinite;
-    transform: translateY(-50%) scale(1.2);
+    transform: translateY(-50%);
 }
 
 body.forest-night-mode .nav-link {
@@ -499,7 +482,6 @@ body.forest-night-mode .nav-link.active::before {
 body.forest-night-mode .nav-link:hover {
     color: var(--forest-night-green-400);
     text-shadow: 0 0 8px rgba(50, 205, 50, 0.5);
-    transform: translateY(-2px);
     animation: mysticalGlow 2s ease-in-out infinite;
 }
 
@@ -531,7 +513,6 @@ body.forest-night-mode .form-button:not(.secondary)::before {
 
 body.forest-night-mode .form-button:not(.secondary):hover {
     background-position: 100% 100%;
-    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 12px 35px rgba(34, 139, 34, 0.5),
                 0 0 30px rgba(50, 205, 50, 0.4),
                 0 0 45px rgba(144, 238, 144, 0.3);
@@ -540,7 +521,6 @@ body.forest-night-mode .form-button:not(.secondary):hover {
 }
 
 body.forest-night-mode .form-button:not(.secondary):hover::before {
-    transform: translate(-50%, -50%) scale(1) rotate(360deg);
     opacity: 0.9;
     animation: dewDrop 1.5s ease-out infinite;
 }
@@ -575,7 +555,6 @@ body.forest-night-mode .form-button.secondary:hover {
     color: var(--forest-night-green-400);
     border-color: var(--forest-night-green-400);
     text-shadow: 0 0 8px rgba(50, 205, 50, 0.4);
-    transform: scale(1.03);
     box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
     animation: mysticalGlow 2s ease-in-out infinite;
 }
