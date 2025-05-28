@@ -193,7 +193,7 @@ body.arctic-mode::before {
         radial-gradient(1px 1px at 300px 140px, rgba(255, 255, 255, 0.6), transparent);
     background-repeat: repeat;
     background-size: 200px 200px;
-    animation: snowfall 20s linear infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -216,7 +216,7 @@ body.arctic-mode::after {
         transparent 80%,
         rgba(100, 149, 237, 0.05) 100%
     );
-    animation: auroraShimmer 15s ease-in-out infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -302,14 +302,14 @@ body.arctic-mode h3 {
     color: var(--arctic-blue-500);
     text-shadow: 0 0 8px rgba(135, 206, 250, 0.4),
                  0 0 16px rgba(100, 149, 237, 0.2);
-    animation: arcticCrystalGlow 4s ease-in-out infinite;
+
     position: relative;
 }
 
 body.arctic-mode h1::before {
     content: "❄️";
     margin-right: 10px;
-    animation: arcticIcicle 5s ease-in-out infinite;
+
     display: inline-block;
 }
 
@@ -317,7 +317,7 @@ body.arctic-mode #personalFocusDisplay {
     color: var(--arctic-blue-400);
     text-shadow: 0 0 10px rgba(135, 206, 250, 0.5),
                  0 0 20px rgba(100, 149, 237, 0.3);
-    animation: arcticCrystalGlow 3s ease-in-out infinite;
+
     position: relative;
 }
 
@@ -327,7 +327,7 @@ body.arctic-mode #personalFocusDisplay::after {
     right: -25px;
     top: 50%;
     transform: translateY(-50%);
-    animation: arcticIcicle 3s ease-in-out infinite;
+
 }
 
 body.arctic-mode .task-item {
@@ -365,7 +365,7 @@ body.arctic-mode .task-item:hover {
     transform: translateX(5px) scale(1.01);
     box-shadow: 0 8px 25px rgba(135, 206, 250, 0.3),
                 0 0 20px rgba(100, 149, 237, 0.2);
-    animation: arcticFreeze 2s ease-in-out infinite;
+
 }
 
 body.arctic-mode .task-item:hover::before {
@@ -385,7 +385,7 @@ body.arctic-mode .task-item:not(.completed)::after {
 
 body.arctic-mode .task-item:not(.completed):hover::after {
     opacity: 0.8;
-    animation: arcticIcicle 3s ease-in-out infinite;
+
     transform: translateY(-50%) scale(1.2);
 }
 
@@ -414,7 +414,7 @@ body.arctic-mode .nav-link::before {
 body.arctic-mode .nav-link:hover::before,
 body.arctic-mode .nav-link.active::before {
     width: 110%;
-    animation: arcticBreath 3s ease-in-out infinite;
+
 }
 
 body.arctic-mode .nav-link:hover {
@@ -454,7 +454,7 @@ body.arctic-mode .form-button:not(.secondary):hover {
     box-shadow: 0 12px 30px rgba(135, 206, 250, 0.4),
                 0 0 25px rgba(100, 149, 237, 0.3);
     border-color: rgba(255, 255, 255, 0.6);
-    animation: arcticFreeze 2s ease-in-out infinite;
+
 }
 
 body.arctic-mode .form-button:not(.secondary):hover::before {
@@ -511,7 +511,7 @@ body.arctic-mode .progress-fill {
     background-size: 200% 100%;
     box-shadow: 0 0 15px rgba(135, 206, 250, 0.5),
                 inset 0 0 10px rgba(255, 255, 255, 0.3);
-    animation: arcticBreath 4s ease-in-out infinite;
+
 }
 
 body.arctic-mode .modal-content {
@@ -537,7 +537,7 @@ body.arctic-mode .modal-content::before {
                 rgba(255, 255, 255, 0.5));
     border-radius: inherit;
     z-index: -1;
-    animation: arcticBreath 6s ease-in-out infinite;
+
 }
 
 body.arctic-mode input:focus,
@@ -547,5 +547,5 @@ body.arctic-mode select:focus {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 0 3px rgba(135, 206, 250, 0.3),
                 inset 0 0 8px rgba(100, 149, 237, 0.1);
-    animation: arcticFreeze 3s ease-in-out infinite;
+
 }

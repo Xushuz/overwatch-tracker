@@ -191,10 +191,8 @@ body.forest-night-mode::before {
         radial-gradient(1px 1px at 150px 80px, rgba(50, 205, 50, 0.7), transparent),
         radial-gradient(2px 2px at 220px 120px, rgba(255, 255, 0, 0.6), transparent),
         radial-gradient(1px 1px at 320px 60px, rgba(50, 205, 50, 0.8), transparent),
-        radial-gradient(2px 2px at 400px 100px, rgba(255, 255, 0, 0.5), transparent);
-    background-repeat: repeat;
+        radial-gradient(2px 2px at 400px 100px, rgba(255, 255, 0, 0.5), transparent);    background-repeat: repeat;
     background-size: 500px 200px;
-    animation: firefliesFloat 20s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
 }
@@ -212,10 +210,8 @@ body.forest-night-mode::after {
         transparent 0%,
         rgba(34, 139, 34, 0.03) 30%,
         rgba(34, 139, 34, 0.05) 60%,
-        rgba(34, 139, 34, 0.03) 90%,
-        transparent 100%
+        rgba(34, 139, 34, 0.03) 90%,        transparent 100%
     );
-    animation: enhancedMist 18s ease-in-out infinite;
     pointer-events: none;
     z-index: -2;
 }
@@ -337,9 +333,6 @@ body.forest-night-mode::after {
 }
 
 /* Enhanced Forest Night Theme Styling */
-body.forest-night-mode {
-    animation: forestBreeze 20s ease-in-out infinite;
-}
 
 body.forest-night-mode h1, 
 body.forest-night-mode h2, 
@@ -347,14 +340,12 @@ body.forest-night-mode h3 {
     color: var(--forest-night-green-400);
     text-shadow: 0 0 8px rgba(50, 205, 50, 0.5),
                  0 0 16px rgba(34, 139, 34, 0.3);
-    animation: mysticalGlow 4s ease-in-out infinite;
     position: relative;
 }
 
 body.forest-night-mode h1::before {
     content: "🌙";
     margin-right: 10px;
-    animation: dewDrop 5s ease-in-out infinite;
     display: inline-block;
 }
 
@@ -366,11 +357,9 @@ body.forest-night-mode h3::after {
     width: 4px;
     height: 4px;
     background: rgba(50, 205, 50, 0.8);
-    border-radius: 50%;
-    right: -20px;
+    border-radius: 50%;    right: -20px;
     top: 50%;
     transform: translateY(-50%);
-    animation: firefly 4s ease-in-out infinite;
     box-shadow: 0 0 8px rgba(50, 205, 50, 0.6);
 }
 
@@ -378,7 +367,6 @@ body.forest-night-mode #personalFocusDisplay {
     color: var(--forest-night-green-400);
     text-shadow: 0 0 10px rgba(50, 205, 50, 0.6),
                  0 0 20px rgba(34, 139, 34, 0.4);
-    animation: mysticalGlow 3s ease-in-out infinite;
     position: relative;
 }
 
@@ -388,7 +376,6 @@ body.forest-night-mode #personalFocusDisplay::after {
     right: -25px;
     top: 50%;
     transform: translateY(-50%);
-    animation: forestBreeze 4s ease-in-out infinite;
 }
 
 body.forest-night-mode .task-item {
@@ -423,10 +410,8 @@ body.forest-night-mode .task-item:hover {
                 rgba(50, 205, 50, 0.05) 0%, 
                 rgba(26, 45, 26, 1) 30%, 
                 rgba(38, 63, 38, 0.95) 70%,
-                rgba(144, 238, 144, 0.03) 100%);
-    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.3),
+                rgba(144, 238, 144, 0.03) 100%);    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.3),
                 0 0 20px rgba(50, 205, 50, 0.2);
-    animation: leafRustle 3s ease-in-out infinite;
 }
 
 body.forest-night-mode .task-item:hover::before {
@@ -446,7 +431,6 @@ body.forest-night-mode .task-item:not(.completed)::after {
 
 body.forest-night-mode .task-item:not(.completed):hover::after {
     opacity: 0.8;
-    animation: forestBreeze 3s ease-in-out infinite;
     transform: translateY(-50%);
 }
 
@@ -468,10 +452,8 @@ body.forest-night-mode .nav-link::before {
                 var(--forest-night-green-400),
                 rgba(144, 238, 144, 0.8));
     background-size: 200% 100%;
-    transform: translateX(-50%);
-    transition: width 0.4s ease;
+    transform: translateX(-50%);    transition: width 0.4s ease;
     box-shadow: 0 0 12px rgba(50, 205, 50, 0.5);
-    animation: moonlightShimmer 4s linear infinite;
 }
 
 body.forest-night-mode .nav-link:hover::before,
@@ -482,7 +464,7 @@ body.forest-night-mode .nav-link.active::before {
 body.forest-night-mode .nav-link:hover {
     color: var(--forest-night-green-400);
     text-shadow: 0 0 8px rgba(50, 205, 50, 0.5);
-    animation: mysticalGlow 2s ease-in-out infinite;
+    
 }
 
 body.forest-night-mode .form-button:not(.secondary) {
@@ -497,7 +479,7 @@ body.forest-night-mode .form-button:not(.secondary) {
     position: relative;
     overflow: hidden;
     box-shadow: 0 6px 18px rgba(34, 139, 34, 0.4);
-    animation: moonlightShimmer 8s linear infinite;
+    
 }
 
 body.forest-night-mode .form-button:not(.secondary)::before {
@@ -517,12 +499,12 @@ body.forest-night-mode .form-button:not(.secondary):hover {
                 0 0 30px rgba(50, 205, 50, 0.4),
                 0 0 45px rgba(144, 238, 144, 0.3);
     border-color: rgba(144, 238, 144, 0.6);
-    animation: leafRustle 2s ease-in-out infinite;
+
 }
 
 body.forest-night-mode .form-button:not(.secondary):hover::before {
     opacity: 0.9;
-    animation: dewDrop 1.5s ease-out infinite;
+
 }
 
 body.forest-night-mode .form-button.secondary {
@@ -556,7 +538,7 @@ body.forest-night-mode .form-button.secondary:hover {
     border-color: var(--forest-night-green-400);
     text-shadow: 0 0 8px rgba(50, 205, 50, 0.4);
     box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
-    animation: mysticalGlow 2s ease-in-out infinite;
+    
 }
 
 body.forest-night-mode .form-button.secondary:hover::before {
@@ -573,17 +555,15 @@ body.forest-night-mode .progress-fill {
     background-size: 300% 100%;
     box-shadow: 0 0 15px rgba(34, 139, 34, 0.5),
                 inset 0 0 10px rgba(50, 205, 50, 0.3);
-    animation: moonlightShimmer 6s linear infinite;
+    
 }
 
 body.forest-night-mode .modal-content {
     background: rgba(26, 45, 26, 0.95);
     border: 2px solid rgba(50, 205, 50, 0.4);
     box-shadow: 0 25px 70px rgba(34, 139, 34, 0.3),
-                0 0 40px rgba(50, 205, 50, 0.2);
-    backdrop-filter: blur(15px);
+                0 0 40px rgba(50, 205, 50, 0.2);    backdrop-filter: blur(15px);
     position: relative;
-    animation: mysticalGlow 10s ease-in-out infinite;
 }
 
 body.forest-night-mode .modal-content::before {
@@ -601,7 +581,7 @@ body.forest-night-mode .modal-content::before {
     background-size: 200% 200%;
     border-radius: inherit;
     z-index: -1;
-    animation: moonlightShimmer 10s linear infinite;
+    
 }
 
 body.forest-night-mode input:focus,
@@ -611,7 +591,7 @@ body.forest-night-mode select:focus {
     background: rgba(38, 63, 38, 0.95);
     box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.3),
                 inset 0 0 8px rgba(34, 139, 34, 0.2);
-    animation: leafRustle 4s ease-in-out infinite;
+
 }
 
 /* Forest night glow effects */

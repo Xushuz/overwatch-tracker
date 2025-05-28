@@ -165,7 +165,7 @@ body.forest-mode h1,
 body.forest-mode h2,
 body.forest-mode h3 {
     font-family: 'Georgia', 'Times New Roman', serif;
-    animation: woodlandGlow 3s ease-in-out infinite;
+
     position: relative;
 }
 
@@ -190,11 +190,11 @@ body.forest-mode .task-item::before {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(85, 107, 47, 0.1), transparent);
     transition: left 0.5s ease-in-out;
-    animation: forestSweep 3s ease-in-out infinite;
+
 }
 
 body.forest-mode .task-item:hover {
-    animation: earthGlow 2s ease-in-out infinite;
+
 }
 
 body.forest-mode .task-item:hover::before {
@@ -206,7 +206,7 @@ body.forest-mode .task-item:hover::after {
     position: absolute;
     top: 10px;
     right: 15px;
-    animation: leafFall 2s ease-in-out infinite;
+
     pointer-events: none;
 }
 
@@ -229,7 +229,7 @@ body.forest-mode .nav-link::after {
 
 body.forest-mode .nav-link:hover::after {
     width: 100%;
-    animation: mossGrow 1.5s ease-in-out infinite;
+
 }
 
 body.forest-mode .nav-link:hover {
@@ -263,7 +263,7 @@ body.forest-mode button::before {
 body.forest-mode button:hover::before {
     width: 300px;
     height: 300px;
-    animation: earthGlow 1.5s ease-in-out infinite;
+
 }
 
 body.forest-mode .form-control,
@@ -276,7 +276,7 @@ body.forest-mode textarea {
 body.forest-mode .form-control:focus,
 body.forest-mode input:focus,
 body.forest-mode textarea:focus {
-    animation: woodlandGlow 2s ease-in-out infinite;
+
     border-color: var(--current-accent-color);
 }
 
@@ -295,7 +295,7 @@ body.forest-mode .container::before {
         radial-gradient(circle at 20% 80%, rgba(85, 107, 47, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.03) 0%, transparent 50%);
     pointer-events: none;
-    animation: forestBreeze 8s ease-in-out infinite;
+
 }
 
 body.forest-mode .card,
@@ -307,7 +307,7 @@ body.forest-mode .modal-content {
 
 body.forest-mode .card:hover,
 body.forest-mode .modal-content:hover {
-    animation: mossGrow 3s ease-in-out infinite;
+
 }
 
 /* Forest theme woodland particle effects */
@@ -317,7 +317,7 @@ body.forest-mode .task-item.completed::after {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    animation: natureSway 3s ease-in-out infinite;
+
 }
 
 body.forest-mode .progress-bar {
@@ -333,7 +333,7 @@ body.forest-mode .progress-bar::before {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(85, 107, 47, 0.3), transparent);
-    animation: forestSweep 2s ease-in-out infinite;
+
 }
 
 /* Enhanced forest navigation */
@@ -350,7 +350,7 @@ body.forest-mode .navbar::before {
     right: 0;
     bottom: 0;
     background: linear-gradient(135deg, rgba(85, 107, 47, 0.1), rgba(139, 69, 19, 0.05));
-    animation: forestBreeze 6s ease-in-out infinite;
+
 }
 
 /* Forest theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

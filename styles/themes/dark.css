@@ -161,19 +161,15 @@ body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
 /* Enhanced Dark Theme Animations and Effects */
 @keyframes darkEmbersFloat {
     0%, 100% {
-        transform: translateY(0) translateX(0);
         opacity: 0.6;
     }
     25% {
-        transform: translateY(-5px) translateX(2px);
         opacity: 0.8;
     }
     50% {
-        transform: translateY(-10px) translateX(-2px);
         opacity: 1;
     }
     75% {
-        transform: translateY(-5px) translateX(3px);
         opacity: 0.7;
     }
 }
@@ -215,27 +211,18 @@ body.dark-mode a:not(.form-button):not(.nav-link):not(.resource-button):hover {
     98% { opacity: 0.9; }
 }
 
-/* Enhanced Dark Theme Styling */
 body.dark-mode h1, 
 body.dark-mode h2, 
 body.dark-mode h3 {
     color: var(--orange-400);
     text-shadow: 0 0 5px rgba(255, 165, 0, 0.3),
                  0 0 10px rgba(255, 165, 0, 0.1);
-    animation: darkOrangeGlow 3s ease-in-out infinite;
-}
-
-body.dark-mode h1::before {
-    content: "🔥";
-    margin-right: 10px;
-    animation: darkEmbersFloat 4s ease-in-out infinite;
 }
 
 body.dark-mode #personalFocusDisplay {
     color: var(--orange-400);
     text-shadow: 0 0 8px rgba(255, 165, 0, 0.4),
                  0 0 16px rgba(255, 165, 0, 0.2);
-    animation: darkOrangeGlow 2.5s ease-in-out infinite;
 }
 
 body.dark-mode .task-item {
@@ -262,28 +249,11 @@ body.dark-mode .task-item:hover {
                 rgba(255, 165, 0, 0.05) 0%, 
                 rgba(60, 64, 67, 1) 50%, 
                 rgba(255, 165, 0, 0.03) 100%);
-    transform: translateX(3px);
     box-shadow: 0 4px 15px rgba(255, 165, 0, 0.2);
 }
 
 body.dark-mode .task-item:hover::before {
     left: 100%;
-}
-
-body.dark-mode .task-item:not(.completed)::after {
-    content: "🔥";
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8em;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-body.dark-mode .task-item:not(.completed):hover::after {
-    opacity: 0.7;
-    animation: darkEmbersFloat 2s ease-in-out infinite;
 }
 
 body.dark-mode .nav-link {
@@ -312,7 +282,6 @@ body.dark-mode .nav-link.active::before {
 body.dark-mode .nav-link:hover {
     color: var(--orange-400);
     text-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
-    transform: translateY(-1px);
 }
 
 body.dark-mode .form-button:not(.secondary) {
@@ -337,10 +306,8 @@ body.dark-mode .form-button:not(.secondary)::before {
 
 body.dark-mode .form-button:not(.secondary):hover {
     background: linear-gradient(135deg, var(--orange-400), var(--orange-500));
-    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 165, 0, 0.3),
                 0 0 20px rgba(255, 165, 0, 0.2);
-    animation: darkPulse 2s ease-in-out infinite;
 }
 
 body.dark-mode .form-button:not(.secondary):hover::before {
@@ -372,7 +339,6 @@ body.dark-mode .form-button.secondary:hover {
     color: var(--orange-400);
     border-color: var(--orange-400);
     text-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
-    transform: scale(1.02);
 }
 
 body.dark-mode .form-button.secondary:hover::before {
@@ -382,7 +348,6 @@ body.dark-mode .form-button.secondary:hover::before {
 body.dark-mode .progress-fill {
     background: linear-gradient(90deg, var(--orange-600), var(--orange-500), var(--orange-400));
     box-shadow: 0 0 10px rgba(255, 165, 0, 0.4);
-    animation: darkFlicker 8s ease-in-out infinite;
 }
 
 body.dark-mode .modal-content {
@@ -398,5 +363,4 @@ body.dark-mode select:focus {
     border-color: var(--orange-500);
     box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.2),
                 inset 0 0 5px rgba(255, 165, 0, 0.1);
-    animation: darkPulse 2s ease-in-out infinite;
 }

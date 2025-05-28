@@ -191,10 +191,8 @@ body.volcano-mode::before {
         radial-gradient(2px 2px at 90px 40px, rgba(255, 140, 0, 0.6), transparent),
         radial-gradient(4px 4px at 160px 120px, rgba(255, 69, 0, 0.4), transparent),
         radial-gradient(1px 1px at 210px 60px, rgba(255, 165, 0, 0.7), transparent),
-        radial-gradient(2px 2px at 280px 100px, rgba(255, 69, 0, 0.5), transparent);
-    background-repeat: repeat;
+        radial-gradient(2px 2px at 280px 100px, rgba(255, 69, 0, 0.5), transparent);    background-repeat: repeat;
     background-size: 300px 200px;
-    animation: emberRise 18s linear infinite;
     pointer-events: none;
     z-index: -1;
 }
@@ -210,10 +208,8 @@ body.volcano-mode::after {
     background: linear-gradient(
         0deg,
         rgba(255, 69, 0, 0.2) 0%,
-        rgba(255, 140, 0, 0.1) 50%,
-        transparent 100%
+        rgba(255, 140, 0, 0.1) 50%,        transparent 100%
     );
-    animation: lavaFlow 8s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
 }
@@ -291,9 +287,6 @@ body.volcano-mode::after {
 }
 
 /* Enhanced Volcano Theme Styling */
-body.volcano-mode {
-    animation: volcanoShake 15s ease-in-out infinite;
-}
 
 body.volcano-mode h1, 
 body.volcano-mode h2, 
@@ -302,7 +295,6 @@ body.volcano-mode h3 {
     text-shadow: 0 0 10px rgba(255, 69, 0, 0.6),
                  0 0 20px rgba(255, 140, 0, 0.4),
                  0 0 30px rgba(255, 69, 0, 0.3);
-    animation: volcanoEruption 3s ease-in-out infinite;
     position: relative;
 }
 
@@ -310,7 +302,6 @@ body.volcano-mode #personalFocusDisplay {
     color: var(--volcano-red-400);
     text-shadow: 0 0 12px rgba(255, 69, 0, 0.7),
                  0 0 24px rgba(255, 140, 0, 0.5);
-    animation: volcanoEruption 2.5s ease-in-out infinite;
     position: relative;
 }
 
@@ -349,7 +340,7 @@ body.volcano-mode .task-item:hover {
                 rgba(255, 140, 0, 0.05) 100%);
     box-shadow: 0 10px 30px rgba(255, 69, 0, 0.4),
                 0 0 25px rgba(255, 140, 0, 0.3);
-    animation: lavaFlicker 3s ease-in-out infinite;
+
 }
 
 body.volcano-mode .task-item:hover::before {
@@ -369,7 +360,7 @@ body.volcano-mode .task-item:not(.completed)::after {
 
 body.volcano-mode .task-item:not(.completed):hover::after {
     opacity: 0.9;
-    animation: magmaBubble 2s ease-in-out infinite;
+
 }
 
 body.volcano-mode .nav-link {
@@ -393,7 +384,7 @@ body.volcano-mode .nav-link::before {
     transform: translateX(-50%);
     transition: width 0.4s ease;
     box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
-    animation: lavaFlowHorizontal 3s linear infinite;
+
 }
 
 body.volcano-mode .nav-link:hover::before,
@@ -404,7 +395,7 @@ body.volcano-mode .nav-link.active::before {
 body.volcano-mode .nav-link:hover {
     color: var(--volcano-red-400);
     text-shadow: 0 0 10px rgba(255, 69, 0, 0.6);
-    animation: lavaFlicker 2s ease-in-out infinite;
+
 }
 
 body.volcano-mode .form-button:not(.secondary) {
@@ -419,7 +410,7 @@ body.volcano-mode .form-button:not(.secondary) {
     position: relative;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(255, 69, 0, 0.4);
-    animation: lavaFlowHorizontal 6s linear infinite;
+
 }
 
 body.volcano-mode .form-button:not(.secondary)::before {
@@ -439,12 +430,12 @@ body.volcano-mode .form-button:not(.secondary):hover {
                 0 0 35px rgba(255, 140, 0, 0.4),
                 0 0 50px rgba(255, 69, 0, 0.3);
     border-color: rgba(255, 140, 0, 0.8);
-    animation: moltenGlow 2s ease-in-out infinite;
+
 }
 
 body.volcano-mode .form-button:not(.secondary):hover::before {
     opacity: 0.9;
-    animation: magmaBubble 1s ease-out infinite;
+
 }
 
 body.volcano-mode .form-button.secondary {
@@ -478,7 +469,7 @@ body.volcano-mode .form-button.secondary:hover {
     border-color: var(--volcano-red-400);
     text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
     box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
-    animation: lavaFlicker 2s ease-in-out infinite;
+
 }
 
 body.volcano-mode .form-button.secondary:hover::before {
@@ -495,7 +486,7 @@ body.volcano-mode .progress-fill {
     background-size: 300% 100%;
     box-shadow: 0 0 20px rgba(255, 69, 0, 0.6),
                 inset 0 0 15px rgba(255, 140, 0, 0.3);
-    animation: lavaFlowHorizontal 4s linear infinite;
+
 }
 
 body.volcano-mode .modal-content {
@@ -505,7 +496,7 @@ body.volcano-mode .modal-content {
                 0 0 50px rgba(255, 140, 0, 0.2);
     backdrop-filter: blur(15px);
     position: relative;
-    animation: lavaFlicker 8s ease-in-out infinite;
+
 }
 
 body.volcano-mode .modal-content::before {
@@ -523,7 +514,7 @@ body.volcano-mode .modal-content::before {
     background-size: 200% 200%;
     border-radius: inherit;
     z-index: -1;
-    animation: lavaFlowHorizontal 8s linear infinite;
+
 }
 
 body.volcano-mode input:focus,
@@ -533,7 +524,7 @@ body.volcano-mode select:focus {
     background: rgba(61, 42, 26, 0.95);
     box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.3),
                 inset 0 0 10px rgba(255, 140, 0, 0.2);
-    animation: moltenGlow 3s ease-in-out infinite;
+
 }
 
 /* Volcano glow effects */
