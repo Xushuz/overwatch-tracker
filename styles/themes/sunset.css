@@ -219,7 +219,7 @@ body.sunset-mode::before {
         rgba(255, 206, 84, 0.04) 60%,
         transparent 100%
     );
-    animation: sunsetGlow 20s ease-in-out infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -239,7 +239,7 @@ body.sunset-mode::after {
         radial-gradient(1px 1px at 150px 150px, rgba(255, 140, 0, 0.3), transparent);
     background-repeat: repeat;
     background-size: 600px 200px;
-    animation: cloudDrift 30s linear infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -249,7 +249,7 @@ body.sunset-mode h1,
 body.sunset-mode h2,
 body.sunset-mode h3 {
     position: relative;
-    animation: goldenHour 5s ease-in-out infinite;
+
 }
 
 body.sunset-mode h1::before,
@@ -315,7 +315,7 @@ body.sunset-mode .nav-link::after {
         rgba(255, 206, 84, 0.8)
     );
     transition: width 0.4s ease;
-    animation: duskShimmer 4s ease-in-out infinite;
+
 }
 
 body.sunset-mode .nav-link:hover::after {
@@ -373,7 +373,7 @@ body.sunset-mode .task-item.completed {
         rgba(255, 140, 0, 0.1),
         rgba(255, 206, 84, 0.05)
     );
-    animation: warmGlow 5s ease-in-out infinite;
+
 }
 
 body.sunset-mode a:not(.form-button):not(.nav-link):not(.resource-button) { 

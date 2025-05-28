@@ -202,7 +202,7 @@ body.cosmic-mode::before {
         radial-gradient(2px 1px at 250px 120px, #FFFF00, transparent); /* shooting star */
     background-repeat: repeat;
     background-size: 200px 200px;
-    animation: sparkle 25s linear infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -232,7 +232,7 @@ body.cosmic-mode h3 {
     text-shadow: 
         0 0 5px rgba(255, 215, 0, 0.4),
         0 0 10px rgba(255, 165, 0, 0.2);
-    animation: starGlow 6s ease-in-out infinite alternate;
+
 }
 
 @keyframes starGlow {
@@ -270,7 +270,7 @@ body.cosmic-mode .achievement-text,
 body.cosmic-mode .progress-label {
     color: #FFFACD; /* Light goldenrod */
     text-shadow: 0 0 2px rgba(255, 250, 205, 0.4);
-    animation: subtleTwinkle 8s ease-in-out infinite;
+
 }
 
 @keyframes subtleTwinkle {
@@ -304,7 +304,7 @@ body.cosmic-mode .task-item::before {
     color: #FFD700;
     text-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
     margin-right: 8px;
-    animation: starPulse 5s ease-in-out infinite;
+
 }
 
 @keyframes starPulse {
@@ -336,7 +336,7 @@ body.cosmic-mode .task-completed::after {
     content: ' ✨';
     color: #FFD700;
     text-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
-    animation: sparkleRotate 6s linear infinite;
+
 }
 
 @keyframes sparkleRotate {

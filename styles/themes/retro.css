@@ -241,7 +241,7 @@ body.retro-mode h1,
 body.retro-mode h2,
 body.retro-mode h3 {
     position: relative;
-    animation: vintageGlow 4s ease-in-out infinite;
+
     font-family: 'Courier New', monospace;
 }
 
@@ -283,7 +283,7 @@ body.retro-mode .task-item:hover::before {
 }
 
 body.retro-mode .task-item:hover {
-    animation: retroPulse 2s ease-in-out infinite;
+
 }
 
 /* Enhanced Navigation Effects */
@@ -314,7 +314,7 @@ body.retro-mode .nav-link:hover::after {
 }
 
 body.retro-mode .nav-link:hover {
-    animation: arcadeFlicker 1s ease-in-out infinite;
+
 }
 
 /* Enhanced Button Effects */
@@ -356,7 +356,7 @@ body.retro-mode button.primary:hover::before {
 
 body.retro-mode .btn-primary:hover,
 body.retro-mode button.primary:hover {
-    animation: cathodeRay 1.5s ease-in-out infinite;
+
 }
 
 /* Completed Task Effects */
@@ -366,6 +366,6 @@ body.retro-mode .task-item.completed {
         rgba(255, 179, 71, 0.1),
         rgba(255, 149, 0, 0.05)
     );
-    animation: cathodeRay 4s ease-in-out infinite;
+
     border-color: rgba(255, 179, 71, 0.3);
 }

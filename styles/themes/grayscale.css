@@ -217,7 +217,7 @@ body.grayscale-mode::before {
         linear-gradient(82deg, transparent 48%, rgba(169, 169, 169, 0.15) 49%, rgba(169, 169, 169, 0.15) 50%, transparent 51%),
         linear-gradient(78deg, transparent 48%, rgba(105, 105, 105, 0.2) 49%, rgba(105, 105, 105, 0.2) 50%, transparent 51%);
     background-size: 3px 100px, 2px 80px, 4px 120px;
-    animation: filmNoirRain 8s linear infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -233,7 +233,7 @@ body.grayscale-mode::after {
         radial-gradient(ellipse at 30% 20%, rgba(0, 0, 0, 0.08) 0%, transparent 60%),
         radial-gradient(ellipse at 80% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 50%),
         linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.03) 50%, transparent 60%);
-    animation: inkSpread 25s ease-in-out infinite;
+
     pointer-events: none;
     z-index: -2;
 }
@@ -243,7 +243,7 @@ body.grayscale-mode h1,
 body.grayscale-mode h2,
 body.grayscale-mode h3 {
     position: relative;
-    animation: monochromePulse 6s ease-in-out infinite;
+
     font-family: 'Times New Roman', serif;
 }
 
@@ -285,7 +285,7 @@ body.grayscale-mode .task-item:hover::before {
 }
 
 body.grayscale-mode .task-item:hover {
-    animation: paperTexture 2s ease-in-out infinite;
+
 }
 
 /* Enhanced Navigation Effects */
@@ -354,7 +354,7 @@ body.grayscale-mode button.primary:hover::before {
 
 body.grayscale-mode .btn-primary:hover,
 body.grayscale-mode button.primary:hover {
-    animation: newspaperPrint 2s ease-in-out infinite;
+
 }
 
 /* Completed Task Effects */
@@ -364,7 +364,7 @@ body.grayscale-mode .task-item.completed {
         rgba(128, 128, 128, 0.08),
         rgba(169, 169, 169, 0.05)
     );
-    animation: newspaperPrint 5s ease-in-out infinite;
+
     border-color: rgba(128, 128, 128, 0.3);
 }
 

@@ -220,7 +220,7 @@ body.lavender-mode::before {
         radial-gradient(3px 5px at 150px 150px, rgba(189, 180, 254, 0.3), transparent);
     background-repeat: repeat;
     background-size: 600px 200px;
-    animation: lavenderPetals 30s linear infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -238,7 +238,7 @@ body.lavender-mode::after {
         rgba(189, 180, 254, 0.03) 50%,
         transparent 60%
     );
-    animation: dreamyRipple 20s ease-in-out infinite;
+
     pointer-events: none;
     z-index: -2;
 }
@@ -248,7 +248,7 @@ body.lavender-mode h1,
 body.lavender-mode h2,
 body.lavender-mode h3 {
     position: relative;
-    animation: etherealGlow 5s ease-in-out infinite;
+
 }
 
 body.lavender-mode h1::before,
@@ -288,7 +288,7 @@ body.lavender-mode .task-item:hover::before {
 }
 
 body.lavender-mode .task-item:hover {
-    animation: petalDance 2.5s ease-in-out infinite;
+
 }
 
 /* Enhanced Navigation Effects */
@@ -354,7 +354,7 @@ body.lavender-mode button.primary:hover::before {
 
 body.lavender-mode .btn-primary:hover,
 body.lavender-mode button.primary:hover {
-    animation: softBloom 2s ease-in-out infinite;
+
 }
 
 /* Completed Task Effects */
@@ -364,7 +364,7 @@ body.lavender-mode .task-item.completed {
         rgba(189, 180, 254, 0.1),
         rgba(186, 85, 211, 0.05)
     );
-    animation: softBloom 5s ease-in-out infinite;
+
 }
 
 /* Lavender theme is light, so no specific link color changes needed beyond default browser behavior or existing link styles */

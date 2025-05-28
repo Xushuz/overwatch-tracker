@@ -214,7 +214,7 @@ body.light-mode::before {
         rgba(26, 115, 232, 0.02) 60%,
         transparent 100%
     );
-    animation: sunlightRays 30s linear infinite;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -230,7 +230,7 @@ body.light-mode::after {
         radial-gradient(circle at 20% 30%, rgba(26, 115, 232, 0.02), transparent 40%),
         radial-gradient(circle at 80% 70%, rgba(23, 101, 204, 0.015), transparent 35%),
         radial-gradient(circle at 50% 10%, rgba(26, 115, 232, 0.01), transparent 30%);
-    animation: softBreeze 25s ease-in-out infinite;
+
     pointer-events: none;
     z-index: -2;
 }
@@ -240,7 +240,7 @@ body.light-mode h1,
 body.light-mode h2,
 body.light-mode h3 {
     position: relative;
-    animation: materialGlow 6s ease-in-out infinite;
+
     font-family: 'Google Sans', 'Roboto', sans-serif;
 }
 
@@ -302,7 +302,7 @@ body.light-mode .nav-link::after {
         rgba(26, 115, 232, 0.8)
     );
     transition: width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    animation: materialRipple 4s ease-in-out infinite;
+
 }
 
 body.light-mode .nav-link:hover::after {
@@ -363,6 +363,6 @@ body.light-mode .task-item.completed {
         rgba(26, 115, 232, 0.03),
         rgba(23, 101, 204, 0.02)
     );
-    animation: paperShine 5s ease-in-out infinite;
+
     border: 1px solid rgba(26, 115, 232, 0.1);
 }
