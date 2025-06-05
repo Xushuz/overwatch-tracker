@@ -29,7 +29,6 @@ A modern, themeable web app to help Overwatch players follow a structured 6-week
 
 - Built with HTML, CSS, and vanilla JavaScript (ES6 modules).
 - All data is stored in your browser’s `localStorage`—no accounts, no tracking, no backend.
-
 ---
 
 ## Project Structure
