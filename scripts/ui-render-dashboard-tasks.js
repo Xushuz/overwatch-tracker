@@ -1,10 +1,12 @@
 // scripts/ui-render-dashboard-tasks.js
 // Task, warmup, and daily notes logic split from ui-render-dashboard.js
 import { getAppState, updateAppState } from './app-state.js';
-import { programData } from './program-data.js';
+import { getProgramData } from './program-data.js';
 import { getTaskCompletionStats } from './task-utils.js';
 import { updateNavigationButtons } from './main-navigation.js';
 import { createRankChartConfig } from './ui-render-progress.js';
+import { filterTasksByRole, adaptTaskForRoles } from './role-task-filter.js';
+import { IconSystem } from './ui-icons.js';
 // Chart rendering is managed by ui-render-dashboard-main.js
 
 export function renderCurrentWeekProgress() {
@@ -12,15 +14,38 @@ export function renderCurrentWeekProgress() {
     const progressTextEl = document.getElementById('currentWeekProgressText');
     const progressBarEl = document.getElementById('currentWeekProgressBar');
     if (!progressTextEl || !progressBarEl) return;
-    const weekData = programData[currentAppState.currentWeek];
+    const weekData = getProgramData()[currentAppState.currentWeek];
     if (!weekData || !weekData.days) {
         progressTextEl.textContent = "Week data not available.";
         progressBarEl.style.width = '0%';
         progressBarEl.textContent = '';
         return;
     }
-    const { total, completed, percent } = getTaskCompletionStats({ weekNum: currentAppState.currentWeek });
-    progressTextEl.textContent = `Current Week Progress: ${completed} / ${total} tasks`;
+    
+    // Use role filtering for progress calculation
+    const selectedRoles = currentAppState.selectedRoles || [];
+    const { total, completed, percent } = getTaskCompletionStats({ 
+        weekNum: currentAppState.currentWeek, 
+        roleFilter: selectedRoles.length > 0 ? selectedRoles : null 
+    });
+    
+    // Add role-specific theming to progress bar
+    progressBarEl.classList.add('role-progress-fill');
+    const progressContainer = progressBarEl.parentElement;
+    if (progressContainer) {
+        progressContainer.classList.add('role-progress-bar');
+        
+        // Apply role theming
+        if (selectedRoles.length === 1) {
+            progressContainer.classList.add(`role-${selectedRoles[0].toLowerCase()}`);
+        } else if (selectedRoles.length > 1) {
+            progressContainer.classList.add('role-multi');
+        }
+    }
+    
+    // Add role indicator to progress text when filtering is active
+    const roleText = selectedRoles.length > 0 ? ` (${selectedRoles.join('/')})` : '';
+    progressTextEl.textContent = `Current Week Progress${roleText}: ${completed} / ${total} tasks`;
     progressBarEl.style.width = `${percent}%`;
     progressBarEl.textContent = percent > 10 ? `${percent}%` : '';
 }
@@ -37,7 +62,7 @@ export function renderCurrentDayTasks() {
         return; 
     }
 
-    const currentWeekData = programData[currentAppState.currentWeek];
+    const currentWeekData = getProgramData()[currentAppState.currentWeek];
     if (!currentWeekData) {
         localWeekTitleEl.textContent = "Error"; 
         if (localWeekFocusEl) { localWeekFocusEl.textContent = ""; }
@@ -91,15 +116,32 @@ export function renderCurrentDayTasks() {
                 tasksRendered = true;
             }
         });
-    }
-
-    // Render program tasks for the current day
+    }    // Render program tasks for the current day
     if (currentDayData.tasks && currentDayData.tasks.length > 0) {
-        currentDayData.tasks.forEach(task => {
-            const taskListItem = createTaskListItemElement(task);
+        const selectedRoles = currentAppState.selectedRoles || [];
+        
+        // Apply role filtering to tasks
+        const filteredTasks = selectedRoles.length > 0 
+            ? filterTasksByRole(currentDayData.tasks, selectedRoles)
+            : currentDayData.tasks;
+        
+        // Adapt and render filtered tasks
+        filteredTasks.forEach(task => {
+            const adaptedTask = selectedRoles.length > 0 
+                ? adaptTaskForRoles(task, selectedRoles)
+                : task;
+            const taskListItem = createTaskListItemElement(adaptedTask, selectedRoles);
             localTaskListEl.appendChild(taskListItem);
             tasksRendered = true;
         });
+        
+        // Add role filtering indicator if tasks were filtered
+        if (selectedRoles.length > 0 && filteredTasks.length !== currentDayData.tasks.length) {
+            const roleIndicator = document.createElement('li');
+            roleIndicator.classList.add('role-filter-indicator');
+            roleIndicator.innerHTML = `<span class="role-filter-text">📋 Showing ${selectedRoles.join('/')} tasks (${filteredTasks.length}/${currentDayData.tasks.length} total)</span>`;
+            localTaskListEl.insertBefore(roleIndicator, localTaskListEl.firstChild);
+        }
     }
 
     // If no tasks or warmups were rendered, display "No tasks for today."
@@ -113,12 +155,21 @@ export function renderCurrentDayTasks() {
 /**
  * Creates a list item element for a given task.
  * @param {object} task - The task object from programData.
+ * @param {string[]} selectedRoles - The currently selected roles for visual indicators.
  * @returns {HTMLLIElement} The created list item element.
  */
-function createTaskListItemElement(task) {
+function createTaskListItemElement(task, selectedRoles = []) {
     const currentAppState = getAppState();
     const li = document.createElement('li');
     li.dataset.taskId = task.id; // Used for event delegation to identify the task
+    li.classList.add('task-item', 'role-themed-card', 'micro-bounce', 'card-entrance', 'contain-layout');
+    
+    // Add role-specific theming
+    if (selectedRoles.length === 1) {
+        li.classList.add(`role-${selectedRoles[0].toLowerCase()}`);
+    } else if (selectedRoles.length > 1) {
+        li.classList.add('role-multi');
+    }
     
     const taskKey = `c${currentAppState.currentCycle}-${task.id}`;
     const isCompleted = currentAppState.taskCompletions[taskKey] || false;
@@ -127,12 +178,26 @@ function createTaskListItemElement(task) {
     if (isCompleted) {
         li.classList.add('task-completed');
     }
+    
+    // Add role-specific styling if roles are selected
+    if (selectedRoles.length > 0) {
+        li.classList.add('role-filtered-task');
+    }
+
+    // Add status indicator with icon
+    const statusIndicator = document.createElement('div');
+    statusIndicator.classList.add('task-status-indicator');
+    if (isCompleted) {
+        statusIndicator.classList.add('completed');
+    } else {
+        statusIndicator.classList.add('pending');
+    }
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = taskKey; // ID for label association (if any) and direct manipulation
     checkbox.checked = isCompleted;
-    checkbox.classList.add('task-item-checkbox'); // Added class for event delegation
+    checkbox.classList.add('task-item-checkbox', 'touch-target'); // Added classes for event delegation and touch
     // Note: The actual change event is handled by the delegated listener on mainContentEl in script.js.
 
     const taskDetailsDiv = document.createElement('div');
@@ -142,6 +207,7 @@ function createTaskListItemElement(task) {
     }
 
     const taskTextSpan = document.createElement('span');
+    taskTextSpan.classList.add('task-text');
     taskTextSpan.textContent = task.text;
     taskDetailsDiv.appendChild(taskTextSpan);
 
@@ -448,6 +514,6 @@ export function prepareRankChartData() {
 
     return {
         data: currentCycleRankData,
-        config: createRankChartConfig(currentCycleRankData, "Current Cycle Rank Progression")
+        config: createRankChartConfig(currentCycleRankData, "Current Cycle Rank Progression (by Role)")
     };
 }

@@ -1,0 +1,646 @@
+/* ===================== */
+/* DASHBOARD ROLE TOGGLE */
+/* ===================== */
+
+.role-toggle-group {
+    display: flex;
+    gap: 8px;
+}
+
+.role-toggle-btn {
+    min-width: 64px;
+    padding: 0.5em 1.2em;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    border: 2px solid transparent;
+    background: var(--current-input-bg);
+    color: var(--current-text-color);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.12s;
+    outline: none;
+    position: relative;
+    z-index: 1;
+}
+
+/* Role-specific base (unselected) border and text color */
+.role-toggle-btn.role-dps {
+    border-color: var(--damage-primary);
+    color: var(--damage-primary);
+}
+.role-toggle-btn.role-tank {
+    border-color: var(--tank-primary);
+    color: var(--tank-primary);
+}
+.role-toggle-btn.role-support {
+    border-color: var(--support-primary);
+    color: var(--support-primary);
+}
+
+/* Selected state: themed background, white text, bold border */
+.role-toggle-btn.selected.role-dps {
+    background: var(--damage-gradient);
+    color: #fff;
+    border-color: var(--damage-primary);
+    box-shadow: 0 2px 8px 0 rgba(211,47,47,0.10);
+}
+.role-toggle-btn.selected.role-tank {
+    background: var(--tank-gradient);
+    color: #fff;
+    border-color: var(--tank-primary);
+    box-shadow: 0 2px 8px 0 rgba(21,101,192,0.10);
+}
+.role-toggle-btn.selected.role-support {
+    background: var(--support-gradient);
+    color: #fff;
+    border-color: var(--support-primary);
+    box-shadow: 0 2px 8px 0 rgba(56,142,60,0.10);
+}
+
+/* Hover state: light gradient background, bolder border */
+.role-toggle-btn:not(.selected):hover.role-dps {
+    background: linear-gradient(90deg, #ffebee 60%, #ffcdd2 100%);
+    border-color: var(--damage-primary);
+    color: var(--damage-accent);
+    box-shadow: 0 2px 8px 0 rgba(211,47,47,0.08);
+    transform: translateY(-1px);
+}
+.role-toggle-btn:not(.selected):hover.role-tank {
+    background: linear-gradient(90deg, #e3f2fd 60%, #bbdefb 100%);
+    border-color: var(--tank-primary);
+    color: var(--tank-accent);
+    box-shadow: 0 2px 8px 0 rgba(21,101,192,0.08);
+    transform: translateY(-1px);
+}
+.role-toggle-btn:not(.selected):hover.role-support {
+    background: linear-gradient(90deg, #e8f5e8 60%, #c8e6c9 100%);
+    border-color: var(--support-primary);
+    color: var(--support-accent);
+    box-shadow: 0 2px 8px 0 rgba(56,142,60,0.08);
+    transform: translateY(-1px);
+}
+
+.role-toggle-btn:focus {
+    outline: 2px solid var(--current-accent-color);
+    outline-offset: 1px;
+    z-index: 2;
+}
+
+/* Responsive: slightly smaller on mobile */
+@media (max-width: 600px) {
+    .role-toggle-btn {
+        min-width: 48px;
+        font-size: 0.95rem;
+        padding: 0.4em 0.7em;
+    }
+}
+/* styles/role-theming.css - Memory-efficient role-based visual enhancements */
+
+/* =============================================== */
+/* ============= ROLE-BASED THEMING ============= */
+/* =============================================== */
+
+/* Role color variables - using efficient CSS custom properties */
+:root {
+    /* Tank Role Colors */
+    --tank-primary: #1565C0;
+    --tank-secondary: #E3F2FD;
+    --tank-accent: #0D47A1;
+    --tank-gradient: linear-gradient(135deg, #1565C0 0%, #1976D2 100%);
+    
+    /* Damage Role Colors */
+    --damage-primary: #D32F2F;
+    --damage-secondary: #FFEBEE;
+    --damage-accent: #B71C1C;
+    --damage-gradient: linear-gradient(135deg, #D32F2F 0%, #F44336 100%);
+    
+    /* Support Role Colors */
+    --support-primary: #388E3C;
+    --support-secondary: #E8F5E8;
+    --support-accent: #1B5E20;
+    --support-gradient: linear-gradient(135deg, #388E3C 0%, #4CAF50 100%);
+    
+    /* Multi-role gradient */
+    --multi-role-gradient: linear-gradient(135deg, #1565C0 0%, #D32F2F 50%, #388E3C 100%);
+}
+
+/* Role-specific styling classes */
+.role-tank {
+    --role-color: var(--tank-primary);
+    --role-bg: var(--tank-secondary);
+    --role-accent: var(--tank-accent);
+    --role-gradient: var(--tank-gradient);
+}
+
+.role-damage {
+    --role-color: var(--damage-primary);
+    --role-bg: var(--damage-secondary);
+    --role-accent: var(--damage-accent);
+    --role-gradient: var(--damage-gradient);
+}
+
+.role-support {
+    --role-color: var(--support-primary);
+    --role-bg: var(--support-secondary);
+    --role-accent: var(--support-accent);
+    --role-gradient: var(--support-gradient);
+}
+
+.role-multi {
+    --role-color: var(--current-accent-color);
+    --role-bg: var(--current-container-bg);
+    --role-accent: var(--current-accent-hover-color);
+    --role-gradient: var(--multi-role-gradient);
+}
+
+/* Subtle role indicators for cards and components */
+.role-themed-card {
+    position: relative;
+    border-left: 3px solid var(--role-color);
+    background: var(--current-container-bg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.role-themed-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.role-themed-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 15px 15px 0;
+    border-color: transparent var(--role-color) transparent transparent;
+    opacity: 0.3;
+}
+
+/* Role badges - efficient SVG-based icons */
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--role-bg);
+    color: var(--role-color);
+    border: 1px solid var(--role-color);
+}
+
+.role-badge-icon {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+}
+
+/* Progress bars with role theming */
+.role-progress-bar {
+    width: 100%;
+    height: 40px; /* Match the progress-bar-container height */
+    background: var(--current-progress-bar-bg);
+    border-radius: 6px; /* Match progress-bar-container */
+    overflow: hidden;
+    position: relative;
+}
+
+.role-progress-fill {
+    height: 100%;
+    background: var(--role-gradient);
+    border-radius: 6px; /* Match container radius */
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure content appears above the gradient */
+}
+
+.role-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.2) 50%,
+        transparent 100%
+    );
+    animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Role-specific button styling */
+.role-button {
+    background: var(--role-gradient);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.role-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.2) 50%,
+        transparent 100%
+    );
+    transition: left 0.5s ease;
+}
+
+.role-button:hover::before {
+    left: 100%;
+}
+
+.role-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.role-button:active {
+    transform: translateY(0);
+}
+
+/* Efficient task status indicators */
+.task-status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--role-color);
+    display: inline-block;
+    margin-right: 0.5rem;
+    position: relative;
+}
+
+.task-status-indicator.completed {
+    background: var(--role-color);
+    animation: completedPulse 0.6s ease-out;
+}
+
+.task-status-indicator.in-progress {
+    background: var(--role-color);
+    opacity: 0.6;
+    animation: progressPulse 2s infinite;
+}
+
+@keyframes completedPulse {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--role-color);
+    }
+    70% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 0 10px transparent;
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 transparent;
+    }
+}
+
+@keyframes progressPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Mobile-optimized role selection */
+.role-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.role-selector-item {
+    aspect-ratio: 1;
+    background: var(--role-gradient);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.role-selector-item:hover,
+.role-selector-item.selected {
+    border-color: var(--role-accent);
+    transform: scale(1.05);
+}
+
+.role-selector-item.selected {
+    box-shadow: 0 0 0 2px var(--role-accent);
+}
+
+/* Enhanced role selection modal styling */
+.role-selector-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    margin-bottom: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.role-selector-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-selector-item:hover .role-selector-icon {
+    transform: scale(1.1);
+}
+
+.role-selector-item.selected .role-selector-icon {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
+}
+
+/* Enhanced role badge styling for header display */
+.selected-roles-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.selected-roles-display .role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--role-bg);
+    color: var(--role-color);
+    border: 1px solid var(--role-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+/* Mobile optimizations for role badges */
+@media (max-width: 767px) {
+    .selected-roles-display {
+        gap: 0.25rem;
+        justify-content: flex-end;
+        margin: 0; /* Remove any margin */
+    }
+    
+    .selected-roles-display .role-badge {
+        padding: 0.2rem 0.3rem;
+        border-radius: 12px;
+        font-size: 0.65rem;
+        border-width: 1px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1); /* Smaller shadow */
+        min-height: 0; /* Prevent min-height constraints */
+    }
+    
+    .selected-roles-display .role-badge:hover {
+        transform: none; /* Disable hover effect on mobile */
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+}
+
+.selected-roles-display .role-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.selected-roles-display .role-badge-icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+/* Smaller icons on mobile */
+@media (max-width: 767px) {
+    .selected-roles-display .role-badge-icon {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.selected-roles-display .role-badge-text {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/* Hide text and only show icons on small mobile screens */
+@media (max-width: 480px) {
+    .selected-roles-display .role-badge-text {
+        display: none;
+    }
+    
+    .selected-roles-display .role-badge {
+        padding: 0.2rem;
+        width: 24px;
+        height: 24px;
+        min-width: 24px; /* Enforce fixed width */
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    /* Further optimize for very small screens */
+    .app-header {
+        padding: 5px 6px;
+    }
+    
+    .logo-link img {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .hamburger-menu-btn {
+        width: 34px;
+        height: 34px;
+        padding: 6px;
+        margin-right: 6px;
+    }
+}
+
+/* Role selection modal enhancements */
+.role-selection-modal .modal-content {
+    max-width: 450px;
+    padding: 2rem;
+}
+
+.role-selection-modal .modal-header h2 {
+    color: var(--current-accent-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.role-selection-modal .modal-body p {
+    text-align: center;
+    color: var(--current-text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Role selector grid for modal */
+.role-selection-modal .role-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.role-selection-modal .role-selector-item {
+    aspect-ratio: 1.2;
+    background: var(--role-gradient);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.role-selection-modal .role-selector-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.2) 50%,
+        transparent 100%
+    );
+    transition: left 0.5s ease;
+}
+
+.role-selection-modal .role-selector-item:hover::before {
+    left: 100%;
+}
+
+.role-selection-modal .role-selector-item:hover {
+    border-color: var(--role-accent);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.role-selection-modal .role-selector-item.selected {
+    border-color: var(--role-accent);
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px var(--role-accent), 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.role-selection-modal .role-selector-item.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    background: var(--role-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    animation: checkmarkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes checkmarkPop {
+    0% { 
+        transform: scale(0); 
+        opacity: 0;
+    }
+    50% { 
+        transform: scale(1.2); 
+        opacity: 1;
+    }
+    100% { 
+        transform: scale(1); 
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .role-themed-card {
+        border-left-width: 2px;
+    }
+    
+    .role-themed-card::before {
+        border-width: 0 12px 12px 0;
+    }
+    
+    .role-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .role-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .role-selector-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Dark theme adjustments for role colors */
+body.theme-dark .role-tank {
+    --tank-secondary: rgba(21, 101, 192, 0.1);
+}
+
+body.theme-dark .role-damage {
+    --damage-secondary: rgba(211, 47, 47, 0.1);
+}
+
+body.theme-dark .role-support {
+    --support-secondary: rgba(56, 142, 60, 0.1);
+}

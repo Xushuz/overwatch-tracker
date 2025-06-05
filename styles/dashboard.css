@@ -605,3 +605,52 @@
 /* Theme-specific hover overrides can be removed if base button hover is sufficient */
 /* body.dark-mode .custom-warmup-item .actions button:hover { ... } */
 /* body.pink-mode .custom-warmup-item .actions button:hover { ... } */
+
+/* Role filtering indicator styling */
+.role-filter-indicator {
+    background-color: rgba(var(--current-accent-color-rgb), 0.1) !important;
+    border: 1px solid rgba(var(--current-accent-color-rgb), 0.3) !important;
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default !important;
+}
+
+.role-filter-text {
+    color: var(--current-accent-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Role-filtered task styling */
+.task-list li.role-filtered-task {
+    position: relative;
+}
+
+.task-list li.role-filtered-task::after {
+    content: "🎯";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Enhanced styling for role-filtered tasks on hover */
+.task-list li.role-filtered-task:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Role filtering progress text styling */
+#currentWeekProgressText {
+    transition: color 0.3s ease;
+}

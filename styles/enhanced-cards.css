@@ -1,0 +1,405 @@
+/* styles/enhanced-cards.css - Enhanced dashboard card system styles */
+
+/* Enhanced Button Styles */
+.enhanced-button {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.enhanced-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(var(--current-accent-color-rgb), 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+}
+
+.enhanced-button:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.enhanced-button .button-icon {
+    margin-right: 6px;
+    transition: transform 0.2s ease;
+}
+
+.enhanced-button:hover .button-icon {
+    transform: scale(1.1);
+}
+
+/* Navigation Button Enhancements */
+.nav-enhanced {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-enhanced:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--current-accent-color-rgb), 0.3);
+}
+
+.nav-enhanced:active:not(:disabled) {
+    transform: translateY(0);
+    transition: transform 0.1s ease;
+}
+
+/* Section Icon Styles */
+.section-icon {
+    margin-right: 8px;
+    color: var(--current-accent-color);
+    opacity: 0.8;
+}
+
+/* Enhanced Card Structure */
+.enhanced-card {
+    background: var(--current-bg-color);
+    border: 1px solid var(--current-border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.enhanced-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--current-border-color);
+    background: rgba(var(--current-accent-color-rgb), 0.02);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--current-text-color);
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.card-action-button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: calc(var(--border-radius) / 2);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+/* Warmup Item Enhancements */
+.custom-warmup-item {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.custom-warmup-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.warmup-icon {
+    margin-right: 10px;
+    color: var(--current-accent-color);
+    opacity: 0.7;
+}
+
+.enhanced-action-button {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.enhanced-action-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(var(--current-accent-color-rgb), 0.3);
+}
+
+/* Loading States */
+.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+.spinner-ring {
+    display: inline-block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+}
+
+.spinner-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    margin: 2px;
+    border: 2px solid var(--current-accent-color);
+    border-radius: 50%;
+    animation: spinner-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--current-accent-color) transparent transparent transparent;
+}
+
+.spinner-ring div:nth-child(1) { animation-delay: -0.45s; }
+.spinner-ring div:nth-child(2) { animation-delay: -0.3s; }
+.spinner-ring div:nth-child(3) { animation-delay: -0.15s; }
+
+@keyframes spinner-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Textarea Enhancements */
+.daily-notes-section textarea {
+    transition: all 0.3s ease;
+}
+
+.daily-notes-section textarea:focus {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(var(--current-accent-color-rgb), 0.15);
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--current-accent-color);
+    opacity: 0.8;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.typing-icon {
+    margin-right: 4px;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+}
+
+.character-count {
+    text-align: right;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: var(--current-text-color);
+    opacity: 0.6;
+    transition: color 0.2s ease;
+}
+
+.character-count.warning {
+    color: var(--danger-color);
+    opacity: 1;
+    font-weight: 500;
+}
+
+/* Task List Enhancements */
+.task-list li {
+    position: relative;
+    overflow: hidden;
+}
+
+.task-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.task-list li:hover::before {
+    background: var(--current-accent-color);
+}
+
+.task-list li.completed::before {
+    background: var(--success-color);
+}
+
+/* Enhanced Modal Improvements */
+.role-selection-modal.enhanced {
+    backdrop-filter: blur(4px);
+}
+
+.role-selection-modal.enhanced .modal-content {
+    animation: enhancedModalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes enhancedModalSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Progress Enhancements */
+.current-week-progress {
+    position: relative;
+}
+
+.progress-bar-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transform: translateX(-100%);
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Rank Chart Enhancements */
+#dashboardRankChartContainer {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+#dashboardRankChartContainer:hover {
+    box-shadow: var(--shadow-md);
+}
+
+#dashboardRankChartContainer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, 
+        var(--current-accent-color), 
+        transparent, 
+        var(--current-accent-color)
+    );
+    border-radius: var(--border-radius);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+#dashboardRankChartContainer:hover::before {
+    opacity: 0.1;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .enhanced-card {
+        margin-bottom: 16px;
+    }
+    
+    .card-header {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .card-actions {
+        align-self: stretch;
+        justify-content: flex-end;
+    }
+    
+    .card-content {
+        padding: 16px;
+    }
+    
+    .enhanced-button .button-icon {
+        margin-right: 4px;
+    }
+    
+    .nav-enhanced:hover:not(:disabled) {
+        transform: none; /* Disable hover transforms on mobile */
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .enhanced-card {
+        border-width: 2px;
+    }
+    
+    .section-icon {
+        opacity: 1;
+    }
+    
+    .enhanced-button::before {
+        display: none; /* Remove ripple effect for high contrast */
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .enhanced-button,
+    .enhanced-card,
+    .nav-enhanced,
+    .custom-warmup-item,
+    .progress-bar-fill,
+    .typing-indicator {
+        transition: none;
+        animation: none;
+    }
+    
+    .enhanced-button::before {
+        display: none;
+    }
+    
+    .nav-enhanced:hover:not(:disabled) {
+        transform: none;
+    }
+}

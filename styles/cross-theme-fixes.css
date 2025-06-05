@@ -1,0 +1,282 @@
+/* styles/cross-theme-fixes.css */
+/* This file standardizes behavior across all themes, particularly 
+   for edge cases where theme-specific styles cause inconsistencies */
+
+/* ------- HAMBURGER MENU FIXES -------- */
+
+/* Ensure hamburger menu button is visible in all themes when scrolling */
+.app-header.scrolled .hamburger-menu-btn {
+    /* Extra visibility for light themes */
+    outline: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Neon theme fixes */
+.neon-mode .app-header.scrolled .hamburger-menu-btn {
+    border-color: rgba(0, 255, 65, 0.7);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+}
+
+.neon-mode .app-header.scrolled .hamburger-menu-btn .hamburger-line {
+    background-color: var(--neon-green-400);
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.7);
+}
+
+/* Cyberpunk theme fixes */
+.cyberpunk-mode .app-header.scrolled .hamburger-menu-btn {
+    border-color: var(--border-color-cyberpunk);
+    box-shadow: 0 0 10px rgba(255, 0, 128, 0.4);
+    background-color: rgba(13, 0, 26, 0.9);
+}
+
+.cyberpunk-mode .app-header.scrolled .hamburger-menu-btn .hamburger-line {
+    background-color: var(--text-color-cyberpunk);
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+/* Volcanic theme fixes */
+.volcano-mode .app-header.scrolled .hamburger-menu-btn {
+    border-color: rgba(249, 115, 22, 0.7);
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
+}
+
+/* Dark Red theme fixes */
+.dark-red-mode .app-header.scrolled .hamburger-menu-btn {
+    border-color: rgba(220, 38, 38, 0.5);
+    box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+}
+
+/* Cosmic theme fixes */
+.cosmic-mode .app-header.scrolled .hamburger-menu-btn {
+    border-color: rgba(255, 215, 0, 0.5); /* Golden yellow like the accent color */
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.3); /* Purple glow */
+    background-color: rgba(26, 15, 46, 0.9); /* Match header background */
+}
+
+.cosmic-mode .app-header.scrolled .hamburger-menu-btn .hamburger-line {
+    background-color: #FFD700; /* Golden yellow for lines */
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Add a glow effect */
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+/* Ocean theme fixes */
+.oceanic-mode .app-header.scrolled .hamburger-menu-btn {
+    border-color: rgba(14, 116, 144, 0.6);
+    box-shadow: 0 0 8px rgba(14, 116, 144, 0.4);
+}
+
+/* ------- SIDEBAR FIXES -------- */
+
+/* Fix sidebar backdrop filters for performance and consistency */
+.neon-mode .google-nav.sidebar-visible,
+.cyberpunk-mode .google-nav.sidebar-visible,
+.volcano-mode .google-nav.sidebar-visible,
+.cosmic-mode .google-nav.sidebar-visible {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+/* Fix sidebar scrolling behavior in all themes */
+/* Use standard scrollbar styling that works across browsers */
+.google-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.google-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.google-nav::-webkit-scrollbar-thumb {
+    background-color: var(--current-border-color);
+    border-radius: 3px;
+}
+
+/* Firefox scrollbar - will be used when supported */
+@supports (scrollbar-width: thin) {
+    .google-nav {
+        scrollbar-width: thin;
+        scrollbar-color: var(--current-border-color) transparent;
+    }
+}
+
+/* ------- BUTTON FIXES -------- */
+
+/* Fix button transitions for consistency across themes */
+.form-button {
+    will-change: transform, box-shadow;
+}
+
+/* Fix theme-specific glow effects that might interfere with hover states */
+.neon-mode .form-button:focus,
+.cyberpunk-mode .form-button:focus,
+.cosmic-mode .form-button:focus {
+    animation: none;
+    text-shadow: none;
+}
+
+/* Fix cosmic theme buttons */
+.cosmic-mode .form-button.primary {
+    background: linear-gradient(135deg, var(--cosmic-purple-500), var(--cosmic-purple-600));
+    border-color: var(--cosmic-purple-400);
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+}
+
+.cosmic-mode .form-button.primary:hover,
+.cosmic-mode .form-button.primary:focus {
+    background: linear-gradient(135deg, var(--cosmic-purple-400), var(--cosmic-purple-500));
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    transform: translateY(-1px);
+}
+
+.cosmic-mode .form-button.secondary {
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+.cosmic-mode .form-button.secondary:hover,
+.cosmic-mode .form-button.secondary:focus {
+    background-color: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Fix text contrast issues on buttons */
+.form-button.primary {
+    color: var(--button-primary-text);
+    text-shadow: none;
+}
+
+.oceanic-mode .form-button.primary,
+.forest-mode .form-button.primary {
+    color: white;
+}
+
+/* ------- HEADER FIXES -------- */
+
+/* Fix logo visibility in high contrast themes */
+.logo-link {
+    z-index: 2;
+}
+
+.neon-mode .logo-link,
+.cyberpunk-mode .logo-link,
+.dark-red-mode .logo-link,
+.volcano-mode .logo-link,
+.cosmic-mode .logo-link {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Fix role selection pills contrast in various themes */
+.role-pill {
+    border: 1px solid var(--current-border-color);
+}
+
+.neon-mode .role-pill,
+.cyberpunk-mode .role-pill,
+.dark-mode .role-pill,
+.dark-red-mode .role-pill,
+.cosmic-mode .role-pill {
+    text-shadow: none;
+}
+
+/* ------- TEXT CONTRAST FIXES -------- */
+
+/* Ensure text is always readable in notification badges */
+.notification-badge {
+    color: var(--light-text);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Fix cosmic theme specific styling issues */
+.cosmic-mode .role-pill {
+    background-color: rgba(138, 43, 226, 0.2);
+    border-color: rgba(255, 215, 0, 0.4);
+    color: #FFD700;
+    text-shadow: none;
+}
+
+.cosmic-mode .role-pill:hover {
+    background-color: rgba(138, 43, 226, 0.3);
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+.cosmic-mode .role-pill.active {
+    background-color: rgba(138, 43, 226, 0.4);
+    border-color: #FFD700;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+/* Ensure hamburger menu works in cosmic theme when scrolled */
+.cosmic-mode .app-header.scrolled {
+    background-color: rgba(26, 15, 46, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Fix cosmic theme text contrast */
+.cosmic-mode .logo-link {
+    background: rgba(15, 5, 32, 0.3);
+}
+
+/* Ensure form control text is always readable */
+input, select, textarea {
+    color: var(--current-text-color);
+}
+
+/* Fix contrast issues with completed tasks in dark themes */
+.dark-mode .task-completed,
+.neon-mode .task-completed,
+.cyberpunk-mode .task-completed,
+.dark-red-mode .task-completed,
+.cosmic-mode .task-completed,
+.volcano-mode .task-completed {
+    opacity: 0.8;
+}
+
+/* Prevent excessive custom styling from breaking functionality */
+.neon-mode *::before,
+.neon-mode *::after,
+.cyberpunk-mode *::before,
+.cyberpunk-mode *::after {
+    pointer-events: none;
+}
+
+/* Fix for cosmic theme yellow star bar appearing on top of task buttons */
+body.cosmic-mode .task-item::before {
+    display: none; /* Remove the default star that's showing as a yellow bar */
+}
+
+body.cosmic-mode .task-list li::before {
+    content: '★';
+    color: #FFD700;
+    text-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
+    margin-right: 8px;
+    display: inline-block; /* Display properly inline with the task text */
+    position: relative; /* Not absolute positioning */
+    top: auto; /* Reset positioning */
+    left: auto; /* Reset positioning */
+}
+
+/* Enhanced rainbow task completion bar with better text visibility */
+.progress-bar-fill {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); /* Add shadow to text for better visibility */
+}
+
+
+/* Multi-role progress bar: always use global gradient and fade animation */
+
+
+/* Fix for dark themes to ensure text visibility */
+body.dark-mode .progress-bar-fill, 
+body.cosmic-mode .progress-bar-fill, 
+body.neon-mode .progress-bar-fill,
+body.cyberpunk-mode .progress-bar-fill {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* Fix for light themes to ensure text visibility */
+body.light-mode .progress-bar-fill, 
+body.pink-mode .progress-bar-fill,
+body.lavender-mode .progress-bar-fill {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}

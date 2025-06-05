@@ -14,53 +14,112 @@
     display: block;
 }
 
+/* Smaller logo for mobile */
+@media (max-width: 767px) {
+    .logo-link {
+        margin-right: 10px;
+        padding: 2px;
+    }
+    
+    .logo-link img {
+        width: 42px;
+        height: 42px;
+    }
+}
+
 .hamburger-menu-btn {
     display: none; /* Hidden by default, shown in responsive.css */
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px; /* Base padding */
-    margin-right: 10px; /* Space from title */
+    padding: 10px; /* Optimized padding for better touch target */
+    margin-right: 10px; /* Space from logo */
     z-index: 1001; /* Above sidebar and header content if it overlaps */
     border-radius: var(--border-radius); /* Consistent rounded corners (4px) */
-    transition: background-color 0.2s ease; /* Smooth transition for hover/active states */
+    transition: all 0.2s ease; /* Smooth transition for hover/active states */
     position: relative; /* For pseudo-elements used in active (X) state */
+    width: 44px; /* Fixed width for consistent size */
+    height: 44px; /* Fixed height for consistent size */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px; /* Space between hamburger lines */
 }
-/* Remove the last margin from the last span to better center the icon if padding is symmetrical */
 
-/* Remove old span styles, now using SVG for icon */
+/* Mobile optimized hamburger button */
+@media (max-width: 767px) {
+    .hamburger-menu-btn {
+        width: 38px;
+        height: 38px;
+        padding: 8px;
+    }
+}
 
-.hamburger-menu-btn .menu-grid-icon {
-    width: 28px;
-    height: 28px;
+/* Hamburger line styling */
+.hamburger-line {
     display: block;
-    color: var(--current-text-color);
-    pointer-events: none;
+    width: 20px;
+    height: 2px;
+    background-color: var(--current-text-color);
+    border-radius: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
 }
 
-/* Optional: Add a hover effect for the button */
+/* Hamburger line animations for active state (X) */
+.hamburger-menu-btn.active .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger-menu-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-menu-btn.active .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Hover and focus states - standardized for all themes */
 .hamburger-menu-btn:hover,
 .hamburger-menu-btn:focus {
-    background-color: var(--current-hamburger-hover-bg, #f0f0f0);
+    background-color: var(--current-hamburger-hover-bg);
+    transform: scale(1.05);
+    outline: none; /* Remove focus outline for better aesthetics */
 }
 
-/* Base active state for X (globally, if needed, but primarily for mobile) */
-/* This section will be overridden by pseudo-elements for mobile */
-.hamburger-menu-btn.active span:nth-child(1) { 
-    /* transform: translateY(7px) rotate(45deg); Default hamburger X */
-}
-.hamburger-menu-btn.active span:nth-child(2) { 
-    /* opacity: 0; Default hamburger X */
-}
-.hamburger-menu-btn.active span:nth-child(3) { 
-    /* transform: translateY(-7px) rotate(-45deg); Default hamburger X */
+/* Active state styling - standardized for all themes */
+.hamburger-menu-btn.active {
+    background-color: var(--current-hamburger-active-bg);
 }
 
+/* Theme-specific hover enhancements that preserve functionality */
+.neon-mode .hamburger-menu-btn:hover {
+    box-shadow: 0 0 8px var(--neon-green-500);
+}
+
+.dark-mode .hamburger-menu-btn:hover,
+.dark-red-mode .hamburger-menu-btn:hover,
+.forest-night-mode .hamburger-menu-btn:hover {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.cyberpunk-mode .hamburger-menu-btn:hover {
+    box-shadow: 0 0 8px var(--accent-color-cyberpunk); 
+}
+
+/* Ensure hamburger lines remain visible in all theme states */
+.hamburger-menu-btn:hover .hamburger-line,
+.hamburger-menu-btn:focus .hamburger-line,
+.hamburger-menu-btn.active .hamburger-line {
+    background-color: var(--current-text-color);
+}
 
 /* Mobile specific enhancements */
 @media (max-width: 768px) {
     .hamburger-menu-btn {
-        padding: 12px; /* Increased padding for larger tap target */
+        padding: 10px; /* Consistent padding for mobile */
         order: 1;
     }
     .logo-link {
@@ -75,54 +134,11 @@
     .header-controls {
         order: 4;
     }
-
-    /* Hide original spans (dots) when active on mobile */
-    .hamburger-menu-btn.active span {
-        opacity: 0; 
-    }
-
-    /* Initial state for pseudo-elements (before active) */
-    .hamburger-menu-btn::before,
-    .hamburger-menu-btn::after {
-        content: '';
-        position: absolute;
-        width: 18px; /* Length of the X arms */
-        height: 3px;  /* Thickness of the X arms */
-        background-color: var(--current-text-color); 
-        border-radius: 1px; 
-        left: 50%;
-        top: 50%;
-        transform-origin: center;
-        opacity: 0; /* Initially hidden */
-        transform: translate(-50%, -50%) rotate(0deg); 
-        transition: opacity 0.2s ease, transform 0.3s ease; 
-    }
-
-    /* Active state for pseudo-elements to form the X */
-    .hamburger-menu-btn.active::before {
-        opacity: 1;
-        transform: translate(-50%, -50%) rotate(45deg);
-        transition: transform 0.3s ease 0.1s, opacity 0.2s ease 0.1s; /* Delay X appearance */
-    }
-
-    .hamburger-menu-btn.active::after {
-        opacity: 1;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        transition: transform 0.3s ease 0.1s, opacity 0.2s ease 0.1s; /* Delay X appearance */
-    }
-
-    /* Unified hover/active states using CSS variables */
-    .hamburger-menu-btn:hover {
-        background-color: var(--current-hamburger-hover-bg);
-    }
-    .hamburger-menu-btn:active {
-        background-color: var(--current-hamburger-active-bg);
-    }
 }
 
 .app-header {
     display: flex;
-    flex-wrap: nowrap; /* Keep logo, menu and title on one line */
+    flex-wrap: wrap; /* Allow wrapping for mobile */
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px; /* Reduced padding for mobile */
@@ -131,6 +147,17 @@
     position: sticky; /* Making header sticky */
     top: 0;
     z-index: 1000; /* Ensure it's above other content, including new sidebar */
+}
+
+.app-header-main {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.app-header-secondary {
+    display: flex;
+    align-items: center;
 }
 
 .app-header h1 {
@@ -161,6 +188,18 @@
     /* text-align: right; /* If it wraps and takes full width */
 }
 
+/* Mobile date optimization */
+@media (max-width: 767px) {
+    #currentDate {
+        font-size: 0.7rem;
+        margin-left: auto; /* Push to the right */
+        padding-top: 0; /* No extra padding from top section */
+        opacity: 0.65; /* Make it more subtle */
+        line-height: 1; /* Tighter line height */
+        padding-bottom: 1px; /* Tiny bottom padding */
+    }
+}
+
 /* Buttons in header will use general button styles from base.css,
    or can have specific styles here if needed.
    The general button styles in base.css were updated to be more Google-like.
@@ -176,6 +215,61 @@
 /* Hover effects are now handled by .form-button in base.css */
 /* .theme-toggle-btn:hover, 
 .new-cycle-btn:hover {} */
+
+/* Fix for hamburger button scrolling with page on mobile */
+@media (max-width: 767px) {
+    /* Create a clone of the hamburger button that stays fixed when scrolling */
+    .app-header.scrolled .hamburger-menu-btn {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        background-color: var(--current-header-bg);
+        box-shadow: var(--shadow-sm);
+        border-radius: var(--border-radius);
+        z-index: 1001; /* Keep z-index consistent with original */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        /* Ensure contrast with background for all themes */
+        border: 1px solid var(--current-border-color);
+    }
+    
+    /* Enhanced visibility for all themes */
+    .app-header.scrolled .hamburger-menu-btn {
+        /* Base standard for all themes */
+        opacity: 0.95;
+    }
+    
+    /* Specific adjustments for dark themes */
+    .dark-mode .app-header.scrolled .hamburger-menu-btn,
+    .forest-night-mode .app-header.scrolled .hamburger-menu-btn,
+    .dark-red-mode .app-header.scrolled .hamburger-menu-btn,
+    .neon-mode .app-header.scrolled .hamburger-menu-btn,
+    .cyberpunk-mode .app-header.scrolled .hamburger-menu-btn,
+    .cosmic-mode .app-header.scrolled .hamburger-menu-btn,
+    .volcano-mode .app-header.scrolled .hamburger-menu-btn {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Ocean and other light themes with potential contrast issues */
+    .oceanic-mode .app-header.scrolled .hamburger-menu-btn,
+    .arctic-mode .app-header.scrolled .hamburger-menu-btn,
+    .light-mode .app-header.scrolled .hamburger-menu-btn,
+    .lavender-mode .app-header.scrolled .hamburger-menu-btn,
+    .sunset-mode .app-header.scrolled .hamburger-menu-btn,
+    .pink-mode .app-header.scrolled .hamburger-menu-btn {
+        border-width: 1px;
+        border-style: solid;
+    }
+    
+    /* Active state handling for scrolled hamburger button - all themes */
+    .app-header.scrolled .hamburger-menu-btn.active {
+        background-color: var(--current-hamburger-active-bg);
+    }
+    
+    /* Fix for hamburger lines visibility */
+    .app-header.scrolled .hamburger-menu-btn .hamburger-line {
+        background-color: var(--current-text-color);
+    }
+}
 
 /* 
     All styles for .app-nav and .app-nav .nav-link have been removed.

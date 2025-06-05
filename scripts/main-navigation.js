@@ -1,6 +1,6 @@
 // main-navigation.js
 import { getAppState, updateAppState, themes, exportAppState, importAppState } from './app-state.js';
-import { programData, getTotalDaysInWeek } from './program-data.js';
+import { getProgramData, getTotalDaysInWeek } from './program-data.js';
 import { applyTheme } from './ui-theme.js'; // Added
 import { startNewCycle } from './script.js'; // Added
 import { renderDashboardPage, renderDashboardRankChart, rankChartInstanceDashboard } from './ui-render-dashboard-main.js';
@@ -10,6 +10,7 @@ import { renderRankHistoryPage, rankChartInstanceProgress } from './ui-render-pr
 import { renderResourcesPage } from './ui-render-resources.js';
 import { promptForRank } from './ui-modals.js';
 import { renderCurrentWeekProgress, updateWarmupDays } from './ui-render-dashboard-tasks.js';
+import { openRoleSelectionModal } from './ui-role-selection.js';
 
 let mainContentEl = null;
 let navLinks = null;
@@ -94,7 +95,12 @@ export function renderSettingsPage(mainContentEl) {
     const currentAppState = getAppState();
     mainContentEl.innerHTML = `
         <div class="settings-page content-card">
-            <h2>Settings</h2>
+            <h2>Settings</h2>            <section class="settings-section">
+                <h3>Role Selection</h3>
+                <p>Choose the role(s) you want to focus on to tailor your daily tasks.</p>
+                <p><strong>Currently selected:</strong> <span id="currentRolesDisplay">${currentAppState.selectedRoles.length > 0 ? currentAppState.selectedRoles.join(', ') : 'None selected'}</span></p>
+                <button class="form-button" id="changeRolesBtn">Change Selected Roles</button>
+            </section>
 
             <section class="settings-section">
                 <h3>Theme Selection</h3>
@@ -128,14 +134,25 @@ export function renderSettingsPage(mainContentEl) {
         option.value = themeName;
         option.textContent = themeName.charAt(0).toUpperCase() + themeName.slice(1);
         themeSelector.appendChild(option);
-    });
-
-    themeSelector.value = currentAppState.theme;
+    });    themeSelector.value = currentAppState.theme;
 
     themeSelector.addEventListener('change', (event) => {
         updateAppState({ theme: event.target.value });
         applyTheme();
     });
+
+    // Add event listener for Change Roles button
+    const changeRolesBtn = document.getElementById('changeRolesBtn');
+    if (changeRolesBtn) {
+        changeRolesBtn.addEventListener('click', () => {
+            if (typeof openRoleSelectionModal === 'function') {
+                openRoleSelectionModal();
+            } else {
+                console.error('Role selection function not available.');
+                alert('Error: Role selection functionality is currently unavailable.');
+            }
+        });
+    }
 
     // Add event listener for Reset All Data button
     const resetAllDataBtn = document.getElementById('resetAllDataBtn');
@@ -194,10 +211,12 @@ export function navigateToDay(direction) {
             if (day < total) return { week, day: day + 1 };
             return { week: week + 1, day: 1 };
         } else {
-            if (day > 1) return { week, day: day - 1 };
-            if (week > 1 && programData[week - 1]?.days) {
-                const prevWeek = week - 1;
-                return { week: prevWeek, day: getTotalDaysInWeek(prevWeek) };
+            if (day > 1) return { week, day: day - 1 };            if (week > 1) {
+                const programData = getProgramData();
+                if (programData[week - 1]?.days) {
+                    const prevWeek = week - 1;
+                    return { week: prevWeek, day: getTotalDaysInWeek(prevWeek) };
+                }
             }
             return { week: 1, day: 1 };
         }
@@ -205,23 +224,15 @@ export function navigateToDay(direction) {
     const { week: newWeek, day: newDay } = computeTargetDay(targetWeek, targetDay, direction);
     targetWeek = newWeek;
     targetDay = newDay;
-    
-    // Check if the target day/week actually exists in programData
+      // Check if the target day/week actually exists in programData
+    const programData = getProgramData();
     if (programData[targetWeek] && programData[targetWeek].days && programData[targetWeek].days[targetDay]) {
         updateAppState({ currentWeek: targetWeek, currentDay: targetDay });
         
         // Update warmups that should persist across days
         updateWarmupDays();
         
-        // Check for end-of-week rank prompt if moving forward into a new week
-        // Only prompt if the oldWeek was part of the 6-week program
-        const promptKey = `c${currentAppState.currentCycle}w${oldWeek}_endOfWeekPrompt`;
-        if (direction === 1 && targetWeek > oldWeek && oldWeek >= 1 && oldWeek <= 6) {
-            if (!currentAppState.hasPromptedRankForWeek[promptKey]) {
-                // Use a small timeout to allow the page to render before showing the modal
-                setTimeout(() => promptForRank(oldWeek, 'endOfWeek'), 250);
-            }
-        }
+        // End-of-week rank prompt feature removed
         renderPage(); // This will re-render dashboard with new day
     } else {
         console.warn(`Navigation target W${targetWeek}D${targetDay} not found in programData or boundary reached.`);
@@ -245,10 +256,9 @@ export function updateNavigationButtons() {
     }
 
     // Disable "Previous Day" if on Week 1, Day 1 of the entire program
-    prevBtn.disabled = (currentAppState.currentWeek === 1 && currentAppState.currentDay === 1);
-
-    // Determine if there's a "next" day available in programData
+    prevBtn.disabled = (currentAppState.currentWeek === 1 && currentAppState.currentDay === 1);    // Determine if there's a "next" day available in programData
     let nextDayExists = false;
+    const programData = getProgramData();
     const currentWeekData = programData[currentAppState.currentWeek];
     if (currentWeekData && currentWeekData.days) {
         const totalDaysInCurrentWeek = getTotalDaysInWeek(currentAppState.currentWeek);
@@ -256,8 +266,7 @@ export function updateNavigationButtons() {
             // Is there another day in the current week?
             if (currentWeekData.days[currentAppState.currentDay + 1]) {
                 nextDayExists = true;
-            }
-        } else { // Current day is the last in the current week, check next week
+            }        } else { // Current day is the last in the current week, check next week
             const nextWeekData = programData[currentAppState.currentWeek + 1];
             if (nextWeekData && nextWeekData.days && nextWeekData.days[1]) { // Does next week exist and have a day 1?
                 nextDayExists = true;

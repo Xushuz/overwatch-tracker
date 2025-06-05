@@ -1,6 +1,6 @@
 // ui-render-notes.js
 import { appState, updateAppState } from './app-state.js';
-import { programData } from './program-data.js'; // To get day titles
+import { getProgramData } from './program-data.js'; // To get day titles
 
 /**
  * Render the Daily Notes summary view with optional search filter.
@@ -32,6 +32,7 @@ export function renderDailyNotesSummaryPage(mainContentEl, filterTerm = '') {
     filtered.forEach(key => {
       const noteText = appState.dailyNotes[key] || '';
       const [, cycle, week, day] = key.match(/c(\d+)w(\d+)d(\d+)/);
+      const programData = getProgramData();
       const title = programData[week]?.days?.[day]?.title || `Day ${day}`;
       const content = window.marked ? marked.parse(noteText) : noteText.replace(/\n/g, '<br>');
       html += `<div class="note-entry" data-note-key="${key}">`;

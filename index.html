@@ -10,18 +10,21 @@
 <body>
 
     <div class="container">
-        <header class="app-header">
-            <a href="#" class="logo-link" aria-label="Home">
-                <img src="assets/logo.png" alt="Tracker Logo" width="32" height="32">
-            </a>
-            <button class="hamburger-menu-btn" id="hamburgerMenuBtn" aria-label="Open navigation menu">
-                <i data-feather="menu"></i>
-            </button>
-            <h1>Overwatch Pro Path Tracker</h1>
-            <div class="header-controls">
-                <span id="currentDate">Loading date...</span>
+        <div class="google-header app-header"> <!-- Existing header -->
+            <div class="app-header-main">
+                <button class="hamburger-menu-btn" id="hamburgerMenuBtn" aria-label="Toggle Menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>                <a href="#" class="logo-link">
+                    <img src="assets/logo.png" alt="App Logo" class="logo-svg">
+                </a>
+                <div id="selectedRolesDisplay" class="selected-roles-display"></div>
             </div>
-        </header>
+            <div class="app-header-secondary">
+                <span id="currentDate"></span>
+            </div>
+        </div>
 
         <div class="app-body-content"> <!-- New wrapper -->
             <nav class="google-nav app-nav"> <!-- New sidebar nav, moved from bottom -->
@@ -39,7 +42,7 @@
             <div class="sidebar-overlay" id="sidebarOverlay"></div> <!-- Add this line -->
         </div>
 
-        <!-- Modal for Initial/End-of-Week Rank Logging -->
+        <!-- Modal for Initial Rank Logging -->
         <div id="rankPromptModal" class="modal rank-prompt-modal"> <!-- Has .modal class -->
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,7 +97,30 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Modal for Role Selection -->
+        <div id="roleSelectionModal" class="modal role-selection-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="roleSelectionModalTitle">Select Your Focus Role(s)</h2>
+                    <button class="close-button" id="closeRoleSelectionModalBtn" aria-label="Close">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="roleSelectionForm">
+                        <p>Select the role(s) you want to focus on. This will help tailor your daily tasks.</p>
+                        <div class="form-group role-checkbox-group">
+                            <label><input type="checkbox" name="role" value="Tank"> Tank</label>
+                            <label><input type="checkbox" name="role" value="Damage"> Damage</label>
+                            <label><input type="checkbox" name="role" value="Support"> Support</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="form-button form-button--primary" id="saveRoleSelectionBtn">Save Roles</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End of .app-container -->
 
     <!-- Chart.js is now lazy-loaded only on the dashboard page -->
     <!-- Feather Icons CDN -->

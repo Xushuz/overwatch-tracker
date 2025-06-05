@@ -1,13 +1,20 @@
+// DEBUG: Global submit event listener
+window.addEventListener('submit', function(e) {
+    console.log('[Global] Submit event fired for:', e.target);
+}, true);
+
 // scripts/ui-render-dashboard-main.js
 // Main dashboard rendering and navigation logic, split from ui-render-dashboard.js
 import { renderCurrentDayTasks, renderCurrentWeekProgress, prepareRankChartData, setupCustomWarmupUI, setupDailyNotesArea } from './ui-render-dashboard-tasks.js';
 import { getAppState, updateAppState } from './app-state.js';
 import { populateRankSelects, generateDivisionButtons, addRankEntry } from './ui-render-progress.js';
-import { programData } from './program-data.js';
+import { getProgramData } from './program-data.js';
 import { navigateToDay, updateNavigationButtons } from './main-navigation.js';
+import { initDashboardCards } from './ui-dashboard-cards.js'; // Added dashboard cards system
 
 let lastSelectedDashboardTier = '';
 export let rankChartInstanceDashboard = null;
+let dashboardCardSystem = null; // Added dashboard card system instance
 
 export async function renderDashboardRankChart() {
     // Lazy-load Chart.js only when needed
@@ -107,6 +114,15 @@ export function renderDashboardPage(mainContentEl) {
                     <h4>Quick Rank Update</h4>
                     <form id="dashboardRankUpdateForm" class="dashboard-rank-update-form">
                         <div class="form-group">
+                            <label>Role:</label>
+                            <div id="dashboardRoleToggle" class="role-toggle-group" style="display:flex;gap:8px;margin-bottom:10px;">
+                                <button type="button" class="role-toggle-btn selected" data-role="dps">DPS</button>
+                                <button type="button" class="role-toggle-btn" data-role="tank">Tank</button>
+                                <button type="button" class="role-toggle-btn" data-role="support">Support</button>
+                                <input type="hidden" id="dashboardRankRoleValue" name="dashboardRankRoleValue" value="dps">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="dashboardRankTier">Tier:</label>
                             <select id="dashboardRankTier" name="dashboardRankTier" required></select> 
                         </div>
@@ -124,6 +140,28 @@ export function renderDashboardPage(mainContentEl) {
             </aside>
         </div>
     `;
+    // Role toggle logic
+    const roleToggleGroup = document.getElementById('dashboardRoleToggle');
+    const roleHiddenInput = document.getElementById('dashboardRankRoleValue');
+    if (roleToggleGroup && roleHiddenInput) {
+        // Only allow one toggle at a time, and prevent unselecting all
+        roleToggleGroup.querySelectorAll('.role-toggle-btn').forEach(btn => {
+            // Apply theme class for role
+            btn.classList.remove('role-dps', 'role-tank', 'role-support');
+            if (btn.dataset.role === 'dps') btn.classList.add('role-dps');
+            if (btn.dataset.role === 'tank') btn.classList.add('role-tank');
+            if (btn.dataset.role === 'support') btn.classList.add('role-support');
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Only toggle if not already selected
+                if (!btn.classList.contains('selected')) {
+                    roleToggleGroup.querySelectorAll('.role-toggle-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    roleHiddenInput.value = btn.dataset.role;
+                }
+            });
+        });
+    }
     const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
     populateRankSelects(dashboardRankTierSelect);
     if (lastSelectedDashboardTier && dashboardRankTierSelect) {
@@ -137,7 +175,8 @@ export function renderDashboardPage(mainContentEl) {
     generateDivisionButtons(
         document.getElementById('dashboardRankDivisionButtons'),
         document.getElementById('dashboardRankDivisionValue'),
-        'dashboard' 
+        'dashboard',
+        5 // Preselect division 5 by default
     );
     const localPrevDayBtn = document.getElementById('prevDayBtn');
     const localNextDayBtn = document.getElementById('nextDayBtn');
@@ -156,7 +195,31 @@ export function renderDashboardPage(mainContentEl) {
         });
     }
     const dashboardRankForm = document.getElementById('dashboardRankUpdateForm');
-    if (dashboardRankForm) dashboardRankForm.addEventListener('submit', handleDashboardRankUpdate);
+    if (dashboardRankForm) {
+        console.log('[Dashboard] Attaching submit handler to dashboardRankUpdateForm');
+        dashboardRankForm.addEventListener('submit', handleDashboardRankUpdate);
+        dashboardRankForm.addEventListener('click', function(e) {
+            console.log('[Dashboard] Form clicked:', e.target);
+            const tier = document.getElementById('dashboardRankTier');
+            const division = document.getElementById('dashboardRankDivisionValue');
+            console.log('[Dashboard] Tier value:', tier ? tier.value : '(none)', 'Division value:', division ? division.value : '(none)');
+        });
+        const submitBtn = dashboardRankForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                console.log('[Dashboard] Submit button clicked (after render)');
+                // Fallback: manually trigger form submit if not already submitting
+                // Only do this if the event is not already a submit event
+                if (typeof dashboardRankForm.requestSubmit === 'function') {
+                    dashboardRankForm.requestSubmit();
+                } else {
+                    dashboardRankForm.submit();
+                }
+            });
+        }
+    } else {
+        console.warn('[Dashboard] dashboardRankUpdateForm not found when trying to attach submit handler');
+    }
     renderCurrentDayTasks();
     renderCurrentWeekProgress();
     setupDailyNotesArea(); // Restored call
@@ -167,38 +230,57 @@ export function renderDashboardPage(mainContentEl) {
     updateNavigationButtons();
     // Ensure prev/next buttons reflect correct disabled state
     updateNavigationButtons();
+
+    // Initialize dashboard cards system
+    dashboardCardSystem = initDashboardCards();
 }
 
 function handleDashboardRankUpdate(event) {
+    console.log('[Dashboard] handleDashboardRankUpdate called');
     event.preventDefault();
     const form = event.target;
+
     const tier = form.elements['dashboardRankTier'].value; 
     const division = form.elements['dashboardRankDivisionValue'].value; 
+    const role = form.elements['dashboardRankRoleValue'] ? form.elements['dashboardRankRoleValue'].value : 'dps';
 
-    if (!tier || !division) { 
-        alert("Please select a Tier and Division."); 
+    console.log('[Dashboard] Tier:', tier, 'Division:', division, 'Role:', role);
+    if (!tier || !division || !role) { 
+        alert("Please select a Role, Tier, and Division."); 
         return; 
     }
-    
+
+    console.log('[Dashboard] Calling addRankEntry with:', { type: 'daily', week: getAppState().currentWeek, tier, division, role });
     addRankEntry({ 
         type: 'daily', 
+        week: getAppState().currentWeek, 
         tier, 
-        division 
+        division, 
+        role
     }); 
 
     // Save the tier selection in appState
     updateAppState({ lastSelectedTier: tier });
-    
+
     // Clear division selection but keep tier
     const dashboardDivButtons = document.getElementById('dashboardRankDivisionButtons');
     if(dashboardDivButtons) dashboardDivButtons.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
     const dashboardDivValueInput = document.getElementById('dashboardRankDivisionValue');
     if(dashboardDivValueInput) dashboardDivValueInput.value = '';
-    
+
     // Re-apply the selected tier to the dropdown
     const dashboardRankTierSelect = document.getElementById('dashboardRankTier');
     if(dashboardRankTierSelect) dashboardRankTierSelect.value = tier;
 
-    // Re-render the chart with updated data, with a slight delay
-    setTimeout(() => renderDashboardRankChart(), 50);
+    console.log('[Dashboard] Triggering dashboard re-render');
+    // Re-render the entire dashboard page to reflect the new rank and chart
+    setTimeout(() => {
+        if (typeof window.RENDER_PAGE_FROM_MAIN_NAV === 'function') {
+            window.RENDER_PAGE_FROM_MAIN_NAV();
+        } else if (typeof window.renderPage === 'function') {
+            window.renderPage();
+        } else {
+            renderDashboardRankChart(); // fallback: just update chart
+        }
+    }, 50);
 }

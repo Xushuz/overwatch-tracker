@@ -8,18 +8,62 @@
 /* Show hamburger menu on small screens.
    .google-nav is already fixed and off-screen by default from google-layout.css */
 .hamburger-menu-btn {
-    display: inline-flex; 
-    align-items: center;
+    display: flex; /* Changed from inline-flex to flex to match header-nav.css */
+    flex-direction: column;
     justify-content: center;
-    order: -1; /* Ensure hamburger is on the left of the title */
-    margin-right: 10px; /* Space between hamburger and title */
+    align-items: center;
+    order: -1; /* Ensure hamburger is on the left of the logo */
+    margin-right: 8px; /* Reduced space between hamburger and logo */
+}
+
+/* Mobile header layout optimizations */
+@media (max-width: 767px) {
+    .app-header {
+        padding: 6px 8px;
+        flex-wrap: wrap;
+        min-height: 0;
+    }
+    .app-header-main {
+        flex: 1;
+        width: 100%;
+        justify-content: space-between;
+        height: auto;
+        padding: 0;
+        margin-bottom: 0;
+        align-items: center;
+    }
+    .logo-link {
+        margin-bottom: 6px;
+    }
+    .app-header-secondary {
+        margin-top: 0;
+        width: 100%;
+        justify-content: flex-end;
+        display: flex;
+        padding-bottom: 2px;
+    }
+    /* Add spacing between logo and date for mobile */
+    .app-header-main, .app-header-secondary {
+        flex-basis: 100%;
+    }
+    .logo-link {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        margin-bottom: 6px;
+    }
+    #currentDate {
+        margin-left: 0;
+        margin-top: 2px;
+        display: inline-block;
+    }
 }
 
 /* Ensure app-main takes full width when sidebar is overlaid (mobile view) */
 .app-main {
     width: 100%;
     margin-left: 0; 
-    padding: 56px 15px 15px; /* Reduced padding for mobile by default */
+    padding: 48px 15px 15px; /* Reduced top padding to account for smaller header */
     box-sizing: border-box; /* Ensure padding doesn't add to width */
 }
 
@@ -28,7 +72,31 @@
     flex-wrap: wrap; /* Allow division buttons to wrap if not enough space */
 }
 
-
+/* Extra small device optimization (smaller phones) */
+@media (max-width: 359px) {
+    .app-header {
+        padding: 4px;
+    }
+    
+    .app-header-secondary {
+        margin-top: -8px; /* Pull up further on very small screens */
+    }
+    
+    .logo-link img {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .hamburger-menu-btn {
+        width: 32px;
+        height: 32px;
+        margin-right: 4px;
+    }
+    
+    .app-main {
+        padding-top: 42px; /* Even smaller top padding */
+    }
+}
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
@@ -37,18 +105,31 @@
         flex-wrap: nowrap; /* Prevent wrapping */
         padding: 10px 20px; /* Restore original padding */
     }
+    
+    .app-header-main {
+        width: auto;
+        flex: unset;
+    }
+    
+    .app-header-secondary {
+        width: auto;
+        margin-top: 0;
+    }
+    
     /* .app-header h1 font-size is 1.4rem in header-nav.css, no change needed here unless different */
     .header-controls {
         gap: 15px; /* Restore original gap */
         /* flex-basis: auto; /* Reset basis if it was changed for mobile */
         /* justify-content: flex-end; */
     }
+    
     .header-controls span#currentDate {
         font-size: 0.875rem; /* Restore original font size */
         white-space: nowrap; /* Prevent wrapping */
         /* order: 0; Reset order if changed */
         /* margin-right: 10px; /* Restore if removed */
     }
+    
     .theme-toggle-btn, 
     .new-cycle-btn {
         padding: 8px 16px; /* Restore original .form-button padding */
@@ -59,10 +140,9 @@
         display: none; /* Hide hamburger on larger screens */
         order: 0; /* Reset order */
     }
-    
-    .app-main {
-        padding: 56px 20px 20px; /* Restore original padding */
-    }    .google-nav {
+      .app-main {
+        padding: 60px 20px 20px; /* Restore original padding with adjusted top padding */
+    }.google-nav {
         position: sticky; /* Make sidebar sticky so it scrolls with viewport */
         top: 57px; /* Stick below the header */
         left: auto; /* Reset fixed positioning effect */

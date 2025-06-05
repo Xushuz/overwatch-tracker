@@ -1,10 +1,37 @@
+/* Add padding and spacing to resource boxes and text for better layout */
+.resource-box, .resource-card, .resource-container, .resource-section, .resource-list, .resource-item {
+    padding: 16px !important;
+    box-sizing: border-box;
+}
+
+.resource-box, .resource-card, .resource-container, .resource-section {
+    border-radius: 8px !important;
+    margin-bottom: 18px !important;
+}
+
+.resource-item {
+    margin-bottom: 10px !important;
+}
+
+.resource-box > *, .resource-card > *, .resource-container > *, .resource-section > * {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Prevent text from touching the border */
+.resource-box h2, .resource-box h3, .resource-card h2, .resource-card h3, .resource-section h2, .resource-section h3 {
+    margin-top: 0;
+    margin-bottom: 0.7em;
+}
 /* styles/resources.css */
 
 /* Page title h2 is styled in base.css via .resources-page h2 */
 
-.resource-category { 
+.resource-category {
     margin-bottom: 32px; /* Increased margin between categories */
-    padding: 0; /* Remove padding if titles are directly above grid */
+    padding: 18px 18px 24px 18px; /* Add padding so border doesn't touch cards */
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .resource-category h3 { 
@@ -21,10 +48,10 @@
     list-style: none;
     padding-left: 0;
     margin-top: 0;
+    margin-bottom: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two columns for better space usage */
-    /* Responsive.css will handle changes for smaller screens */
-    gap: 28px; /* Increased from 24px for more spacing between cards */
+    gap: 32px; /* More spacing between cards */
 }
 
 .resource-category li {
@@ -44,10 +71,10 @@
 .resource-button { /* This is the <a> tag now styled as a card/button */
     width: 100%;
     text-align: left;
-    padding: 20px; /* Increased from 16px for more internal spacing */
+    padding: 24px 20px 20px 20px; /* More internal spacing, especially top */
     background: var(--current-bg-color); /* White card */
-    border: 1px solid var(--current-border-color);
-    border-radius: var(--border-radius); /* Use 4px from base.css */
+    border: 1.5px solid var(--current-border-color);
+    border-radius: 10px; /* Larger radius for softer look */
     box-shadow: var(--shadow-sm); /* Use new base shadow */
     color: var(--current-text-color);
     font-size: 1rem; /* Standard font size for card content */
@@ -55,7 +82,7 @@
     transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease; /* Added background-color */
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Increased from 6px for better spacing between title and note */
+    gap: 10px; /* More spacing between title and note */
     height: 100%; 
     text-decoration: none; /* Remove underline from link */
     box-sizing: border-box; /* Ensure padding/border are included in width/height */

@@ -1,0 +1,339 @@
+/* styles/performance.css - Mobile-optimized performance enhancements */
+
+/* =============================================== */
+/* =========== PERFORMANCE OPTIMIZATIONS ======== */
+/* =============================================== */
+
+/* GPU-accelerated transforms for smooth animations */
+.performance-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Optimized scrolling for mobile */
+.smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+/* Reduce repaints with contain property */
+.contain-layout {
+    contain: layout style paint;
+}
+
+/* Micro-interactions with minimal performance impact */
+.micro-bounce {
+    transition: transform 0.15s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.micro-bounce:active {
+    transform: scale(0.98);
+}
+
+.micro-fade {
+    transition: opacity 0.2s ease-out;
+}
+
+/* Hardware-accelerated hover effects */
+.hw-accelerated-hover {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.hw-accelerated-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Memory-efficient role indicators */
+.role-indicator {
+    position: relative;
+    overflow: hidden;
+}
+
+.role-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--role-color, var(--current-accent-color));
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+}
+
+.role-indicator.active::before {
+    transform: translateX(0);
+}
+
+/* Optimized card animations */
+.card-entrance {
+    animation: cardSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes cardSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Touch-friendly interaction zones */
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Loading states that don't cause layout shift */
+.skeleton-loader {
+    background: linear-gradient(90deg, 
+        var(--current-border-color) 25%, 
+        transparent 50%, 
+        var(--current-border-color) 75%);
+    background-size: 200% 100%;
+    animation: skeletonLoading 1.5s infinite;
+    border-radius: var(--border-radius);
+    height: 1em;
+    margin: 0.25em 0;
+}
+
+@keyframes skeletonLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Efficient grid layouts */
+.auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+@media (max-width: 768px) {
+    .auto-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Optimized scroll containers */
+.scroll-container {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--current-border-color) transparent;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: var(--current-border-color);
+    border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--current-accent-color);
+}
+
+/* Memory-efficient animations that only trigger on interaction */
+.animate-on-hover {
+    transition: none;
+}
+
+.animate-on-hover:hover,
+.animate-on-hover:focus {
+    transition: all 0.2s ease-out;
+}
+
+/* Performance optimization styles */
+
+/* Scroll-based header styling */
+.app-header {
+    transition: box-shadow 0.3s ease;
+}
+
+.app-header.scrolled {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animate-in classes for intersection observer */
+.task-list li,
+.week-card,
+.custom-warmup-item,
+.enhanced-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.task-list li.animate-in,
+.week-card.animate-in,
+.custom-warmup-item.animate-in,
+.enhanced-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animations for task lists */
+.task-list li:nth-child(1) { transition-delay: 0.1s; }
+.task-list li:nth-child(2) { transition-delay: 0.2s; }
+.task-list li:nth-child(3) { transition-delay: 0.3s; }
+.task-list li:nth-child(4) { transition-delay: 0.4s; }
+.task-list li:nth-child(5) { transition-delay: 0.5s; }
+
+/* Week card animations */
+.week-card {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.week-card.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Warmup item animations */
+.custom-warmup-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.custom-warmup-item.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Virtual scrolling styles */
+.virtual-scroll-container {
+    contain: strict;
+    will-change: scroll-position;
+}
+
+.virtual-scroll-container .task-list {
+    position: relative;
+    height: 100%;
+}
+
+/* Lazy loading image styles */
+img.lazy {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img:not(.lazy) {
+    opacity: 1;
+}
+
+/* Save indicator */
+.save-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--current-accent-color);
+    color: var(--current-accent-text);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1001;
+    box-shadow: var(--shadow-md);
+}
+
+.save-indicator.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Page transition styles */
+.page-transition-container {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-transition-container.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hardware acceleration for smooth animations */
+.enhanced-card,
+.task-list li,
+.week-card,
+.custom-warmup-item,
+.enhanced-button {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Optimize repaints */
+.progress-bar-fill,
+.loading-spinner,
+.typing-indicator {
+    will-change: transform, opacity;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus performance optimizations */
+*:focus {
+    outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .card-entrance {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .task-list li,
+    .week-card,
+    .custom-warmup-item,
+    .enhanced-card,
+    .save-indicator,
+    .page-transition-container {
+        transition: none;
+        animation: none;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}

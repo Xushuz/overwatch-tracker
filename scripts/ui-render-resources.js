@@ -1,7 +1,8 @@
 // ui-render-resources.js
-import { resourcesData } from './program-data.js'; // To get the resource links
+import { getResourcesData } from './program-data.js';
 
 export function renderResourcesPage(mainContentEl) {
+    const resourcesData = getResourcesData(); // Get dynamic resources data
     let resourcesHtml = `<section class="resources-page"><h2>Helpful Resources</h2>`;
 
     // Helper function to generate HTML for a list of resources in a category
@@ -23,11 +24,10 @@ export function renderResourcesPage(mainContentEl) {
         return listHtml;
     };
 
-    // Create sections for each category of resources
+    // Create sections for each category of resources using correct property names
     resourcesHtml += createResourceListHtml("YouTubers & Coaches", resourcesData.youtubersCoaches);
     resourcesHtml += createResourceListHtml("Communities & Discords", resourcesData.communitiesDiscords);
     resourcesHtml += createResourceListHtml("Tools & Websites", resourcesData.toolsWebsites);
-    resourcesHtml += createResourceListHtml("Key Guide Concepts/Links", resourcesData.keyGuideLinks);
     
     resourcesHtml += `</section>`;
     mainContentEl.innerHTML = resourcesHtml;

@@ -1,154 +1,394 @@
 /* styles/program-overview.css */
 
-/* Page title h2 is styled in base.css via .program-overview-page h2 */
+/* Program Overview Layout */
+.program-overview-page {
+    padding: 20px 0;
+}
+
+.program-header-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.program-header-container h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--current-text-color);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.overall-program-progress {
+    max-width: 100%;
+    margin-bottom: 16px;
+}
+
+.progress-summary {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--current-text-color);
+    opacity: 0.85;
+}
+
+.progress-summary strong {
+    color: var(--current-accent-color);
+    font-weight: 600;
+}
 
 .weeks-container {
     display: grid;
-    /* grid-template-columns: 1fr; Default to single column */
-    /* Responsive.css will change this to repeat(auto-fill, minmax(280px, 1fr)) or similar */
-    gap: 16px; /* Adjusted gap */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 .week-card {
-    width: 100%;
-    text-align: left;
-    background-color: var(--current-bg-color); /* Cards are white */
-    border: 1px solid var(--current-border-color);
-    padding: 16px; /* Consistent padding */
-    border-radius: var(--border-radius); /* Use 4px from base.css */
-    box-shadow: var(--shadow-sm); /* Use new base shadow */
-    display: flex; 
+    display: flex;
     flex-direction: column;
-    gap: 12px; /* Adjusted gap within card */
+    background-color: var(--current-container-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--current-border-color);
+    padding: 20px;
     cursor: pointer;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease; /* Smoother transition */
-    color: var(--current-text-color);
-    font-family: var(--font-family);
-    font-size: inherit; /* Inherit from container/body */
-    box-sizing: border-box; /* Ensure padding/border are included in width/height */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE/Edge */
-    user-select: none; /* Prevent text selection */
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Role-themed card styling */
+.week-card.role-tank {
+    border-left: 4px solid var(--tank-primary);
+}
+
+.week-card.role-damage {
+    border-left: 4px solid var(--damage-primary);
+}
+
+.week-card.role-support {
+    border-left: 4px solid var(--support-primary);
+}
+
+.week-card.role-multi {
+    border-left: 4px solid;
+    border-image: linear-gradient(to bottom, var(--tank-primary), var(--damage-primary), var(--support-primary)) 1;
 }
 
 .week-card:hover {
-    /* transform: translateY(-2px); /* Optional: keep if desired, but shadow change is more Google-like */
-    /* box-shadow: var(--shadow-md); /* Increase shadow on hover */
-    /* border-color: var(--current-border-color); /* Keep border same, or slightly darker if desired */
-    /* background-color: var(--current-bg-color); /* Keep background same */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
     border-color: var(--current-accent-color);
-    box-shadow: 0 0 8px rgba(var(--current-accent-color-rgb), 0.3); /* Optional: add a subtle glow */
 }
 
 .week-card:active {
-    transform: translateY(0); /* Reset if transform was used on hover */
-    box-shadow: var(--shadow-sm); /* Revert to base shadow on active */
-}
-
-/* This seems to be the "View Details" text, style as a text button or link */
-.week-card-action {
-    color: var(--current-accent-color);
-    font-size: 0.875rem; /* 14px */
-    font-weight: 500; /* Medium weight for actions */
-    margin-top: auto; /* Pushes to bottom */
-    padding-top: 8px;
-    text-decoration: none; /* Remove underline by default */
-    transition: color 0.2s ease;
-    align-self: flex-start; /* Align to start */
-}
-
-.week-card:hover .week-card-action {
-    text-decoration: underline; /* Underline on hover for link-like behavior */
+    transform: translateY(0);
 }
 
 .week-card-header {
     display: flex;
-    justify-content: space-between; 
-    align-items: flex-start; 
-    margin-bottom: 8px; /* Adjusted margin */
-    flex-wrap: wrap; 
-    padding-bottom: 8px; 
-    border-bottom: 1px solid var(--current-border-color); 
+    flex-direction: column;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--current-border-color);
 }
 
-/* .week-card-header h3 is replaced by .week-card-title for semantics and to avoid duplicate h3 */
-/* If .week-card-header h3 must be kept, style it like .week-card-title */
+.week-card-title {
+    margin: 0 0 12px 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--current-text-color);
+    line-height: 1.3;
+}
 
-.week-card-title { /* This is effectively the card's main title */
-    /* min-height: 3.9em; /* Removed fixed height for more natural flow */
-    /* max-height: 3.9em; */
-    /* display: -webkit-box; /* Removed webkit box clamping for simplicity, rely on line-height */
-    /* -webkit-line-clamp: 3; */
-    /* line-clamp: 3; */
-    /* -webkit-box-orient: vertical; */
-    /* overflow: hidden; */
-    /* text-overflow: ellipsis; */
-    line-height: 1.35; /* Adjusted line height */
-    margin: 0; /* Removed bottom margin as gap handles spacing */
-    font-size: 1.125rem; /* 18px, good for card titles */
-    color: var(--current-text-color); /* Standard text color for titles */
-    font-weight: 500; /* Medium weight */
-    flex-grow: 1; 
-    padding-right: 10px; 
-    border-bottom: none; 
-    padding-bottom: 0; 
-    font-family: var(--font-family);
+.progress-indicator {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 4px;
 }
 
 .week-progress {
-    font-size: 0.875rem; /* 14px */
-    font-weight: 500; /* Medium weight */
-    white-space: nowrap; 
-    line-height: 1.4; 
-    color: var(--current-text-color); 
-    background-color: rgba(var(--current-text-color-rgb), 0.08); /* Subtle background, fallback removed */
-    padding: 4px 8px; /* Adjusted padding */
-    border-radius: var(--border-radius); 
-    align-self: flex-start; 
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--current-text-color);
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.week-progress-bar-container {
+    height: 8px;
+    background-color: var(--current-progress-bar-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+}
+
+
+
+/* Role-specific progress bars */
+.week-card.role-tank .week-progress-bar {
+    background-color: var(--tank-primary);
+}
+
+.week-card.role-damage .week-progress-bar {
+    background-color: var(--damage-primary);
+}
+
+.week-card.role-support .week-progress-bar {
+    background-color: var(--support-primary);
+}
+
+
+/* Multi-role progress bar: always use global gradient and fade animation */
+.week-card.role-multi .week-progress-bar {
+    height: 100%;
+    background-color: var(--current-accent-color) !important;
+    border-radius: 4px;
+    color: #fff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    transition: width 0.3s ease;
+    box-shadow: none;
+    position: relative;
+    z-index: 1;
+    /* Remove rainbow animation for theme consistency */
+}
+
+@keyframes progressFlowFade {
+    0%   { background-position: 0% 50%; opacity: 1; }
+    70%  { background-position: 80% 50%; opacity: 1; }
+    100% { background-position: 80% 50%; opacity: 0; }
 }
 
 .week-card-focus {
-    font-size: 0.875rem; /* 14px */
-    margin-bottom: 12px; /* Adjusted margin */
-    opacity: 0.75; /* Adjusted opacity */
-    flex-grow: 1; 
-    line-height: 1.5; 
+    font-size: 0.9rem;
+    line-height: 1.4;
     color: var(--current-text-color);
+    opacity: 0.85;
+    margin: 0 0 20px 0;
+    flex-grow: 1;
 }
 
-/* This button should align with base.css button styles */
-.view-week-details-btn {
-    /* Inherit from base.css .button class */
-    /* padding: 8px 16px; /* From base.css */
-    /* background-color: var(--current-button-bg); /* From base.css */
-    /* color: var(--current-button-text); /* From base.css */
-    /* border: 1px solid var(--current-border-color); /* From base.css */
-    /* border-radius: var(--border-radius); /* From base.css */
-    /* cursor: pointer; */
-    /* font-size: 0.875rem; /* From base.css */
-    /* font-weight: 500; /* From base.css */
-    margin-top: auto; 
-    align-self: flex-start; 
-    width: auto; 
-    min-width: auto; /* Remove min-width or set to something like 100px */
-    text-align: center;
-    /* transition: all 0.2s ease; /* From base.css */
-
-    /* For a text button style (more Google like for secondary actions on cards): */
-    background-color: transparent;
+.focus-label {
+    font-weight: 500;
     color: var(--current-accent-color);
-    border: none; /* Or 1px solid transparent */
-    box-shadow: none;
 }
 
-.view-week-details-btn:hover {
-    /* opacity: 1; */ /* Not needed for text button */
-    background-color: rgba(var(--current-accent-color-rgb), 0.08); /* Accent hover for text button */
-    /* color: var(--current-accent-text); /* Text color usually stays same for text button hover */
-    /* border-color: var(--current-accent-hover-color); /* Not needed for text button */
+/* Week view button */
+
+.view-week-btn {
+    background-color: var(--current-accent-color);
+    color: #fff !important;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    margin-top: auto;
+    width: auto;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
 }
-/* Theme specific hover styles can be removed if the above is sufficient */
+
+.view-week-btn:hover, .view-week-btn:focus {
+    background-color: var(--current-accent-hover-color, #222);
+    color: #fff !important;
+    outline: none;
+}
+
+/* Role-specific button styling */
+.week-card.role-tank .view-week-btn {
+    background-color: var(--tank-primary);
+    border-color: var(--tank-accent);
+    color: white;
+}
+
+.week-card.role-tank .view-week-btn:hover {
+    background-color: var(--tank-primary);
+    border-color: var(--tank-primary);
+    color: white;
+}
+
+.week-card.role-damage .view-week-btn {
+    background-color: var(--damage-primary);
+    border-color: var(--damage-accent);
+    color: white;
+}
+
+.week-card.role-damage .view-week-btn:hover {
+    background-color: var(--damage-primary);
+    border-color: var(--damage-primary);
+    color: white;
+}
+
+.week-card.role-support .view-week-btn {
+    background-color: var(--support-primary);
+    border-color: var(--support-accent);
+    color: white;
+}
+
+.week-card.role-support .view-week-btn:hover {
+    background-color: var(--support-primary);
+    border-color: var(--support-primary);
+    color: white;
+}
 
 
-/* Modal styles for week details are in modals.css */
+/* Multi-role button: always use global gradient and strong text contrast */
+.week-card.role-multi .view-week-btn {
+    background-color: var(--current-accent-color) !important;
+    border: none;
+    color: #fff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    /* Remove rainbow animation for theme consistency */
+}
+
+
+.week-card.role-multi .view-week-btn:hover {
+    background-color: var(--current-accent-hover-color, #222) !important;
+    color: #fff !important;
+    border: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+@keyframes buttonGradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Modal styles updates */
+.week-details-summary {
+    background-color: rgba(var(--current-accent-color-rgb), 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.week-focus {
+    font-size: 1rem;
+    margin: 0 0 16px 0;
+    color: var(--current-text-color);
+    line-height: 1.5;
+}
+
+.week-completion {
+    margin-top: 8px;
+}
+
+.completion-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.daily-breakdown-title {
+    font-size: 1.1rem;
+    margin: 20px 0 16px;
+    color: var(--current-accent-color);
+    font-weight: 600;
+}
+
+.day-container {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: rgba(var(--current-bg-color-rgb), 0.5);
+    border: 1px solid var(--current-border-color);
+}
+
+.day-container:last-child {
+    margin-bottom: 0;
+}
+
+
+
+
+
+/* Fix modal button contrast */
+
+.program-week-details-modal .go-to-day-btn {
+    background-color: var(--current-accent-color);
+    color: #fff !important;
+    border: none;
+    padding: 6px 14px;
+    font-size: 0.92rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.program-week-details-modal .go-to-day-btn:hover, .program-week-details-modal .go-to-day-btn:focus {
+    background-color: var(--current-accent-hover-color, #222);
+    color: #fff !important;
+    outline: none;
+}
+
+/* Role-specific modal button styles */
+.day-container.role-tank .go-to-day-btn {
+    color: var(--tank-primary);
+}
+
+.day-container.role-tank .go-to-day-btn:hover {
+    background-color: var(--tank-primary);
+    border-color: var(--tank-primary);
+    color: white;
+}
+
+.day-container.role-damage .go-to-day-btn {
+    color: var(--damage-primary);
+}
+
+.day-container.role-damage .go-to-day-btn:hover {
+    background-color: var(--damage-primary);
+    border-color: var(--damage-primary);
+    color: white;
+}
+
+.day-container.role-support .go-to-day-btn {
+    color: var(--support-primary);
+}
+
+.day-container.role-support .go-to-day-btn:hover {
+    background-color: var(--support-primary);
+    border-color: var(--support-primary);
+    color: white;
+}
+
+
+.day-container.role-multi .go-to-day-btn {
+    background: var(--multi-role-gradient) !important;
+    color: #fff !important;
+    border: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+
+.day-container.role-multi .go-to-day-btn:hover {
+    background: var(--multi-role-gradient) !important;
+    color: #fff !important;
+    border: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Responsive design for larger screens */
+@media (min-width: 768px) {
+    .program-header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .program-header-container h2 {
+        margin-bottom: 0;
+    }
+    
+    .overall-program-progress {
+        width: 40%;
+        margin-bottom: 0;
+    }
+}

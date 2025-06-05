@@ -54,10 +54,6 @@ export function promptForRank(week, type = 'initial') {
     
     const currentAppState = getAppState();
     const promptKey = type === 'initial' ? `c${currentAppState.currentCycle}_initialPrompt` : `c${currentAppState.currentCycle}w${week}_${type}Prompt`;
-    if (type === 'endOfWeek' && currentAppState.hasPromptedRankForWeek[promptKey]) {
-        console.log(`Already actioned prompt for rank for end of W${week} C${currentAppState.currentCycle}.`);
-        return; 
-    }
      if (type === 'initial' && currentAppState.hasPromptedInitialRankThisCycle) {
         const currentCycleInitialRankExists = currentAppState.rankHistory.some(
             r => r.cycle === currentAppState.currentCycle && r.type === 'initial'
@@ -68,7 +64,7 @@ export function promptForRank(week, type = 'initial') {
         }
     }
 
-    rankPromptTitleEl.textContent = type === 'initial' ? `Log Initial Rank (Cycle ${currentAppState.currentCycle})` : `Log Rank for End of Week ${week} (Cycle ${currentAppState.currentCycle})`;
+    rankPromptTitleEl.textContent = `Log Initial Rank (Cycle ${currentAppState.currentCycle})`;
     modalRankLogWeekInputEl.value = (type === 'initial' ? 0 : week); 
     modalRankLogTypeInputEl.value = type;
 
@@ -113,11 +109,6 @@ export function closeRankPromptModal() {
 
     if (type === 'initial') {
         updateAppState({ hasPromptedInitialRankThisCycle: true });
-    } else if (type === 'endOfWeek' && !isNaN(week)) { // Ensure week is a number
-        const promptKey = `c${currentAppState.currentCycle}w${week}_${type}Prompt`;
-        updateAppState({ 
-            hasPromptedRankForWeek: { ...currentAppState.hasPromptedRankForWeek, [promptKey]: true } 
-        });
     }
 }
 

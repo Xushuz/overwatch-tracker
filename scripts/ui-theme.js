@@ -47,6 +47,12 @@ export function applyTheme() {
             }, 50);
         }
     }
+    
+    // Dispatch a custom event to notify components that depend on theme
+    const themeChangedEvent = new CustomEvent('themeChanged', {
+        detail: { theme: currentAppState.theme }
+    });
+    document.dispatchEvent(themeChangedEvent);
 }
 
 // export function toggleTheme() { // Removed

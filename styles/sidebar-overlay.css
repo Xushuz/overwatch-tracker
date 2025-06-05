@@ -15,3 +15,34 @@ body.body-sidebar-open .sidebar-overlay {
     opacity: 1;
     pointer-events: auto;
 }
+
+/* Prevent body scrolling when mobile sidebar is open */
+body.body-sidebar-open {
+    overflow: hidden;
+}
+
+/* Ensure sidebar overlay displays correctly when hamburger is fixed */
+.app-header.scrolled + .app-body-content .sidebar-overlay {
+    top: 0;
+    left: 0;
+}
+
+/* Theme-specific overlay adjustments */
+.dark-mode .sidebar-overlay,
+.forest-night-mode .sidebar-overlay,
+.cosmic-mode .sidebar-overlay,
+.neon-mode .sidebar-overlay,
+.cyberpunk-mode .sidebar-overlay,
+.dark-red-mode .sidebar-overlay,
+.volcano-mode .sidebar-overlay {
+    background-color: rgba(0, 0, 0, 0.65); /* Darker overlay for dark themes */
+}
+
+.light-mode .sidebar-overlay,
+.forest-mode .sidebar-overlay,
+.lavender-mode .sidebar-overlay,
+.pink-mode .sidebar-overlay,
+.arctic-mode .sidebar-overlay,
+.sunset-mode .sidebar-overlay {
+    background-color: rgba(0, 0, 0, 0.4); /* Lighter overlay for light themes */
+}

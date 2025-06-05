@@ -13,7 +13,9 @@ export let appState = {
     dailyNotes: {}, // Format: { "c1w1d1": "Notes..." }
     rankHistory: [], // Format: [{ cycle, week, type, tier, division, rankString, dateLogged }]
     hasPromptedInitialRankThisCycle: false,
-    hasPromptedRankForWeek: {}, // Format: { "c1w1": true (meaning end of w1 for cycle 1 prompted)
+    // hasPromptedRankForWeek removed (end-of-week prompt feature deprecated)
+    selectedRoles: [], // To store user's selected roles, e.g., ['Tank', 'Damage']
+    hasSelectedRoles: false, // To track if user has made an initial role selection
     customWarmups: [], // Array of { id, name, description, link }
     customTasks: {}, // Format: { "c1w1d1": [ { id, text, done } ] }
     lastSelectedTier: '', // Store the last selected tier from dashboard

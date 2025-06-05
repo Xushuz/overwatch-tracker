@@ -17,18 +17,21 @@
     border-right: 1px solid var(--current-border-color);
     padding: 15px; /* Standard padding */
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
     box-sizing: border-box; /* Ensure padding and border are included in the width */
     /* transition: width 0.3s ease; /* Keep for potential future use if width changes */
     
     /* --- Mobile-first: Hidden off-screen --- */
-    position: fixed;
+    position: fixed; /* Fixed position for mobile sidebar */
     left: -250px; /* Initially off-screen */
-    top: 57px; /* Position below fixed header */
-    height: calc(100vh - 57px); /* Full viewport height minus header */
+    top: 0; /* Fixed at top of viewport */
+    height: 100%; /* Full viewport height */
     z-index: 999; /* Below header (1000) and hamburger (1001) but above main content */
-    transition: left 0.3s ease; 
+    transition: left 0.3s ease, background-color 0.3s ease, border-right 0.3s ease; 
     overflow-y: auto; /* Allow sidebar to scroll if content is long */
+    
+    /* Ensure sidebar doesn't interfere with scrolling when closed */
+    pointer-events: none;
 }
 
 /* Add this for desktop sticky sidebar */
@@ -40,12 +43,14 @@
         /* Reset mobile-specific fixed positioning overrides if any were missed by general desktop styles */
         left: auto;
         z-index: auto; /* Or a value appropriate for your stacking context, but usually auto is fine for sticky */
+        pointer-events: auto; /* Enable interactions on desktop */
     }
 }
 
 .google-nav.sidebar-visible {
     left: 0; /* Slide in */
     transform: translateZ(0); /* Promote to its own layer */
+    pointer-events: auto; /* Enable interactions when visible */
 }
 
 .google-nav .nav-link {

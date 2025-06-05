@@ -1,0 +1,103 @@
+/* styles/button-standardization.css */
+/* This file standardizes button styling across all themes */
+
+/* Standard button styling for all themes */
+.form-button {
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure consistent button hover/focus states across themes */
+.form-button:hover,
+.form-button:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.form-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Primary buttons */
+.form-button.primary {
+    background-color: var(--current-accent-color);
+    color: var(--current-accent-text);
+    border: 1px solid var(--current-accent-color);
+}
+
+/* Secondary buttons */
+.form-button.secondary {
+    background-color: transparent;
+    color: var(--current-accent-color);
+    border: 1px solid var(--current-accent-color);
+}
+
+/* Theme-specific adjustments for consistent button behavior */
+.neon-mode .form-button {
+    text-shadow: none; /* Remove text shadow for better readability */
+}
+
+.neon-mode .form-button.primary {
+    box-shadow: 0 0 5px var(--neon-green-400);
+}
+
+.neon-mode .form-button:hover {
+    box-shadow: 0 0 8px var(--neon-green-500);
+}
+
+/* Dark theme buttons */
+.dark-mode .form-button,
+.dark-red-mode .form-button,
+.forest-night-mode .form-button,
+.cosmic-mode .form-button,
+.volcano-mode .form-button {
+    text-shadow: none; /* Remove text shadow for better readability */
+}
+
+/* Fix for oceanic theme buttons */
+.oceanic-mode .form-button {
+    color: var(--text-on-oceanic); /* Ensure text is readable */
+}
+
+/* Fix for conflicting button styles in Cyberpunk theme */
+.cyberpunk-mode .form-button {
+    border-style: solid;
+    text-shadow: none;
+}
+
+/* Fix for retro theme buttons */
+.retro-mode .form-button {
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.retro-mode .form-button:hover {
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.retro-mode .form-button:active {
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Disabled button state for all themes */
+.form-button:disabled,
+.form-button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}

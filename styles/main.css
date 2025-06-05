@@ -11,6 +11,12 @@
 @import url('notes-summary.css');
 @import url('settings.css'); /* Added settings page styles */
 @import url('sidebar-overlay.css'); /* Added for mobile sidebar overlay */
+@import url('role-selection.css'); /* Added for role selection features */
+@import url('performance.css'); /* Performance optimizations for mobile */
+@import url('role-theming.css'); /* Role-based visual enhancements */
+@import url('enhanced-cards.css'); /* Enhanced dashboard card system */
+@import url('button-standardization.css'); /* Cross-theme button standardization */
+@import url('cross-theme-fixes.css'); /* Fixes for theme inconsistencies */
 @import url('responsive.css');
 
 /* Theme Styles */

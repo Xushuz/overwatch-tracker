@@ -1,6 +1,6 @@
 // scripts/script.js (Main Orchestrator)
 import { getAppState, loadState, saveState, updateAppState } from './app-state.js';
-import { programData, getTotalDaysInWeek } from './program-data.js';
+import { getProgramData, getTotalDaysInWeek } from './program-data.js';
 // import { initThemeControls, applyTheme } from './ui-theme.js'; // initThemeControls removed, applyTheme used in main-navigation
 import { applyTheme } from './ui-theme.js'; // applyTheme will be used directly
 import { initMainNavigation, renderPage as RENDER_PAGE_FROM_MAIN_NAV } from './main-navigation.js';
@@ -8,6 +8,11 @@ import { initRankPromptModal, promptForRank } from './ui-modals.js';
 import { renderCurrentWeekProgress } from './ui-render-dashboard-tasks.js';
 import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage, initProgramModals as initProgramWeekDetailsModalListeners } from './ui-render-program.js';
+import { initRoleSelection, checkAndPromptForRoleSelection } from './ui-role-selection.js';
+import { initPerformanceOptimizations } from './ui-performance.js'; // Added performance system
+
+// Global performance optimizer instance
+let performanceOptimizer = null;
 
 // Moved to top level
 function checkAndPromptForInitialRank() {
@@ -34,18 +39,12 @@ export function startNewCycle() {
     if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
         const newCycleNumber = currentAppState.currentCycle + 1;
         
-        // Clear rank prompts for the new cycle
-        const newHasPromptedRankForWeek = Object.fromEntries(
-            Object.entries(currentAppState.hasPromptedRankForWeek)
-                  .filter(([key]) => !key.startsWith(`c${newCycleNumber}w`))
-        );
 
         updateAppState({
             currentCycle: newCycleNumber,
             currentWeek: 1,
             currentDay: 1,
             hasPromptedInitialRankThisCycle: false,
-            hasPromptedRankForWeek: newHasPromptedRankForWeek,
             dailyNotes: {}
         });
 
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         taskListItem.classList.toggle('task-completed', checkbox.checked); // Ensure LI class is also toggled
 
-        promptForRankAtEndOfWeekIfNeeded();
+
     }
     mainContentEl.addEventListener('click', handleTaskClick);
 
@@ -153,43 +152,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Core App Logic ---
-    function promptForRankAtEndOfWeekIfNeeded() {
-        const currentAppState = getAppState();
-        const currentWeekData = programData[currentAppState.currentWeek];
-        // Ensure current week and day data exists
-        if (currentWeekData?.days?.[currentAppState.currentDay]) {
-            const dayTasks = currentWeekData.days[currentAppState.currentDay].tasks;
-            const allDayTasksCompleted = dayTasks.every(task => 
-                currentAppState.taskCompletions[`c${currentAppState.currentCycle}-${task.id}`]
-            );
-            
-            const promptKey = `c${currentAppState.currentCycle}w${currentAppState.currentWeek}_endOfWeekPrompt`;
 
-            // Check if all tasks for the current day are completed,
-            // if it's the last day of the week, for relevant weeks,
-            // and if the rank prompt hasn't been shown for this week yet.
-            if (allDayTasksCompleted &&
-                currentAppState.currentDay === getTotalDaysInWeek(currentAppState.currentWeek) &&
-                currentAppState.currentWeek >= 1 && currentAppState.currentWeek <= 6 && // Assuming ranks are prompted for weeks 1-6
-                !currentAppState.hasPromptedRankForWeek[promptKey]) {
-                // Use a short delay to ensure UI updates before showing the prompt
-                setTimeout(() => promptForRank(currentAppState.currentWeek, 'endOfWeek'), 200);
-            }
-        }
-    }
 
     // Export this function to be used in settings page - MOVED TO TOP LEVEL
     // export function startNewCycle() { ... }
 
-    // function checkAndPromptForInitialRank() { ... } // MOVED TO TOP LEVEL
-
-    // --- Application Initialization ---
+    // function checkAndPromptForInitialRank() { ... } // MOVED TO TOP LEVEL    // --- Application Initialization ---
     function initializeApp() {
         loadState(); 
         setCurrentDate(); 
         
         // initThemeControls(themeToggleBtn); // Removed
         initMainNavigation(mainContentEl, navLinks); 
+        
+        // Initialize role selection
+        initRoleSelection();
         
         // Initialize modals
         initRankPromptModal( 
@@ -209,8 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // if (newCycleBtn) { // Removed
         //     newCycleBtn.addEventListener('click', startNewCycle);
         // }
-        
-        RENDER_PAGE_FROM_MAIN_NAV(); // Render the initial page based on appState (renderPage itself will use getAppState)
+          RENDER_PAGE_FROM_MAIN_NAV(); // Render the initial page based on appState (renderPage itself will use getAppState)
         applyTheme(); // Apply the loaded or default theme
         
         // Handle first run and initial rank prompt
@@ -219,6 +195,18 @@ document.addEventListener('DOMContentLoaded', () => {
             updateAppState({ hasRunOnce: true }); 
         } else {
             checkAndPromptForInitialRank(); 
+        }
+        
+        // Check and prompt for role selection (this should happen after initial setup)
+        setTimeout(() => {
+            checkAndPromptForRoleSelection();
+        }, 800); // Delay to allow other modals to process first
+
+        // Initialize performance optimizations
+        const observer = initPerformanceOptimizations(mainContentEl);
+        if (observer) {
+            // Optionally, you can store the observer instance if you need to disconnect it later
+            performanceOptimizer = observer;
         }
     }
 
@@ -294,5 +282,82 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeMobileSidebar();
             }
         }
-    }, 100));
+    }, 100));    // Enhanced scroll event listener to handle fixed hamburger button on scroll
+    const appHeader = document.querySelector('.app-header');
+    if (appHeader) {
+        // Initial position
+        let lastScrollY = window.scrollY;
+        let ticking = false; // For scroll performance optimization
+        let scrollThreshold = 10; // Default scroll threshold
+        
+        // Function to check scroll position and update header class
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            const currentTheme = getAppState().theme;
+              // Adjust scroll threshold based on theme (some themes need quicker response)
+            if (currentTheme === 'neon' || currentTheme === 'cyberpunk' || currentTheme === 'volcano' || currentTheme === 'cosmic') {
+                scrollThreshold = 5; // Lower threshold for these themes
+            } else {
+                scrollThreshold = 10; // Default for other themes
+            }
+            
+            // Add or remove scrolled class based on scroll position
+            if (scrollY > scrollThreshold) {
+                if (!appHeader.classList.contains('scrolled')) {
+                    appHeader.classList.add('scrolled');
+                    
+                    // Force hamburger button to use theme-appropriate styling
+                    const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+                    if (hamburgerBtn) {
+                        // Update styling to ensure it's visible and theme-correct
+                        hamburgerBtn.setAttribute('data-theme', currentTheme);
+                          // Apply theme-specific adjustments
+                        if (currentTheme === 'neon') {
+                            hamburgerBtn.style.borderColor = 'rgba(0, 255, 65, 0.7)';
+                        } else if (currentTheme === 'cyberpunk') {
+                            hamburgerBtn.style.borderColor = 'rgba(255, 0, 128, 0.7)';
+                        } else if (currentTheme === 'cosmic') {
+                            hamburgerBtn.style.borderColor = 'rgba(255, 215, 0, 0.5)'; // Golden yellow
+                            hamburgerBtn.style.boxShadow = '0 0 10px rgba(138, 43, 226, 0.3)'; // Purple glow
+                        }
+                    }
+                }
+            } else {
+                appHeader.classList.remove('scrolled');
+                
+                // Reset any inline styles when returning to normal
+                const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+                if (hamburgerBtn) {
+                    hamburgerBtn.removeAttribute('style');
+                }
+            }
+            
+            // Update last scroll position
+            lastScrollY = scrollY;
+            ticking = false;
+        }
+        
+        // Add scroll event listener with requestAnimationFrame for performance
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+        
+        // Initial check
+        handleScroll();
+        
+        // Re-check hamburger button state when theme changes
+        document.addEventListener('themeChanged', () => {
+            // Reset styles before applying new theme-specific ones
+            const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+            if (hamburgerBtn) {
+                hamburgerBtn.removeAttribute('style');
+            }
+            handleScroll();
+        });
+    }
 });
