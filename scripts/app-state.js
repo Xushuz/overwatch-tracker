@@ -1,7 +1,8 @@
-// app-state.js
+// app-state.js - Optimized Version with Central Config
+import { THEME_CONFIG, APP_CONFIG, getStorageKey } from './config.js';
 
-export const themes = ['light', 'dark', 'dark-red', 'pink', 'oceanic', 'forest', 'sunset', 'lavender', 'grayscale', 'cyberpunk', 'retro', 'arctic', 'volcano', 'cosmic', 'neon', 'forest-night'];
-export const APP_STATE_KEY = 'overwatchTrackerAppState_v9'; // Incremented for module structure
+export const themes = THEME_CONFIG.available;
+export const APP_STATE_KEY = getStorageKey(); // overwatchTrackerAppState_v9
 
 export let appState = {
     currentPage: 'dashboard',
