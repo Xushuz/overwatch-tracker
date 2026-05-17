@@ -19,20 +19,5 @@
 @import url('cross-theme-fixes.css'); /* Fixes for theme inconsistencies */
 @import url('responsive.css');
 
-/* Theme Styles */
-@import url('themes/light.css');
-@import url('themes/dark.css');
-@import url('themes/dark-red.css');
-@import url('themes/pink.css');
-@import url('themes/oceanic.css');
-@import url('themes/forest.css');
-@import url('themes/sunset.css');
-@import url('themes/lavender.css');
-@import url('themes/grayscale.css');
-@import url('themes/cyberpunk.css');
-@import url('themes/retro.css');
-@import url('themes/arctic.css');
-@import url('themes/volcano.css');
-@import url('themes/cosmic.css');
-@import url('themes/neon.css');
-@import url('themes/forest-night.css');
+/* All Theme Styles - Consolidated into single file */
+@import url('all-themes.css');
