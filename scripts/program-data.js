@@ -1,39 +1,43 @@
-// program-data-combined.js - Dynamic role-based program data loader
+// program-data.js - Optimized Version with Central Config
+// Dynamic role-based program data loader
 
 import { tankProgramData, tankResourcesData } from './program-data-tank.js';
 import { dpsProgramData, dpsResourcesData } from './program-data-dps.js';
 import { supportProgramData, supportResourcesData } from './program-data-support.js';
 import { getAppState } from './app-state.js';
+import { PROGRAM_CONFIG } from './config.js';
 
-// Function to get the appropriate program data based on selected roles
+/**
+ * Get the appropriate program data based on selected roles
+ * @returns {Object} Program data structure
+ */
 export function getProgramData() {
     const { selectedRoles } = getAppState();
     
-    // If no roles selected or multiple roles, return combined/generalized data
+    // No roles or multiple roles = combined/generalized data
     if (!selectedRoles || selectedRoles.length === 0) {
         return getDefaultProgramData();
     }
     
-    // If single role selected, return role-specific data
+    // Single role = role-specific data
     if (selectedRoles.length === 1) {
         const role = selectedRoles[0];
         switch (role) {
-            case 'Tank':
-                return tankProgramData;
-            case 'Damage':
-                return dpsProgramData;
-            case 'Support':
-                return supportProgramData;
-            default:
-                return getDefaultProgramData();
+            case 'Tank': return tankProgramData;
+            case 'Damage': return dpsProgramData;
+            case 'Support': return supportProgramData;
+            default: return getDefaultProgramData();
         }
     }
     
-    // Multiple roles selected - return combined data
+    // Multiple roles = combined data
     return getCombinedProgramData(selectedRoles);
 }
 
-// Function to get the appropriate resources data based on selected roles
+/**
+ * Get the appropriate resources data based on selected roles
+ * @returns {Object} Resources data structure
+ */
 export function getResourcesData() {
     const { selectedRoles } = getAppState();
     
@@ -44,19 +48,28 @@ export function getResourcesData() {
     if (selectedRoles.length === 1) {
         const role = selectedRoles[0];
         switch (role) {
-            case 'Tank':
-                return tankResourcesData;
-            case 'Damage':
-                return dpsResourcesData;
-            case 'Support':
-                return supportResourcesData;
-            default:
-                return getDefaultResourcesData();
+            case 'Tank': return tankResourcesData;
+            case 'Damage': return dpsResourcesData;
+            case 'Support': return supportResourcesData;
+            default: return getDefaultResourcesData();
         }
     }
     
-    // Multiple roles - combine resources
     return getCombinedResourcesData(selectedRoles);
+}
+
+/**
+ * Get total days in a specific week
+ * @param {number} weekNum - Week number
+ * @returns {number} Number of days in the week
+ */
+export function getTotalDaysInWeek(weekNum) {
+    const programData = getProgramData();
+    const weekData = programData[weekNum];
+    if (!weekData || !weekData.days) {
+        return PROGRAM_CONFIG.defaultDaysPerWeek;
+    }
+    return Object.keys(weekData.days).length;
 }
 
 function getDefaultProgramData() {
@@ -369,10 +382,4 @@ function removeDuplicatesByUrl(items) {
         seen.add(item.url);
         return true;
     });
-}
-
-export function getTotalDaysInWeek(weekNumber) {
-    const programData = getProgramData();
-    const weekData = programData[weekNumber];
-    return (weekData && weekData.days) ? Object.keys(weekData.days).length : 0;
 }

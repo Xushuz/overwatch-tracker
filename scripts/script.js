@@ -1,44 +1,46 @@
-// scripts/script.js (Main Orchestrator)
+// scripts/script.js (Main Orchestrator) - Optimized Version
 import { getAppState, loadState, saveState, updateAppState } from './app-state.js';
 import { getProgramData, getTotalDaysInWeek } from './program-data.js';
-// import { initThemeControls, applyTheme } from './ui-theme.js'; // initThemeControls removed, applyTheme used in main-navigation
-import { applyTheme } from './ui-theme.js'; // applyTheme will be used directly
+import { applyTheme } from './ui-theme.js';
 import { initMainNavigation, renderPage as RENDER_PAGE_FROM_MAIN_NAV } from './main-navigation.js';
 import { initRankPromptModal, promptForRank } from './ui-modals.js';
 import { renderCurrentWeekProgress } from './ui-render-dashboard-tasks.js';
 import { renderDashboardRankChart } from './ui-render-dashboard-main.js';
 import { renderProgramOverviewPage, initProgramModals as initProgramWeekDetailsModalListeners } from './ui-render-program.js';
 import { initRoleSelection, checkAndPromptForRoleSelection } from './ui-role-selection.js';
-import { initPerformanceOptimizations } from './ui-performance.js'; // Added performance system
+import { initPerformanceOptimizations } from './ui-performance.js';
 
 // Global performance optimizer instance
 let performanceOptimizer = null;
 
-// Moved to top level
+/**
+ * Check and prompt for initial rank logging at cycle start
+ */
 function checkAndPromptForInitialRank() {
     const currentAppState = getAppState();
-    // Don't prompt on the very first application run (before any state is saved)
-    if (!currentAppState.hasRunOnce) {
-        return; 
-    }
+    
+    // Don't prompt on first app run
+    if (!currentAppState.hasRunOnce) return; 
 
     const currentCycleInitialRankExists = currentAppState.rankHistory.some(
         rankEntry => rankEntry.cycle === currentAppState.currentCycle && rankEntry.type === 'initial'
     );
 
-    // Prompt if initial rank for the current cycle doesn't exist and hasn't been prompted yet
+    // Prompt if initial rank for current cycle doesn't exist
     if (!currentCycleInitialRankExists && !currentAppState.hasPromptedInitialRankThisCycle) {
-        // Delay slightly to allow page rendering to settle
         setTimeout(() => promptForRank(0, 'initial'), 600); 
     }
 }
 
-// Moved to top level and exported
+/**
+ * Start a new training cycle
+ * @export
+ */
 export function startNewCycle() { 
-    const currentAppState = getAppState(); // Get current state at the beginning
+    const currentAppState = getAppState();
+    
     if (confirm("Are you sure you want to start a new cycle? Previous data is retained but current views will reset to the new cycle.")) {
         const newCycleNumber = currentAppState.currentCycle + 1;
-        
 
         updateAppState({
             currentCycle: newCycleNumber,
@@ -48,9 +50,9 @@ export function startNewCycle() {
             dailyNotes: {}
         });
 
-        alert(`New Cycle (#${getAppState().currentCycle}) started!`); // Use getAppState() for the latest value after update
-        RENDER_PAGE_FROM_MAIN_NAV(); // Refresh the current page view
-        checkAndPromptForInitialRank(); // Check if initial rank for the new cycle is needed
+        alert(`New Cycle (#${getAppState().currentCycle}) started!`);
+        RENDER_PAGE_FROM_MAIN_NAV();
+        checkAndPromptForInitialRank();
     }
 }
 
