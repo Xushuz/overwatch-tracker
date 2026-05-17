@@ -34,8 +34,7 @@
     --hamburger-hover-bg-light: rgba(32, 33, 36, 0.05);
     --hamburger-active-bg-light: rgba(32, 33, 36, 0.1);
     
-    /* Theme-specific variables for dark and pink themes have been moved to their respective files */
-    /* styles/themes/dark.css and styles/themes/pink.css */
+    /* Theme-specific variables have been consolidated into all-themes.css */
 
     /* General Non-Theme Specific */
     --border-radius: 4px; /* Google uses 4px for many elements */
