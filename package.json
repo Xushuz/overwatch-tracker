@@ -1,16 +1,11 @@
 {
-  "name": "overwatch-tracker",
-  "version": "1.0.0",
-  "description": "A web-based application designed to help Overwatch players follow a structured 6-week training program, inspired by pro guides, to improve their game sense, positioning, decision-making, and team coordination. This tool allows users to track daily tasks, manage weekly focuses, take daily notes with auto-saving, and monitor their in-game rank progression with visual charts.",
-  "main": "index.js",
+  "name": "overwatch-training-tracker",
+  "version": "2.0.0",
+  "description": "Zero-dependency client-side tracker for a structured Overwatch training program. Program content lives in program.json and is editable in-app.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "start": "python3 -m http.server 8000",
+    "check:js": "node --experimental-vm-modules -e \"for (const f of ['state','ui','pages','editor','main']) new (require('module').Module) {}\" 2>/dev/null; for f in js/*.js; do node --check <(sed 's/^import .*//;s/^export //' $f) >/dev/null 2>&1 || echo \"syntax issue: $f\"; done; echo js-checked",
+    "check:json": "node -e \"JSON.parse(require('fs').readFileSync('program.json','utf8')); console.log('program.json OK')\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^9.27.0"
-  }
+  "license": "MIT"
 }

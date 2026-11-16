@@ -1,0 +1,169 @@
+/* style.css — single stylesheet. Theming via CSS custom properties on body.{theme}-theme */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---- Themes ------------------------------------------------------------- */
+body { --bg:#f6f8fb; --panel:#fff; --text:#1f2937; --muted:#6b7280; --border:#e5e7eb;
+       --accent:#1a73e8; --accent-text:#fff; --danger:#dc3545; --track:#e5e7eb; }
+.dark-theme     { --bg:#11151c; --panel:#1b2130; --text:#e5e7eb; --muted:#9ca3af; --border:#2c3648;
+                  --accent:#4f8cff; --accent-text:#0d1117; --danger:#ff6b6b; --track:#2c3648; }
+.pink-theme     { --bg:#fdf1f7; --panel:#fff; --text:#4a2333; --muted:#a06a83; --border:#f6cfdf;
+                  --accent:#e0559a; --accent-text:#fff; --danger:#d33; --track:#f6cfdf; }
+.cyberpunk-theme{ --bg:#0a0a12; --panel:#141428; --text:#e0ffe0; --muted:#7f8fa6; --border:#2d2d5f;
+                  --accent:#00e5ff; --accent-text:#001318; --danger:#ff2965; --track:#2d2d5f; }
+
+/* ---- Layout --------------------------------------------------------------- */
+.app-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .75rem 1.25rem; background: var(--panel); border-bottom: 1px solid var(--border);
+}
+.app-title { font-weight: 700; }
+.current-date { color: var(--muted); font-size: .9rem; }
+
+.layout { display: flex; min-height: calc(100vh - 53px); }
+.side-nav {
+  display: flex; flex-direction: column; gap: .25rem;
+  width: 190px; padding: 1rem .5rem; border-right: 1px solid var(--border);
+}
+.nav-link {
+  padding: .55rem .9rem; border-radius: 8px; text-decoration: none; color: var(--text);
+}
+.nav-link:hover { background: var(--panel); }
+.nav-link.active { background: var(--accent); color: var(--accent-text); font-weight: 600; }
+
+main { flex: 1; padding: 1.5rem; max-width: 960px; }
+
+@media (max-width: 700px) {
+  .layout { flex-direction: column; }
+  .side-nav { flex-direction: row; flex-wrap: wrap; width: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+}
+
+/* ---- Cards & common --------------------------------------------------------- */
+.card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.25rem; margin-bottom: 1rem;
+}
+.page-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.focus-text { color: var(--muted); margin: .25rem 0 0; }
+.empty { color: var(--muted); font-style: italic; }
+
+.btn {
+  background: var(--panel); color: var(--text); border: 1px solid var(--border);
+  border-radius: 8px; padding: .45rem .9rem; cursor: pointer; font-size: .95rem;
+}
+.btn:hover { border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.btn-small { padding: .2rem .6rem; font-size: .85rem; }
+.btn-row, .quick-rank-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.btn.active { outline: 2px solid var(--accent); }
+.icon-btn { background: none; border: none; cursor: pointer; color: var(--text); font-size: 1rem; padding: .15rem .4rem; border-radius: 6px; }
+.icon-btn:hover { background: var(--track); }
+.icon-btn.danger { color: var(--danger); }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+
+select, input[type="text"], input[type="search"], textarea {
+  background: var(--panel); color: var(--text); border: 1px solid var(--border);
+  border-radius: 6px; padding: .35rem .5rem; font: inherit;
+}
+textarea { width: 100%; resize: vertical; }
+
+/* ---- Tasks ------------------------------------------------------------------- */
+.task-list { list-style: none; margin: .5rem 0 0; padding: 0; }
+.task { padding: .45rem .25rem; border-bottom: 1px solid var(--border); }
+.task:last-child { border-bottom: none; }
+.task label { display: flex; gap: .6rem; align-items: baseline; cursor: pointer; }
+.task input[type="checkbox"] { transform: scale(1.15); }
+.task.done .task-text { text-decoration: line-through; color: var(--muted); }
+.task-note { color: var(--muted); font-size: .85rem; margin: .2rem 0 0 1.7rem; }
+
+.progress-track {
+  position: relative; height: 22px; background: var(--track);
+  border-radius: 11px; overflow: hidden; margin: .5rem 0;
+}
+.progress-fill { height: 100%; background: var(--accent); transition: width .25s ease; }
+.progress-label {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; color: var(--text);
+}
+
+/* ---- Program overview ----------------------------------------------------------- */
+.week-card .week-head { display: flex; justify-content: space-between; align-items: baseline; }
+.week-pct { color: var(--muted); font-weight: 600; }
+.week-days { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem; }
+.day-chip {
+  display: flex; flex-direction: column; align-items: center; gap: .1rem;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: .3rem .6rem; cursor: pointer; color: var(--text);
+}
+.day-chip:hover { border-color: var(--accent); }
+.day-chip.complete { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.day-num { font-weight: 700; font-size: .85rem; }
+.day-count { font-size: .75rem; opacity: .8; }
+
+/* ---- Notes ------------------------------------------------------------------------ */
+.note-search { width: 100%; margin-top: .5rem; }
+.note-key { color: var(--muted); font-size: .8rem; margin-bottom: .3rem; }
+.note-body { white-space: pre-wrap; }
+
+/* ---- Ranks ------------------------------------------------------------------------- */
+.role-badge {
+  display: inline-block; padding: .1rem .55rem; border-radius: 999px;
+  color: #111; font-size: .8rem; font-weight: 600;
+}
+.rank-table { width: 100%; border-collapse: collapse; }
+.rank-table th, .rank-table td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--border); }
+.rank-chart { width: 100%; height: auto; display: block; }
+.rank-chart .grid { stroke: var(--border); stroke-width: 1; }
+.rank-chart .axis { fill: var(--muted); font-size: 10px; }
+.quick-rank { display: flex; gap: .5rem; align-items: center; margin: .3rem 0; }
+.rank-form { display: flex; gap: 1rem; align-items: center; }
+
+/* ---- Resources ------------------------------------------------------------------------ */
+.resource-list { list-style: none; padding: 0; }
+.resource a { color: var(--accent); font-weight: 600; }
+
+/* ---- Modal -------------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.5);
+  display: flex; align-items: center; justify-content: center; z-index: 50; padding: 1rem;
+}
+.modal {
+  background: var(--panel); color: var(--text); border-radius: 12px;
+  width: min(760px, 100%); max-height: 90vh; display: flex; flex-direction: column;
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); }
+.modal-header h3 { margin: 0; }
+.modal-body { padding: 1rem 1.25rem; overflow-y: auto; }
+.modal-footer { display: flex; justify-content: flex-end; gap: .6rem; padding: 1rem 1.25rem; border-top: 1px solid var(--border); }
+
+/* ---- Editor --------------------------------------------------------------------------------- */
+.editor-tabs { display: flex; gap: .5rem; align-items: center; margin-bottom: 1rem; }
+.tab { background: none; border: 1px solid var(--border); border-radius: 8px 8px 0 0; padding: .4rem 1rem; cursor: pointer; color: var(--text); }
+.tab.active { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.editor-status { margin-left: auto; font-size: .85rem; }
+.editor-status.ok { color: #2e9e44; }
+.editor-status.err { color: var(--danger); }
+.editor-json { width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; }
+.editor-json-actions { margin-top: .5rem; }
+
+.ed-week { border-left: 4px solid var(--accent); }
+.ed-row { display: flex; align-items: center; gap: .5rem; margin: .3rem 0; }
+.ed-handle { cursor: grab; color: var(--muted); user-select: none; }
+.ed-title-input { font-weight: 600; flex: 1; }
+.ed-focus-input { flex: 1; color: var(--muted); }
+.ed-day-title { max-width: 260px; }
+.ed-days { display: flex; flex-direction: column; gap: .5rem; margin: .5rem 0 .5rem 1.2rem; }
+.ed-day { border: 1px dashed var(--border); border-radius: 8px; padding: .5rem .7rem; }
+.ed-tasks { list-style: none; margin: .3rem 0 0; padding: 0 0 0 .8rem; }
+.ed-task { display: flex; gap: .4rem; align-items: center; padding: .2rem 0; }
+.ed-task-input { flex: 2; }
+.ed-note-input { flex: 1; color: var(--muted); }
+.dragging { opacity: .4; }
+.drop-above { box-shadow: 0 -2px 0 0 var(--accent); }

@@ -1,0 +1,337 @@
+{
+  "version": 1,
+  "weeks": [
+    {
+      "title": "Fundamentals & Assessment",
+      "focus": "Establish a baseline of your play and master the fundamentals of positioning and game sense.",
+      "days": [
+        {
+          "title": "Assessment",
+          "tasks": [
+            { "id": "w1d1t1", "text": "Warm-up: role-specific mechanics (aim, movement) — 10 min" },
+            { "id": "w1d1t2", "text": "Warm-up: hero-specific combos on Practice Range — 5 min" },
+            { "id": "w1d1t3", "text": "Live warm-up: Deathmatch or Aim Duel — 10 min" },
+            { "id": "w1d1t4", "text": "Play 3–4 Competitive matches as a baseline benchmark", "note": "Track deaths, objective time and key stats." },
+            { "id": "w1d1t5", "text": "Watch one full replay of your worst death today — 10 min" }
+          ]
+        },
+        {
+          "title": "Core Concepts",
+          "tasks": [
+            { "id": "w1d2t1", "text": "Standard warm-up routine — 15 min" },
+            { "id": "w1d2t2", "text": "Play 2–3 Competitive matches prioritizing survival over kills", "note": "Ask: was I alive when fights mattered?" },
+            { "id": "w1d2t3", "text": "Study one educational video on fundamentals; write down 3 actionable tips" }
+          ]
+        },
+        {
+          "title": "Positioning & Map Awareness",
+          "tasks": [
+            { "id": "w1d3t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w1d3t2", "text": "In Custom Game, walk every map's high-ground and health-pickup routes — 15 min" },
+            { "id": "w1d3t3", "text": "Play 2–3 matches with one positioning goal per life", "note": "Example: never peek without an escape route." },
+            { "id": "w1d3t4", "text": "Replay review: mark every positional mistake — 10 min" }
+          ]
+        },
+        {
+          "title": "Ability & Resource Management",
+          "tasks": [
+            { "id": "w1d4t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w1d4t2", "text": "Write down the cooldown and best use-case of each ability on your main", "note": "Include defensive and ultimate economy." },
+            { "id": "w1d4t3", "text": "Play 2–3 matches saving defensive cooldowns for real threats only" },
+            { "id": "w1d4t4", "text": "Daily note: which ability did I waste today, and why?" }
+          ]
+        },
+        {
+          "title": "Trading & Tempo",
+          "tasks": [
+            { "id": "w1d5t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w1d5t2", "text": "Play 2–3 matches focusing on even trades before pushing advantage" },
+            { "id": "w1d5t3", "text": "Review one pro VOD of your role; pause and predict each rotation — 20 min" }
+          ]
+        },
+        {
+          "title": "Reflection & Consolidation",
+          "tasks": [
+            { "id": "w1d6t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w1d6t2", "text": "Free play: apply whatever felt weakest this week" },
+            { "id": "w1d6t3", "text": "Weekly review: rank trend, biggest lesson, one goal for next week", "note": "Log your rank in Rank History if it changed." }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Game Sense & Decision-Making",
+      "focus": "Improve understanding of game flow, decision-making, and when to commit or reset.",
+      "days": [
+        {
+          "title": "Compositions & Matchups",
+          "tasks": [
+            { "id": "w2d1t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w2d1t2", "text": "Study counters: list the worst hero matchup for each of your mains" },
+            { "id": "w2d1t3", "text": "Play 2–3 matches; after each comp screen, note one win-condition" }
+          ]
+        },
+        {
+          "title": "Ultimate Economy",
+          "tasks": [
+            { "id": "w2d2t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w2d2t2", "text": "Track enemy ultimates mentally all match; call them out or note them" },
+            { "id": "w2d2t3", "text": "Play 2 matches committing only when you have ult advantage" },
+            { "id": "w2d2t4", "text": "Replay review: find one fight lost to bad ult trading" }
+          ]
+        },
+        {
+          "title": "Objective Priority",
+          "tasks": [
+            { "id": "w2d3t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w2d3t2", "text": "Play 2–3 matches making every decision around the payload/point timer", "note": "Ask: does this kill actually advance the objective?" },
+            { "id": "w2d3t3", "text": "Daily note: one moment where I overchased instead of playing the objective" }
+          ]
+        },
+        {
+          "title": "Tempo & Resets",
+          "tasks": [
+            { "id": "w2d4t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w2d4t2", "text": "Practice calling resets when behind on numbers or resources" },
+            { "id": "w2d4t3", "text": "Play 2–3 matches; focus on not dying alone before commits" }
+          ]
+        },
+        {
+          "title": "Reading Enemy Intent",
+          "tasks": [
+            { "id": "w2d5t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w2d5t2", "text": "Flank/watch-dog awareness drill: check minimap every 10 seconds in 2 matches" },
+            { "id": "w2d5t3", "text": "Watch a casted pro match; narrate why each team fights or backs off — 25 min" }
+          ]
+        },
+        {
+          "title": "Reflection & Consolidation",
+          "tasks": [
+            { "id": "w2d6t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w2d6t2", "text": "Free play applying one decision-making goal" },
+            { "id": "w2d6t3", "text": "Weekly review: decisions improved, decisions still costly" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Communication & Team Coordination",
+      "focus": "Develop clear, concise communication and coordinate team plays.",
+      "days": [
+        {
+          "title": "Callout Basics",
+          "tasks": [
+            { "id": "w3d1t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w3d1t2", "text": "Learn standard callouts for your 2 most-played maps" },
+            { "id": "w3d1t3", "text": "Play 2–3 matches giving at least one useful callout per fight" }
+          ]
+        },
+        {
+          "title": "Shotcalling",
+          "tasks": [
+            { "id": "w3d2t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w3d2t2", "text": "Take initiative: suggest target priority or commit/reset in every match today", "note": "Even in Quick Play — low stakes practice." },
+            { "id": "w3d2t3", "text": "Daily note: how did the team respond? What phrasing worked?" }
+          ]
+        },
+        {
+          "title": "Coordination Plays",
+          "tasks": [
+            { "id": "w3d3t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w3d3t2", "text": "Set up one coordinated combo per match (e.g., ult chain, focus target)" },
+            { "id": "w3d3t3", "text": "Review replays: did my calls match what actually happened? — 15 min" }
+          ]
+        },
+        {
+          "title": "Tilt Control & Team Morale",
+          "tasks": [
+            { "id": "w3d4t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w3d4t2", "text": "Play a full session with zero negative comms; redirect blame into solutions" },
+            { "id": "w3d4t3", "text": "Reflect: how did morale affect our fight outcomes?" }
+          ]
+        },
+        {
+          "title": "Role Synergy",
+          "tasks": [
+            { "id": "w3d5t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w3d5t2", "text": "Play 2 matches focused on supporting your tank / protecting your backline (per role)" },
+            { "id": "w3d5t3", "text": "Study one guide on your role's responsibilities within team comps" }
+          ]
+        },
+        {
+          "title": "Reflection & Consolidation",
+          "tasks": [
+            { "id": "w3d6t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w3d6t2", "text": "Free play with a communication goal" },
+            { "id": "w3d6t3", "text": "Weekly review: best call I made, hardest thing to communicate" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Advanced Techniques & Mastery",
+      "focus": "Refine advanced mechanics and deepen mastery of your hero pool.",
+      "days": [
+        {
+          "title": "Mechanics Deep-Dive",
+          "tasks": [
+            { "id": "w4d1t1", "text": "Extended aim/movement workshop routine — 20 min" },
+            { "id": "w4d1t2", "text": "Drill one hard mechanic per main hero (e.g., dive timings, hook angles, tracking paths)" },
+            { "id": "w4d1t3", "text": "Play 2 matches deliberately using the drilled mechanic" }
+          ]
+        },
+        {
+          "title": "Hero Pool Narrowing",
+          "tasks": [
+            { "id": "w4d2t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w4d2t2", "text": "Pick your 2 strongest heroes + 1 flex; bench everything else this week" },
+            { "id": "w4d2t3", "text": "Play 2–3 matches only on that pool" }
+          ]
+        },
+        {
+          "title": "Matchup Mastery",
+          "tasks": [
+            { "id": "w4d3t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w4d3t2", "text": "Custom-game sparring: practice against your hardest counter — 15 min" },
+            { "id": "w4d3t3", "text": "Play matches; note what adjustment won you the duel each time you died to the same hero" }
+          ]
+        },
+        {
+          "title": "Pro Pattern Study",
+          "tasks": [
+            { "id": "w4d4t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w4d4t2", "text": "Watch 20 min of a top-ladder player on your main; copy exactly one habit today" },
+            { "id": "w4d4t3", "text": "Play 2 matches applying that copied habit" }
+          ]
+        },
+        {
+          "title": "Consistency Under Pressure",
+          "tasks": [
+            { "id": "w4d5t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w4d5t2", "text": "Play 2 matches where you keep a stat sheet of your deaths by cause" },
+            { "id": "w4d5t3", "text": "Identify your #1 repeat death cause and set a rule to fix it" }
+          ]
+        },
+        {
+          "title": "Reflection & Consolidation",
+          "tasks": [
+            { "id": "w4d6t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w4d6t2", "text": "Free play on your narrowed hero pool" },
+            { "id": "w4d6t3", "text": "Weekly review: mechanic gains, habits that stuck" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Competitive Preparation",
+      "focus": "Prepare routines and mindset for consistent ranked/climb performance.",
+      "days": [
+        {
+          "title": "Pre-Game Routine",
+          "tasks": [
+            { "id": "w5d1t1", "text": "Build and run your full pre-game routine: warm-up, posture, goals — 20 min" },
+            { "id": "w5d1t2", "text": "Play 2–3 matches with a stop-loss rule (e.g., stop after 2 straight losses)" },
+            { "id": "w5d1t3", "text": "Daily note: did structure improve your focus?" }
+          ]
+        },
+        {
+          "title": "Session Analysis",
+          "tasks": [
+            { "id": "w5d2t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w5d2t2", "text": "After every match, spend 60 seconds naming one thing to fix next game" },
+            { "id": "w5d2t3", "text": "Play 3 matches with that micro-review loop" }
+          ]
+        },
+        {
+          "title": "Meta Adaptation",
+          "tasks": [
+            { "id": "w5d3t1", "text": "Read current patch notes / meta tier list for your role — 15 min" },
+            { "id": "w5d3t2", "text": "Test one meta hero or strategy in 2 matches" },
+            { "id": "w5d3t3", "text": "Decide: adopt, adapt, or discard — write reasoning" }
+          ]
+        },
+        {
+          "title": "Mental Game",
+          "tasks": [
+            { "id": "w5d4t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w5d4t2", "text": "Play a session noticing tilt early; use a reset ritual (breath, mute, stretch) when detected" },
+            { "id": "w5d4t3", "text": "Note triggers and what broke the spiral" }
+          ]
+        },
+        {
+          "title": "Climb Simulation",
+          "tasks": [
+            { "id": "w5d5t1", "text": "Full competitive block: 4–5 matches treated like ranked placement games" },
+            { "id": "w5d5t2", "text": "Post-block review: stats, mood, discipline score 1–10" }
+          ]
+        },
+        {
+          "title": "Reflection & Consolidation",
+          "tasks": [
+            { "id": "w5d6t1", "text": "Light warm-up — 10 min" },
+            { "id": "w5d6t2", "text": "Rest day alternative: watch a tournament set with analytical intent" },
+            { "id": "w5d6t3", "text": "Weekly review: is my routine competition-ready?" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Execution & Next Cycle",
+      "focus": "Execute your identity in games, measure growth, and plan continued improvement.",
+      "days": [
+        {
+          "title": "Identity & Style",
+          "tasks": [
+            { "id": "w6d1t1", "text": "Write your playstyle identity in one sentence (e.g., 'space-creating anchor support')" },
+            { "id": "w6d1t2", "text": "Play 2–3 matches expressing that identity deliberately" }
+          ]
+        },
+        {
+          "title": "Benchmark Replay",
+          "tasks": [
+            { "id": "w6d2t1", "text": "Warm-up routine — 15 min" },
+            { "id": "w6d2t2", "text": "Compare a Week 1 replay vs today's play; list 3 concrete improvements" },
+            { "id": "w6d2t3", "text": "Update your rank in Rank History" }
+          ]
+        },
+        {
+          "title": "Weakness Audit",
+          "tasks": [
+            { "id": "w6d3t1", "text": "List your 3 remaining recurring weaknesses from all cycle notes" },
+            { "id": "w6d3t2", "text": "Play 2 matches targeting your #1 weakness" }
+          ]
+        },
+        {
+          "title": "Teach It",
+          "tasks": [
+            { "id": "w6d4t1", "text": "Explain one concept you mastered this cycle to someone (or write it as if teaching)" },
+            { "id": "w6d4t2", "text": "Free play — teach through shotcalling in-game" }
+          ]
+        },
+        {
+          "title": "Next Cycle Plan",
+          "tasks": [
+            { "id": "w6d5t1", "text": "Draft goals for the next cycle using your Weekly Review notes" },
+            { "id": "w6d5t2", "text": "Optionally edit the program in Task Manager to fit those goals" },
+            { "id": "w6d5t3", "text": "Play 2 matches with one next-cycle goal already active" }
+          ]
+        },
+        {
+          "title": "Cycle Review",
+          "tasks": [
+            { "id": "w6d6t1", "text": "Complete the cycle: check final progress page" },
+            { "id": "w6d6t2", "text": "Export your data as a backup (Settings → Export)" },
+            { "id": "w6d6t3", "text": "Start Cycle 2 or take a planned rest week" }
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    { "name": "Overwatch Official Website", "url": "https://overwatch.blizzard.com/", "note": "Patch notes, hero stats." },
+    { "name": "Overbuffer", "url": "https://www.overbuffer.gg/", "note": "Stat tracking and career analysis." },
+    { "name": "Replay Analysis Guide", "url": "https://overworldgaming.com/", "note": "How to learn from your own replays." },
+    { "name": "Pro Settings Database", "url": "https://prosettings.net/games/overwatch/", "note": "Config and sensitivity references." },
+    { "name": "Workshop Codes", "url": "https://codes.blizzard.com/apps/overwatch/", "note": "Aim and mechanics practice maps." }
+  ]
+}
