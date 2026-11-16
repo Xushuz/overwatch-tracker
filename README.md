@@ -1,77 +1,75 @@
+# Overwatch Training Tracker
 
-# Overwatch Pro Path Tracker
-
-A modern, themeable web app to help Overwatch players follow a structured 6-week training program, track daily tasks, take notes, and monitor role-based rank progression with beautiful charts and history. All data is private and stored locally in your browser.
-
-**Live Demo:** [https://xushuz.github.io/overwatch-tracker/](https://xushuz.github.io/overwatch-tracker/)
-
----
+A zero-dependency, client-side web app for following a structured 6-week Overwatch training cycle. All data stays in your browser (`localStorage`) — no accounts, no backend, no build step.
 
 ## Features
 
-- **Structured 6-Week Program:** Day-by-day training plan with weekly focuses.
-- **Daily Task Tracking:** Check off tasks, see animated progress bars, and view overall completion.
-- **Persistent Daily Notes:** Auto-saved notes for each day, plus a searchable summary page.
-- **Program Overview:** At-a-glance progress for all weeks, with detailed modal breakdowns.
-- **Role-Based Rank Tracking:**
-  - Log your rank for DPS, Tank, or Support—each tracked separately.
-  - Multi-line rank progression charts (one line per role) with clear legends and theme-aligned colors.
-  - Modern, paginated rank history with role badges and export/import support.
-- **Quick Rank Update:** Instantly log your current rank for any role from the dashboard.
-- **Multiple Themes:** Choose from Light, Dark, Pink, Cyberpunk, and more.
-- **Responsive Design:** Fully optimized for desktop, tablet, and mobile.
-- **Data Export/Import:** Backup or transfer your progress with a single click.
-- **No Accounts, No Cloud:** 100% client-side, all data stays in your browser.
+- **One source of truth:** the entire training program (weeks, days, tasks, resources) lives in [`program.json`](program.json). Edit that file to change the program — nothing is hardcoded in JS.
+- **Program Editor UI:** on the *Program* page, click **✎ Edit program** to modify every week/day/task in one place:
+  - *Visual* tab — inline text editing, add/delete, native drag & drop reorder (no libraries).
+  - *JSON* tab — raw JSON editing with validation ("Apply JSON" checks structure and dedupes task IDs).
+  - Changes are staged in a draft; nothing touches your data until you press **Save program**.
+- **Stable task IDs:** completions are keyed by task `id`, so reordering or renaming tasks never corrupts your history. Deleting a week/days keeps history too (it's just hidden until the ID returns).
+- **Dashboard:** week/day picker, checkable tasks with progress bar, autosaving daily note, quick rank update.
+- **Rank History:** per-role (Tank/Damage/Support) rank logging, a lightweight hand-rolled SVG multi-line chart (no Chart.js), and a deletable history table.
+- **Notes:** searchable archive of all daily notes.
+- **Themes:** light / dark / pink / cyberpunk via CSS custom properties.
+- **Backups:** export/import full state as JSON; "Erase all data" for a clean start; "Reload default program" restores `program.json` without touching progress.
 
----
+## Getting started
 
-## How It Works
+No install, no npm needed:
 
-- Built with HTML, CSS, and vanilla JavaScript (ES6 modules).
-- All data is stored in your browser’s `localStorage`—no accounts, no tracking, no backend.
----
+```bash
+python3 -m http.server 8000   # any static server works
+# open http://localhost:8000
+```
 
-## Project Structure
+(Opening `index.html` via `file://` also works, but then the initial seed falls back to a small built-in program because browsers block `fetch` of local files.)
 
-- `index.html` — Main app page.
-- `styles/` — Modular CSS (themes, layout, components).
-- `scripts/` — Modular JS (state, UI, charts, logic).
-- `assets/` — App icons and images.
+## Modifying the training program
 
----
+Two ways, pick either:
 
-## Getting Started
+1. **In the app** — Program page → *Edit program* (visual or JSON tab). This changes only *your* browser's copy. Use Settings → *Export backup* if you want to keep it, or share the JSON with others.
+2. **In the repo** — edit `program.json`. New visitors get it automatically; existing visitors can click Settings → *Reload default program*.
 
-1. **Just use the app:** Visit the [live demo](https://xushuz.github.io/overwatch-tracker/).
-2. **Self-host locally:**  
-   - Clone the repo:
-     ```bash
-     git clone https://github.com/Xushuz/overwatch-tracker
-     cd overwatch-tracker
-     ```
-   - Serve with a local web server (required for ES6 modules):
-     - **Python 3:**
-       ```bash
-       python -m http.server 8000
-       ```
-       Then open [http://localhost:8000](http://localhost:8000)
-     - **Node.js (`live-server`):**
-       ```bash
-       npm install -g live-server
-       live-server
-       ```
-     - **Or use VS Code’s “Live Server” extension.**
+### Schema
 
----
+```jsonc
+{
+  "version": 1,
+  "weeks": [
+    {
+      "title": "Fundamentals & Assessment",
+      "focus": "…",
+      "days": [
+        {
+          "title": "Assessment",
+          "tasks": [
+            { "id": "w1d1t1", "text": "Task description", "note": "optional detail" }
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [ { "name": "…", "url": "…", "note": "…" } ]
+}
+```
 
-## Contributing
+Keep `id`s stable when you rename tasks (IDs are what your checkmarks attach to); give new tasks unique IDs. The editor enforces this automatically.
 
-Pull requests and suggestions are welcome! Please open an issue for bugs or feature requests.
+## Project layout
 
----
+```
+index.html      single page shell
+css/style.css   one stylesheet (themes = CSS variables)
+js/state.js     localStorage read/write + domain logic (the ONLY storage touchpoint)
+js/ui.js        DOM helper, modal, theming
+js/pages.js     dashboard / program / notes / ranks / resources views
+js/editor.js    the Program Editor (visual + JSON tabs)
+js/main.js      bootstrap, navigation, settings
+program.json    the shipped training program (source of truth for content)
+```
 
-## Credits
-
-Inspired by pro Overwatch training guides and the community.
-
----
+~750 lines total, vanilla ES modules, zero runtime dependencies.
